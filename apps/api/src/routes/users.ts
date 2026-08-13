@@ -1,6 +1,6 @@
 // @ts-nocheck
 import type { FastifyInstance } from 'fastify';
-import { db } from '../db.js';
+import { db, hashPassword } from '../db.js';
 import { requireAuth, getUser } from '../auth.js';
 import type { User } from '@crm/types';
 
@@ -27,7 +27,7 @@ export async function userRoutes(app: FastifyInstance) {
       if (!reqLogin || !reqPass) return reply.status(400).send({ error: 'Для агента обязательны логин и пароль' });
       try {
         const info = db.prepare('INSERT INTO users (name,login,password,phone,role,dept,initials) VALUES (?,?,?,?,?,?,?)')
-          .run(name, reqLogin.trim(), reqPass, '', 'agent', dept ?? '', initials);
+          .run(name, reqLogin.trim(), hashPassword(reqPass), '', 'agent', dept ?? '', initials);
         return reply.status(201).send(db.prepare(`SELECT ${SAFE} FROM users WHERE id=?`).get((info as { lastInsertRowid: number }).lastInsertRowid));
       } catch { return reply.status(400).send({ error: 'Логин уже занят' }); }
     } else {
@@ -49,7 +49,7 @@ export async function userRoutes(app: FastifyInstance) {
     const params: unknown[] = [b.role ?? null, b.dept ?? null, b.status ?? null];
     if (b.name)     { sql += ',name=?,initials=?'; params.push(b.name.trim(), initials); }
     if (b.tab)      { sql += ',tab=?'; params.push(b.tab.trim()); }
-    if (b.password) { sql += ',password=?'; params.push(b.password); }
+    if (b.password) { sql += ',password=?'; params.push(hashPassword(b.password)); }
     sql += ' WHERE id=?'; params.push(id);
     db.prepare(sql).run(...params);
     return db.prepare(`SELECT ${SAFE} FROM users WHERE id=?`).get(id);

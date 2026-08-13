@@ -1,12 +1,12 @@
 // @ts-nocheck
 import type { FastifyInstance } from 'fastify';
-import { db } from '../db.js';
+import { db, verifyPassword } from '../db.js';
 import { requireAuth, getUser } from '../auth.js';
 import crypto from 'crypto';
 import type { User } from '@crm/types';
 
 function normalizePhone(phone: string): string {
-  return phone.replace(/\D/g, ''); // "998905001001"
+  return phone.replace(/\D/g, '');
 }
 
 function findUserByPhone(phone: string): (User & { password: string }) | undefined {
@@ -17,6 +17,23 @@ function findUserByPhone(phone: string): (User & { password: string }) | undefin
   `).get(n) as (User & { password: string }) | undefined;
 }
 
+// In-memory rate limiter: max 5 attempts per key per 15 minutes
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT_MAX = 5;
+const RATE_LIMIT_WINDOW = 15 * 60 * 1000;
+
+function checkRateLimit(key: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(key);
+  if (!entry || now > entry.resetAt) {
+    rateLimitMap.set(key, { count: 1, resetAt: now + RATE_LIMIT_WINDOW });
+    return true;
+  }
+  if (entry.count >= RATE_LIMIT_MAX) return false;
+  entry.count++;
+  return true;
+}
+
 export async function authRoutes(app: FastifyInstance) {
 
   // ── OTP: request code ──────────────────────────────────────────────────────
@@ -24,26 +41,37 @@ export async function authRoutes(app: FastifyInstance) {
     const { phone } = req.body as { phone?: string };
     if (!phone) return reply.status(400).send({ error: 'Укажите номер телефона' });
 
+    const ip = req.ip;
+    if (!checkRateLimit(`otp:${ip}:${normalizePhone(phone)}`)) {
+      return reply.status(429).send({ error: 'Слишком много запросов. Попробуйте через 15 минут' });
+    }
+
     const user = findUserByPhone(phone);
     if (!user) return reply.status(404).send({ error: 'Номер не найден в системе' });
     if (user.status === 'inactive') return reply.status(403).send({ error: 'Учётная запись деактивирована' });
 
     const code = String(crypto.randomInt(100000, 999999));
-    const expiresAt = Math.floor(Date.now() / 1000) + 5 * 60; // 5 minutes
+    const expiresAt = Math.floor(Date.now() / 1000) + 5 * 60;
 
-    // Invalidate previous unused OTPs for this phone
     db.prepare("UPDATE otps SET used = 1 WHERE phone = ? AND used = 0").run(normalizePhone(phone));
     db.prepare("INSERT INTO otps (phone, code, expires_at) VALUES (?, ?, ?)").run(normalizePhone(phone), code, expiresAt);
 
-    // In production: send via SMS gateway (Beeline UZ, Ucell, etc.)
-    // In dev: return code in response
-    return { success: true, dev_otp: code };
+    const response: Record<string, unknown> = { success: true };
+    if (process.env.NODE_ENV !== 'production') {
+      response.dev_otp = code;
+    }
+    return response;
   });
 
   // ── OTP: verify code ───────────────────────────────────────────────────────
   app.post('/verify-otp', async (req, reply) => {
     const { phone, code } = req.body as { phone?: string; code?: string };
     if (!phone || !code) return reply.status(400).send({ error: 'Укажите телефон и код' });
+
+    const ip = req.ip;
+    if (!checkRateLimit(`verify:${ip}:${normalizePhone(phone)}`)) {
+      return reply.status(429).send({ error: 'Слишком много запросов. Попробуйте через 15 минут' });
+    }
 
     const now = Math.floor(Date.now() / 1000);
     const otp = db.prepare(
@@ -58,7 +86,9 @@ export async function authRoutes(app: FastifyInstance) {
     if (!user) return reply.status(404).send({ error: 'Пользователь не найден' });
 
     const token = crypto.randomBytes(32).toString('hex');
-    db.prepare('INSERT INTO sessions (token, user_id) VALUES (?, ?)').run(token, user.id);
+    db.prepare(
+      "INSERT INTO sessions (token, user_id, expires_at) VALUES (?, ?, datetime('now', '+8 hours'))"
+    ).run(token, user.id);
     db.prepare("UPDATE users SET last_login = datetime('now') WHERE id = ?").run(user.id);
 
     const { password: _, ...safe } = user;
@@ -70,12 +100,21 @@ export async function authRoutes(app: FastifyInstance) {
     const { login, password } = req.body as { login: string; password: string };
     if (!login || !password) return reply.status(400).send({ error: 'Укажите логин и пароль' });
 
-    const user = db.prepare('SELECT * FROM users WHERE login = ? AND password = ?').get(login, password) as (User & { password: string }) | undefined;
-    if (!user) return reply.status(401).send({ error: 'Неверный логин или пароль' });
+    const ip = req.ip;
+    if (!checkRateLimit(`login:${ip}:${login}`)) {
+      return reply.status(429).send({ error: 'Слишком много попыток. Попробуйте через 15 минут' });
+    }
+
+    const user = db.prepare('SELECT * FROM users WHERE login = ?').get(login) as (User & { password: string }) | undefined;
+    if (!user || !verifyPassword(user.password, password)) {
+      return reply.status(401).send({ error: 'Неверный логин или пароль' });
+    }
     if (user.status === 'inactive') return reply.status(403).send({ error: 'Учётная запись деактивирована' });
 
     const token = crypto.randomBytes(32).toString('hex');
-    db.prepare('INSERT INTO sessions (token, user_id) VALUES (?, ?)').run(token, user.id);
+    db.prepare(
+      "INSERT INTO sessions (token, user_id, expires_at) VALUES (?, ?, datetime('now', '+8 hours'))"
+    ).run(token, user.id);
     db.prepare("UPDATE users SET last_login = datetime('now') WHERE id = ?").run(user.id);
 
     const { password: _, ...safe } = user;

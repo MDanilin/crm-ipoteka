@@ -11,6 +11,10 @@ export const db = new DatabaseSync(DB_PATH);
 db.exec('PRAGMA journal_mode = WAL');
 db.exec('PRAGMA foreign_keys = ON');
 
+// Add expires_at to sessions if missing (idempotent)
+try { db.exec("ALTER TABLE sessions ADD COLUMN expires_at TEXT"); } catch {}
+db.exec("UPDATE sessions SET expires_at = datetime(created_at, '+8 hours') WHERE expires_at IS NULL");
+
 db.exec(`
   CREATE TABLE IF NOT EXISTS users (
     id            INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -453,6 +457,35 @@ if (catCount === 0) {
   for (const row of cats) ipc.run(...row);
 }
 
-export function hashPassword(p: string) {
-  return crypto.createHash('sha256').update(p + 'crm-salt-2026').digest('hex');
+// Scrypt-based password hashing (no external deps). Format: $scrypt$salt$hash
+export function hashPassword(password: string): string {
+  const salt = crypto.randomBytes(16).toString('hex');
+  const hash = crypto.scryptSync(password, salt, 64).toString('hex');
+  return `$scrypt$${salt}$${hash}`;
 }
+
+export function verifyPassword(stored: string, input: string): boolean {
+  if (stored.startsWith('$scrypt$')) {
+    const parts = stored.split('$');
+    const salt = parts[2];
+    const hash = parts[3];
+    try {
+      const inputHash = crypto.scryptSync(input, salt, 64).toString('hex');
+      return crypto.timingSafeEqual(Buffer.from(hash, 'hex'), Buffer.from(inputHash, 'hex'));
+    } catch { return false; }
+  }
+  // Legacy plaintext — should only exist briefly during migration
+  return stored === input;
+}
+
+// Migrate all plaintext passwords to scrypt on startup
+function migratePasswords() {
+  const users = db.prepare("SELECT id, password FROM users").all() as { id: number; password: string }[];
+  const update = db.prepare("UPDATE users SET password = ? WHERE id = ?");
+  for (const u of users) {
+    if (!u.password.startsWith('$scrypt$')) {
+      update.run(hashPassword(u.password), u.id);
+    }
+  }
+}
+migratePasswords();
