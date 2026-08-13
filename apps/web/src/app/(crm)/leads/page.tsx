@@ -165,7 +165,6 @@ export default function LeadsPage() {
               <th className="px-5 py-4">{t('leads.colSource')}</th>
               <th className="px-5 py-4">{t('leads.colStage')}</th>
               <th className="px-5 py-4">{t('leads.colManager')}</th>
-              <th className="px-5 py-4">{t('leads.colUpdated')}</th>
               <th className="rounded-r-xl px-3 py-4"/>
             </tr>
           </thead>
@@ -205,7 +204,6 @@ export default function LeadsPage() {
                     </select>
                   </td>
                   <td className="px-5 py-4 text-sm">{l.manager || '—'}</td>
-                  <td className="px-5 py-4 text-xs text-[#aaa]">{l.created_at?.slice(0, 10)}</td>
                   <td className="px-3 py-4">
                     <button
                       onClick={() => setExpandedId(expandedId === l.id ? null : l.id)}
