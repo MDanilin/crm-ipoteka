@@ -10,9 +10,9 @@ export default function CrmLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const token  = useAuthStore(s => s.token);
   const user   = useAuthStore(s => s.user);
-  const [hydrated, setHydrated] = useState(false);
+  const [hydrated, setHydrated]       = useState(false);
+  const [mobileOpen, setMobileOpen]   = useState(false);
 
-  // Wait one tick for Zustand persist to rehydrate from localStorage
   useEffect(() => { setHydrated(true); }, []);
 
   useEffect(() => {
@@ -25,11 +25,9 @@ export default function CrmLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex h-screen overflow-hidden bg-white text-[#111]">
-      <div className="hidden lg:flex">
-        <Sidebar />
-      </div>
+      <Sidebar isOpen={mobileOpen} onClose={() => setMobileOpen(false)} />
       <div className="flex flex-col flex-1 overflow-hidden bg-white">
-        <Topbar />
+        <Topbar onMenuToggle={() => setMobileOpen(o => !o)} />
         <main className="flex-1 overflow-y-auto p-6 sm:p-10 scrollbar-thin">
           {children}
         </main>

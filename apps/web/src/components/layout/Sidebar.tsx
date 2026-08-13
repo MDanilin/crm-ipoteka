@@ -151,7 +151,12 @@ const NAV_GROUPS = [
   },
 ];
 
-export function Sidebar() {
+interface SidebarProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+}
+
+export function Sidebar({ isOpen, onClose }: SidebarProps) {
   const pathname  = usePathname();
   const router    = useRouter();
   const user      = useAuthStore(s => s.user);
@@ -167,7 +172,18 @@ export function Sidebar() {
   const initials = user.name.split(' ').map((w: string) => w[0]).slice(0, 2).join('');
 
   return (
-    <aside className="flex w-[316px] shrink-0 flex-col border-r border-[#ececec] bg-white px-3 py-4 h-screen overflow-y-auto scrollbar-thin">
+    <>
+      {isOpen && (
+        <div
+          className="fixed inset-0 z-30 bg-black/40 lg:hidden"
+          onClick={onClose}
+        />
+      )}
+    <aside className={cn(
+      "fixed inset-y-0 left-0 z-40 flex w-[316px] shrink-0 flex-col border-r border-[#ececec] bg-white px-3 py-4 h-screen overflow-y-auto scrollbar-thin transition-transform duration-300",
+      "lg:relative lg:translate-x-0",
+      isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+    )}>
 
       {/* Brand */}
       <div className="border-b border-[#eeeeee] px-4 pb-6">
@@ -192,6 +208,7 @@ export function Sidebar() {
                     <Link
                       key={item.href}
                       href={item.href}
+                      onClick={onClose}
                       className={cn(
                         'flex h-[58px] items-center gap-5 rounded-xl px-4 text-left text-[20px] font-normal transition-colors',
                         active
@@ -233,5 +250,6 @@ export function Sidebar() {
       </div>
 
     </aside>
+    </>
   );
 }

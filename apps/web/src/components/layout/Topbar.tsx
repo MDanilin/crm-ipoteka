@@ -6,7 +6,7 @@ import { api } from '@/lib/api';
 import type { SearchResult } from '@crm/types';
 import { useRouter } from 'next/navigation';
 
-export function Topbar() {
+export function Topbar({ onMenuToggle }: { onMenuToggle?: () => void }) {
   const router = useRouter();
   const [q, setQ]       = useState('');
   const [open, setOpen] = useState(false);
@@ -39,6 +39,15 @@ export function Topbar() {
   return (
     <header className="flex h-[82px] items-center justify-between border-b border-[#eee] px-6 sm:px-10 flex-shrink-0 bg-white">
       <div className="flex items-center gap-3">
+        <button
+          onClick={onMenuToggle}
+          className="lg:hidden rounded-full bg-[#f3f3f3] p-3 hover:bg-[#ebebeb] transition-colors"
+          aria-label="Меню"
+        >
+          <svg width="19" height="19" viewBox="0 0 19 19" fill="none">
+            <path d="M2 4.5h15M2 9.5h15M2 14.5h15" stroke="#111" strokeWidth="1.6" strokeLinecap="round"/>
+          </svg>
+        </button>
         <button
           onClick={toggleSearch}
           className="rounded-full bg-[#f3f3f3] p-3 hover:bg-[#ebebeb] transition-colors"
