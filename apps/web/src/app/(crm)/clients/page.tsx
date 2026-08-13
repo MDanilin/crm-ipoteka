@@ -40,7 +40,7 @@ export default function ClientsPage() {
   if (isLoading) return <div className="flex items-center justify-center h-64 text-[#aaa] text-sm">Загрузка...</div>;
 
   return (
-    <div className="flex flex-col h-full min-h-0">
+    <div>
       {/* Page header */}
       <div className="mb-8 flex flex-col justify-between gap-4 xl:flex-row xl:items-end">
         <div>
@@ -56,7 +56,7 @@ export default function ClientsPage() {
       </div>
 
       {/* Table */}
-      <div className="flex-1 overflow-auto min-h-0">
+      <div className="overflow-x-auto">
         <table className="w-full min-w-[800px] border-separate border-spacing-0 text-left">
           <thead>
             <tr className="bg-[#f6f6f6] text-xs font-bold uppercase tracking-[0.08em] text-[#999]">
