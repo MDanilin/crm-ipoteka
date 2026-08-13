@@ -5,6 +5,9 @@ import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/auth';
 import { api } from '@/lib/api';
 import type { LoginResponse } from '@crm/types';
+import { useTranslation } from 'react-i18next';
+import '@/lib/i18n';
+import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 
 function fmtLocal(raw: string): string {
   const d = raw.replace(/\D/g, '').slice(0, 9);
@@ -31,6 +34,7 @@ function Brand() {
 export default function LoginPage() {
   const router  = useRouter();
   const setAuth = useAuthStore(s => s.setAuth);
+  const { t }   = useTranslation();
 
   const [mode, setMode] = useState<'staff' | 'agent'>('staff');
 
@@ -71,7 +75,7 @@ export default function LoginPage() {
       setStep('otp');
       setTimeout(() => otpRef.current?.focus(), 80);
     } catch (e: unknown) {
-      setError((e as { error?: string }).error ?? 'Ошибка. Попробуйте снова.');
+      setError((e as { error?: string }).error ?? t('login.errDefault'));
     } finally { setLoading(false); }
   }
 
@@ -89,7 +93,7 @@ export default function LoginPage() {
       if (res.user.role === 'dsa') { router.replace('/dsa'); return; }
       router.replace('/dashboard');
     } catch (e: unknown) {
-      setError((e as { error?: string }).error ?? 'Неверный код');
+      setError((e as { error?: string }).error ?? t('login.errCode'));
       setOtpVal('');
       setTimeout(() => otpRef.current?.focus(), 80);
     } finally { setLoading(false); }
@@ -108,14 +112,14 @@ export default function LoginPage() {
     try {
       const res = await api.post<LoginResponse>('/auth/login', { login: agentLogin, password: agentPass });
       if (res.user.role !== 'agent') {
-        setError('Этот портал предназначен только для агентов');
+        setError(t('login.agentOnly'));
         setLoading(false); return;
       }
       localStorage.setItem('crm_token', res.token);
       setAuth(res.token, res.user);
       router.replace('/leads');
     } catch (e: unknown) {
-      setError((e as { error?: string }).error ?? 'Неверный логин или пароль');
+      setError((e as { error?: string }).error ?? t('login.errCreds'));
     } finally { setLoading(false); }
   }
 
@@ -125,20 +129,23 @@ export default function LoginPage() {
 
         <div className="mb-10 flex items-center justify-between flex-wrap gap-4">
           <Brand />
-          {/* Mode toggle */}
-          <div className="flex items-center gap-1 bg-[#f3f3f3] rounded-full p-1">
-            <button
-              onClick={() => switchMode('staff')}
-              className={`h-8 px-4 rounded-full text-sm font-semibold transition-all ${mode === 'staff' ? 'bg-[#111] text-white' : 'text-[#888] hover:text-[#111]'}`}
-            >
-              Сотрудник банка
-            </button>
-            <button
-              onClick={() => switchMode('agent')}
-              className={`h-8 px-4 rounded-full text-sm font-semibold transition-all ${mode === 'agent' ? 'bg-[#111] text-white' : 'text-[#888] hover:text-[#111]'}`}
-            >
-              Агент
-            </button>
+          <div className="flex items-center gap-3">
+            <LanguageSwitcher />
+            {/* Mode toggle */}
+            <div className="flex items-center gap-1 bg-[#f3f3f3] rounded-full p-1">
+              <button
+                onClick={() => switchMode('staff')}
+                className={`h-8 px-4 rounded-full text-sm font-semibold transition-all ${mode === 'staff' ? 'bg-[#111] text-white' : 'text-[#888] hover:text-[#111]'}`}
+              >
+                {t('login.staffMode')}
+              </button>
+              <button
+                onClick={() => switchMode('agent')}
+                className={`h-8 px-4 rounded-full text-sm font-semibold transition-all ${mode === 'agent' ? 'bg-[#111] text-white' : 'text-[#888] hover:text-[#111]'}`}
+              >
+                {t('login.agentMode')}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -148,12 +155,12 @@ export default function LoginPage() {
             {/* ── AGENT MODE: login + password ── */}
             {mode === 'agent' ? (
               <>
-                <p className="mb-2 text-[16px] font-semibold">Вход для агентов</p>
-                <p className="mb-8 text-sm text-[#aaa]">Партнёрский портал Ипотека Банка</p>
+                <p className="mb-2 text-[16px] font-semibold">{t('login.agentTitle')}</p>
+                <p className="mb-8 text-sm text-[#aaa]">{t('login.agentSubtitle')}</p>
 
                 <div className="space-y-4">
                   <div>
-                    <label className="field-label">Логин</label>
+                    <label className="field-label">{t('login.loginLabel')}</label>
                     <input
                       value={agentLogin}
                       onChange={e => { setAgentLogin(e.target.value); setError(''); }}
@@ -165,7 +172,7 @@ export default function LoginPage() {
                     />
                   </div>
                   <div>
-                    <label className="field-label">Пароль</label>
+                    <label className="field-label">{t('login.passLabel')}</label>
                     <input
                       type="password"
                       value={agentPass}
@@ -186,7 +193,7 @@ export default function LoginPage() {
                     disabled={!agentLogin || !agentPass || loading}
                     className="flex h-11 items-center gap-2 rounded-full bg-[#111] px-5 text-sm font-semibold text-white hover:bg-[#333] transition-colors disabled:opacity-40"
                   >
-                    {loading ? 'Вход...' : 'Войти →'}
+                    {loading ? t('login.loadingBtn') : t('login.submitBtn')}
                   </button>
                 </div>
               </>
@@ -194,7 +201,7 @@ export default function LoginPage() {
             /* ── STAFF MODE: phone + OTP ── */
               step === 'phone' ? (
                 <>
-                  <p className="mb-4 text-[16px] font-semibold">Введите телефон</p>
+                  <p className="mb-4 text-[16px] font-semibold">{t('login.staffTitle')}</p>
                   <div
                     className="flex items-center gap-3 cursor-text"
                     onClick={() => phoneRef.current?.focus()}
@@ -215,7 +222,7 @@ export default function LoginPage() {
                       className="min-w-0 flex-1 bg-transparent text-[clamp(42px,6vw,78px)] font-medium leading-none tracking-[-0.08em] outline-none placeholder:text-[#e3e3e3]"
                     />
                   </div>
-                  {loading && <p className="mt-4 text-sm text-[#aaa]">Отправка кода...</p>}
+                  {loading && <p className="mt-4 text-sm text-[#aaa]">{t('login.sendingCode')}</p>}
                   {error && <p className="mt-3 text-sm text-[#e1261c]">{error}</p>}
                 </>
               ) : (
@@ -226,7 +233,7 @@ export default function LoginPage() {
                   >
                     ← {fullPhone}
                   </button>
-                  <p className="mb-4 text-[16px] font-semibold">Введите код из СМС</p>
+                  <p className="mb-4 text-[16px] font-semibold">{t('login.enterCode')}</p>
                   <div className="border-b-2 border-[#111] pb-3">
                     <input
                       ref={otpRef} type="text" inputMode="numeric" autoFocus
@@ -237,13 +244,13 @@ export default function LoginPage() {
                     />
                   </div>
                   {error && <p className="mt-3 text-sm text-[#e1261c]">{error}</p>}
-                  {loading && <p className="mt-3 text-sm text-[#aaa]">Проверка...</p>}
+                  {loading && <p className="mt-3 text-sm text-[#aaa]">{t('login.verifying')}</p>}
                   <div className="mt-6 flex flex-wrap items-center gap-3">
                     <button
                       onClick={() => { setDevOtp(''); handleSendOtp(); }}
                       className="flex h-11 items-center gap-2 rounded-full bg-[#f2f2f2] px-5 text-sm font-semibold text-[#111] hover:bg-[#e8e8e8] transition-colors"
                     >
-                      Отправить повторно
+                      {t('login.resend')}
                     </button>
                     {devOtp && (
                       <div className="flex h-11 items-center gap-2 rounded-full bg-[#fef3c7] border border-[#fcd34d] px-4 text-sm">
@@ -259,8 +266,8 @@ export default function LoginPage() {
         </div>
 
         <footer className="mt-8 flex items-center justify-between text-xs text-[#aaa]">
-          <span>© Ипотека Банк · Corporate CRM</span>
-          <a href="#" className="hover:text-[#111] transition-colors">Восстановить доступ →</a>
+          <span>{t('login.copyright')}</span>
+          <a href="#" className="hover:text-[#111] transition-colors">{t('login.restoreAccess')}</a>
         </footer>
       </section>
     </main>

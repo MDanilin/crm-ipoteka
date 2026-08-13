@@ -2,34 +2,26 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
+import '@/lib/i18n';
 import { useAuthStore } from '@/store/auth';
 import { cn } from '@/lib/cn';
+import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 import type { UserRole } from '@crm/types';
 
-const ROLE_LABELS: Record<UserRole, string> = {
-  admin:      'Администратор',
-  supervisor: 'Руководитель',
-  manager:    'Менеджер',
-  analyst:    'Аналитик',
-  agent:      'Агент',
-  operator:   'Оператор',
-  dsa:        'DSA',
-};
-
 interface NavItem {
-  href:  string;
-  label: string;
-  roles: UserRole[];
-  icon:  React.ReactNode;
-  alert?: boolean;
+  href:     string;
+  labelKey: string;
+  roles:    UserRole[];
+  icon:     React.ReactNode;
 }
 
-const NAV_GROUPS = [
+const NAV_GROUPS: { titleKey: string; items: NavItem[] }[] = [
   {
-    title: 'Основное',
+    titleKey: 'nav.groupMain',
     items: [
       {
-        href: '/dashboard', label: 'Дашборд',
+        href: '/dashboard', labelKey: 'nav.dashboard',
         roles: ['admin','supervisor','manager','analyst'] as UserRole[],
         icon: (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -43,10 +35,10 @@ const NAV_GROUPS = [
     ],
   },
   {
-    title: 'Продажи',
+    titleKey: 'nav.groupSales',
     items: [
       {
-        href: '/clients', label: 'Клиенты',
+        href: '/clients', labelKey: 'nav.clients',
         roles: ['admin','supervisor','manager','analyst'] as UserRole[],
         icon: (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -58,7 +50,7 @@ const NAV_GROUPS = [
         ),
       },
       {
-        href: '/leads', label: 'Лиды',
+        href: '/leads', labelKey: 'nav.leads',
         roles: ['admin','supervisor','manager','agent'] as UserRole[],
         icon: (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -67,7 +59,7 @@ const NAV_GROUPS = [
         ),
       },
       {
-        href: '/campaigns', label: 'Кампании',
+        href: '/campaigns', labelKey: 'nav.campaigns',
         roles: ['admin','supervisor','manager','operator'] as UserRole[],
         icon: (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -76,7 +68,7 @@ const NAV_GROUPS = [
         ),
       },
       {
-        href: '/pipeline', label: 'Воронка',
+        href: '/pipeline', labelKey: 'nav.pipeline',
         roles: ['admin','supervisor','manager'] as UserRole[],
         icon: (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -87,12 +79,11 @@ const NAV_GROUPS = [
     ],
   },
   {
-    title: 'Работа',
+    titleKey: 'nav.groupWork',
     items: [
       {
-        href: '/tasks', label: 'Задачи',
+        href: '/tasks', labelKey: 'nav.tasks',
         roles: ['admin','supervisor','manager'] as UserRole[],
-        alert: true,
         icon: (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <rect x="2" y="2" width="20" height="20" rx="4" stroke="currentColor" strokeWidth="1.6"/>
@@ -101,7 +92,7 @@ const NAV_GROUPS = [
         ),
       },
       {
-        href: '/analytics', label: 'Аналитика',
+        href: '/analytics', labelKey: 'nav.analytics',
         roles: ['admin','supervisor','analyst'] as UserRole[],
         icon: (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -110,9 +101,8 @@ const NAV_GROUPS = [
         ),
       },
       {
-        href: '/sla', label: 'SLA',
+        href: '/sla', labelKey: 'nav.sla',
         roles: ['admin','supervisor','manager'] as UserRole[],
-        alert: true,
         icon: (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6"/>
@@ -123,10 +113,10 @@ const NAV_GROUPS = [
     ],
   },
   {
-    title: 'Управление',
+    titleKey: 'nav.groupManage',
     items: [
       {
-        href: '/users', label: 'Сотрудники',
+        href: '/users', labelKey: 'nav.users',
         roles: ['admin','supervisor'] as UserRole[],
         icon: (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -136,7 +126,7 @@ const NAV_GROUPS = [
         ),
       },
       {
-        href: '/product-catalog', label: 'Каталог продуктов',
+        href: '/product-catalog', labelKey: 'nav.catalog',
         roles: ['admin'] as UserRole[],
         icon: (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -159,6 +149,7 @@ interface SidebarProps {
 export function Sidebar({ isOpen, onClose }: SidebarProps) {
   const pathname  = usePathname();
   const router    = useRouter();
+  const { t }     = useTranslation();
   const user      = useAuthStore(s => s.user);
   const clearAuth = useAuthStore(s => s.clearAuth);
 
@@ -174,82 +165,80 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
   return (
     <>
       {isOpen && (
-        <div
-          className="fixed inset-0 z-30 bg-black/40 lg:hidden"
-          onClick={onClose}
-        />
+        <div className="fixed inset-0 z-30 bg-black/40 lg:hidden" onClick={onClose} />
       )}
-    <aside className={cn(
-      "fixed inset-y-0 left-0 z-40 flex w-[316px] shrink-0 flex-col border-r border-[#ececec] bg-white px-3 py-4 h-screen overflow-y-auto scrollbar-thin transition-transform duration-300",
-      "lg:relative lg:translate-x-0",
-      isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-    )}>
+      <aside className={cn(
+        "fixed inset-y-0 left-0 z-40 flex w-[316px] shrink-0 flex-col border-r border-[#ececec] bg-white px-3 py-4 h-screen overflow-y-auto scrollbar-thin transition-transform duration-300",
+        "lg:relative lg:translate-x-0",
+        isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+      )}>
 
-      {/* Brand */}
-      <div className="border-b border-[#eeeeee] px-4 pb-6">
-        <div className="flex items-center gap-3">
-          <div className="grid size-9 place-items-center rounded-full bg-[#111] text-lg font-bold text-white select-none">И</div>
-          <span className="text-[20px] font-bold tracking-[-0.04em]">Ипотека Банк</span>
+        {/* Brand */}
+        <div className="border-b border-[#eeeeee] px-4 pb-6">
+          <div className="flex items-center gap-3">
+            <div className="grid size-9 place-items-center rounded-full bg-[#111] text-lg font-bold text-white select-none">И</div>
+            <span className="text-[20px] font-bold tracking-[-0.04em]">Ипотека Банк</span>
+          </div>
         </div>
-      </div>
 
-      {/* Nav */}
-      <nav className="flex flex-col gap-7 px-0 pt-8 flex-1">
-        {NAV_GROUPS.map(group => {
-          const visible = group.items.filter(item => item.roles.includes(user.role));
-          if (!visible.length) return null;
-          return (
-            <div key={group.title}>
-              <p className="mb-3 px-3 text-[13px] uppercase tracking-[0.12em] text-[#b3b3b3]">{group.title}</p>
-              <div className="flex flex-col gap-1">
-                {visible.map(item => {
-                  const active = pathname === item.href || pathname.startsWith(item.href + '/');
-                  return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={onClose}
-                      className={cn(
-                        'flex h-[58px] items-center gap-5 rounded-xl px-4 text-left text-[20px] font-normal transition-colors',
-                        active
-                          ? 'bg-[#f3f3f3] font-semibold text-[#111]'
-                          : 'text-[#6f8095] hover:bg-[#fafafa]'
-                      )}
-                    >
-                      <span className={cn(active ? 'text-[#111]' : 'text-[#bcbcbc]')}>{item.icon}</span>
-                      <span className="flex-1">{item.label}</span>
-                    </Link>
-                  );
-                })}
+        {/* Nav */}
+        <nav className="flex flex-col gap-7 px-0 pt-8 flex-1">
+          {NAV_GROUPS.map(group => {
+            const visible = group.items.filter(item => item.roles.includes(user.role));
+            if (!visible.length) return null;
+            return (
+              <div key={group.titleKey}>
+                <p className="mb-3 px-3 text-[13px] uppercase tracking-[0.12em] text-[#b3b3b3]">{t(group.titleKey)}</p>
+                <div className="flex flex-col gap-1">
+                  {visible.map(item => {
+                    const active = pathname === item.href || pathname.startsWith(item.href + '/');
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={onClose}
+                        className={cn(
+                          'flex h-[58px] items-center gap-5 rounded-xl px-4 text-left text-[20px] font-normal transition-colors',
+                          active
+                            ? 'bg-[#f3f3f3] font-semibold text-[#111]'
+                            : 'text-[#6f8095] hover:bg-[#fafafa]'
+                        )}
+                      >
+                        <span className={cn(active ? 'text-[#111]' : 'text-[#bcbcbc]')}>{item.icon}</span>
+                        <span className="flex-1">{t(item.labelKey)}</span>
+                      </Link>
+                    );
+                  })}
+                </div>
               </div>
+            );
+          })}
+        </nav>
+
+        {/* Bottom */}
+        <div className="mt-auto border-t border-[#eeeeee] px-3 pt-4 space-y-4">
+          <LanguageSwitcher />
+          <div className="flex items-center gap-3 px-1">
+            <div className="grid size-10 place-items-center rounded-full bg-[#f3dcd8] text-xs font-bold text-[#7c3f36] flex-shrink-0">
+              {initials}
             </div>
-          );
-        })}
-      </nav>
-
-      {/* Bottom */}
-      <div className="mt-auto border-t border-[#eeeeee] px-3 pt-5">
-        <div className="mt-3 flex items-center gap-3 px-1">
-          <div className="grid size-10 place-items-center rounded-full bg-[#f3dcd8] text-xs font-bold text-[#7c3f36] flex-shrink-0">
-            {initials}
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-sm font-bold text-[#111]">{user.name}</p>
+              <p className="text-xs text-[#9a8584]">{t(`common.roles.${user.role}`)}</p>
+            </div>
+            <button
+              onClick={logout}
+              aria-label="Выйти"
+              className="text-[#bcbcbc] hover:text-[#111] transition-colors"
+            >
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M7 16H3a1 1 0 01-1-1V3a1 1 0 011-1h4M12 13l4-4-4-4M16 9H7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
           </div>
-          <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-bold text-[#111]">{user.name}</p>
-            <p className="text-xs text-[#9a8584]">{ROLE_LABELS[user.role]}</p>
-          </div>
-          <button
-            onClick={logout}
-            aria-label="Выйти"
-            className="text-[#bcbcbc] hover:text-[#111] transition-colors"
-          >
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-              <path d="M7 16H3a1 1 0 01-1-1V3a1 1 0 011-1h4M12 13l4-4-4-4M16 9H7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </button>
         </div>
-      </div>
 
-    </aside>
+      </aside>
     </>
   );
 }

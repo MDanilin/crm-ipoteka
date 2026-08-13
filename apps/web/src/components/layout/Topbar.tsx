@@ -2,16 +2,19 @@
 
 import { useState, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
+import '@/lib/i18n';
 import { api } from '@/lib/api';
 import type { SearchResult } from '@crm/types';
 import { useRouter } from 'next/navigation';
 
 export function Topbar({ onMenuToggle }: { onMenuToggle?: () => void }) {
   const router = useRouter();
+  const { t }  = useTranslation();
   const [q, setQ]       = useState('');
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
-  const timer = useRef<ReturnType<typeof setTimeout>>();
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { data: results } = useQuery<SearchResult>({
@@ -23,7 +26,7 @@ export function Topbar({ onMenuToggle }: { onMenuToggle?: () => void }) {
 
   function handleSearch(value: string) {
     setQ(value);
-    clearTimeout(timer.current);
+    if (timer.current) clearTimeout(timer.current);
     if (value.length >= 2) { timer.current = setTimeout(() => setOpen(true), 200); }
     else setOpen(false);
   }
@@ -67,14 +70,14 @@ export function Topbar({ onMenuToggle }: { onMenuToggle?: () => void }) {
               value={q}
               onChange={e => handleSearch(e.target.value)}
               onBlur={() => setTimeout(() => setOpen(false), 200)}
-              placeholder="Поиск клиентов, задач..."
+              placeholder={t('common.search')}
               className="h-11 w-64 rounded-full bg-[#f3f3f3] px-4 text-sm outline-none placeholder:text-[#aaa] focus:bg-[#ebebeb] transition-colors"
             />
             {open && results && (
               <div className="absolute top-full mt-2 left-0 right-0 bg-white border border-[#ececec] rounded-2xl shadow-xl z-50 overflow-hidden">
                 {results.clients.length > 0 && (
                   <>
-                    <div className="px-4 py-2 text-[11px] font-bold uppercase tracking-[0.08em] text-[#999] bg-[#f6f6f6]">Клиенты</div>
+                    <div className="px-4 py-2 text-[11px] font-bold uppercase tracking-[0.08em] text-[#999] bg-[#f6f6f6]">{t('common.searchClientsLabel')}</div>
                     {results.clients.map(c => (
                       <button key={c.id} onClick={() => { router.push(`/clients/${c.id}`); setOpen(false); setQ(''); setShow(false); }}
                         className="w-full flex items-start gap-2 px-4 py-3 hover:bg-[#fcf8f8] text-left transition-colors">
@@ -86,7 +89,7 @@ export function Topbar({ onMenuToggle }: { onMenuToggle?: () => void }) {
                 )}
                 {results.leads.length > 0 && (
                   <>
-                    <div className="px-4 py-2 text-[11px] font-bold uppercase tracking-[0.08em] text-[#999] bg-[#f6f6f6]">Лиды</div>
+                    <div className="px-4 py-2 text-[11px] font-bold uppercase tracking-[0.08em] text-[#999] bg-[#f6f6f6]">{t('common.searchLeadsLabel')}</div>
                     {results.leads.map(l => (
                       <button key={l.id} onClick={() => { router.push('/leads'); setOpen(false); setQ(''); setShow(false); }}
                         className="w-full px-4 py-3 hover:bg-[#fcf8f8] text-left text-sm transition-colors">{l.name}</button>
@@ -94,7 +97,7 @@ export function Topbar({ onMenuToggle }: { onMenuToggle?: () => void }) {
                   </>
                 )}
                 {!results.clients.length && !results.leads.length && (
-                  <div className="px-4 py-5 text-sm text-[#aaa] text-center">Ничего не найдено</div>
+                  <div className="px-4 py-5 text-sm text-[#aaa] text-center">{t('common.noResults')}</div>
                 )}
               </div>
             )}

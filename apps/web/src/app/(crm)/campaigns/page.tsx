@@ -2,6 +2,8 @@
 
 import { useState, useRef } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
+import '@/lib/i18n';
 import { useRouter } from 'next/navigation';
 import * as XLSX from 'xlsx';
 import { api } from '@/lib/api';
@@ -20,6 +22,7 @@ export default function CampaignsPage() {
   const user   = useAuthStore(s => s.user);
   const qc     = useQueryClient();
   const router = useRouter();
+  const { t }  = useTranslation();
 
   const [createOpen, setCreateOpen] = useState(false);
   const [form, setForm] = useState({ name: '', source: 'Телемаркетинг Q3' });
@@ -53,7 +56,7 @@ export default function CampaignsPage() {
     <div>
       <div className="mb-8 flex flex-col justify-between gap-4 xl:flex-row xl:items-end">
         <div>
-          <h1 className="text-[clamp(42px,5vw,72px)] font-semibold leading-none tracking-[-0.08em]">Кампании</h1>
+          <h1 className="text-[clamp(42px,5vw,72px)] font-semibold leading-none tracking-[-0.08em]">{t('campaigns.title')}</h1>
           <p className="mt-4 text-base text-[#aaa]">{campaigns.length} телемаркетинговых кампаний</p>
         </div>
         {canManage && <Button onClick={() => setCreateOpen(true)}>+ Новая кампания</Button>}

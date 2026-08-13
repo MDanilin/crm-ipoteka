@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
+import '@/lib/i18n';
 import { api } from '@/lib/api';
 import type { LostAnalytics, HQAnalytics, HQChannelStat, HQEmployeeStat } from '@crm/types';
 import { exportHQToExcel, exportLostToExcel } from '@/lib/exportExcel';
@@ -434,12 +436,13 @@ const TABS = [
 
 export default function AnalyticsPage() {
   const [tab, setTab] = useState<'hq' | 'lost'>('hq');
+  const { t } = useTranslation();
 
   return (
     <div>
       {/* Header */}
       <div className="mb-8 flex flex-col sm:flex-row sm:items-end gap-6 justify-between">
-        <h1 className="text-[clamp(42px,5vw,72px)] font-semibold leading-none tracking-[-0.08em]">Аналитика</h1>
+        <h1 className="text-[clamp(42px,5vw,72px)] font-semibold leading-none tracking-[-0.08em]">{t('analytics.title')}</h1>
         <div className="flex gap-1 bg-[#f5f5f5] rounded-xl p-1 self-start sm:self-auto">
           {TABS.map(t => (
             <button

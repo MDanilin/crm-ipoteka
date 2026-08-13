@@ -2,13 +2,13 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
+import '@/lib/i18n';
 import { api } from '@/lib/api';
 import { useAuthStore } from '@/store/auth';
 import type { DashboardStats } from '@crm/types';
 
-const ROLE_LABELS = { admin:'Администратор', supervisor:'Руководитель', manager:'Менеджер', analyst:'Аналитик' } as const;
 const PRIORITY_COLOR = { high:'bg-[#e1261c]', medium:'bg-[#f59e0b]', low:'bg-[#10b981]' } as const;
-const STATUS_LABEL   = { active:'Активный', pending:'На рассмотрении', inactive:'Неактивный' } as const;
 
 const statusStyles: Record<string, string> = {
   active:   'bg-[#dcfce7] text-[#166534]',
@@ -19,6 +19,7 @@ const statusStyles: Record<string, string> = {
 export default function DashboardPage() {
   const user   = useAuthStore(s => s.user);
   const router = useRouter();
+  const { t }  = useTranslation();
 
   const { data, isLoading } = useQuery<DashboardStats>({
     queryKey: ['dashboard'],
@@ -32,7 +33,7 @@ export default function DashboardPage() {
   });
 
   if (isLoading || !data) {
-    return <div className="flex items-center justify-center h-64 text-[#aaa] text-sm">Загрузка...</div>;
+    return <div className="flex items-center justify-center h-64 text-[#aaa] text-sm">{t('common.loading')}</div>;
   }
 
   return (
@@ -60,19 +61,19 @@ export default function DashboardPage() {
       <div className="mb-8 flex flex-col justify-between gap-4 xl:flex-row xl:items-end">
         <div>
           <p className="text-base text-[#aaa] mb-2">
-            Добро пожаловать, {user?.name.split(' ')[0]} · {ROLE_LABELS[user?.role ?? 'manager']}
+            {t('dashboard.welcome', { name: user?.name.split(' ')[0], role: t(`common.roles.${user?.role ?? 'manager'}`) })}
           </p>
-          <h1 className="text-[clamp(42px,5vw,72px)] font-semibold leading-none tracking-[-0.08em]">Обзор</h1>
+          <h1 className="text-[clamp(42px,5vw,72px)] font-semibold leading-none tracking-[-0.08em]">{t('dashboard.title')}</h1>
         </div>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8 border-y border-[#eee] py-6">
         {[
-          { label: 'Клиентов',        value: data.clientCount,   sub: 'в базе CRM' },
-          { label: 'Активных сделок', value: data.activeDeals,   sub: 'в воронке' },
-          { label: 'Открытых задач',  value: data.openTasks,     sub: 'требуют внимания' },
-          { label: 'Pipeline',        value: data.pipelineTotal, sub: 'млрд сум', large: true },
+          { label: t('dashboard.clientsLabel'), value: data.clientCount,   sub: t('dashboard.clientsSub') },
+          { label: t('dashboard.dealsLabel'),   value: data.activeDeals,   sub: t('dashboard.dealsSub') },
+          { label: t('dashboard.tasksLabel'),   value: data.openTasks,     sub: t('dashboard.tasksSub') },
+          { label: t('dashboard.pipelineLabel'),value: data.pipelineTotal, sub: t('dashboard.pipelineSub'), large: true },
         ].map(s => (
           <div key={s.label}>
             <div className="text-[11px] font-bold uppercase tracking-[0.08em] text-[#999] mb-2">{s.label}</div>
@@ -88,12 +89,12 @@ export default function DashboardPage() {
         {/* Tasks */}
         <div>
           <div className="flex items-center justify-between mb-4">
-            <span className="text-base font-semibold">Ближайшие задачи</span>
-            <button onClick={() => router.push('/tasks')} className="text-sm text-[#aaa] hover:text-[#111] transition-colors">Все задачи</button>
+            <span className="text-base font-semibold">{t('dashboard.upcomingTasks')}</span>
+            <button onClick={() => router.push('/tasks')} className="text-sm text-[#aaa] hover:text-[#111] transition-colors">{t('dashboard.allTasks')}</button>
           </div>
           <div className="border border-[#f0f0f0] rounded-2xl overflow-hidden">
             {data.todayTasks.length === 0 ? (
-              <div className="py-10 text-center text-sm text-[#aaa]">Нет задач</div>
+              <div className="py-10 text-center text-sm text-[#aaa]">{t('dashboard.noTasks')}</div>
             ) : data.todayTasks.map(t => (
               <div
                 key={t.id}
@@ -117,8 +118,8 @@ export default function DashboardPage() {
         {/* Clients */}
         <div>
           <div className="flex items-center justify-between mb-4">
-            <span className="text-base font-semibold">Последние клиенты</span>
-            <button onClick={() => router.push('/clients')} className="text-sm text-[#aaa] hover:text-[#111] transition-colors">Все клиенты</button>
+            <span className="text-base font-semibold">{t('dashboard.recentClients')}</span>
+            <button onClick={() => router.push('/clients')} className="text-sm text-[#aaa] hover:text-[#111] transition-colors">{t('dashboard.allClients')}</button>
           </div>
           <div className="border border-[#f0f0f0] rounded-2xl overflow-hidden">
             {data.myClients.map(c => (
@@ -136,7 +137,7 @@ export default function DashboardPage() {
                 </div>
                 <div className="flex items-center gap-3">
                   <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap ${statusStyles[c.status] ?? 'bg-[#f3f4f6] text-[#6b7280]'}`}>
-                    {STATUS_LABEL[c.status]}
+                    {t(`common.status.${c.status}`)}
                   </span>
                   <span className="text-xs text-[#aaa]">{c.last_contact}</span>
                 </div>

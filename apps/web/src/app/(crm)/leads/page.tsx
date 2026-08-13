@@ -2,6 +2,8 @@
 
 import { Fragment, useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
+import '@/lib/i18n';
 import Link from 'next/link';
 import { api } from '@/lib/api';
 import { useAuthStore } from '@/store/auth';
@@ -73,6 +75,7 @@ const EMPTY_FORM = { name: '', contact: '', phone: '', inn: '', product: '', amo
 export default function LeadsPage() {
   const user     = useAuthStore(s => s.user);
   const isAgent  = user?.role === 'agent';
+  const { t }    = useTranslation();
   const qc       = useQueryClient();
   const [open,       setOpen]       = useState(false);
   const [expandedId, setExpandedId] = useState<number | null>(null);
@@ -124,28 +127,28 @@ export default function LeadsPage() {
     account_opened: leads.filter(l => l.status === 'account_opened').length,
   };
 
-  if (isLoading) return <div className="flex items-center justify-center h-64 text-[#aaa] text-sm">Загрузка...</div>;
+  if (isLoading) return <div className="flex items-center justify-center h-64 text-[#aaa] text-sm">{t('common.loading')}</div>;
 
   return (
     <div>
       <div className="mb-8 flex flex-col justify-between gap-4 xl:flex-row xl:items-end">
         <div>
-          <h1 className="text-[clamp(42px,5vw,72px)] font-semibold leading-none tracking-[-0.08em]">Лиды</h1>
-          <p className="mt-4 text-base text-[#aaa]">{leads.length} всего · {counts.new} новых</p>
+          <h1 className="text-[clamp(42px,5vw,72px)] font-semibold leading-none tracking-[-0.08em]">{t('leads.title')}</h1>
+          <p className="mt-4 text-base text-[#aaa]">{t('leads.total', { count: leads.length, newCount: counts.new })}</p>
         </div>
-        <Button onClick={() => { setOpen(true); setDupError(null); }}>+ Новый лид</Button>
+        <Button onClick={() => { setOpen(true); setDupError(null); }}>{t('leads.newBtn')}</Button>
       </div>
 
       {/* Scenario stage counters */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8 border-y border-[#eee] py-6">
         {([
-          ['new',            'Новых'],
-          ['in_progress',    'В работе'],
-          ['meeting',        'Встреч'],
-          ['account_opened', 'Счетов открыто'],
-        ] as const).map(([k, l]) => (
+          ['new',            t('leads.stageNew')],
+          ['in_progress',    t('leads.stageInProgress')],
+          ['meeting',        t('leads.stageMeeting')],
+          ['account_opened', t('leads.stageAccountOpened')],
+        ] as [string, string][]).map(([k, l]) => (
           <div key={k}>
-            <div className="text-4xl font-bold text-[#111] leading-none">{counts[k]}</div>
+            <div className="text-4xl font-bold text-[#111] leading-none">{counts[k as keyof typeof counts]}</div>
             <div className="text-sm text-[#aaa] mt-1">{l}</div>
           </div>
         ))}
@@ -156,13 +159,13 @@ export default function LeadsPage() {
         <table className="w-full min-w-[800px] border-separate border-spacing-0 text-left">
           <thead>
             <tr className="bg-[#f6f6f6] text-xs font-bold uppercase tracking-[0.08em] text-[#999]">
-              <th className="rounded-l-xl px-5 py-4">Компания / ИНН</th>
-              <th className="px-5 py-4">Контакт</th>
-              <th className="px-5 py-4">Продукт</th>
-              <th className="px-5 py-4">Источник</th>
-              <th className="px-5 py-4">Стадия</th>
-              <th className="px-5 py-4">Менеджер</th>
-              <th className="px-5 py-4">Создан</th>
+              <th className="rounded-l-xl px-5 py-4">{t('leads.colCompany')}</th>
+              <th className="px-5 py-4">{t('leads.colContact')}</th>
+              <th className="px-5 py-4">{t('leads.colProduct')}</th>
+              <th className="px-5 py-4">{t('leads.colSource')}</th>
+              <th className="px-5 py-4">{t('leads.colStage')}</th>
+              <th className="px-5 py-4">{t('leads.colManager')}</th>
+              <th className="px-5 py-4">{t('leads.colUpdated')}</th>
               <th className="rounded-r-xl px-3 py-4"/>
             </tr>
           </thead>
@@ -235,41 +238,40 @@ export default function LeadsPage() {
       </div>
 
       {/* Create modal */}
-      <Modal open={open} title="Новый лид" onClose={() => { setOpen(false); setDupError(null); }}
+      <Modal open={open} title={t('leads.formTitle')} onClose={() => { setOpen(false); setDupError(null); }}
         footer={<>
-          <Button variant="ghost" onClick={() => { setOpen(false); setDupError(null); }}>Отмена</Button>
-          <Button onClick={() => create.mutate(form)} disabled={!form.name || create.isPending}>Создать</Button>
+          <Button variant="ghost" onClick={() => { setOpen(false); setDupError(null); }}>{t('common.cancel')}</Button>
+          <Button onClick={() => create.mutate(form)} disabled={!form.name || create.isPending}>{t('leads.createBtn')}</Button>
         </>}>
         <div className="space-y-4">
           {dupError && (
             <div className="rounded-xl bg-[#fee2e2] px-4 py-3 text-sm text-[#991b1b]">{dupError}</div>
           )}
-          <div><label className="field-label">Компания / Имя *</label>
+          <div><label className="field-label">{t('leads.fCompany')}</label>
             <input value={form.name} onChange={e => { setForm({ ...form, name: e.target.value }); setDupError(null); }} className="form-input" placeholder="ООО «Samarkand Textile»"/>
           </div>
-          <div><label className="field-label">ИНН</label>
+          <div><label className="field-label">{t('leads.fInn')}</label>
             <input value={form.inn} onChange={e => { setForm({ ...form, inn: e.target.value }); setDupError(null); }} className="form-input" placeholder="309876543"/>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <div><label className="field-label">Контакт</label>
+            <div><label className="field-label">{t('leads.fContact')}</label>
               <input value={form.contact} onChange={e => setForm({ ...form, contact: e.target.value })} className="form-input" placeholder="Имя Фамилия"/>
             </div>
-            <div><label className="field-label">Телефон</label>
+            <div><label className="field-label">{t('leads.fPhone')}</label>
               <input value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} className="form-input" placeholder="+998 90 000-00-00"/>
             </div>
           </div>
-          <div><label className="field-label">Продукт</label>
+          <div><label className="field-label">{t('leads.fProduct')}</label>
             <input value={form.product} onChange={e => setForm({ ...form, product: e.target.value })} className="form-input" placeholder="Кредитная линия, расчётный счёт..."/>
           </div>
           {isAgent ? (
-            /* Agent: source is fixed, show read-only badge */
             <div className="flex items-center gap-2 rounded-xl bg-[#fef3c7] px-4 py-3 text-sm text-[#92400e]">
-              <span className="font-semibold">Источник:</span> Агент · {user?.name}
+              <span className="font-semibold">{t('leads.fSource')}:</span> {t('common.roles.agent')} · {user?.name}
             </div>
           ) : (
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="field-label">Канал / Источник</label>
+                <label className="field-label">{t('leads.fSource')}</label>
                 <select value={form.source} onChange={e => setForm({ ...form, source: e.target.value, branch: '', agent_name: '' })} className="form-input">
                   <option value="inbound">Входящий</option>
                   <option value="agent">Агент / Партнёр</option>
@@ -280,7 +282,7 @@ export default function LeadsPage() {
                   <option value="event">Мероприятие</option>
                 </select>
               </div>
-              <div><label className="field-label">Менеджер</label>
+              <div><label className="field-label">{t('leads.fManager')}</label>
                 <input value={form.manager} onChange={e => setForm({ ...form, manager: e.target.value })} className="form-input"/>
               </div>
             </div>
@@ -295,7 +297,7 @@ export default function LeadsPage() {
               <input value={form.agent_name} onChange={e => setForm({ ...form, agent_name: e.target.value })} className="form-input" placeholder="ООО «Buhgalter Plus»"/>
             </div>
           )}
-          <div><label className="field-label">Потенциальная сумма, млн сум</label>
+          <div><label className="field-label">{t('leads.fAmount')}</label>
             <input type="number" min="0" value={form.amount} onChange={e => setForm({ ...form, amount: e.target.value })} className="form-input" placeholder="0"/>
           </div>
         </div>

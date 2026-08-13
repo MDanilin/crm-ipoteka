@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
+import '@/lib/i18n';
 import { api } from '@/lib/api';
 import { useAuthStore } from '@/store/auth';
 import type { Task } from '@crm/types';
@@ -18,11 +20,12 @@ const typeStyles: Record<string, string> = {
   document: 'bg-[#f3f4f6] text-[#374151]',
   analysis: 'bg-[#dcfce7] text-[#166534]',
 };
-const TYPE_L = { call:'Звонок', meeting:'Встреча', proposal:'КП', document:'Документ', analysis:'Анализ' } as const;
+// TYPE_L resolved via t() below
 
 export default function TasksPage() {
   const user = useAuthStore(s => s.user);
   const qc   = useQueryClient();
+  const { t: tt } = useTranslation();
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState({ title:'', type:'call', priority:'medium', due:'', manager: user?.name ?? '', client_name:'' });
 
@@ -44,7 +47,7 @@ export default function TasksPage() {
   const open_  = tasks.filter(t => !t.done);
   const closed = tasks.filter(t =>  t.done);
 
-  if (isLoading) return <div className="flex items-center justify-center h-64 text-[#aaa] text-sm">Загрузка...</div>;
+  if (isLoading) return <div className="flex items-center justify-center h-64 text-[#aaa] text-sm">{tt('common.loading')}</div>;
 
   const TaskRow = ({ t }: { t: Task }) => (
     <div
@@ -60,7 +63,7 @@ export default function TasksPage() {
         {t.client_name && <div className="text-xs text-[#aaa]">{t.client_name}</div>}
       </div>
       <div className="flex items-center gap-3 flex-shrink-0">
-        <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${typeStyles[t.type] ?? 'bg-[#f3f4f6] text-[#555]'}`}>{TYPE_L[t.type]}</span>
+        <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${typeStyles[t.type] ?? 'bg-[#f3f4f6] text-[#555]'}`}>{tt(`tasks.types${t.type.charAt(0).toUpperCase() + t.type.slice(1)}`)}</span>
         <div className="text-xs text-[#aaa] w-20 text-right">{t.due}</div>
         <div className="text-xs text-[#aaa] w-24 text-right">{t.manager}</div>
       </div>
@@ -72,55 +75,55 @@ export default function TasksPage() {
       {/* Page header */}
       <div className="mb-8 flex flex-col justify-between gap-4 xl:flex-row xl:items-end">
         <div>
-          <h1 className="text-[clamp(42px,5vw,72px)] font-semibold leading-none tracking-[-0.08em]">Задачи</h1>
-          <p className="mt-4 text-base text-[#aaa]">{open_.length} открытых · {closed.length} выполнено</p>
+          <h1 className="text-[clamp(42px,5vw,72px)] font-semibold leading-none tracking-[-0.08em]">{tt('tasks.title')}</h1>
+          <p className="mt-4 text-base text-[#aaa]">{tt('tasks.statLine', { open: open_.length, done: closed.length })}</p>
         </div>
-        <Button onClick={() => setOpen(true)}>+ Задача</Button>
+        <Button onClick={() => setOpen(true)}>{tt('tasks.newBtn')}</Button>
       </div>
 
       {/* Open tasks */}
       <div className="border border-[#f0f0f0] rounded-2xl overflow-hidden mb-4">
         <div className="px-5 py-4 border-b border-[#f0f0f0]">
-          <span className="text-sm font-semibold">Открытые ({open_.length})</span>
+          <span className="text-sm font-semibold">{tt('tasks.openSection', { count: open_.length })}</span>
         </div>
         {open_.length === 0 ? (
-          <div className="py-10 text-center text-sm text-[#aaa]">Нет открытых задач</div>
+          <div className="py-10 text-center text-sm text-[#aaa]">{tt('tasks.noOpen')}</div>
         ) : open_.map(t => <TaskRow key={t.id} t={t}/>)}
       </div>
 
       {closed.length > 0 && (
         <div className="border border-[#f0f0f0] rounded-2xl overflow-hidden">
           <div className="px-5 py-4 border-b border-[#f0f0f0]">
-            <span className="text-sm font-semibold">Выполнено ({closed.length})</span>
+            <span className="text-sm font-semibold">{tt('tasks.doneSection', { count: closed.length })}</span>
           </div>
           {closed.map(t => <TaskRow key={t.id} t={t}/>)}
         </div>
       )}
 
-      <Modal open={open} title="Новая задача" onClose={() => setOpen(false)}
+      <Modal open={open} title={tt('tasks.formTitle')} onClose={() => setOpen(false)}
         footer={<>
-          <Button variant="ghost" onClick={() => setOpen(false)}>Отмена</Button>
-          <Button onClick={() => create.mutate(form)} disabled={!form.title || create.isPending}>Создать задачу</Button>
+          <Button variant="ghost" onClick={() => setOpen(false)}>{tt('common.cancel')}</Button>
+          <Button onClick={() => create.mutate(form)} disabled={!form.title || create.isPending}>{tt('tasks.createBtn')}</Button>
         </>}>
         <div className="space-y-4">
-          <div><label className="field-label">Название *</label><input value={form.title} onChange={e=>setForm({...form,title:e.target.value})} className="form-input" placeholder="Что нужно сделать?"/></div>
+          <div><label className="field-label">{tt('tasks.fTitle')}</label><input value={form.title} onChange={e=>setForm({...form,title:e.target.value})} className="form-input" placeholder=""/></div>
           <div className="grid grid-cols-2 gap-3">
-            <div><label className="field-label">Тип</label>
+            <div><label className="field-label">{tt('tasks.fType')}</label>
               <select value={form.type} onChange={e=>setForm({...form,type:e.target.value})} className="form-input">
-                <option value="call">Звонок</option><option value="meeting">Встреча</option><option value="proposal">КП</option><option value="document">Документ</option><option value="analysis">Анализ</option>
+                <option value="call">{tt('tasks.typesCall')}</option><option value="meeting">{tt('tasks.typesMeeting')}</option><option value="proposal">{tt('tasks.typesProposal')}</option><option value="document">{tt('tasks.typesDocument')}</option><option value="analysis">{tt('tasks.typesAnalysis')}</option>
               </select>
             </div>
-            <div><label className="field-label">Приоритет</label>
+            <div><label className="field-label">{tt('tasks.fPriority')}</label>
               <select value={form.priority} onChange={e=>setForm({...form,priority:e.target.value})} className="form-input">
-                <option value="high">Высокий</option><option value="medium">Средний</option><option value="low">Низкий</option>
+                <option value="high">{tt('common.priority.high')}</option><option value="medium">{tt('common.priority.medium')}</option><option value="low">{tt('common.priority.low')}</option>
               </select>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <div><label className="field-label">Срок</label><input type="date" value={form.due} onChange={e=>setForm({...form,due:e.target.value})} className="form-input"/></div>
-            <div><label className="field-label">Менеджер</label><input value={form.manager} onChange={e=>setForm({...form,manager:e.target.value})} className="form-input"/></div>
+            <div><label className="field-label">{tt('tasks.fDue')}</label><input type="date" value={form.due} onChange={e=>setForm({...form,due:e.target.value})} className="form-input"/></div>
+            <div><label className="field-label">{tt('tasks.fManager')}</label><input value={form.manager} onChange={e=>setForm({...form,manager:e.target.value})} className="form-input"/></div>
           </div>
-          <div><label className="field-label">Клиент</label><input value={form.client_name} onChange={e=>setForm({...form,client_name:e.target.value})} className="form-input" placeholder="Название клиента"/></div>
+          <div><label className="field-label">{tt('tasks.fClient')}</label><input value={form.client_name} onChange={e=>setForm({...form,client_name:e.target.value})} className="form-input" placeholder=""/></div>
         </div>
       </Modal>
     </div>

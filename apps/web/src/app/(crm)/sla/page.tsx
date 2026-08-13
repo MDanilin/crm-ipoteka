@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
+import '@/lib/i18n';
 import { useRouter } from 'next/navigation';
 import { api } from '@/lib/api';
 import { useAuthStore } from '@/store/auth';
@@ -48,6 +50,7 @@ function Countdown({ createdAt, slaHours }: { createdAt: string; slaHours: numbe
 export default function SlaPage() {
   const user   = useAuthStore(s => s.user);
   const router = useRouter();
+  const { t }  = useTranslation();
   const qc     = useQueryClient();
   const [tab,  setTab]  = useState<'violations' | 'stats'>('violations');
   const [demoBusy, setDemoBusy] = useState(false);
@@ -86,7 +89,7 @@ export default function SlaPage() {
       {/* Header */}
       <div className="mb-8 flex flex-col justify-between gap-4 xl:flex-row xl:items-end">
         <div>
-          <h1 className="text-[clamp(42px,5vw,72px)] font-semibold leading-none tracking-[-0.08em]">Контроль SLA</h1>
+          <h1 className="text-[clamp(42px,5vw,72px)] font-semibold leading-none tracking-[-0.08em]">{t('sla.title')}</h1>
           <p className="mt-4 text-base text-[#aaa]">
             Правило: лид обрабатывается за <span className="font-semibold text-[#111]">{stats?.sla_hours ?? 1} час</span>
           </p>

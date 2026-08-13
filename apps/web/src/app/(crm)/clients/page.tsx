@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
+import '@/lib/i18n';
 import { api } from '@/lib/api';
 import type { Client } from '@crm/types';
 import { Button } from '@/components/ui/Button';
@@ -24,6 +26,7 @@ const riskL = { low:'Низкий', medium:'Средний', high:'Высоки�
 export default function ClientsPage() {
   const router = useRouter();
   const qc     = useQueryClient();
+  const { t }  = useTranslation();
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState({ name:'', type:'Крупный бизнес', industry:'', inn:'', city:'Ташкент', phone:'', email:'', manager:'', segment:'Standard', status:'active', risk_level:'low', rating:'', revenue:'', credit_limit:'', employees:'' });
 
@@ -37,22 +40,22 @@ export default function ClientsPage() {
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['clients'] }); setOpen(false); setForm({ name:'', type:'Крупный бизнес', industry:'', inn:'', city:'Ташкент', phone:'', email:'', manager:'', segment:'Standard', status:'active', risk_level:'low', rating:'', revenue:'', credit_limit:'', employees:'' }); },
   });
 
-  if (isLoading) return <div className="flex items-center justify-center h-64 text-[#aaa] text-sm">Загрузка...</div>;
+  if (isLoading) return <div className="flex items-center justify-center h-64 text-[#aaa] text-sm">{t('common.loading')}</div>;
 
   return (
     <div>
       {/* Page header */}
       <div className="mb-8 flex flex-col justify-between gap-4 xl:flex-row xl:items-end">
         <div>
-          <h1 className="text-[clamp(42px,5vw,72px)] font-semibold leading-none tracking-[-0.08em]">Клиенты</h1>
-          <p className="mt-4 text-base text-[#aaa]">Управляйте корпоративными отношениями</p>
+          <h1 className="text-[clamp(42px,5vw,72px)] font-semibold leading-none tracking-[-0.08em]">{t('clients.title')}</h1>
+          <p className="mt-4 text-base text-[#aaa]">{t('clients.subtitle')}</p>
         </div>
-        <Button onClick={() => setOpen(true)}>+ Новый клиент</Button>
+        <Button onClick={() => setOpen(true)}>{t('clients.newBtn')}</Button>
       </div>
 
       {/* Count row */}
       <div className="mb-5 flex items-center justify-between border-y border-[#eee] py-4">
-        <span className="text-sm font-semibold">Всего {clients.length} клиентов</span>
+        <span className="text-sm font-semibold">{t('clients.total', { count: clients.length })}</span>
       </div>
 
       {/* Table */}
@@ -60,14 +63,14 @@ export default function ClientsPage() {
         <table className="w-full min-w-[800px] border-separate border-spacing-0 text-left">
           <thead>
             <tr className="bg-[#f6f6f6] text-xs font-bold uppercase tracking-[0.08em] text-[#999]">
-              <th className="rounded-l-xl px-5 py-4">Клиент</th>
-              <th className="px-5 py-4">Тип</th>
-              <th className="px-5 py-4">Отрасль</th>
-              <th className="px-5 py-4">Менеджер</th>
-              <th className="px-5 py-4">Сегмент</th>
-              <th className="px-5 py-4">Статус</th>
-              <th className="px-5 py-4">Риск</th>
-              <th className="rounded-r-xl px-5 py-4">Контакт</th>
+              <th className="rounded-l-xl px-5 py-4">{t('clients.colClient')}</th>
+              <th className="px-5 py-4">{t('clients.colType')}</th>
+              <th className="px-5 py-4">{t('clients.colIndustry')}</th>
+              <th className="px-5 py-4">{t('clients.colManager')}</th>
+              <th className="px-5 py-4">{t('clients.colSegment')}</th>
+              <th className="px-5 py-4">{t('clients.colStatus')}</th>
+              <th className="px-5 py-4">{t('clients.colRisk')}</th>
+              <th className="rounded-r-xl px-5 py-4">{t('clients.colContact')}</th>
             </tr>
           </thead>
           <tbody>
@@ -97,10 +100,10 @@ export default function ClientsPage() {
                   <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${c.segment === 'Premium' ? 'bg-[#ede9fe] text-[#6d28d9]' : 'bg-[#f3f4f6] text-[#6b7280]'}`}>{c.segment}</span>
                 </td>
                 <td className="px-5 py-5">
-                  <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${statusStyles[c.status] ?? 'bg-[#f3f4f6] text-[#555]'}`}>{statusL[c.status]}</span>
+                  <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${statusStyles[c.status] ?? 'bg-[#f3f4f6] text-[#555]'}`}>{t(`common.status.${c.status}`)}</span>
                 </td>
                 <td className="px-5 py-5">
-                  <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${riskStyles[c.risk_level] ?? 'bg-[#f3f4f6] text-[#555]'}`}>{riskL[c.risk_level]}</span>
+                  <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${riskStyles[c.risk_level] ?? 'bg-[#f3f4f6] text-[#555]'}`}>{t(`common.risk.${c.risk_level}`)}</span>
                 </td>
                 <td className="px-5 py-5 text-xs text-[#aaa]">{c.last_contact || '—'}</td>
               </tr>
@@ -109,66 +112,62 @@ export default function ClientsPage() {
         </table>
       </div>
 
-      <Modal open={open} title="Новый клиент" onClose={() => setOpen(false)}
+      <Modal open={open} title={t('clients.formTitle')} onClose={() => setOpen(false)}
         footer={<>
-          <Button variant="ghost" onClick={() => setOpen(false)}>Отмена</Button>
+          <Button variant="ghost" onClick={() => setOpen(false)}>{t('common.cancel')}</Button>
           <Button onClick={() => create.mutate(form)} disabled={!form.name || create.isPending}>
-            {create.isPending ? 'Создание...' : 'Создать клиента'}
+            {create.isPending ? t('common.creating') : t('clients.createBtn')}
           </Button>
         </>}>
         <div className="space-y-4">
-          {/* Основное */}
-          <div><label className="field-label">Название *</label><input value={form.name} onChange={e=>setForm({...form,name:e.target.value})} className="form-input" placeholder="ООО Пример"/></div>
+          <div><label className="field-label">{t('clients.fName')}</label><input value={form.name} onChange={e=>setForm({...form,name:e.target.value})} className="form-input" placeholder="ООО Пример"/></div>
           <div className="grid grid-cols-2 gap-3">
-            <div><label className="field-label">Тип</label>
+            <div><label className="field-label">{t('clients.fType')}</label>
               <select value={form.type} onChange={e=>setForm({...form,type:e.target.value})} className="form-input">
-                {['Крупный бизнес','МСП','Холдинг','Международные'].map(t=><option key={t}>{t}</option>)}
+                {['Крупный бизнес','МСП','Холдинг','Международные'].map(v=><option key={v}>{v}</option>)}
               </select>
             </div>
-            <div><label className="field-label">Отрасль</label><input value={form.industry} onChange={e=>setForm({...form,industry:e.target.value})} className="form-input" placeholder="Агропром, IT..."/></div>
+            <div><label className="field-label">{t('clients.fIndustry')}</label><input value={form.industry} onChange={e=>setForm({...form,industry:e.target.value})} className="form-input" placeholder="Агропром, IT..."/></div>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <div><label className="field-label">ИНН</label><input value={form.inn} onChange={e=>setForm({...form,inn:e.target.value})} className="form-input" placeholder="1234567890"/></div>
-            <div><label className="field-label">Город</label><input value={form.city} onChange={e=>setForm({...form,city:e.target.value})} className="form-input"/></div>
+            <div><label className="field-label">{t('clients.fInn')}</label><input value={form.inn} onChange={e=>setForm({...form,inn:e.target.value})} className="form-input" placeholder="1234567890"/></div>
+            <div><label className="field-label">{t('clients.fCity')}</label><input value={form.city} onChange={e=>setForm({...form,city:e.target.value})} className="form-input"/></div>
           </div>
-          {/* Контакты */}
           <div className="grid grid-cols-2 gap-3">
-            <div><label className="field-label">Телефон</label><input value={form.phone} onChange={e=>setForm({...form,phone:e.target.value})} className="form-input" placeholder="+998 90 000-00-00"/></div>
-            <div><label className="field-label">Email</label><input value={form.email} onChange={e=>setForm({...form,email:e.target.value})} className="form-input" placeholder="info@company.uz"/></div>
+            <div><label className="field-label">{t('clients.fPhone')}</label><input value={form.phone} onChange={e=>setForm({...form,phone:e.target.value})} className="form-input" placeholder="+998 90 000-00-00"/></div>
+            <div><label className="field-label">{t('clients.fEmail')}</label><input value={form.email} onChange={e=>setForm({...form,email:e.target.value})} className="form-input" placeholder="info@company.uz"/></div>
           </div>
-          {/* Менеджер и статус */}
           <div className="grid grid-cols-2 gap-3">
-            <div><label className="field-label">Менеджер</label><input value={form.manager} onChange={e=>setForm({...form,manager:e.target.value})} className="form-input" placeholder="Иванов И.И."/></div>
-            <div><label className="field-label">Статус</label>
+            <div><label className="field-label">{t('clients.fManager')}</label><input value={form.manager} onChange={e=>setForm({...form,manager:e.target.value})} className="form-input" placeholder="Иванов И.И."/></div>
+            <div><label className="field-label">{t('clients.fStatus')}</label>
               <select value={form.status} onChange={e=>setForm({...form,status:e.target.value})} className="form-input">
-                <option value="active">Активный</option>
-                <option value="pending">На рассмотрении</option>
-                <option value="inactive">Неактивный</option>
+                <option value="active">{t('common.status.active')}</option>
+                <option value="pending">{t('common.status.pending')}</option>
+                <option value="inactive">{t('common.status.inactive')}</option>
               </select>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <div><label className="field-label">Сегмент</label>
+            <div><label className="field-label">{t('clients.fSegment')}</label>
               <select value={form.segment} onChange={e=>setForm({...form,segment:e.target.value})} className="form-input">
                 <option>Standard</option><option>Premium</option>
               </select>
             </div>
-            <div><label className="field-label">Уровень риска</label>
+            <div><label className="field-label">{t('clients.fRisk')}</label>
               <select value={form.risk_level} onChange={e=>setForm({...form,risk_level:e.target.value})} className="form-input">
-                <option value="low">Низкий</option>
-                <option value="medium">Средний</option>
-                <option value="high">Высокий</option>
+                <option value="low">{t('common.risk.low')}</option>
+                <option value="medium">{t('common.risk.medium')}</option>
+                <option value="high">{t('common.risk.high')}</option>
               </select>
             </div>
           </div>
-          {/* Финансы */}
           <div className="grid grid-cols-2 gap-3">
-            <div><label className="field-label">Рейтинг</label><input value={form.rating} onChange={e=>setForm({...form,rating:e.target.value})} className="form-input" placeholder="A+, A, B..."/></div>
-            <div><label className="field-label">Сотрудники</label><input value={form.employees} onChange={e=>setForm({...form,employees:e.target.value})} className="form-input" placeholder="500 чел."/></div>
+            <div><label className="field-label">{t('clients.fRating')}</label><input value={form.rating} onChange={e=>setForm({...form,rating:e.target.value})} className="form-input" placeholder="A+, A, B..."/></div>
+            <div><label className="field-label">{t('clients.fEmployees')}</label><input value={form.employees} onChange={e=>setForm({...form,employees:e.target.value})} className="form-input" placeholder="500 чел."/></div>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <div><label className="field-label">Выручка</label><input value={form.revenue} onChange={e=>setForm({...form,revenue:e.target.value})} className="form-input" placeholder="100 млрд UZS"/></div>
-            <div><label className="field-label">Кредитный лимит</label><input value={form.credit_limit} onChange={e=>setForm({...form,credit_limit:e.target.value})} className="form-input" placeholder="10 млрд UZS"/></div>
+            <div><label className="field-label">{t('clients.fRevenue')}</label><input value={form.revenue} onChange={e=>setForm({...form,revenue:e.target.value})} className="form-input" placeholder="100 млрд UZS"/></div>
+            <div><label className="field-label">{t('clients.fCreditLimit')}</label><input value={form.credit_limit} onChange={e=>setForm({...form,credit_limit:e.target.value})} className="form-input" placeholder="10 млрд UZS"/></div>
           </div>
         </div>
       </Modal>

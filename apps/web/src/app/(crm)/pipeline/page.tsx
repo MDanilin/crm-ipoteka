@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
+import '@/lib/i18n';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/api';
 import { useAuthStore } from '@/store/auth';
@@ -20,6 +22,7 @@ const STAGES: { id: PipelineStage; label: string; dot: string }[] = [
 export default function PipelinePage() {
   const user = useAuthStore(s => s.user);
   const qc   = useQueryClient();
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState({ client_name:'', product:'', amount:'', amount_raw:'', probability:'50', stage:'qualification', close_date:'', manager: user?.name ?? '' });
 
@@ -37,7 +40,7 @@ export default function PipelinePage() {
       {/* Page header */}
       <div className="mb-8 flex flex-col justify-between gap-4 xl:flex-row xl:items-end">
         <div>
-          <h1 className="text-[clamp(42px,5vw,72px)] font-semibold leading-none tracking-[-0.08em]">Воронка</h1>
+          <h1 className="text-[clamp(42px,5vw,72px)] font-semibold leading-none tracking-[-0.08em]">{t('pipeline.title')}</h1>
           <p className="mt-4 text-base text-[#aaa]">{active.length} активных сделок</p>
         </div>
         <Button onClick={() => setOpen(true)}>+ Сделка</Button>
