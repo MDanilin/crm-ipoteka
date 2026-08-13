@@ -53,7 +53,7 @@ export interface Client {
   balance: string;
   credit_limit: string;
   created_at: string;
-  products?: string[];
+  products?: string[] | Product[];
 }
 
 export interface ClientDetail extends Client {
