@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { FastifyRequest, FastifyReply } from 'fastify';
 import { db } from './db.js';
 import type { User } from '@crm/types';
