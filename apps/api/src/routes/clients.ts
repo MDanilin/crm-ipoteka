@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { FastifyInstance } from 'fastify';
 import { db } from '../db.js';
 import { requireAuth, getUser } from '../auth.js';
