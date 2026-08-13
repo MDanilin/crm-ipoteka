@@ -60,7 +60,7 @@ const NAV_GROUPS: { titleKey: string; items: NavItem[] }[] = [
       },
       {
         href: '/campaigns', labelKey: 'nav.campaigns',
-        roles: ['admin','supervisor','manager','operator'] as UserRole[],
+        roles: ['admin','supervisor','operator'] as UserRole[],
         icon: (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path d="M22 8V16M18 5V19M14 8V16M10 6V18M6 9V15M2 11V13" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
