@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 15, "column": 0}, "map": {"version":3,"sources":["file://C%3A/Users/mihai/Documents/danilin.system/danilin.system/claude/CRM%20Ipoteka/new%20CRM/apps/web/apps/web/src/app/providers.tsx"],"sourcesContent":["'use client';\n\nimport { QueryClient, QueryClientProvider } from '@tanstack/react-query';\nimport { useState } from 'react';\n\nexport function Providers({ children }: { children: React.ReactNode }) {\n  const [queryClient] = useState(() => new QueryClient({\n    defaultOptions: {\n      queries: { staleTime: 30_000, retry: 1 },\n    },\n  }));\n  return (\n    <QueryClientProvider client={queryClient}>\n      {children}\n    </QueryClientProvider>\n  );\n}\n"],"names":[],"mappings":";;;;AAGA;AADA;AAAA;AAFA;;;;AAKO,SAAS,UAAU,EAAE,QAAQ,EAAiC;IACnE,MAAM,CAAC,YAAY,GAAG,CAAA,GAAA,sWAAA,CAAA,WAAQ,AAAD,EAAE,IAAM,IAAI,uPAAA,CAAA,cAAW,CAAC;YACnD,gBAAgB;gBACd,SAAS;oBAAE,WAAW;oBAAQ,OAAO;gBAAE;YACzC;QACF;IACA,qBACE,+YAAC,uRAAA,CAAA,sBAAmB;QAAC,QAAQ;kBAC1B;;;;;;AAGP"}},
+    {"offset": {"line": 44, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}

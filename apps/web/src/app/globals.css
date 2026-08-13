@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-inter: 'Inter', system-ui, sans-serif;
+  }
+  html { @apply antialiased; }
+  body { @apply bg-white text-[#111]; }
+}
+
+@layer components {
+  .field-label {
+    @apply block text-[11px] font-semibold uppercase tracking-wider text-[#999] mb-1.5;
+  }
+  .form-input {
+    @apply h-12 w-full rounded-xl bg-[#f5f5f5] px-4 text-sm outline-none placeholder:text-[#aaa] focus:bg-[#efefef] transition-colors;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin::-webkit-scrollbar        { width: 4px; height: 4px; }
+  .scrollbar-thin::-webkit-scrollbar-track  { @apply bg-transparent; }
+  .scrollbar-thin::-webkit-scrollbar-thumb  { @apply bg-[#e0e0e0] rounded; }
+}

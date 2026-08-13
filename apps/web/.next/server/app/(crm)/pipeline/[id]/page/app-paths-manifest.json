@@ -1,0 +1,3 @@
+{
+  "/(crm)/pipeline/[id]/page": "app/(crm)/pipeline/[id]/page.js"
+}
