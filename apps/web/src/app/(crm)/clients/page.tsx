@@ -68,9 +68,7 @@ export default function ClientsPage() {
               <th className="px-5 py-4">{t('clients.colIndustry')}</th>
               <th className="px-5 py-4">{t('clients.colManager')}</th>
               <th className="px-5 py-4">{t('clients.colSegment')}</th>
-              <th className="px-5 py-4">{t('clients.colStatus')}</th>
-              <th className="px-5 py-4">{t('clients.colRisk')}</th>
-              <th className="rounded-r-xl px-5 py-4">{t('clients.colContact')}</th>
+              <th className="rounded-r-xl px-5 py-4">{t('clients.colStatus')}</th>
             </tr>
           </thead>
           <tbody>
@@ -102,10 +100,6 @@ export default function ClientsPage() {
                 <td className="px-5 py-5">
                   <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${statusStyles[c.status] ?? 'bg-[#f3f4f6] text-[#555]'}`}>{t(`common.status.${c.status}`)}</span>
                 </td>
-                <td className="px-5 py-5">
-                  <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${riskStyles[c.risk_level] ?? 'bg-[#f3f4f6] text-[#555]'}`}>{t(`common.risk.${c.risk_level}`)}</span>
-                </td>
-                <td className="px-5 py-5 text-xs text-[#aaa]">{c.last_contact || '—'}</td>
               </tr>
             ))}
           </tbody>
