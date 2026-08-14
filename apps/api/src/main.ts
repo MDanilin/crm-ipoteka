@@ -25,6 +25,7 @@ import { slaRoutes }        from './routes/sla.js';
 import { analyticsRoutes }  from './routes/analytics.js';
 import { productCatalogRoutes } from './routes/product-catalog.js';
 import { settingsRoutes }       from './routes/settings.js';
+import { adminRoutes }          from './routes/admin.js';
 
 const app = Fastify({ logger: { level: 'info' } });
 
@@ -47,6 +48,7 @@ await app.register(slaRoutes,       { prefix: '/api/sla' });
 await app.register(analyticsRoutes,     { prefix: '/api/analytics' });
 await app.register(productCatalogRoutes, { prefix: '/api/product-catalog' });
 await app.register(settingsRoutes,       { prefix: '/api/settings' });
+await app.register(adminRoutes,          { prefix: '/api/admin' });
 
 app.get('/api/health', async () => ({ ok: true, ts: new Date().toISOString() }));
 

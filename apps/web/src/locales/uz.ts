@@ -14,6 +14,7 @@ const uz = {
     sla:       'SLA',
     users:     'Xodimlar',
     catalog:   'Mahsulotlar katalogi',
+    admin:     'Admin panel',
     settings:  'Sozlamalar',
   },
 

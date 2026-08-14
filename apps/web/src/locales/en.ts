@@ -14,6 +14,7 @@ const en = {
     sla:       'SLA',
     users:     'Staff',
     catalog:   'Product Catalog',
+    admin:     'Admin Panel',
     settings:  'Settings',
   },
 

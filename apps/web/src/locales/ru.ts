@@ -14,6 +14,7 @@ const ru = {
     sla:       'SLA',
     users:     'Сотрудники',
     catalog:   'Каталог продуктов',
+    admin:     'Админка',
     settings:  'Настройки',
   },
 

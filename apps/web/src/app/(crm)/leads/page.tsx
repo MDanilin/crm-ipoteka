@@ -120,15 +120,21 @@ export default function LeadsPage() {
   function validateForm() {
     const e: Record<string, string> = {};
     const innDigits = form.inn.replace(/\D/g, '');
-    if (!innDigits) e.inn = 'ИНН обязателен';
-    else if (innDigits.length !== 9) e.inn = 'ИНН — 9 цифр';
+    if (fr('inn')) {
+      if (!innDigits) e.inn = `${fl('inn')} обязателен`;
+      else if (innDigits.length !== 9) e.inn = 'ИНН — 9 цифр';
+    }
     const pinflDigits = form.pinfl.replace(/\D/g, '');
-    if (!pinflDigits) e.pinfl = 'ПИНФЛ обязателен';
-    else if (pinflDigits.length !== 14) e.pinfl = 'ПИНФЛ — 14 цифр';
+    if (fr('pinfl')) {
+      if (!pinflDigits) e.pinfl = `${fl('pinfl')} обязателен`;
+      else if (pinflDigits.length !== 14) e.pinfl = 'ПИНФЛ — 14 цифр';
+    }
     const phoneDigits = form.phone.replace(/\D/g, '');
-    if (!phoneDigits || phoneDigits === '998') e.phone = 'Телефон обязателен';
-    else if (!phoneDigits.startsWith('998') || phoneDigits.length !== 12) e.phone = 'Формат: +998 XX XXX-XX-XX';
-    if (!form.product) e.product = 'Выберите продукт';
+    if (fr('phone')) {
+      if (!phoneDigits || phoneDigits === '998') e.phone = `${fl('phone')} обязателен`;
+      else if (!phoneDigits.startsWith('998') || phoneDigits.length !== 12) e.phone = 'Формат: +998 XX XXX-XX-XX';
+    }
+    if (fr('product') && !form.product) e.product = 'Выберите продукт';
     setErrors(e);
     return Object.keys(e).length === 0;
   }
@@ -142,6 +148,15 @@ export default function LeadsPage() {
     queryKey: ['product-catalog'],
     queryFn:  () => api.get('/product-catalog'),
   });
+
+  const { data: fieldCfg = [] } = useQuery<{ field: string; label: string; required: number; visible: number }[]>({
+    queryKey: ['field-config-lead'],
+    queryFn:  () => api.get('/admin/field-config?entity=lead'),
+  });
+  const fc = (field: string) => fieldCfg.find(f => f.field === field) ?? { label: field, required: 0, visible: 1 };
+  const fv = (field: string) => fc(field).visible !== 0;
+  const fr = (field: string) => fc(field).required !== 0;
+  const fl = (field: string) => fc(field).label;
   const dInn   = useDebounced(form.inn,   600);
   const dPhone = useDebounced(form.phone, 600);
   const { data: dupCheck } = useQuery<{ inn_duplicate: { id: number; name: string; manager: string } | null; phone_duplicate: { id: number; name: string; manager: string } | null }>({
@@ -554,88 +569,107 @@ export default function LeadsPage() {
           </div>
 
           {/* INN + PINFL */}
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="field-label">ИНН *</label>
-              <input
-                value={form.inn}
-                onChange={e => { setForm({ ...form, inn: e.target.value.replace(/\D/g, '').slice(0, 9) }); setDupError(null); setErrors(v => ({ ...v, inn: '' })); }}
-                className={`form-input ${errors.inn ? 'border-[#f87171]' : ''}`}
-                placeholder="309876543"
-                inputMode="numeric"
-              />
-              {errors.inn && <p className="mt-1 text-[11px] text-[#ef4444]">{errors.inn}</p>}
+          {(fv('inn') || fv('pinfl')) && (
+            <div className="grid grid-cols-2 gap-3">
+              {fv('inn') && (
+                <div>
+                  <label className="field-label">{fl('inn')}{fr('inn') ? ' *' : ''}</label>
+                  <input
+                    value={form.inn}
+                    onChange={e => { setForm({ ...form, inn: e.target.value.replace(/\D/g, '').slice(0, 9) }); setDupError(null); setErrors(v => ({ ...v, inn: '' })); }}
+                    className={`form-input ${errors.inn ? 'border-[#f87171]' : ''}`}
+                    placeholder="309876543"
+                    inputMode="numeric"
+                  />
+                  {errors.inn && <p className="mt-1 text-[11px] text-[#ef4444]">{errors.inn}</p>}
+                </div>
+              )}
+              {fv('pinfl') && (
+                <div>
+                  <label className="field-label">{fl('pinfl')}{fr('pinfl') ? ' *' : ''}</label>
+                  <input
+                    value={form.pinfl}
+                    onChange={e => { setForm({ ...form, pinfl: e.target.value.replace(/\D/g, '').slice(0, 14) }); setErrors(v => ({ ...v, pinfl: '' })); }}
+                    className={`form-input ${errors.pinfl ? 'border-[#f87171]' : ''}`}
+                    placeholder="12345678901234"
+                    inputMode="numeric"
+                  />
+                  {errors.pinfl && <p className="mt-1 text-[11px] text-[#ef4444]">{errors.pinfl}</p>}
+                </div>
+              )}
             </div>
-            <div>
-              <label className="field-label">ПИНФЛ *</label>
-              <input
-                value={form.pinfl}
-                onChange={e => { setForm({ ...form, pinfl: e.target.value.replace(/\D/g, '').slice(0, 14) }); setErrors(v => ({ ...v, pinfl: '' })); }}
-                className={`form-input ${errors.pinfl ? 'border-[#f87171]' : ''}`}
-                placeholder="12345678901234"
-                inputMode="numeric"
-              />
-              {errors.pinfl && <p className="mt-1 text-[11px] text-[#ef4444]">{errors.pinfl}</p>}
-            </div>
-          </div>
+          )}
 
           {/* Contact + Phone */}
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="field-label">{t('leads.fContact')}</label>
-              <input value={form.contact} onChange={e => setForm({ ...form, contact: e.target.value })} className="form-input" placeholder="Имя Фамилия"/>
+          {(fv('contact') || fv('phone')) && (
+            <div className="grid grid-cols-2 gap-3">
+              {fv('contact') && (
+                <div>
+                  <label className="field-label">{fl('contact')}</label>
+                  <input value={form.contact} onChange={e => setForm({ ...form, contact: e.target.value })} className="form-input" placeholder="Имя Фамилия"/>
+                </div>
+              )}
+              {fv('phone') && (
+                <div>
+                  <label className="field-label">{fl('phone')}{fr('phone') ? ' *' : ''}</label>
+                  <input
+                    value={form.phone}
+                    onChange={e => { setForm({ ...form, phone: formatUzPhone(e.target.value) }); setErrors(v => ({ ...v, phone: '' })); }}
+                    onFocus={e => { if (!e.target.value) setForm({ ...form, phone: '+998 ' }); }}
+                    className={`form-input ${errors.phone ? 'border-[#f87171]' : ''}`}
+                    placeholder="+998 90 000-00-00"
+                    inputMode="tel"
+                  />
+                  {errors.phone && <p className="mt-1 text-[11px] text-[#ef4444]">{errors.phone}</p>}
+                </div>
+              )}
             </div>
-            <div>
-              <label className="field-label">{t('leads.fPhone')} *</label>
-              <input
-                value={form.phone}
-                onChange={e => { setForm({ ...form, phone: formatUzPhone(e.target.value) }); setErrors(v => ({ ...v, phone: '' })); }}
-                onFocus={e => { if (!e.target.value) setForm({ ...form, phone: '+998 ' }); }}
-                className={`form-input ${errors.phone ? 'border-[#f87171]' : ''}`}
-                placeholder="+998 90 000-00-00"
-                inputMode="tel"
-              />
-              {errors.phone && <p className="mt-1 text-[11px] text-[#ef4444]">{errors.phone}</p>}
-            </div>
-          </div>
+          )}
 
           {/* Product from catalog */}
-          <div>
-            <label className="field-label">{t('leads.fProduct')} *</label>
-            <select
-              value={form.product}
-              onChange={e => { setForm({ ...form, product: e.target.value }); setErrors(v => ({ ...v, product: '' })); }}
-              className={`form-input ${errors.product ? 'border-[#f87171]' : ''}`}
-            >
-              <option value="">— выберите продукт —</option>
-              {catalog.filter(c => c.is_active !== 0).map(c => (
-                <option key={c.id} value={c.name}>{c.name}{c.category ? ` · ${c.category}` : ''}</option>
-              ))}
-            </select>
-            {errors.product && <p className="mt-1 text-[11px] text-[#ef4444]">{errors.product}</p>}
-          </div>
+          {fv('product') && (
+            <div>
+              <label className="field-label">{fl('product')}{fr('product') ? ' *' : ''}</label>
+              <select
+                value={form.product}
+                onChange={e => { setForm({ ...form, product: e.target.value }); setErrors(v => ({ ...v, product: '' })); }}
+                className={`form-input ${errors.product ? 'border-[#f87171]' : ''}`}
+              >
+                <option value="">— выберите продукт —</option>
+                {catalog.filter(c => c.is_active !== 0).map(c => (
+                  <option key={c.id} value={c.name}>{c.name}{c.category ? ` · ${c.category}` : ''}</option>
+                ))}
+              </select>
+              {errors.product && <p className="mt-1 text-[11px] text-[#ef4444]">{errors.product}</p>}
+            </div>
+          )}
 
           {isAgent ? (
             <div className="flex items-center gap-2 rounded-xl bg-[#fef3c7] px-4 py-3 text-sm text-[#92400e]">
-              <span className="font-semibold">{t('leads.fSource')}:</span> {t('common.roles.agent')} · {user?.name}
+              <span className="font-semibold">{fl('source')}:</span> {t('common.roles.agent')} · {user?.name}
             </div>
-          ) : (
+          ) : (fv('source') || fv('manager')) && (
             <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="field-label">{t('leads.fSource')}</label>
-                <select value={form.source} onChange={e => setForm({ ...form, source: e.target.value, branch: '', agent_name: '' })} className="form-input">
-                  <option value="inbound">Входящий</option>
-                  <option value="agent">Агент / Партнёр</option>
-                  <option value="branch">Филиал</option>
-                  <option value="website">Сайт</option>
-                  <option value="referral">Реферал</option>
-                  <option value="cold">Холодный</option>
-                  <option value="event">Мероприятие</option>
-                </select>
-              </div>
-              <div><label className="field-label">{t('leads.fManager')}</label>
-                <input value={form.manager} onChange={e => setForm({ ...form, manager: e.target.value })} className="form-input"/>
-              </div>
+              {fv('source') && (
+                <div>
+                  <label className="field-label">{fl('source')}</label>
+                  <select value={form.source} onChange={e => setForm({ ...form, source: e.target.value, branch: '', agent_name: '' })} className="form-input">
+                    <option value="inbound">Входящий</option>
+                    <option value="agent">Агент / Партнёр</option>
+                    <option value="branch">Филиал</option>
+                    <option value="website">Сайт</option>
+                    <option value="referral">Реферал</option>
+                    <option value="cold">Холодный</option>
+                    <option value="event">Мероприятие</option>
+                  </select>
+                </div>
+              )}
+              {fv('manager') && (
+                <div>
+                  <label className="field-label">{fl('manager')}</label>
+                  <input value={form.manager} onChange={e => setForm({ ...form, manager: e.target.value })} className="form-input"/>
+                </div>
+              )}
             </div>
           )}
           {!isAgent && form.source === 'branch' && (
@@ -648,9 +682,11 @@ export default function LeadsPage() {
               <input value={form.agent_name} onChange={e => setForm({ ...form, agent_name: e.target.value })} className="form-input" placeholder="ООО «Buhgalter Plus»"/>
             </div>
           )}
-          <div><label className="field-label">{t('leads.fAmount')}</label>
-            <input type="number" min="0" value={form.amount} onChange={e => setForm({ ...form, amount: e.target.value })} className="form-input" placeholder="0"/>
-          </div>
+          {fv('amount') && (
+            <div><label className="field-label">{fl('amount')}</label>
+              <input type="number" min="0" value={form.amount} onChange={e => setForm({ ...form, amount: e.target.value })} className="form-input" placeholder="0"/>
+            </div>
+          )}
         </div>
       </Modal>
     </div>

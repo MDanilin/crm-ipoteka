@@ -138,6 +138,15 @@ const NAV_GROUPS: { titleKey: string; items: NavItem[] }[] = [
         ),
       },
       {
+        href: '/admin', labelKey: 'nav.admin',
+        roles: ['admin'] as UserRole[],
+        icon: (
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        ),
+      },
+      {
         href: '/settings', labelKey: 'nav.settings',
         roles: ['admin'] as UserRole[],
         icon: (

@@ -231,6 +231,16 @@ db.exec(`
     reviewed_at      TEXT,
     created_at       TEXT DEFAULT (datetime('now'))
   );
+  CREATE TABLE IF NOT EXISTS field_config (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    entity     TEXT NOT NULL,
+    field      TEXT NOT NULL,
+    label      TEXT NOT NULL DEFAULT '',
+    required   INTEGER DEFAULT 0,
+    visible    INTEGER DEFAULT 1,
+    sort_order INTEGER DEFAULT 0,
+    UNIQUE(entity, field)
+  );
 `);
 
 // Migrations for existing databases
@@ -249,6 +259,39 @@ db.exec(`UPDATE documents SET icon='note'  WHERE icon='📝'`);
 db.exec(`UPDATE documents SET icon='doc'   WHERE icon NOT IN ('doc','chart','clip','id','note','lock','attach','other') AND icon != ''`);
 try { db.exec("ALTER TABLE leads ADD COLUMN amount REAL DEFAULT 0"); } catch {}
 try { db.exec("ALTER TABLE leads ADD COLUMN lost_reason TEXT DEFAULT ''"); } catch {}
+
+// Seed default field config (INSERT OR IGNORE — safe to run on existing DBs)
+const seedFieldConfig = db.prepare(
+  'INSERT OR IGNORE INTO field_config (entity, field, label, required, visible, sort_order) VALUES (?, ?, ?, ?, ?, ?)'
+);
+const DEFAULT_FIELD_CONFIG: [string, string, string, number, number, number][] = [
+  ['lead', 'name',          'Название компании', 1, 1,  0],
+  ['lead', 'inn',           'ИНН',               1, 1,  1],
+  ['lead', 'pinfl',         'ПИНФЛ',             1, 1,  2],
+  ['lead', 'contact',       'Контакт',           0, 1,  3],
+  ['lead', 'phone',         'Телефон',           1, 1,  4],
+  ['lead', 'product',       'Продукт',           1, 1,  5],
+  ['lead', 'source',        'Источник',          0, 1,  6],
+  ['lead', 'manager',       'Менеджер',          0, 1,  7],
+  ['lead', 'amount',        'Сумма',             0, 1,  8],
+  ['client', 'name',        'Название компании', 1, 1,  0],
+  ['client', 'type',        'Тип клиента',       0, 1,  1],
+  ['client', 'industry',    'Отрасль',           0, 1,  2],
+  ['client', 'inn',         'ИНН',               0, 1,  3],
+  ['client', 'city',        'Город',             0, 1,  4],
+  ['client', 'phone',       'Телефон',           0, 1,  5],
+  ['client', 'email',       'Email',             0, 1,  6],
+  ['client', 'manager',     'Менеджер',          0, 1,  7],
+  ['client', 'segment',     'Сегмент',           0, 1,  8],
+  ['client', 'risk_level',  'Уровень риска',     0, 1,  9],
+  ['client', 'rating',      'Рейтинг',           0, 1, 10],
+  ['client', 'revenue',     'Выручка',           0, 1, 11],
+  ['client', 'credit_limit','Кредитный лимит',   0, 1, 12],
+  ['client', 'employees',   'Сотрудников',       0, 1, 13],
+];
+for (const [entity, field, label, required, visible, sort_order] of DEFAULT_FIELD_CONFIG) {
+  seedFieldConfig.run(entity, field, label, required, visible, sort_order);
+}
 
 // Backfill phone numbers for existing seed users
 const PHONE_MAP: Record<string, string> = {
