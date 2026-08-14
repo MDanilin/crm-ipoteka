@@ -101,8 +101,8 @@ function Input(props: React.InputHTMLAttributes<HTMLInputElement>) {
 function ModalActions({ onCancel, onSubmit, pending, label }: { onCancel: () => void; onSubmit: () => void; pending: boolean; label: string }) {
   return (
     <div className="flex gap-3 pt-1">
-      <button onClick={onCancel} className="flex-1 h-11 rounded-xl border border-[#e5e7eb] text-sm font-medium text-[#555] hover:bg-[#f9fafb] transition-colors">Отмена</button>
-      <button onClick={onSubmit} disabled={pending} className="flex-1 h-11 rounded-xl bg-[#111] text-white text-sm font-medium hover:bg-[#333] disabled:opacity-40 transition-colors">
+      <button onClick={onCancel} className="flex-1 h-11 rounded-full border border-[#e5e7eb] text-sm font-medium text-[#555] hover:bg-[#f9fafb] transition-colors">Отмена</button>
+      <button onClick={onSubmit} disabled={pending} className="flex-1 h-11 rounded-full bg-[#111] text-white text-sm font-medium hover:bg-[#333] disabled:opacity-40 transition-colors">
         {pending ? 'Сохранение...' : label}
       </button>
     </div>
@@ -206,7 +206,7 @@ function AddProductModal({ clientId, onClose }: { clientId: string; onClose: () 
           <div className="flex gap-2">
             {STATUS_OPTS.map(o => (
               <button key={o.v} onClick={() => set('status', o.v)}
-                className={cn('flex-1 h-10 rounded-xl border text-sm font-medium transition-colors',
+                className={cn('flex-1 h-10 rounded-full border text-sm font-medium transition-colors',
                   form.status === o.v ? 'bg-[#111] text-white border-[#111]' : 'border-[#e5e7eb] text-[#555] hover:border-[#999]')}>
                 {o.label}
               </button>
@@ -245,7 +245,7 @@ function AddCommModal({ clientId, onClose }: { clientId: string; onClose: () => 
           <div className="flex gap-2">
             {TYPE_OPTS.map(o => (
               <button key={o.v} onClick={() => set('type', o.v)}
-                className={cn('flex-1 h-11 rounded-xl border text-sm font-medium flex items-center justify-center gap-1.5 transition-colors',
+                className={cn('flex-1 h-11 rounded-full border text-sm font-medium flex items-center justify-center gap-1.5 transition-colors',
                   form.type === o.v ? 'bg-[#111] text-white border-[#111]' : 'border-[#e5e7eb] text-[#555] hover:border-[#999]')}>
                 <o.Icon />{o.label}
               </button>
@@ -318,7 +318,7 @@ function AddTaskModal({ clientId, clientName, onClose }: { clientId: string; cli
           <div className="flex gap-2">
             {PRIO_OPTS.map(o => (
               <button key={o.v} onClick={() => set('priority', o.v)}
-                className={cn('flex-1 h-10 rounded-xl border-2 text-sm font-semibold transition-colors',
+                className={cn('flex-1 h-10 rounded-full border-2 text-sm font-semibold transition-colors',
                   form.priority === o.v ? o.color + ' bg-opacity-10' : 'border-[#e5e7eb] text-[#aaa] hover:border-[#ccc]')}>
                 {o.label}
               </button>
@@ -410,7 +410,7 @@ function AddDocumentModal({ clientId, onClose }: { clientId: string; onClose: ()
           <div className="grid grid-cols-4 gap-2">
             {DOC_TYPES.map(t => (
               <button key={t.key} onClick={() => set('icon', t.key)} title={t.label}
-                className={cn('h-11 rounded-xl flex items-center justify-center transition-colors border',
+                className={cn('h-11 rounded-full flex items-center justify-center transition-colors border',
                   form.icon === t.key ? 'border-[#111] bg-[#f5f5f5] text-[#111]' : 'border-[#eee] text-[#999] hover:border-[#ccc] hover:text-[#555]')}>
                 <t.Icon />
               </button>
@@ -442,7 +442,7 @@ function DelBtn({ onClick }: { onClick: () => void }) {
 
 function AddBtn({ onClick, children }: { onClick: () => void; children: React.ReactNode }) {
   return (
-    <button onClick={onClick} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#111] text-white text-sm font-medium hover:bg-[#333] transition-colors">
+    <button onClick={onClick} className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#111] text-white text-sm font-medium hover:bg-[#333] transition-colors">
       <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
         <path d="M6.5 1v11M1 6.5h11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
       </svg>
@@ -495,7 +495,7 @@ export default function ClientDetailPage() {
       </div>
 
       {/* Hero */}
-      <div className="bg-white border border-gray-200 rounded-xl p-6 mb-5 flex items-start gap-5">
+      <div className="bg-white border border-[#f0f0f0] rounded-xl p-6 mb-5 flex items-start gap-5">
         <div className="w-14 h-14 rounded-xl flex items-center justify-center text-white text-lg font-extrabold flex-shrink-0 tracking-tight"
           style={{ background: clientBg[c.type_en as keyof typeof clientBg] ?? '#1d4ed8' }}>
           {c.short_name || c.name[0]}
@@ -532,11 +532,11 @@ export default function ClientDetailPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-0.5 border-b border-gray-200 mb-5">
+      <div className="flex gap-0.5 border-b border-[#f0f0f0] mb-5">
         {TABS.map(t => (
           <button key={t} onClick={() => setTab(t)}
             className={cn('px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px',
-              tab === t ? 'text-[#1d4ed8] border-[#1d4ed8] font-semibold' : 'text-gray-500 border-transparent hover:text-gray-900')}>
+              tab === t ? 'text-[#111] border-[#111] font-semibold' : 'text-gray-500 border-transparent hover:text-gray-900')}>
             {t}
           </button>
         ))}
@@ -552,7 +552,7 @@ export default function ClientDetailPage() {
             {c.products.length === 0 ? (
               <div className="sm:col-span-2 lg:col-span-3"><Empty text="Нет продуктов — добавьте первый" /></div>
             ) : c.products.map((p: any) => (
-              <div key={p.id} className="bg-white border border-gray-200 rounded-xl p-5 group relative">
+              <div key={p.id} className="bg-white border border-[#f0f0f0] rounded-xl p-5 group relative">
                 <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-all">
                   <button onClick={() => { if (confirm('Удалить продукт?')) delProduct.mutate(p.id); }}
                     className="text-[#ccc] hover:text-red-500 transition-colors" title="Удалить">
@@ -595,7 +595,7 @@ export default function ClientDetailPage() {
           </div>
           <div className="space-y-3">
             {c.contacts.length === 0 ? <Empty text="Нет контактов — добавьте первый" /> : c.contacts.map((ct: Contact) => (
-              <div key={ct.id} className="bg-white border border-gray-200 rounded-xl p-5 flex items-center gap-4 group">
+              <div key={ct.id} className="bg-white border border-[#f0f0f0] rounded-xl p-5 flex items-center gap-4 group">
                 <div className="w-10 h-10 rounded-full bg-[#1d4ed8] text-white text-sm font-bold flex items-center justify-center flex-shrink-0">
                   {ct.name.split(' ').map((w: string) => w[0]).join('').slice(0, 2)}
                 </div>
@@ -623,7 +623,7 @@ export default function ClientDetailPage() {
           <div className="flex justify-end mb-4">
             <AddBtn onClick={() => setModal('task')}>Добавить задачу</AddBtn>
           </div>
-        <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+        <div className="bg-white border border-[#f0f0f0] rounded-xl overflow-hidden">
           {c.tasks.length === 0 ? <Empty text="Нет задач — добавьте первую" /> : c.tasks.map((t: any) => (
             <div key={t.id} className={cn('flex items-center gap-3 px-5 py-3 border-b border-gray-100 last:border-0', t.done && 'opacity-50')}>
               <div className={cn('w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center', t.done ? 'bg-green-500 border-green-500' : 'border-gray-300')}>
@@ -643,7 +643,7 @@ export default function ClientDetailPage() {
           <div className="flex justify-end mb-4">
             <AddBtn onClick={() => setModal('comm')}>Добавить коммуникацию</AddBtn>
           </div>
-          <div className="bg-white border border-gray-200 rounded-xl divide-y divide-gray-100">
+          <div className="bg-white border border-[#f0f0f0] rounded-xl divide-y divide-gray-100">
             {c.comms.length === 0 ? <Empty text="Нет коммуникаций — добавьте первую" /> : c.comms.map((cm: Communication) => (
               <div key={cm.id} className="flex gap-3 px-5 py-4 group">
                 <div className={cn('w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5',
@@ -675,11 +675,11 @@ export default function ClientDetailPage() {
           <div className="flex justify-end mb-4">
             <AddBtn onClick={() => setModal('doc')}>Добавить документ</AddBtn>
           </div>
-          <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+          <div className="bg-white border border-[#f0f0f0] rounded-xl overflow-hidden">
             {c.docs.length === 0 ? <Empty text="Нет документов — добавьте первый" /> : (
               <table className="w-full">
                 <thead>
-                  <tr className="bg-gray-50 border-b border-gray-200">
+                  <tr className="bg-gray-50 border-b border-[#f0f0f0]">
                     {['Документ', 'Дата', 'Размер', ''].map(h => (
                       <th key={h} className="text-left px-5 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-gray-400">{h}</th>
                     ))}

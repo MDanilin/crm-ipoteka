@@ -379,7 +379,7 @@ export default function LeadDetailPage() {
           <Button
             onClick={() => { changeStatus.mutate({ status: 'lost', lost_reason: lostReason }); setLostOpen(false); setLostReason(''); }}
             disabled={changeStatus.isPending}
-            className="bg-[#e1261c] hover:bg-[#c01f16]"
+            className="bg-[#e1261c] hover:bg-[#c41f16]"
           >
             Закрыть как проигранный
           </Button>

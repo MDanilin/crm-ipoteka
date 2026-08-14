@@ -27,7 +27,7 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 }
 
 function Input(props: React.InputHTMLAttributes<HTMLInputElement>) {
-  return <input {...props} className="w-full h-10 rounded-xl bg-[#f5f5f5] px-4 text-sm outline-none placeholder:text-[#bbb] focus:bg-[#efefef] transition-colors" />;
+  return <input {...props} className="w-full h-11 rounded-xl bg-[#f5f5f5] px-4 text-sm outline-none placeholder:text-[#bbb] focus:bg-[#efefef] transition-colors" />;
 }
 
 function Modal({ title, onClose, children }: { title: string; onClose: () => void; children: React.ReactNode }) {
@@ -106,10 +106,10 @@ export default function ProductCatalogPage() {
 
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-extrabold tracking-tight">Каталог продуктов</h1>
-          <p className="text-sm text-gray-400 mt-0.5">Список банковских продуктов, доступных для добавления клиентам</p>
+          <h1 className="text-[clamp(42px,5vw,72px)] font-semibold leading-none tracking-[-0.08em]">Каталог продуктов</h1>
+          <p className="mt-4 text-base text-[#aaa]">Список банковских продуктов, доступных для добавления клиентам</p>
         </div>
-        <button onClick={() => setModal('add')} className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#111] text-white text-sm font-medium hover:bg-[#333] transition-colors">
+        <button onClick={() => setModal('add')} className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#111] text-white text-sm font-medium hover:bg-[#333] transition-colors">
           <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
             <path d="M6.5 1v11M1 6.5h11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
           </svg>
@@ -122,7 +122,7 @@ export default function ProductCatalogPage() {
           placeholder="Поиск по названию или категории..."
           value={filter}
           onChange={e => setFilter(e.target.value)}
-          className="w-full max-w-sm h-10 rounded-xl bg-[#f5f5f5] px-4 text-sm outline-none placeholder:text-[#bbb]"
+          className="w-full max-w-sm h-11 rounded-xl bg-[#f5f5f5] px-4 text-sm outline-none placeholder:text-[#bbb]"
         />
       </div>
 
@@ -211,10 +211,10 @@ function ItemModal({
         <Field label="Порядок сортировки"><Input type="number" value={form.sort_order} onChange={e => set('sort_order', e.target.value)} /></Field>
         {error && <p className="text-sm text-red-500">{error}</p>}
         <div className="flex gap-3 pt-1">
-          <button onClick={onClose} className="flex-1 h-11 rounded-xl border border-[#e5e7eb] text-sm font-medium text-[#555] hover:bg-[#f9fafb] transition-colors">Отмена</button>
+          <button onClick={onClose} className="flex-1 h-11 rounded-full border border-[#e5e7eb] text-sm font-medium text-[#555] hover:bg-[#f9fafb] transition-colors">Отмена</button>
           <button disabled={pending}
             onClick={() => { if (!form.name.trim()) { setError('Введите название'); return; } onSave({ ...form, sort_order: Number(form.sort_order) as unknown as number }); }}
-            className="flex-1 h-11 rounded-xl bg-[#111] text-white text-sm font-medium hover:bg-[#333] disabled:opacity-40 transition-colors">
+            className="flex-1 h-11 rounded-full bg-[#111] text-white text-sm font-medium hover:bg-[#333] disabled:opacity-40 transition-colors">
             {pending ? 'Сохранение...' : 'Сохранить'}
           </button>
         </div>

@@ -78,9 +78,9 @@ export default function ClientsPage() {
                 onClick={() => router.push(`/clients/${c.id}`)}
                 className="border-b border-[#f0f0f0] cursor-pointer hover:bg-[#fcf8f8] transition-colors"
               >
-                <td className="px-5 py-5">
+                <td className="px-5 py-4">
                   <div className="flex items-center gap-3">
-                    <div className="grid size-10 place-items-center rounded-full bg-[#f1dfdc] text-xs font-bold text-[#7c3f36] flex-shrink-0">
+                    <div className="grid size-10 place-items-center rounded-full bg-[#f3dcd8] text-xs font-bold text-[#7c3f36] flex-shrink-0">
                       {c.short_name || c.name.slice(0,2).toUpperCase()}
                     </div>
                     <div>
@@ -89,15 +89,15 @@ export default function ClientsPage() {
                     </div>
                   </div>
                 </td>
-                <td className="px-5 py-5">
+                <td className="px-5 py-4">
                   <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#f3f4f6] text-[#555]">{c.type}</span>
                 </td>
-                <td className="px-5 py-5 text-sm text-[#555]">{c.industry || '—'}</td>
-                <td className="px-5 py-5 text-sm">{c.manager || '—'}</td>
-                <td className="px-5 py-5">
+                <td className="px-5 py-4 text-sm text-[#555]">{c.industry || '—'}</td>
+                <td className="px-5 py-4 text-sm">{c.manager || '—'}</td>
+                <td className="px-5 py-4">
                   <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${c.segment === 'Premium' ? 'bg-[#ede9fe] text-[#6d28d9]' : 'bg-[#f3f4f6] text-[#6b7280]'}`}>{c.segment}</span>
                 </td>
-                <td className="px-5 py-5">
+                <td className="px-5 py-4">
                   <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${statusStyles[c.status] ?? 'bg-[#f3f4f6] text-[#555]'}`}>{t(`common.status.${c.status}`)}</span>
                 </td>
               </tr>

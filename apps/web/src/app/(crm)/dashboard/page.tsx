@@ -128,7 +128,7 @@ export default function DashboardPage() {
                 onClick={() => router.push(`/clients/${c.id}`)}
                 className="flex items-center gap-4 px-5 py-4 border-b border-[#f0f0f0] last:border-0 cursor-pointer hover:bg-[#fcf8f8] transition-colors"
               >
-                <div className="grid size-10 place-items-center rounded-full bg-[#f1dfdc] text-xs font-bold text-[#7c3f36] flex-shrink-0">
+                <div className="grid size-10 place-items-center rounded-full bg-[#f3dcd8] text-xs font-bold text-[#7c3f36] flex-shrink-0">
                   {(c.short_name || c.name[0])}
                 </div>
                 <div className="flex-1 min-w-0">

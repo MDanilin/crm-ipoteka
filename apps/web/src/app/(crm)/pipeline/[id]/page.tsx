@@ -72,26 +72,26 @@ export default function DealPage() {
             <>
               <button
                 onClick={() => { setForm({}); setEditing(true); }}
-                className="h-9 px-4 rounded-xl border border-[#e5e7eb] text-sm font-medium text-[#555] hover:border-[#999] transition-colors"
+                className="h-9 px-4 rounded-full border border-[#e5e7eb] text-sm font-medium text-[#555] hover:border-[#999] transition-colors"
               >
                 Изменить
               </button>
               <button
                 onClick={() => { if (confirm(`Удалить сделку «${deal.client_name}»?`)) deleteMut.mutate(); }}
-                className="h-9 px-4 rounded-xl border border-[#e5e7eb] text-sm font-medium text-red-500 hover:border-red-300 transition-colors"
+                className="h-9 px-4 rounded-full border border-[#e5e7eb] text-sm font-medium text-red-500 hover:border-red-300 transition-colors"
               >
                 Удалить
               </button>
             </>
           ) : (
             <>
-              <button onClick={() => setEditing(false)} className="h-9 px-4 rounded-xl border border-[#e5e7eb] text-sm font-medium text-[#555] hover:border-[#999] transition-colors">
+              <button onClick={() => setEditing(false)} className="h-9 px-4 rounded-full border border-[#e5e7eb] text-sm font-medium text-[#555] hover:border-[#999] transition-colors">
                 Отмена
               </button>
               <button
                 onClick={() => updateMut.mutate(editForm)}
                 disabled={updateMut.isPending}
-                className="h-9 px-4 rounded-xl bg-[#111] text-white text-sm font-medium hover:bg-[#333] disabled:opacity-40 transition-colors"
+                className="h-9 px-4 rounded-full bg-[#111] text-white text-sm font-medium hover:bg-[#333] disabled:opacity-40 transition-colors"
               >
                 {updateMut.isPending ? 'Сохранение...' : 'Сохранить'}
               </button>
