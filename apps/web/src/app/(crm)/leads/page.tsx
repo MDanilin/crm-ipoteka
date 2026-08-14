@@ -102,7 +102,6 @@ export default function LeadsPage() {
   const qc         = useQueryClient();
   const [view,       setView]       = useState<'list' | 'board'>('list');
   const [dragOver,   setDragOver]   = useState<string | null>(null);
-  const [isDragging, setIsDragging] = useState(false);
   const [open,       setOpen]       = useState(false);
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [dupError,   setDupError]   = useState<string | null>(null);
@@ -291,13 +290,17 @@ export default function LeadsPage() {
                       draggable
                       onDragStart={e => {
                         dragging.current = true;
-                        setIsDragging(true);
                         e.dataTransfer.setData('text/plain', String(l.id));
                         e.dataTransfer.effectAllowed = 'move';
+                        // Disable pointer events on all cards via DOM (no re-render)
+                        document.querySelectorAll<HTMLElement>('.kanban-card').forEach(el => { el.style.pointerEvents = 'none'; });
                       }}
-                      onDragEnd={() => { setIsDragging(false); setTimeout(() => { dragging.current = false; }, 100); }}
+                      onDragEnd={() => {
+                        document.querySelectorAll<HTMLElement>('.kanban-card').forEach(el => { el.style.pointerEvents = ''; });
+                        setTimeout(() => { dragging.current = false; }, 100);
+                      }}
                       onClick={() => { if (!dragging.current) router.push(`/leads/${l.id}`); }}
-                      className={`bg-white rounded-xl p-3 border border-[#f0f0f0] hover:border-[#ddd] hover:shadow-sm transition-all cursor-grab active:cursor-grabbing select-none ${isDragging ? 'pointer-events-none' : ''}`}
+                      className="kanban-card bg-white rounded-xl p-3 border border-[#f0f0f0] hover:border-[#ddd] hover:shadow-sm transition-all cursor-grab active:cursor-grabbing select-none"
                     >
                       <div className="text-sm font-semibold leading-tight mb-0.5">{l.name}</div>
                       {l.inn && <div className="text-[10px] text-[#aaa]">ИНН {l.inn}</div>}
