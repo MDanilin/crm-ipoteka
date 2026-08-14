@@ -70,7 +70,20 @@ function StageLine({ raw }: { raw: string }) {
   );
 }
 
-const EMPTY_FORM = { name: '', contact: '', phone: '', inn: '', product: '', amount: '', source: 'inbound', branch: '', agent_name: '', status: 'new', manager: '' };
+interface CatalogItem { id: number; name: string; category: string; is_active: number; }
+
+function formatUzPhone(raw: string): string {
+  const digits = raw.replace(/\D/g, '');
+  const d = digits.startsWith('998') ? digits : '998' + digits.replace(/^0+/, '');
+  let out = '+998';
+  if (d.length > 3) out += ' ' + d.slice(3, 5);
+  if (d.length > 5) out += ' ' + d.slice(5, 8);
+  if (d.length > 8) out += '-' + d.slice(8, 10);
+  if (d.length > 10) out += '-' + d.slice(10, 12);
+  return out;
+}
+
+const EMPTY_FORM = { name: '', contact: '', phone: '+998 ', inn: '', pinfl: '', product: '', amount: '', source: 'inbound', branch: '', agent_name: '', status: 'new', manager: '' };
 
 export default function LeadsPage() {
   const user     = useAuthStore(s => s.user);
@@ -80,6 +93,7 @@ export default function LeadsPage() {
   const [open,       setOpen]       = useState(false);
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [dupError,   setDupError]   = useState<string | null>(null);
+  const [errors,     setErrors]     = useState<Record<string, string>>({});
   const [form, setForm] = useState({
     ...EMPTY_FORM,
     manager:    user?.name ?? '',
@@ -87,9 +101,30 @@ export default function LeadsPage() {
     agent_name: isAgent ? (user?.name ?? '') : '',
   });
 
+  function validateForm() {
+    const e: Record<string, string> = {};
+    const innDigits = form.inn.replace(/\D/g, '');
+    if (!innDigits) e.inn = 'ИНН обязателен';
+    else if (innDigits.length !== 9) e.inn = 'ИНН — 9 цифр';
+    const pinflDigits = form.pinfl.replace(/\D/g, '');
+    if (!pinflDigits) e.pinfl = 'ПИНФЛ обязателен';
+    else if (pinflDigits.length !== 14) e.pinfl = 'ПИНФЛ — 14 цифр';
+    const phoneDigits = form.phone.replace(/\D/g, '');
+    if (!phoneDigits || phoneDigits === '998') e.phone = 'Телефон обязателен';
+    else if (!phoneDigits.startsWith('998') || phoneDigits.length !== 12) e.phone = 'Формат: +998 XX XXX-XX-XX';
+    if (!form.product) e.product = 'Выберите продукт';
+    setErrors(e);
+    return Object.keys(e).length === 0;
+  }
+
   const { data: allLeads = [], isLoading } = useQuery<Lead[]>({
     queryKey: ['leads'],
     queryFn:  () => api.get('/leads'),
+  });
+
+  const { data: catalog = [] } = useQuery<CatalogItem[]>({
+    queryKey: ['product-catalog'],
+    queryFn:  () => api.get('/product-catalog'),
   });
   // Agents only see their own leads
   const leads = isAgent
@@ -102,6 +137,7 @@ export default function LeadsPage() {
       qc.invalidateQueries({ queryKey: ['leads'] });
       setOpen(false);
       setDupError(null);
+      setErrors({});
       setForm({
         ...EMPTY_FORM,
         manager:    user?.name ?? '',
@@ -175,6 +211,7 @@ export default function LeadsPage() {
                   <td className="px-5 py-4">
                     <Link href={`/leads/${l.id}`} className="text-sm font-semibold hover:underline underline-offset-2">{l.name}</Link>
                     {l.inn && <div className="text-[11px] text-[#aaa] mt-0.5">ИНН {l.inn}</div>}
+                    {l.pinfl && <div className="text-[11px] text-[#aaa] mt-0.5">ПИНФЛ {l.pinfl}</div>}
                   </td>
                   <td className="px-5 py-4">
                     <div className="text-sm">{l.contact || '—'}</div>
@@ -236,32 +273,84 @@ export default function LeadsPage() {
       </div>
 
       {/* Create modal */}
-      <Modal open={open} title={t('leads.formTitle')} onClose={() => { setOpen(false); setDupError(null); }}
+      <Modal open={open} title={t('leads.formTitle')} onClose={() => { setOpen(false); setDupError(null); setErrors({}); }}
         footer={<>
-          <Button variant="ghost" onClick={() => { setOpen(false); setDupError(null); }}>{t('common.cancel')}</Button>
-          <Button onClick={() => create.mutate(form)} disabled={!form.name || create.isPending}>{t('leads.createBtn')}</Button>
+          <Button variant="ghost" onClick={() => { setOpen(false); setDupError(null); setErrors({}); }}>{t('common.cancel')}</Button>
+          <Button onClick={() => { if (validateForm()) create.mutate(form); }} disabled={!form.name || create.isPending}>{t('leads.createBtn')}</Button>
         </>}>
         <div className="space-y-4">
           {dupError && (
             <div className="rounded-xl bg-[#fee2e2] px-4 py-3 text-sm text-[#991b1b]">{dupError}</div>
           )}
-          <div><label className="field-label">{t('leads.fCompany')}</label>
+
+          {/* Company */}
+          <div>
+            <label className="field-label">{t('leads.fCompany')}</label>
             <input value={form.name} onChange={e => { setForm({ ...form, name: e.target.value }); setDupError(null); }} className="form-input" placeholder="ООО «Samarkand Textile»"/>
           </div>
-          <div><label className="field-label">{t('leads.fInn')}</label>
-            <input value={form.inn} onChange={e => { setForm({ ...form, inn: e.target.value }); setDupError(null); }} className="form-input" placeholder="309876543"/>
-          </div>
+
+          {/* INN + PINFL */}
           <div className="grid grid-cols-2 gap-3">
-            <div><label className="field-label">{t('leads.fContact')}</label>
+            <div>
+              <label className="field-label">ИНН *</label>
+              <input
+                value={form.inn}
+                onChange={e => { setForm({ ...form, inn: e.target.value.replace(/\D/g, '').slice(0, 9) }); setDupError(null); setErrors(v => ({ ...v, inn: '' })); }}
+                className={`form-input ${errors.inn ? 'border-[#f87171]' : ''}`}
+                placeholder="309876543"
+                inputMode="numeric"
+              />
+              {errors.inn && <p className="mt-1 text-[11px] text-[#ef4444]">{errors.inn}</p>}
+            </div>
+            <div>
+              <label className="field-label">ПИНФЛ *</label>
+              <input
+                value={form.pinfl}
+                onChange={e => { setForm({ ...form, pinfl: e.target.value.replace(/\D/g, '').slice(0, 14) }); setErrors(v => ({ ...v, pinfl: '' })); }}
+                className={`form-input ${errors.pinfl ? 'border-[#f87171]' : ''}`}
+                placeholder="12345678901234"
+                inputMode="numeric"
+              />
+              {errors.pinfl && <p className="mt-1 text-[11px] text-[#ef4444]">{errors.pinfl}</p>}
+            </div>
+          </div>
+
+          {/* Contact + Phone */}
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="field-label">{t('leads.fContact')}</label>
               <input value={form.contact} onChange={e => setForm({ ...form, contact: e.target.value })} className="form-input" placeholder="Имя Фамилия"/>
             </div>
-            <div><label className="field-label">{t('leads.fPhone')}</label>
-              <input value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} className="form-input" placeholder="+998 90 000-00-00"/>
+            <div>
+              <label className="field-label">{t('leads.fPhone')} *</label>
+              <input
+                value={form.phone}
+                onChange={e => { setForm({ ...form, phone: formatUzPhone(e.target.value) }); setErrors(v => ({ ...v, phone: '' })); }}
+                onFocus={e => { if (!e.target.value) setForm({ ...form, phone: '+998 ' }); }}
+                className={`form-input ${errors.phone ? 'border-[#f87171]' : ''}`}
+                placeholder="+998 90 000-00-00"
+                inputMode="tel"
+              />
+              {errors.phone && <p className="mt-1 text-[11px] text-[#ef4444]">{errors.phone}</p>}
             </div>
           </div>
-          <div><label className="field-label">{t('leads.fProduct')}</label>
-            <input value={form.product} onChange={e => setForm({ ...form, product: e.target.value })} className="form-input" placeholder="Кредитная линия, расчётный счёт..."/>
+
+          {/* Product from catalog */}
+          <div>
+            <label className="field-label">{t('leads.fProduct')} *</label>
+            <select
+              value={form.product}
+              onChange={e => { setForm({ ...form, product: e.target.value }); setErrors(v => ({ ...v, product: '' })); }}
+              className={`form-input ${errors.product ? 'border-[#f87171]' : ''}`}
+            >
+              <option value="">— выберите продукт —</option>
+              {catalog.filter(c => c.is_active !== 0).map(c => (
+                <option key={c.id} value={c.name}>{c.name}{c.category ? ` · ${c.category}` : ''}</option>
+              ))}
+            </select>
+            {errors.product && <p className="mt-1 text-[11px] text-[#ef4444]">{errors.product}</p>}
           </div>
+
           {isAgent ? (
             <div className="flex items-center gap-2 rounded-xl bg-[#fef3c7] px-4 py-3 text-sm text-[#92400e]">
               <span className="font-semibold">{t('leads.fSource')}:</span> {t('common.roles.agent')} · {user?.name}
