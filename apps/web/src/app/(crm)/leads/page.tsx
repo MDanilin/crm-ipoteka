@@ -1,6 +1,6 @@
 'use client';
 
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import '@/lib/i18n';
@@ -10,6 +10,12 @@ import { useAuthStore } from '@/store/auth';
 import type { Lead } from '@crm/types';
 import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
+
+function useDebounced(value: string, ms: number) {
+  const [dv, setDv] = useState(value);
+  useEffect(() => { const t = setTimeout(() => setDv(value), ms); return () => clearTimeout(t); }, [value, ms]);
+  return dv;
+}
 
 const STATUS_CFG: Record<string, { label: string; color: string }> = {
   new:            { label: 'Новый',             color: 'bg-[#dbeafe] text-[#1d4ed8]' },
@@ -91,6 +97,7 @@ export default function LeadsPage() {
   const isSupervisor = user?.role === 'supervisor' || user?.role === 'admin';
   const { t }      = useTranslation();
   const qc         = useQueryClient();
+  const [view,       setView]       = useState<'list' | 'board'>('list');
   const [open,       setOpen]       = useState(false);
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [dupError,   setDupError]   = useState<string | null>(null);
@@ -132,6 +139,14 @@ export default function LeadsPage() {
     queryKey: ['product-catalog'],
     queryFn:  () => api.get('/product-catalog'),
   });
+  const dInn   = useDebounced(form.inn,   600);
+  const dPhone = useDebounced(form.phone, 600);
+  const { data: dupCheck } = useQuery<{ inn_duplicate: { id: number; name: string; manager: string } | null; phone_duplicate: { id: number; name: string; manager: string } | null }>({
+    queryKey: ['lead-check-form', dInn, dPhone],
+    queryFn:  () => api.get(`/leads/check?inn=${encodeURIComponent(dInn)}&phone=${encodeURIComponent(dPhone)}`),
+    enabled:  open && (dInn.length >= 9 || dPhone.replace(/\D/g, '').length >= 9),
+  });
+
   const { data: arbitrations = [] } = useQuery<any[]>({
     queryKey: ['lead-arbitrations'],
     queryFn:  () => api.get('/leads/arbitration'),
@@ -208,7 +223,17 @@ export default function LeadsPage() {
           <h1 className="text-[clamp(42px,5vw,72px)] font-semibold leading-none tracking-[-0.08em]">{t('leads.title')}</h1>
           <p className="mt-4 text-base text-[#aaa]">{t('leads.total', { count: leads.length, newCount: counts.new })}</p>
         </div>
-        <Button onClick={() => { setOpen(true); setDupError(null); }}>{t('leads.newBtn')}</Button>
+        <div className="flex items-center gap-2">
+          <div className="flex rounded-xl border border-[#e5e5e5] overflow-hidden">
+            <button onClick={() => setView('list')} className={`px-3 py-2 text-xs font-semibold transition-colors ${view === 'list' ? 'bg-[#111] text-white' : 'text-[#888] hover:bg-[#f6f6f6]'}`}>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 2h12M1 7h12M1 12h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+            </button>
+            <button onClick={() => setView('board')} className={`px-3 py-2 text-xs font-semibold transition-colors ${view === 'board' ? 'bg-[#111] text-white' : 'text-[#888] hover:bg-[#f6f6f6]'}`}>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="4" height="12" rx="1" stroke="currentColor" strokeWidth="1.5"/><rect x="7" y="1" width="4" height="8" rx="1" stroke="currentColor" strokeWidth="1.5"/></svg>
+            </button>
+          </div>
+          <Button onClick={() => { setOpen(true); setDupError(null); }}>{t('leads.newBtn')}</Button>
+        </div>
       </div>
 
       {/* Scenario stage counters */}
@@ -226,8 +251,44 @@ export default function LeadsPage() {
         ))}
       </div>
 
+      {/* Kanban Board */}
+      {view === 'board' && (
+        <div className="flex gap-4 overflow-x-auto pb-4">
+          {([
+            ['new',            t('leads.stageNew'),            'bg-[#dbeafe] text-[#1d4ed8]'],
+            ['in_progress',    t('leads.stageInProgress'),     'bg-[#fef9c3] text-[#854d0e]'],
+            ['meeting',        t('leads.stageMeeting'),        'bg-[#fde7d0] text-[#9a3412]'],
+            ['account_opened', t('leads.stageAccountOpened'),  'bg-[#dcfce7] text-[#166534]'],
+          ] as [string, string, string][]).map(([status, label, color]) => {
+            const col = leads.filter(l => l.status === status);
+            return (
+              <div key={status} className="flex-shrink-0 w-64 bg-[#f6f6f6] rounded-2xl p-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold ${color}`}>{label}</span>
+                  <span className="text-xs text-[#aaa] ml-auto">{col.length}</span>
+                </div>
+                <div className="flex flex-col gap-2">
+                  {col.map(l => (
+                    <Link key={l.id} href={`/leads/${l.id}`} className="block bg-white rounded-xl p-3 border border-[#f0f0f0] hover:border-[#ddd] hover:shadow-sm transition-all">
+                      <div className="text-sm font-semibold leading-tight mb-0.5">{l.name}</div>
+                      {l.inn && <div className="text-[10px] text-[#aaa]">ИНН {l.inn}</div>}
+                      <div className="text-xs text-[#888] mt-1">{l.product || '—'}</div>
+                      <div className="flex items-center justify-between mt-2">
+                        <div className="text-xs text-[#aaa]">{l.phone}</div>
+                        <div className="text-xs text-[#bbb]">{l.manager || '—'}</div>
+                      </div>
+                    </Link>
+                  ))}
+                  {col.length === 0 && <div className="py-6 text-center text-xs text-[#ccc]">Нет лидов</div>}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
       {/* Table */}
-      <div className="overflow-x-auto">
+      <div className={`overflow-x-auto ${view === 'board' ? 'hidden' : ''}`}>
         <table className="w-full min-w-[800px] border-separate border-spacing-0 text-left">
           <thead>
             <tr className="bg-[#f6f6f6] text-xs font-bold uppercase tracking-[0.08em] text-[#999]">
@@ -386,6 +447,13 @@ export default function LeadsPage() {
           <Button onClick={() => { if (validateForm()) create.mutate(form); }} disabled={!form.name || create.isPending || arbOpen}>{t('leads.createBtn')}</Button>
         </>}>
         <div className="space-y-4">
+          {(dupCheck?.inn_duplicate || dupCheck?.phone_duplicate) && !dupError && (
+            <div className="rounded-xl bg-[#fff7ed] border border-[#fed7aa] px-4 py-3 text-sm text-[#9a3412]">
+              <div className="font-semibold mb-1">⚠️ Лид уже ведётся другим менеджером</div>
+              {dupCheck?.inn_duplicate && <div className="text-xs">ИНН: «{dupCheck.inn_duplicate.name}» — {dupCheck.inn_duplicate.manager || 'не назначен'}</div>}
+              {dupCheck?.phone_duplicate && <div className="text-xs">Тел.: «{dupCheck.phone_duplicate.name}» — {dupCheck.phone_duplicate.manager || 'не назначен'}</div>}
+            </div>
+          )}
           {dupError && (
             <div className="rounded-xl bg-[#fee2e2] px-4 py-3 text-sm text-[#991b1b]">
               <div>{dupError}</div>

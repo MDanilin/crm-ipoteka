@@ -7,6 +7,7 @@ import { createWriteStream, mkdirSync } from 'node:fs';
 import { pipeline } from 'node:stream/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { db } from './db.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const UPLOADS_DIR = path.join(__dirname, '..', 'uploads');
@@ -48,6 +49,22 @@ await app.register(productCatalogRoutes, { prefix: '/api/product-catalog' });
 await app.register(settingsRoutes,       { prefix: '/api/settings' });
 
 app.get('/api/health', async () => ({ ok: true, ts: new Date().toISOString() }));
+
+// Auto-close stale leads every hour
+function autoCloseStaleLeads() {
+  const result = db.prepare(`
+    UPDATE leads
+    SET status = 'lost',
+        lost_reason = 'Автоматически закрыт: неактивен более 14 дней',
+        stage_times = json_set(COALESCE(stage_times, '{}'), '$.lost', datetime('now'))
+    WHERE status NOT IN ('converted', 'account_opened', 'lost')
+      AND created_at < datetime('now', '-14 days')
+  `).run();
+  if ((result as { changes: number }).changes > 0)
+    console.log(`[cron] Auto-closed ${(result as { changes: number }).changes} stale lead(s)`);
+}
+autoCloseStaleLeads();
+setInterval(autoCloseStaleLeads, 60 * 60 * 1000);
 
 const PORT = Number(process.env.PORT) || 3001;
 await app.listen({ port: PORT, host: '0.0.0.0' });

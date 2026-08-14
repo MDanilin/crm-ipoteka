@@ -240,6 +240,25 @@ export default function CampaignDetailPage() {
           <p className="mt-2 text-sm text-[#aaa]">{campaign.source} · создана {campaign.created_at?.slice(0, 10)}</p>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
+          {canManage && allContacts.length > 0 && (
+            <Button variant="ghost" size="sm" onClick={() => {
+              const rows = allContacts.map(c => ({
+                'Компания': c.company,
+                'ИНН': c.inn,
+                'Контакт': c.contact_name,
+                'Телефон': c.phone,
+                'Оператор': c.assigned_to || '—',
+                'Статус': STATUS_MAP[c.call_status]?.label ?? c.call_status,
+                'Комментарий': c.result_note || '',
+                'Дата звонка': c.called_at ? new Date(c.called_at).toLocaleString('ru-RU') : '',
+                'Дубликат': c.is_duplicate ? 'Да' : 'Нет',
+              }));
+              const ws = XLSX.utils.json_to_sheet(rows);
+              const wb = XLSX.utils.book_new();
+              XLSX.utils.book_append_sheet(wb, ws, 'Контакты');
+              XLSX.writeFile(wb, `${campaign.name}.xlsx`);
+            }}>↓ Выгрузить Excel</Button>
+          )}
           {canManage && campaign.status !== 'completed' && (
             <Button variant="ghost" size="sm" onClick={() => patchCampaign.mutate('completed')}>Завершить</Button>
           )}

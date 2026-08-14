@@ -30,11 +30,11 @@ export async function leadRoutes(app: FastifyInstance) {
     return db.prepare('SELECT * FROM leads ORDER BY created_at DESC').all();
   });
 
-  // Duplicate check — used by DSA PWA before submission
+  // Duplicate check — used by DSA PWA and leads form
   app.get('/check', { preHandler: requireAuth }, async (req) => {
     const { inn, phone } = req.query as { inn?: string; phone?: string };
-    const byInn   = inn?.trim()   ? db.prepare("SELECT id, name FROM leads WHERE inn = ? AND inn != ''").get(inn.trim())   as { id: number; name: string } | null : null;
-    const byPhone = phone?.trim() ? db.prepare("SELECT id, name FROM leads WHERE phone = ? AND phone != ''").get(phone.trim()) as { id: number; name: string } | null : null;
+    const byInn   = inn?.trim()   ? db.prepare("SELECT id, name, manager FROM leads WHERE inn = ? AND inn != ''").get(inn.trim())   as { id: number; name: string; manager: string } | null : null;
+    const byPhone = phone?.trim() ? db.prepare("SELECT id, name, manager FROM leads WHERE phone = ? AND phone != ''").get(phone.trim()) as { id: number; name: string; manager: string } | null : null;
     return { inn_duplicate: byInn ?? null, phone_duplicate: byPhone ?? null };
   });
 
