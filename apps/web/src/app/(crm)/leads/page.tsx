@@ -1,10 +1,11 @@
 'use client';
 
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment, useState, useEffect, useRef } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import '@/lib/i18n';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { api } from '@/lib/api';
 import { useAuthStore } from '@/store/auth';
 import type { Lead } from '@crm/types';
@@ -92,9 +93,11 @@ function formatUzPhone(raw: string): string {
 const EMPTY_FORM = { name: '', contact: '', phone: '+998 ', inn: '', pinfl: '', product: '', amount: '', source: 'inbound', branch: '', agent_name: '', status: 'new', manager: '' };
 
 export default function LeadsPage() {
+  const router     = useRouter();
   const user       = useAuthStore(s => s.user);
   const isAgent    = user?.role === 'agent';
   const isSupervisor = user?.role === 'supervisor' || user?.role === 'admin';
+  const dragging   = useRef(false);
   const { t }      = useTranslation();
   const qc         = useQueryClient();
   const [view,       setView]       = useState<'list' | 'board'>('list');
@@ -271,7 +274,7 @@ export default function LeadsPage() {
                 onDragLeave={e => { if (!e.currentTarget.contains(e.relatedTarget as Node)) setDragOver(null); }}
                 onDrop={e => {
                   e.preventDefault();
-                  const id = Number(e.dataTransfer.getData('lead-id'));
+                  const id = Number(e.dataTransfer.getData('text/plain'));
                   if (id) changeStatus.mutate({ id, status });
                   setDragOver(null);
                 }}
@@ -286,20 +289,21 @@ export default function LeadsPage() {
                       key={l.id}
                       draggable
                       onDragStart={e => {
-                        e.dataTransfer.setData('lead-id', String(l.id));
+                        dragging.current = true;
+                        e.dataTransfer.setData('text/plain', String(l.id));
                         e.dataTransfer.effectAllowed = 'move';
                       }}
-                      className="group bg-white rounded-xl p-3 border border-[#f0f0f0] hover:border-[#ddd] hover:shadow-sm transition-all cursor-grab active:cursor-grabbing active:opacity-60 active:scale-95"
+                      onDragEnd={() => { setTimeout(() => { dragging.current = false; }, 100); }}
+                      onClick={() => { if (!dragging.current) router.push(`/leads/${l.id}`); }}
+                      className="bg-white rounded-xl p-3 border border-[#f0f0f0] hover:border-[#ddd] hover:shadow-sm transition-all cursor-grab active:cursor-grabbing select-none"
                     >
-                      <Link href={`/leads/${l.id}`} className="block" draggable={false} onClick={e => e.stopPropagation()}>
-                        <div className="text-sm font-semibold leading-tight mb-0.5">{l.name}</div>
-                        {l.inn && <div className="text-[10px] text-[#aaa]">ИНН {l.inn}</div>}
-                        <div className="text-xs text-[#888] mt-1">{l.product || '—'}</div>
-                        <div className="flex items-center justify-between mt-2">
-                          <div className="text-xs text-[#aaa]">{l.phone}</div>
-                          <div className="text-xs text-[#bbb]">{l.manager || '—'}</div>
-                        </div>
-                      </Link>
+                      <div className="text-sm font-semibold leading-tight mb-0.5">{l.name}</div>
+                      {l.inn && <div className="text-[10px] text-[#aaa]">ИНН {l.inn}</div>}
+                      <div className="text-xs text-[#888] mt-1">{l.product || '—'}</div>
+                      <div className="flex items-center justify-between mt-2">
+                        <div className="text-xs text-[#aaa]">{l.phone}</div>
+                        <div className="text-xs text-[#bbb]">{l.manager || '—'}</div>
+                      </div>
                     </div>
                   ))}
                   {col.length === 0 && (
