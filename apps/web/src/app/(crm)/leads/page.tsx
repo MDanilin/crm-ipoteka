@@ -98,6 +98,7 @@ export default function LeadsPage() {
   const { t }      = useTranslation();
   const qc         = useQueryClient();
   const [view,       setView]       = useState<'list' | 'board'>('list');
+  const [dragOver,   setDragOver]   = useState<string | null>(null);
   const [open,       setOpen]       = useState(false);
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [dupError,   setDupError]   = useState<string | null>(null);
@@ -261,25 +262,51 @@ export default function LeadsPage() {
             ['account_opened', t('leads.stageAccountOpened'),  'bg-[#dcfce7] text-[#166534]'],
           ] as [string, string, string][]).map(([status, label, color]) => {
             const col = leads.filter(l => l.status === status);
+            const isOver = dragOver === status;
             return (
-              <div key={status} className="flex-shrink-0 w-64 bg-[#f6f6f6] rounded-2xl p-4">
+              <div
+                key={status}
+                className={`flex-shrink-0 w-64 rounded-2xl p-4 transition-colors ${isOver ? 'bg-[#efefef] ring-2 ring-[#ddd]' : 'bg-[#f6f6f6]'}`}
+                onDragOver={e => { e.preventDefault(); setDragOver(status); }}
+                onDragLeave={e => { if (!e.currentTarget.contains(e.relatedTarget as Node)) setDragOver(null); }}
+                onDrop={e => {
+                  e.preventDefault();
+                  const id = Number(e.dataTransfer.getData('lead-id'));
+                  if (id) changeStatus.mutate({ id, status });
+                  setDragOver(null);
+                }}
+              >
                 <div className="flex items-center gap-2 mb-3">
                   <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold ${color}`}>{label}</span>
                   <span className="text-xs text-[#aaa] ml-auto">{col.length}</span>
                 </div>
                 <div className="flex flex-col gap-2">
                   {col.map(l => (
-                    <Link key={l.id} href={`/leads/${l.id}`} className="block bg-white rounded-xl p-3 border border-[#f0f0f0] hover:border-[#ddd] hover:shadow-sm transition-all">
-                      <div className="text-sm font-semibold leading-tight mb-0.5">{l.name}</div>
-                      {l.inn && <div className="text-[10px] text-[#aaa]">ИНН {l.inn}</div>}
-                      <div className="text-xs text-[#888] mt-1">{l.product || '—'}</div>
-                      <div className="flex items-center justify-between mt-2">
-                        <div className="text-xs text-[#aaa]">{l.phone}</div>
-                        <div className="text-xs text-[#bbb]">{l.manager || '—'}</div>
-                      </div>
-                    </Link>
+                    <div
+                      key={l.id}
+                      draggable
+                      onDragStart={e => {
+                        e.dataTransfer.setData('lead-id', String(l.id));
+                        e.dataTransfer.effectAllowed = 'move';
+                      }}
+                      className="group bg-white rounded-xl p-3 border border-[#f0f0f0] hover:border-[#ddd] hover:shadow-sm transition-all cursor-grab active:cursor-grabbing active:opacity-60 active:scale-95"
+                    >
+                      <Link href={`/leads/${l.id}`} className="block" onClick={e => e.stopPropagation()}>
+                        <div className="text-sm font-semibold leading-tight mb-0.5">{l.name}</div>
+                        {l.inn && <div className="text-[10px] text-[#aaa]">ИНН {l.inn}</div>}
+                        <div className="text-xs text-[#888] mt-1">{l.product || '—'}</div>
+                        <div className="flex items-center justify-between mt-2">
+                          <div className="text-xs text-[#aaa]">{l.phone}</div>
+                          <div className="text-xs text-[#bbb]">{l.manager || '—'}</div>
+                        </div>
+                      </Link>
+                    </div>
                   ))}
-                  {col.length === 0 && <div className="py-6 text-center text-xs text-[#ccc]">Нет лидов</div>}
+                  {col.length === 0 && (
+                    <div className={`py-6 text-center text-xs transition-colors ${isOver ? 'text-[#aaa]' : 'text-[#ccc]'}`}>
+                      {isOver ? 'Отпустите сюда' : 'Нет лидов'}
+                    </div>
+                  )}
                 </div>
               </div>
             );
