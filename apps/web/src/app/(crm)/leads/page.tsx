@@ -101,7 +101,6 @@ export default function LeadsPage() {
   const { t }      = useTranslation();
   const qc         = useQueryClient();
   const [view,       setView]       = useState<'list' | 'board'>('list');
-  const [dragOver,   setDragOver]   = useState<string | null>(null);
   const [open,       setOpen]       = useState(false);
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [dupError,   setDupError]   = useState<string | null>(null);
@@ -265,18 +264,34 @@ export default function LeadsPage() {
             ['account_opened', t('leads.stageAccountOpened'),  'bg-[#dcfce7] text-[#166534]'],
           ] as [string, string, string][]).map(([status, label, color]) => {
             const col = leads.filter(l => l.status === status);
-            const isOver = dragOver === status;
             return (
               <div
                 key={status}
-                className={`flex-shrink-0 w-64 rounded-2xl p-4 transition-colors ${isOver ? 'bg-[#efefef] ring-2 ring-[#ddd]' : 'bg-[#f6f6f6]'}`}
-                onDragOver={e => { e.preventDefault(); setDragOver(status); }}
-                onDragLeave={e => { if (!e.currentTarget.contains(e.relatedTarget as Node)) setDragOver(null); }}
+                className="kanban-col flex-shrink-0 w-64 rounded-2xl p-4 bg-[#f6f6f6] transition-colors"
+                onDragOver={e => {
+                  e.preventDefault();
+                  e.dataTransfer.dropEffect = 'move';
+                  const el = e.currentTarget as HTMLElement;
+                  el.style.background = '#efefef';
+                  el.style.outline = '2px solid #ddd';
+                  el.style.outlineOffset = '-2px';
+                }}
+                onDragLeave={e => {
+                  if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+                    const el = e.currentTarget as HTMLElement;
+                    el.style.background = '';
+                    el.style.outline = '';
+                    el.style.outlineOffset = '';
+                  }
+                }}
                 onDrop={e => {
                   e.preventDefault();
+                  const el = e.currentTarget as HTMLElement;
+                  el.style.background = '';
+                  el.style.outline = '';
+                  el.style.outlineOffset = '';
                   const id = Number(e.dataTransfer.getData('text/plain'));
                   if (id) changeStatus.mutate({ id, status });
-                  setDragOver(null);
                 }}
               >
                 <div className="flex items-center gap-2 mb-3">
@@ -292,11 +307,13 @@ export default function LeadsPage() {
                         dragging.current = true;
                         e.dataTransfer.setData('text/plain', String(l.id));
                         e.dataTransfer.effectAllowed = 'move';
-                        // Disable pointer events on all cards via DOM (no re-render)
-                        document.querySelectorAll<HTMLElement>('.kanban-card').forEach(el => { el.style.pointerEvents = 'none'; });
                       }}
                       onDragEnd={() => {
-                        document.querySelectorAll<HTMLElement>('.kanban-card').forEach(el => { el.style.pointerEvents = ''; });
+                        document.querySelectorAll<HTMLElement>('.kanban-col').forEach(el => {
+                          el.style.background = '';
+                          el.style.outline = '';
+                          el.style.outlineOffset = '';
+                        });
                         setTimeout(() => { dragging.current = false; }, 100);
                       }}
                       onClick={() => { if (!dragging.current) router.push(`/leads/${l.id}`); }}
@@ -312,9 +329,7 @@ export default function LeadsPage() {
                     </div>
                   ))}
                   {col.length === 0 && (
-                    <div className={`py-6 text-center text-xs transition-colors ${isOver ? 'text-[#aaa]' : 'text-[#ccc]'}`}>
-                      {isOver ? 'Отпустите сюда' : 'Нет лидов'}
-                    </div>
+                    <div className="py-6 text-center text-xs text-[#ccc]">Нет лидов</div>
                   )}
                 </div>
               </div>
