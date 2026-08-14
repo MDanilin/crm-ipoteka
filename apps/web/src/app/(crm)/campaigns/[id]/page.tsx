@@ -482,13 +482,13 @@ export default function CampaignDetailPage() {
               className="h-9 rounded-full border border-[#e5e5e5] bg-[#f9f9f9] px-4 text-sm outline-none focus:border-[#aaa] w-56"
             />
             <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)}
-              className="h-9 rounded-full border border-[#e5e5e5] bg-[#f9f9f9] px-4 text-sm outline-none">
+              className="h-9 w-44 rounded-full border border-[#e5e5e5] bg-[#f9f9f9] px-4 text-sm outline-none">
               <option value="all">Все статусы</option>
               {CALL_STATUSES.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
             </select>
             {operators.length > 0 && (
               <select value={filterOp} onChange={e => setFilterOp(e.target.value)}
-                className="h-9 rounded-full border border-[#e5e5e5] bg-[#f9f9f9] px-4 text-sm outline-none">
+                className="h-9 w-44 rounded-full border border-[#e5e5e5] bg-[#f9f9f9] px-4 text-sm outline-none">
                 <option value="all">Все операторы</option>
                 {operators.map(op => <option key={op} value={op}>{op}</option>)}
               </select>
