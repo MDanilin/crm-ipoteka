@@ -291,7 +291,7 @@ export default function LeadsPage() {
                       }}
                       className="group bg-white rounded-xl p-3 border border-[#f0f0f0] hover:border-[#ddd] hover:shadow-sm transition-all cursor-grab active:cursor-grabbing active:opacity-60 active:scale-95"
                     >
-                      <Link href={`/leads/${l.id}`} className="block" onClick={e => e.stopPropagation()}>
+                      <Link href={`/leads/${l.id}`} className="block" draggable={false} onClick={e => e.stopPropagation()}>
                         <div className="text-sm font-semibold leading-tight mb-0.5">{l.name}</div>
                         {l.inn && <div className="text-[10px] text-[#aaa]">ИНН {l.inn}</div>}
                         <div className="text-xs text-[#888] mt-1">{l.product || '—'}</div>
