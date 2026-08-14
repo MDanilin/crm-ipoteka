@@ -498,7 +498,15 @@ export default function CampaignDetailPage() {
 
           {/* Contacts table */}
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[700px] border-separate border-spacing-0 text-left">
+            <table className="w-full min-w-[700px] table-fixed border-separate border-spacing-0 text-left">
+              <colgroup>
+                <col className="w-[28%]"/>
+                <col className="w-[10%]"/>
+                <col className="w-[20%]"/>
+                <col className="w-[16%]"/>
+                <col className="w-[14%]"/>
+                <col className="w-[12%]"/>
+              </colgroup>
               <thead>
                 <tr className="bg-[#f6f6f6] text-xs font-bold uppercase tracking-[0.08em] text-[#999]">
                   <th className="rounded-l-xl px-4 py-3">Компания</th>
@@ -512,16 +520,16 @@ export default function CampaignDetailPage() {
               <tbody>
                 {filtered.map(c => (
                   <tr key={c.id} className="border-b border-[#f5f5f5] hover:bg-[#fcf8f8] transition-colors">
-                    <td className="px-4 py-3">
-                      <div className="text-sm font-medium">{c.company || '—'}</div>
+                    <td className="px-4 py-3 max-w-0">
+                      <div className="text-sm font-medium truncate">{c.company || '—'}</div>
                       {!!c.is_duplicate && <div className="text-[10px] text-[#92400e] mt-0.5">⚠ Дубль в базе</div>}
                     </td>
-                    <td className="px-4 py-3 text-xs text-[#888] font-mono">{c.inn || '—'}</td>
-                    <td className="px-4 py-3">
-                      <div className="text-sm">{c.contact_name || '—'}</div>
-                      <div className="text-xs text-[#aaa]">{c.phone}</div>
+                    <td className="px-4 py-3 text-xs text-[#888] font-mono truncate">{c.inn || '—'}</td>
+                    <td className="px-4 py-3 max-w-0">
+                      <div className="text-sm truncate">{c.contact_name || '—'}</div>
+                      <div className="text-xs text-[#aaa] truncate">{c.phone}</div>
                     </td>
-                    <td className="px-4 py-3 text-sm text-[#555]">{c.assigned_to || <span className="text-[#ccc]">—</span>}</td>
+                    <td className="px-4 py-3 text-sm text-[#555] truncate">{c.assigned_to || <span className="text-[#ccc]">—</span>}</td>
                     <td className="px-4 py-3">
                       <ResultSelect contact={c} campaignId={id}/>
                     </td>

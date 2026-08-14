@@ -28,7 +28,7 @@ export default function CrmLayout({ children }: { children: React.ReactNode }) {
       <Sidebar isOpen={mobileOpen} onClose={() => setMobileOpen(false)} />
       <div className="flex flex-col flex-1 overflow-hidden bg-white">
         <Topbar onMenuToggle={() => setMobileOpen(o => !o)} />
-        <main className="flex-1 overflow-y-auto p-6 sm:p-10">
+        <main className="flex-1 overflow-y-scroll p-6 sm:p-10">
           {children}
         </main>
       </div>
