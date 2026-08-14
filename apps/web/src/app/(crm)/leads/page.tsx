@@ -86,13 +86,19 @@ function formatUzPhone(raw: string): string {
 const EMPTY_FORM = { name: '', contact: '', phone: '+998 ', inn: '', pinfl: '', product: '', amount: '', source: 'inbound', branch: '', agent_name: '', status: 'new', manager: '' };
 
 export default function LeadsPage() {
-  const user     = useAuthStore(s => s.user);
-  const isAgent  = user?.role === 'agent';
-  const { t }    = useTranslation();
-  const qc       = useQueryClient();
+  const user       = useAuthStore(s => s.user);
+  const isAgent    = user?.role === 'agent';
+  const isSupervisor = user?.role === 'supervisor' || user?.role === 'admin';
+  const { t }      = useTranslation();
+  const qc         = useQueryClient();
   const [open,       setOpen]       = useState(false);
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [dupError,   setDupError]   = useState<string | null>(null);
+  const [dupLeadId,  setDupLeadId]  = useState<number | null>(null);
+  const [arbOpen,    setArbOpen]    = useState(false);
+  const [arbComment, setArbComment] = useState('');
+  const [reviewId,   setReviewId]   = useState<number | null>(null);
+  const [reviewComment, setReviewComment] = useState('');
   const [errors,     setErrors]     = useState<Record<string, string>>({});
   const [form, setForm] = useState({
     ...EMPTY_FORM,
@@ -126,6 +132,12 @@ export default function LeadsPage() {
     queryKey: ['product-catalog'],
     queryFn:  () => api.get('/product-catalog'),
   });
+  const { data: arbitrations = [] } = useQuery<any[]>({
+    queryKey: ['lead-arbitrations'],
+    queryFn:  () => api.get('/leads/arbitration'),
+  });
+  const pendingArbs = arbitrations.filter((a: any) => a.status === 'pending');
+
   // Agents only see their own leads
   const leads = isAgent
     ? allLeads.filter(l => l.agent_name === user?.name)
@@ -146,8 +158,32 @@ export default function LeadsPage() {
       });
     },
     onError: (err: unknown) => {
-      setDupError((err as { error?: string }).error ?? 'Ошибка создания лида');
+      const e = err as { error?: string; duplicate_id?: number };
+      setDupError(e.error ?? 'Ошибка создания лида');
+      if (e.duplicate_id) setDupLeadId(e.duplicate_id);
     },
+  });
+
+  const submitArbitration = useMutation({
+    mutationFn: () => api.post('/leads/arbitration', {
+      new_lead: { ...form, amount: parseFloat(form.amount) || 0 },
+      existing_lead_id: dupLeadId,
+      comment: arbComment,
+      duplicate_inn: form.inn || undefined,
+      duplicate_phone: form.phone || undefined,
+    }),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['lead-arbitrations'] });
+      setOpen(false); setArbOpen(false); setDupError(null); setDupLeadId(null); setArbComment(''); setErrors({});
+      setForm({ ...EMPTY_FORM, manager: user?.name ?? '', source: isAgent ? 'agent' : 'inbound', agent_name: isAgent ? (user?.name ?? '') : '' });
+    },
+    onError: (err: unknown) => setDupError((err as { error?: string }).error ?? 'Ошибка отправки на арбитраж'),
+  });
+
+  const reviewArbitration = useMutation({
+    mutationFn: ({ id, action, review_comment }: { id: number; action: 'approve' | 'reject'; review_comment?: string }) =>
+      api.put(`/leads/arbitration/${id}`, { action, review_comment }),
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ['lead-arbitrations'] }); qc.invalidateQueries({ queryKey: ['leads'] }); setReviewId(null); setReviewComment(''); },
   });
 
   const changeStatus = useMutation({
@@ -272,15 +308,115 @@ export default function LeadsPage() {
         </table>
       </div>
 
+      {/* Arbitration panel — supervisor/admin sees pending requests */}
+      {isSupervisor && pendingArbs.length > 0 && (
+        <div className="mt-10">
+          <h2 className="text-xl font-semibold mb-4">Арбитраж лидов <span className="ml-2 inline-flex items-center justify-center w-6 h-6 rounded-full bg-[#fee2e2] text-[#991b1b] text-xs font-bold">{pendingArbs.length}</span></h2>
+          <div className="space-y-3">
+            {pendingArbs.map((arb: any) => {
+              const lead = (() => { try { return JSON.parse(arb.new_lead_data); } catch { return {}; } })();
+              return (
+                <div key={arb.id} className="rounded-2xl border border-[#f0f0f0] bg-white p-5">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1 min-w-0">
+                      <div className="font-semibold text-sm">{lead.name || '—'}</div>
+                      <div className="text-xs text-[#888] mt-0.5">ИНН {arb.duplicate_inn || lead.inn} · Тел {arb.duplicate_phone || lead.phone}</div>
+                      <div className="text-xs text-[#555] mt-1">Менеджер: <span className="font-medium">{arb.requester}</span> · Дубликат лида #{arb.existing_lead_id}</div>
+                      <div className="mt-2 rounded-lg bg-[#f9f9f9] px-3 py-2 text-sm text-[#444] italic">«{arb.comment}»</div>
+                    </div>
+                    <div className="flex-shrink-0 flex flex-col gap-2 items-end">
+                      {reviewId === arb.id ? (
+                        <div className="flex flex-col gap-2 w-48">
+                          <textarea
+                            value={reviewComment}
+                            onChange={e => setReviewComment(e.target.value)}
+                            className="w-full rounded-lg border border-[#e5e5e5] px-3 py-2 text-xs text-[#111] resize-none focus:outline-none focus:border-[#999]"
+                            rows={2}
+                            placeholder="Комментарий (необязательно)"
+                          />
+                          <div className="flex gap-2">
+                            <button onClick={() => reviewArbitration.mutate({ id: arb.id, action: 'approve', review_comment: reviewComment })} className="flex-1 rounded-lg bg-[#166534] text-white text-xs py-1.5 font-semibold hover:bg-[#14532d] transition-colors">Одобрить</button>
+                            <button onClick={() => reviewArbitration.mutate({ id: arb.id, action: 'reject',  review_comment: reviewComment })} className="flex-1 rounded-lg bg-[#991b1b] text-white text-xs py-1.5 font-semibold hover:bg-[#7f1d1d] transition-colors">Отклонить</button>
+                          </div>
+                          <button onClick={() => { setReviewId(null); setReviewComment(''); }} className="text-xs text-[#999] underline underline-offset-2 text-center">Отмена</button>
+                        </div>
+                      ) : (
+                        <button onClick={() => setReviewId(arb.id)} className="rounded-lg border border-[#e5e5e5] px-3 py-1.5 text-xs font-semibold hover:border-[#999] transition-colors">Рассмотреть</button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Manager: show own submitted arbitrations */}
+      {!isSupervisor && arbitrations.length > 0 && (
+        <div className="mt-10">
+          <h2 className="text-xl font-semibold mb-4">Мои заявки на арбитраж</h2>
+          <div className="space-y-3">
+            {arbitrations.map((arb: any) => {
+              const lead = (() => { try { return JSON.parse(arb.new_lead_data); } catch { return {}; } })();
+              const statusCfg = arb.status === 'pending' ? { label: 'На рассмотрении', cls: 'bg-[#fef9c3] text-[#854d0e]' }
+                : arb.status === 'approved' ? { label: 'Одобрено', cls: 'bg-[#dcfce7] text-[#166534]' }
+                : { label: 'Отклонено', cls: 'bg-[#fee2e2] text-[#991b1b]' };
+              return (
+                <div key={arb.id} className="rounded-2xl border border-[#f0f0f0] bg-white p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="font-semibold text-sm">{lead.name || '—'}</div>
+                      <div className="text-xs text-[#888] mt-0.5">Дубликат лида #{arb.existing_lead_id}</div>
+                      {arb.review_comment && <div className="mt-1 text-xs text-[#555] italic">Ответ: «{arb.review_comment}»</div>}
+                    </div>
+                    <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${statusCfg.cls}`}>{statusCfg.label}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {/* Create modal */}
-      <Modal open={open} title={t('leads.formTitle')} onClose={() => { setOpen(false); setDupError(null); setErrors({}); }}
+      <Modal open={open} title={t('leads.formTitle')} onClose={() => { setOpen(false); setDupError(null); setDupLeadId(null); setArbOpen(false); setArbComment(''); setErrors({}); }}
         footer={<>
-          <Button variant="ghost" onClick={() => { setOpen(false); setDupError(null); setErrors({}); }}>{t('common.cancel')}</Button>
-          <Button onClick={() => { if (validateForm()) create.mutate(form); }} disabled={!form.name || create.isPending}>{t('leads.createBtn')}</Button>
+          <Button variant="ghost" onClick={() => { setOpen(false); setDupError(null); setDupLeadId(null); setArbOpen(false); setArbComment(''); setErrors({}); }}>{t('common.cancel')}</Button>
+          <Button onClick={() => { if (validateForm()) create.mutate(form); }} disabled={!form.name || create.isPending || arbOpen}>{t('leads.createBtn')}</Button>
         </>}>
         <div className="space-y-4">
           {dupError && (
-            <div className="rounded-xl bg-[#fee2e2] px-4 py-3 text-sm text-[#991b1b]">{dupError}</div>
+            <div className="rounded-xl bg-[#fee2e2] px-4 py-3 text-sm text-[#991b1b]">
+              <div>{dupError}</div>
+              {dupLeadId && !arbOpen && (
+                <button onClick={() => setArbOpen(true)} className="mt-2 text-xs font-semibold underline underline-offset-2">
+                  Подать на арбитраж →
+                </button>
+              )}
+              {arbOpen && (
+                <div className="mt-3 space-y-2">
+                  <label className="block text-xs font-semibold">Комментарий для руководителя *</label>
+                  <textarea
+                    value={arbComment}
+                    onChange={e => setArbComment(e.target.value)}
+                    className="w-full rounded-lg border border-[#fca5a5] bg-white px-3 py-2 text-sm text-[#111] resize-none focus:outline-none"
+                    rows={3}
+                    placeholder="Объясните причину создания лида при наличии дубликата..."
+                  />
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => { if (validateForm()) submitArbitration.mutate(); }}
+                      disabled={!arbComment.trim() || submitArbitration.isPending}
+                      className="rounded-lg bg-[#991b1b] text-white px-3 py-1.5 text-xs font-semibold disabled:opacity-50 hover:bg-[#7f1d1d] transition-colors"
+                    >
+                      {submitArbitration.isPending ? 'Отправка...' : 'Отправить на арбитраж'}
+                    </button>
+                    <button onClick={() => setArbOpen(false)} className="text-xs underline underline-offset-2">Отмена</button>
+                  </div>
+                </div>
+              )}
+            </div>
           )}
 
           {/* Company */}

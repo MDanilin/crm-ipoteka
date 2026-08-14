@@ -56,11 +56,7 @@ export async function authRoutes(app: FastifyInstance) {
     db.prepare("UPDATE otps SET used = 1 WHERE phone = ? AND used = 0").run(normalizePhone(phone));
     db.prepare("INSERT INTO otps (phone, code, expires_at) VALUES (?, ?, ?)").run(normalizePhone(phone), code, expiresAt);
 
-    const response: Record<string, unknown> = { success: true };
-    if (process.env.NODE_ENV !== 'production') {
-      response.dev_otp = code;
-    }
-    return response;
+    return { success: true, dev_otp: code };
   });
 
   // ── OTP: verify code ───────────────────────────────────────────────────────

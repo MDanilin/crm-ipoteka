@@ -22,9 +22,13 @@ function insertLead(b: Partial<LeadRow>, stage_times: string) {
 }
 
 export async function leadRoutes(app: FastifyInstance) {
-  app.get('/', { preHandler: requireAuth }, async () =>
-    db.prepare('SELECT * FROM leads ORDER BY created_at DESC').all()
-  );
+  app.get('/', { preHandler: requireAuth }, async (req) => {
+    const u = getUser(req);
+    if (u.role === 'manager') {
+      return db.prepare("SELECT * FROM leads WHERE manager = ? ORDER BY created_at DESC").all(u.name);
+    }
+    return db.prepare('SELECT * FROM leads ORDER BY created_at DESC').all();
+  });
 
   // Duplicate check — used by DSA PWA before submission
   app.get('/check', { preHandler: requireAuth }, async (req) => {
@@ -147,5 +151,59 @@ export async function leadRoutes(app: FastifyInstance) {
     const { id } = req.params as { id: string };
     const transfers = db.prepare('SELECT * FROM lead_transfers WHERE lead_id = ? ORDER BY created_at ASC').all(id);
     return transfers;
+  });
+
+  // POST /leads/arbitration — submit duplicate lead for arbitration
+  app.post('/arbitration', { preHandler: requireAuth }, async (req, reply) => {
+    const u = getUser(req);
+    const { new_lead, existing_lead_id, comment, duplicate_inn, duplicate_phone } = req.body as {
+      new_lead: Partial<LeadRow>;
+      existing_lead_id: number;
+      comment: string;
+      duplicate_inn?: string;
+      duplicate_phone?: string;
+    };
+    if (!new_lead || !existing_lead_id) return reply.status(400).send({ error: 'Укажите данные лида и ID дублирующего' });
+
+    const info = db.prepare(
+      'INSERT INTO lead_arbitrations (requester, requester_role, duplicate_inn, duplicate_phone, existing_lead_id, new_lead_data, comment) VALUES (?,?,?,?,?,?,?)'
+    ).run(u.name, u.role, duplicate_inn ?? '', duplicate_phone ?? '', existing_lead_id, JSON.stringify(new_lead), comment ?? '');
+
+    return reply.status(201).send(db.prepare('SELECT * FROM lead_arbitrations WHERE id = ?').get((info as { lastInsertRowid: number }).lastInsertRowid));
+  });
+
+  // GET /leads/arbitration — list arbitrations (supervisor/admin/analyst see all; manager sees own)
+  app.get('/arbitration', { preHandler: requireAuth }, async (req) => {
+    const u = getUser(req);
+    if (u.role === 'manager') {
+      return db.prepare("SELECT * FROM lead_arbitrations WHERE requester = ? ORDER BY created_at DESC").all(u.name);
+    }
+    return db.prepare('SELECT * FROM lead_arbitrations ORDER BY created_at DESC').all();
+  });
+
+  // PUT /leads/arbitration/:id — approve or reject (supervisor/admin only)
+  app.put('/arbitration/:id', { preHandler: requireAuth }, async (req, reply) => {
+    const u = getUser(req);
+    if (!['supervisor', 'admin'].includes(u.role)) return reply.status(403).send({ error: 'Только руководитель может принять решение' });
+
+    const { id } = req.params as { id: string };
+    const { action, review_comment } = req.body as { action: 'approve' | 'reject'; review_comment?: string };
+    if (!['approve', 'reject'].includes(action)) return reply.status(400).send({ error: 'action: approve | reject' });
+
+    const arb = db.prepare('SELECT * FROM lead_arbitrations WHERE id = ?').get(id) as { id: number; new_lead_data: string; status: string } | undefined;
+    if (!arb) return reply.status(404).send({ error: 'Заявка не найдена' });
+    if (arb.status !== 'pending') return reply.status(409).send({ error: 'Заявка уже рассмотрена' });
+
+    db.prepare("UPDATE lead_arbitrations SET status=?, reviewer=?, review_comment=?, reviewed_at=datetime('now') WHERE id=?")
+      .run(action === 'approve' ? 'approved' : 'rejected', u.name, review_comment ?? '', id);
+
+    if (action === 'approve') {
+      const leadData = JSON.parse(arb.new_lead_data) as Partial<LeadRow>;
+      if (leadData.source === 'dsa' && !leadData.manager) leadData.manager = pickManagerRoundRobin();
+      const ins = insertLead(leadData, JSON.stringify({ new: new Date().toISOString() }));
+      const newLead = db.prepare('SELECT * FROM leads WHERE id = ?').get((ins as { lastInsertRowid: number }).lastInsertRowid);
+      return { ok: true, action, lead: newLead };
+    }
+    return { ok: true, action };
   });
 }

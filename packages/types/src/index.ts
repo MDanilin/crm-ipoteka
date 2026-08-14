@@ -125,6 +125,7 @@ export interface Lead {
   contact: string;
   phone: string;
   inn: string;
+  pinfl: string;
   source: string;
   branch: string;
   agent_name: string;
@@ -203,6 +204,24 @@ export interface LeadTransfer {
 export interface LeadDetail extends Lead {
   activities: LeadActivity[];
   transfers: LeadTransfer[];
+}
+
+export type ArbitrationStatus = 'pending' | 'approved' | 'rejected';
+
+export interface LeadArbitration {
+  id: number;
+  requester: string;
+  requester_role: string;
+  duplicate_inn: string;
+  duplicate_phone: string;
+  existing_lead_id: number;
+  new_lead_data: string;
+  comment: string;
+  status: ArbitrationStatus;
+  reviewer: string;
+  review_comment: string;
+  reviewed_at: string | null;
+  created_at: string;
 }
 
 // ── Campaigns ─────────────────────────────────────────────────────────────────

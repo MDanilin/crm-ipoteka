@@ -216,6 +216,21 @@ db.exec(`
     created_at     TEXT DEFAULT (datetime('now')),
     FOREIGN KEY (lead_id) REFERENCES leads(id) ON DELETE CASCADE
   );
+  CREATE TABLE IF NOT EXISTS lead_arbitrations (
+    id               INTEGER PRIMARY KEY AUTOINCREMENT,
+    requester        TEXT NOT NULL,
+    requester_role   TEXT NOT NULL,
+    duplicate_inn    TEXT DEFAULT '',
+    duplicate_phone  TEXT DEFAULT '',
+    existing_lead_id INTEGER NOT NULL,
+    new_lead_data    TEXT NOT NULL,
+    comment          TEXT DEFAULT '',
+    status           TEXT DEFAULT 'pending',
+    reviewer         TEXT DEFAULT '',
+    review_comment   TEXT DEFAULT '',
+    reviewed_at      TEXT,
+    created_at       TEXT DEFAULT (datetime('now'))
+  );
 `);
 
 // Migrations for existing databases
