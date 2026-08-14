@@ -87,50 +87,60 @@ export default function UsersPage() {
       </div>
 
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[800px] border-separate border-spacing-0 text-left">
+        <table className="crm-table min-w-[800px]">
+          <colgroup>
+            <col className="w-[24%]"/>
+            <col className="w-[16%]"/>
+            <col className="w-[13%]"/>
+            <col className="w-[14%]"/>
+            <col className="w-[8%]"/>
+            <col className="w-[10%]"/>
+            <col className="w-[12%]"/>
+            <col className="w-[3%]"/>
+          </colgroup>
           <thead>
-            <tr className="bg-[#f6f6f6] text-xs font-bold uppercase tracking-[0.08em] text-[#999]">
-              <th className="rounded-l-xl px-5 py-4">{t('users.colEmployee')}</th>
-              <th className="px-5 py-4">{t('users.colContact')}</th>
-              <th className="px-5 py-4">{t('users.colRole')}</th>
-              <th className="px-5 py-4">{t('users.colDept')}</th>
-              <th className="px-5 py-4">{t('users.colClients')}</th>
-              <th className="px-5 py-4">{t('users.colStatus')}</th>
-              <th className="px-5 py-4">{t('users.colLastLogin')}</th>
-              <th className="rounded-r-xl px-5 py-4"/>
+            <tr>
+              <th>{t('users.colEmployee')}</th>
+              <th>{t('users.colContact')}</th>
+              <th>{t('users.colRole')}</th>
+              <th>{t('users.colDept')}</th>
+              <th>{t('users.colClients')}</th>
+              <th>{t('users.colStatus')}</th>
+              <th>{t('users.colLastLogin')}</th>
+              <th/>
             </tr>
           </thead>
           <tbody>
             {users.map(u => (
-              <tr key={u.id} className="border-b border-[#f0f0f0] hover:bg-[#fcf8f8] transition-colors">
-                <td className="px-5 py-5">
+              <tr key={u.id}>
+                <td className="max-w-0">
                   <div className="flex items-center gap-3">
                     <div className={`grid size-10 place-items-center rounded-full text-xs font-bold flex-shrink-0 ${u.role === 'agent' ? 'bg-[#fef3c7] text-[#92400e]' : 'bg-[#f3dcd8] text-[#7c3f36]'}`}>
                       {u.initials}
                     </div>
-                    <div className="text-sm font-semibold">{u.name}</div>
+                    <div className="text-sm font-semibold truncate">{u.name}</div>
                   </div>
                 </td>
-                <td className="px-5 py-5 text-sm text-[#aaa]">
+                <td className="text-sm text-[#aaa] truncate max-w-0">
                   {u.role === 'agent'
                     ? <span className="font-mono text-[#555]">{(u as unknown as Record<string,string>).login || '—'}</span>
                     : ((u as unknown as Record<string,string>).phone || '—')
                   }
                 </td>
-                <td className="px-5 py-5">
+                <td>
                   <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${roleStyles[u.role] ?? 'bg-[#f3f4f6] text-[#555]'}`}>
                     {t(`common.roles.${u.role}`)}
                   </span>
                 </td>
-                <td className="px-5 py-5 text-sm text-[#555]">{u.dept || '—'}</td>
-                <td className="px-5 py-5 text-sm font-medium">{u.clients_count ?? 0}</td>
-                <td className="px-5 py-5">
+                <td className="text-sm text-[#555] truncate max-w-0">{u.dept || '—'}</td>
+                <td className="text-sm font-medium">{u.clients_count ?? 0}</td>
+                <td>
                   <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${statusStyles[u.status]}`}>
                     {t(`common.status.${u.status}`)}
                   </span>
                 </td>
-                <td className="px-5 py-5 text-xs text-[#aaa]">{u.last_login || '—'}</td>
-                <td className="px-5 py-5 text-right">
+                <td className="text-xs text-[#aaa]">{u.last_login || '—'}</td>
+                <td className="text-right">
                   {canAdmin && u.id !== me?.id && (
                     <button onClick={() => setConfirmDel(u.id)} className="text-xs text-[#e1261c] hover:opacity-70 transition-opacity">{t('users.deleteBtn')}</button>
                   )}

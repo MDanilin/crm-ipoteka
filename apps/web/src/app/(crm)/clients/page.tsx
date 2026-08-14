@@ -60,15 +60,23 @@ export default function ClientsPage() {
 
       {/* Table */}
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[800px] border-separate border-spacing-0 text-left">
+        <table className="crm-table min-w-[800px]">
+          <colgroup>
+            <col className="w-[30%]"/>
+            <col className="w-[14%]"/>
+            <col className="w-[18%]"/>
+            <col className="w-[16%]"/>
+            <col className="w-[12%]"/>
+            <col className="w-[10%]"/>
+          </colgroup>
           <thead>
-            <tr className="bg-[#f6f6f6] text-xs font-bold uppercase tracking-[0.08em] text-[#999]">
-              <th className="rounded-l-xl px-5 py-4">{t('clients.colClient')}</th>
-              <th className="px-5 py-4">{t('clients.colType')}</th>
-              <th className="px-5 py-4">{t('clients.colIndustry')}</th>
-              <th className="px-5 py-4">{t('clients.colManager')}</th>
-              <th className="px-5 py-4">{t('clients.colSegment')}</th>
-              <th className="rounded-r-xl px-5 py-4">{t('clients.colStatus')}</th>
+            <tr>
+              <th>{t('clients.colClient')}</th>
+              <th>{t('clients.colType')}</th>
+              <th>{t('clients.colIndustry')}</th>
+              <th>{t('clients.colManager')}</th>
+              <th>{t('clients.colSegment')}</th>
+              <th>{t('clients.colStatus')}</th>
             </tr>
           </thead>
           <tbody>
@@ -76,28 +84,28 @@ export default function ClientsPage() {
               <tr
                 key={c.id}
                 onClick={() => router.push(`/clients/${c.id}`)}
-                className="border-b border-[#f0f0f0] cursor-pointer hover:bg-[#fcf8f8] transition-colors"
+                className="cursor-pointer"
               >
-                <td className="px-5 py-4">
+                <td className="max-w-0">
                   <div className="flex items-center gap-3">
                     <div className="grid size-10 place-items-center rounded-full bg-[#f3dcd8] text-xs font-bold text-[#7c3f36] flex-shrink-0">
                       {c.short_name || c.name.slice(0,2).toUpperCase()}
                     </div>
-                    <div>
-                      <p className="font-semibold text-sm">{c.name}</p>
-                      <p className="text-xs text-[#aaa] mt-0.5">{c.city}</p>
+                    <div className="min-w-0">
+                      <p className="font-semibold text-sm truncate">{c.name}</p>
+                      <p className="text-xs text-[#aaa] mt-0.5 truncate">{c.city}</p>
                     </div>
                   </div>
                 </td>
-                <td className="px-5 py-4">
+                <td>
                   <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#f3f4f6] text-[#555]">{c.type}</span>
                 </td>
-                <td className="px-5 py-4 text-sm text-[#555]">{c.industry || '—'}</td>
-                <td className="px-5 py-4 text-sm">{c.manager || '—'}</td>
-                <td className="px-5 py-4">
+                <td className="text-sm text-[#555] truncate max-w-0">{c.industry || '—'}</td>
+                <td className="text-sm truncate max-w-0">{c.manager || '—'}</td>
+                <td>
                   <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${c.segment === 'Premium' ? 'bg-[#ede9fe] text-[#6d28d9]' : 'bg-[#f3f4f6] text-[#6b7280]'}`}>{c.segment}</span>
                 </td>
-                <td className="px-5 py-4">
+                <td>
                   <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${statusStyles[c.status] ?? 'bg-[#f3f4f6] text-[#555]'}`}>{t(`common.status.${c.status}`)}</span>
                 </td>
               </tr>

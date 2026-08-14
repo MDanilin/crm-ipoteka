@@ -289,33 +289,42 @@ export default function LeadsPage() {
 
       {/* Table */}
       <div className={`overflow-x-auto ${view === 'board' ? 'hidden' : ''}`}>
-        <table className="w-full min-w-[800px] border-separate border-spacing-0 text-left">
+        <table className="crm-table min-w-[800px]">
+          <colgroup>
+            <col className="w-[26%]"/>
+            <col className="w-[18%]"/>
+            <col className="w-[14%]"/>
+            <col className="w-[14%]"/>
+            <col className="w-[16%]"/>
+            <col className="w-[10%]"/>
+            <col className="w-[2%]"/>
+          </colgroup>
           <thead>
-            <tr className="bg-[#f6f6f6] text-xs font-bold uppercase tracking-[0.08em] text-[#999]">
-              <th className="rounded-l-xl px-5 py-4">{t('leads.colCompany')}</th>
-              <th className="px-5 py-4">{t('leads.colContact')}</th>
-              <th className="px-5 py-4">{t('leads.colProduct')}</th>
-              <th className="px-5 py-4">{t('leads.colSource')}</th>
-              <th className="px-5 py-4">{t('leads.colStage')}</th>
-              <th className="px-5 py-4">{t('leads.colManager')}</th>
-              <th className="rounded-r-xl px-3 py-4"/>
+            <tr>
+              <th>{t('leads.colCompany')}</th>
+              <th>{t('leads.colContact')}</th>
+              <th>{t('leads.colProduct')}</th>
+              <th>{t('leads.colSource')}</th>
+              <th>{t('leads.colStage')}</th>
+              <th>{t('leads.colManager')}</th>
+              <th className="!px-3"/>
             </tr>
           </thead>
           <tbody>
             {leads.map(l => (
               <Fragment key={l.id}>
-                <tr className="border-b border-[#f0f0f0] hover:bg-[#fcf8f8] transition-colors">
-                  <td className="px-5 py-4">
-                    <Link href={`/leads/${l.id}`} className="text-sm font-semibold hover:underline underline-offset-2">{l.name}</Link>
+                <tr>
+                  <td className="max-w-0">
+                    <Link href={`/leads/${l.id}`} className="text-sm font-semibold hover:underline underline-offset-2 block truncate">{l.name}</Link>
                     {l.inn && <div className="text-[11px] text-[#aaa] mt-0.5">ИНН {l.inn}</div>}
                     {l.pinfl && <div className="text-[11px] text-[#aaa] mt-0.5">ПИНФЛ {l.pinfl}</div>}
                   </td>
-                  <td className="px-5 py-4">
-                    <div className="text-sm">{l.contact || '—'}</div>
-                    <div className="text-xs text-[#aaa]">{l.phone}</div>
+                  <td className="max-w-0">
+                    <div className="text-sm truncate">{l.contact || '—'}</div>
+                    <div className="text-xs text-[#aaa] truncate">{l.phone}</div>
                   </td>
-                  <td className="px-5 py-4 text-sm text-[#555]">{l.product || '—'}</td>
-                  <td className="px-5 py-4">
+                  <td className="text-sm text-[#555] truncate max-w-0">{l.product || '—'}</td>
+                  <td>
                     <div className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${
                       l.source === 'branch' ? 'bg-[#fef3c7] text-[#92400e]' :
                       l.source === 'agent'  ? 'bg-[#ede9fe] text-[#6d28d9]' :
@@ -323,21 +332,21 @@ export default function LeadsPage() {
                     }`}>
                       {SRC_LABELS[l.source] ?? l.source}
                     </div>
-                    {l.source === 'branch' && l.branch && <div className="text-[11px] text-[#888] mt-0.5">{l.branch}</div>}
-                    {l.source === 'agent'  && l.agent_name && <div className="text-[11px] text-[#888] mt-0.5">{l.agent_name}</div>}
+                    {l.source === 'branch' && l.branch && <div className="text-[11px] text-[#888] mt-0.5 truncate">{l.branch}</div>}
+                    {l.source === 'agent'  && l.agent_name && <div className="text-[11px] text-[#888] mt-0.5 truncate">{l.agent_name}</div>}
                   </td>
-                  <td className="px-5 py-4">
+                  <td>
                     <select
                       value={l.status}
                       onChange={e => changeStatus.mutate({ id: l.id, status: e.target.value })}
-                      className={`rounded-full px-2.5 py-1 text-[11px] font-semibold border-none outline-none cursor-pointer ${STATUS_CFG[l.status]?.color ?? 'bg-[#f3f4f6] text-[#555]'}`}
+                      className={`status-select ${STATUS_CFG[l.status]?.color ?? 'bg-[#f3f4f6] text-[#555]'}`}
                     >
                       {Object.entries(STATUS_CFG).map(([k, v]) => (
                         <option key={k} value={k}>{v.label}</option>
                       ))}
                     </select>
                   </td>
-                  <td className="px-5 py-4 text-sm">{l.manager || '—'}</td>
+                  <td className="text-sm truncate max-w-0">{l.manager || '—'}</td>
                   <td className="px-3 py-4">
                     <button
                       onClick={() => setExpandedId(expandedId === l.id ? null : l.id)}
