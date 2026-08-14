@@ -101,7 +101,14 @@ export default function SlaPage() {
               disabled={demoBusy}
               className="flex h-10 items-center gap-2 rounded-full border border-[#e1261c] px-5 text-sm font-semibold text-[#e1261c] hover:bg-[#fee2e2] transition-colors disabled:opacity-50"
             >
-              {demoBusy ? 'Создание...' : '⚡ Создать нарушение (демо)'}
+              {demoBusy ? 'Создание...' : (
+                <>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                  </svg>
+                  Создать нарушение (демо)
+                </>
+              )}
             </button>
           </div>
         )}
@@ -160,7 +167,12 @@ export default function SlaPage() {
       {(tab === 'violations' || !isSupervisor) && (
         violations.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24 text-center">
-            <div className="text-5xl mb-6">✅</div>
+            <div className="mb-6 flex size-16 items-center justify-center rounded-2xl bg-[#f0fdf4]">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M8 12l3 3 5-5"/>
+              </svg>
+            </div>
             <h2 className="text-xl font-semibold tracking-[-0.04em] mb-2">Нарушений SLA нет</h2>
             <p className="text-[#aaa] text-sm">Все лиды обрабатываются в срок</p>
           </div>
@@ -169,7 +181,13 @@ export default function SlaPage() {
             {/* Escalation alert */}
             <div className="mb-6 rounded-2xl bg-[#fef2f2] border border-[#fecaca] p-5">
               <div className="flex items-start gap-4">
-                <div className="text-2xl mt-0.5">🚨</div>
+                <div className="mt-0.5 flex-shrink-0">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#991b1b" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                    <line x1="12" y1="9" x2="12" y2="13"/>
+                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                  </svg>
+                </div>
                 <div>
                   <p className="font-semibold text-[#991b1b] text-base mb-1">
                     Эскалация: {violations.length} {violations.length === 1 ? 'нарушение' : violations.length < 5 ? 'нарушения' : 'нарушений'} SLA
