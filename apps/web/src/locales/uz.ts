@@ -14,6 +14,7 @@ const uz = {
     sla:       'SLA',
     users:     'Xodimlar',
     catalog:   'Mahsulotlar katalogi',
+    settings:  'Sozlamalar',
   },
 
   common: {
@@ -240,6 +241,22 @@ const uz = {
 
   analytics: {
     title: 'Tahlil',
+  },
+
+  settings: {
+    title:       'Sozlamalar',
+    subtitle:    'Bank konfiguratsiyasi va tizim parametrlari',
+    saved:       'Sozlamalar saqlandi',
+    save:        'O\'zgarishlarni saqlash',
+    saving:      'Saqlanmoqda...',
+    sectionBank: 'Bank',
+    sectionSla:  'SLA',
+    bankName:    'Bank nomi',
+    bankShort:   'Qisqartma',
+    city:        'Shahar',
+    slaHours:    'Lid ishlash normasi',
+    slaDesc:     'Menejer yangi lidni ishlashi kerak bo\'lgan vaqt.',
+    slaUnit:     'soat',
   },
 };
 

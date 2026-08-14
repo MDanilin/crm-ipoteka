@@ -23,6 +23,7 @@ import { campaignRoutes } from './routes/campaigns.js';
 import { slaRoutes }        from './routes/sla.js';
 import { analyticsRoutes }  from './routes/analytics.js';
 import { productCatalogRoutes } from './routes/product-catalog.js';
+import { settingsRoutes }       from './routes/settings.js';
 
 const app = Fastify({ logger: { level: 'info' } });
 
@@ -44,6 +45,7 @@ await app.register(campaignRoutes,  { prefix: '/api/campaigns' });
 await app.register(slaRoutes,       { prefix: '/api/sla' });
 await app.register(analyticsRoutes,     { prefix: '/api/analytics' });
 await app.register(productCatalogRoutes, { prefix: '/api/product-catalog' });
+await app.register(settingsRoutes,       { prefix: '/api/settings' });
 
 app.get('/api/health', async () => ({ ok: true, ts: new Date().toISOString() }));
 

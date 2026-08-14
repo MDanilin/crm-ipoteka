@@ -14,6 +14,7 @@ const en = {
     sla:       'SLA',
     users:     'Staff',
     catalog:   'Product Catalog',
+    settings:  'Settings',
   },
 
   common: {
@@ -240,6 +241,22 @@ const en = {
 
   analytics: {
     title: 'Analytics',
+  },
+
+  settings: {
+    title:       'Settings',
+    subtitle:    'Bank configuration and system parameters',
+    saved:       'Settings saved',
+    save:        'Save changes',
+    saving:      'Saving...',
+    sectionBank: 'Bank',
+    sectionSla:  'SLA',
+    bankName:    'Bank name',
+    bankShort:   'Short name',
+    city:        'City',
+    slaHours:    'Lead processing deadline',
+    slaDesc:     'Time within which a manager must process a new lead.',
+    slaUnit:     'hours',
   },
 };
 

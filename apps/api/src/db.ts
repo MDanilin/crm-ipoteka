@@ -434,6 +434,25 @@ if (actCount === 0) {
   }
 }
 
+// Settings table (key-value store)
+db.exec(`
+  CREATE TABLE IF NOT EXISTS settings (
+    key        TEXT PRIMARY KEY,
+    value      TEXT NOT NULL,
+    updated_at TEXT DEFAULT (datetime('now'))
+  );
+`);
+const defaultSettings: [string, string][] = [
+  ['bank_name',  'Ипотека Банк'],
+  ['bank_short', 'ИБ'],
+  ['sla_hours',  '1'],
+  ['city',       'Ташкент'],
+];
+const upsertSetting = db.prepare(
+  "INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO NOTHING"
+);
+for (const [k, v] of defaultSettings) upsertSetting.run(k, v);
+
 // Seed product catalog (idempotent)
 const catCount = (db.prepare('SELECT COUNT(*) as c FROM product_catalog').get() as { c: number }).c;
 if (catCount === 0) {
