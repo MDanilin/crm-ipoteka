@@ -236,12 +236,12 @@ export default function PipelinePage() {
         <div className="overflow-x-auto">
           <table className="crm-table min-w-[700px]">
             <colgroup>
-              <col className="w-[24%]"/>
-              <col className="w-[20%]"/>
-              <col className="w-[12%]"/>
+              <col className="w-[22%]"/>
+              <col className="w-[18%]"/>
+              <col className="w-[11%]"/>
+              <col className="w-[18%]"/>
               <col className="w-[14%]"/>
-              <col className="w-[14%]"/>
-              <col className="w-[10%]"/>
+              <col className="w-[11%]"/>
               <col className="w-[6%]"/>
             </colgroup>
             <thead>
@@ -276,12 +276,12 @@ export default function PipelinePage() {
                         {STAGES.map(s => <option key={s.id} value={s.id}>{s.label}</option>)}
                       </select>
                     </td>
-                    <td>
-                      <div className="flex items-center gap-2">
-                        <div className="flex-1 h-1.5 bg-[#f0f0f0] rounded-full overflow-hidden">
+                    <td className="max-w-0">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <div className="flex-1 min-w-0 h-1.5 bg-[#f0f0f0] rounded-full overflow-hidden">
                           <div className="h-full rounded-full bg-[#111]" style={{ width: `${d.probability}%` }}/>
                         </div>
-                        <span className="text-xs text-[#888] w-8 text-right tabular-nums">{d.probability}%</span>
+                        <span className="text-xs text-[#888] w-8 flex-shrink-0 text-right tabular-nums">{d.probability}%</span>
                       </div>
                     </td>
                     <td className="text-sm truncate max-w-0">{d.manager || '—'}</td>

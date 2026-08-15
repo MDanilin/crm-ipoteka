@@ -31,12 +31,8 @@
   }
 
   /* ── Inline status selects inside table cells ───────── */
-  /*
-   * Always use this class on <select> elements rendered inside table rows.
-   * min-w prevents the table column from reflowing when status text length changes.
-   */
   .status-select {
-    @apply min-w-[130px] rounded-full px-2.5 py-1 text-[11px] font-semibold
+    @apply w-full rounded-full px-2.5 py-1 text-[11px] font-semibold
            border-none outline-none cursor-pointer;
   }
 

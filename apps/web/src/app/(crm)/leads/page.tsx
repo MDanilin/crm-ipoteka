@@ -366,13 +366,13 @@ export default function LeadsPage() {
       <div className={`overflow-x-auto ${view === 'board' ? 'hidden' : ''}`}>
         <table className="crm-table min-w-[800px]">
           <colgroup>
-            <col className="w-[26%]"/>
-            <col className="w-[18%]"/>
-            <col className="w-[14%]"/>
-            <col className="w-[14%]"/>
+            <col className="w-[22%]"/>
             <col className="w-[16%]"/>
-            <col className="w-[10%]"/>
-            <col className="w-[2%]"/>
+            <col className="w-[12%]"/>
+            <col className="w-[14%]"/>
+            <col className="w-[18%]"/>
+            <col className="w-[15%]"/>
+            <col className="w-[3%]"/>
           </colgroup>
           <thead>
             <tr>
@@ -399,14 +399,14 @@ export default function LeadsPage() {
                     <div className="text-xs text-[#aaa] truncate">{l.phone}</div>
                   </td>
                   <td className="text-sm text-[#555] truncate max-w-0">{l.product || '—'}</td>
-                  <td>
-                    <div className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${
+                  <td className="max-w-0 overflow-hidden">
+                    <span className={`inline-flex items-center max-w-full px-2.5 py-1 rounded-full text-[11px] font-semibold overflow-hidden ${
                       l.source === 'branch' ? 'bg-[#fef3c7] text-[#92400e]' :
                       l.source === 'agent'  ? 'bg-[#ede9fe] text-[#6d28d9]' :
                       'bg-[#f3f4f6] text-[#555]'
                     }`}>
-                      {SRC_LABELS[l.source] ?? l.source}
-                    </div>
+                      <span className="truncate">{SRC_LABELS[l.source] ?? l.source}</span>
+                    </span>
                     {l.source === 'branch' && l.branch && <div className="text-[11px] text-[#888] mt-0.5 truncate">{l.branch}</div>}
                     {l.source === 'agent'  && l.agent_name && <div className="text-[11px] text-[#888] mt-0.5 truncate">{l.agent_name}</div>}
                   </td>
