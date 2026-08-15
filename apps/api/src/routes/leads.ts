@@ -48,7 +48,16 @@ export async function leadRoutes(app: FastifyInstance) {
     // Auto-assign manager for DSA leads
     if (b.source === 'dsa' && !b.manager) b.manager = pickManagerRoundRobin();
     const info = insertLead(b, JSON.stringify({ new: new Date().toISOString() }));
-    return reply.status(201).send(db.prepare('SELECT * FROM leads WHERE id = ?').get((info as { lastInsertRowid: number }).lastInsertRowid));
+    const leadId = (info as { lastInsertRowid: number }).lastInsertRowid;
+    // Save custom field values if provided
+    const customFields = (req.body as any).custom_fields as Record<string, string> | undefined;
+    if (customFields && typeof customFields === 'object') {
+      const upsert = db.prepare('INSERT OR REPLACE INTO custom_field_values (entity, entity_id, field, value) VALUES (?, ?, ?, ?)');
+      for (const [field, value] of Object.entries(customFields)) {
+        if (value !== undefined && value !== null) upsert.run('lead', leadId, field, String(value));
+      }
+    }
+    return reply.status(201).send(db.prepare('SELECT * FROM leads WHERE id = ?').get(leadId));
   });
 
   // Public endpoint — no auth, used by agent link form

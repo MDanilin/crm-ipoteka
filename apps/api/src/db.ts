@@ -259,6 +259,28 @@ db.exec(`UPDATE documents SET icon='note'  WHERE icon='📝'`);
 db.exec(`UPDATE documents SET icon='doc'   WHERE icon NOT IN ('doc','chart','clip','id','note','lock','attach','other') AND icon != ''`);
 try { db.exec("ALTER TABLE leads ADD COLUMN amount REAL DEFAULT 0"); } catch {}
 try { db.exec("ALTER TABLE leads ADD COLUMN lost_reason TEXT DEFAULT ''"); } catch {}
+// field_config v2 — new columns for full field configuration
+try { db.exec("ALTER TABLE field_config ADD COLUMN field_type TEXT DEFAULT 'text'"); } catch {}
+try { db.exec("ALTER TABLE field_config ADD COLUMN placeholder TEXT DEFAULT ''"); } catch {}
+try { db.exec("ALTER TABLE field_config ADD COLUMN validation_regex TEXT DEFAULT ''"); } catch {}
+try { db.exec("ALTER TABLE field_config ADD COLUMN min_length INTEGER DEFAULT 0"); } catch {}
+try { db.exec("ALTER TABLE field_config ADD COLUMN max_length INTEGER DEFAULT 0"); } catch {}
+try { db.exec("ALTER TABLE field_config ADD COLUMN options TEXT DEFAULT '[]'"); } catch {}
+try { db.exec("ALTER TABLE field_config ADD COLUMN is_custom INTEGER DEFAULT 0"); } catch {}
+// Set proper types for phone/amount fields
+db.exec("UPDATE field_config SET field_type = 'phone'  WHERE field = 'phone'  AND field_type IS 'text'");
+db.exec("UPDATE field_config SET field_type = 'number' WHERE field = 'amount' AND field_type IS 'text'");
+// Custom field values storage
+db.exec(`CREATE TABLE IF NOT EXISTS custom_field_values (
+  id        INTEGER PRIMARY KEY AUTOINCREMENT,
+  entity    TEXT NOT NULL,
+  entity_id INTEGER NOT NULL,
+  field     TEXT NOT NULL,
+  value     TEXT DEFAULT '',
+  UNIQUE(entity, entity_id, field)
+)`);
+// Seed source select options for lead
+db.exec("UPDATE field_config SET field_type = 'select', options = '[\"inbound\",\"website\",\"referral\",\"cold\",\"event\",\"branch\",\"agent\"]' WHERE entity = 'lead' AND field = 'source' AND field_type IS 'text'");
 
 // Seed default field config (INSERT OR IGNORE — safe to run on existing DBs)
 const seedFieldConfig = db.prepare(

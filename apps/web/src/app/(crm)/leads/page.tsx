@@ -135,6 +135,10 @@ export default function LeadsPage() {
       else if (!phoneDigits.startsWith('998') || phoneDigits.length !== 12) e.phone = 'Формат: +998 XX XXX-XX-XX';
     }
     if (fr('product') && !form.product) e.product = 'Выберите продукт';
+    // Validate required custom fields
+    for (const cfg of fieldCfg.filter(f => f.is_custom && f.visible && f.required)) {
+      if (!customFields[cfg.field]?.trim()) e[cfg.field] = `${cfg.label} обязателен`;
+    }
     setErrors(e);
     return Object.keys(e).length === 0;
   }
@@ -149,14 +153,18 @@ export default function LeadsPage() {
     queryFn:  () => api.get('/product-catalog'),
   });
 
-  const { data: fieldCfg = [] } = useQuery<{ field: string; label: string; required: number; visible: number }[]>({
+  const [customFields, setCustomFields] = useState<Record<string, string>>({});
+
+  const { data: fieldCfg = [] } = useQuery<{ field: string; label: string; required: number; visible: number; field_type: string; placeholder: string; options: string; is_custom: number; sort_order: number }[]>({
     queryKey: ['field-config-lead'],
     queryFn:  () => api.get('/admin/field-config?entity=lead'),
   });
-  const fc = (field: string) => fieldCfg.find(f => f.field === field) ?? { label: field, required: 0, visible: 1 };
-  const fv = (field: string) => fc(field).visible !== 0;
-  const fr = (field: string) => fc(field).required !== 0;
-  const fl = (field: string) => fc(field).label;
+  const fc  = (field: string) => fieldCfg.find(f => f.field === field) ?? { label: field, required: 0, visible: 1, field_type: 'text', placeholder: '', options: '[]', is_custom: 0, sort_order: 999 };
+  const fv  = (field: string) => fc(field).visible !== 0;
+  const fr  = (field: string) => fc(field).required !== 0;
+  const fl  = (field: string) => fc(field).label;
+  const customFieldList = fieldCfg.filter(f => f.is_custom && f.visible).sort((a, b) => a.sort_order - b.sort_order);
+  function parseFieldOpts(raw: string): string[] { try { const p = JSON.parse(raw || '[]'); return Array.isArray(p) ? p : []; } catch { return []; } }
   const dInn   = useDebounced(form.inn,   600);
   const dPhone = useDebounced(form.phone, 600);
   const { data: dupCheck } = useQuery<{ inn_duplicate: { id: number; name: string; manager: string } | null; phone_duplicate: { id: number; name: string; manager: string } | null }>({
@@ -177,12 +185,13 @@ export default function LeadsPage() {
     : allLeads;
 
   const create = useMutation({
-    mutationFn: (body: typeof form) => api.post<Lead>('/leads', { ...body, amount: parseFloat(body.amount) || 0 }),
+    mutationFn: (body: typeof form) => api.post<Lead>('/leads', { ...body, amount: parseFloat(body.amount) || 0, custom_fields: customFields }),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['leads'] });
       setOpen(false);
       setDupError(null);
       setErrors({});
+      setCustomFields({});
       setForm({
         ...EMPTY_FORM,
         manager:    user?.name ?? '',
@@ -687,6 +696,35 @@ export default function LeadsPage() {
               <input type="number" min="0" value={form.amount} onChange={e => setForm({ ...form, amount: e.target.value })} className="form-input" placeholder="0"/>
             </div>
           )}
+
+          {/* Custom fields */}
+          {customFieldList.map(cfg => {
+            const opts   = parseFieldOpts(cfg.options);
+            const hasErr = !!errors[cfg.field];
+            const change = (v: string) => { setCustomFields(p => ({ ...p, [cfg.field]: v })); setErrors(e => ({ ...e, [cfg.field]: '' })); };
+            return (
+              <div key={cfg.field}>
+                <label className="field-label">{cfg.label}{cfg.required ? ' *' : ''}</label>
+                {cfg.field_type === 'select' ? (
+                  <select value={customFields[cfg.field] ?? ''} onChange={e => change(e.target.value)} className={`form-input ${hasErr ? 'border-[#f87171]' : ''}`}>
+                    <option value="">— выберите —</option>
+                    {opts.map(o => <option key={o} value={o}>{o}</option>)}
+                  </select>
+                ) : cfg.field_type === 'textarea' ? (
+                  <textarea rows={3} value={customFields[cfg.field] ?? ''} onChange={e => change(e.target.value)} placeholder={cfg.placeholder} className={`form-input resize-none ${hasErr ? 'border-[#f87171]' : ''}`}/>
+                ) : (
+                  <input
+                    type={cfg.field_type === 'number' ? 'number' : cfg.field_type === 'date' ? 'date' : cfg.field_type === 'phone' ? 'tel' : 'text'}
+                    value={customFields[cfg.field] ?? ''}
+                    onChange={e => change(e.target.value)}
+                    placeholder={cfg.placeholder}
+                    className={`form-input ${hasErr ? 'border-[#f87171]' : ''}`}
+                  />
+                )}
+                {hasErr && <p className="mt-1 text-[11px] text-[#ef4444]">{errors[cfg.field]}</p>}
+              </div>
+            );
+          })}
         </div>
       </Modal>
     </div>
