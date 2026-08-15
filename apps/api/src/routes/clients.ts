@@ -14,12 +14,27 @@ const UPLOADS_DIR = path.join(__dirname, '..', '..', 'uploads');
 mkdirSync(UPLOADS_DIR, { recursive: true });
 
 export async function clientRoutes(app: FastifyInstance) {
-  app.get('/', { preHandler: requireAuth }, async () => {
+  app.get('/', { preHandler: requireAuth }, async (req) => {
+    const u = getUser(req);
+    // Build WHERE clause based on user's block/branch restrictions
+    const conditions: string[] = [];
+    const params: string[] = [];
+    const restricted = !['admin', 'supervisor', 'analyst'].includes(u.role);
+    if (restricted && (u as any).block) {
+      conditions.push('c.block = ?');
+      params.push((u as any).block);
+    }
+    if (restricted && (u as any).branch) {
+      conditions.push('c.branch = ?');
+      params.push((u as any).branch);
+    }
+    const where = conditions.length ? 'WHERE ' + conditions.join(' AND ') : '';
     const rows = db.prepare(`
       SELECT c.*, GROUP_CONCAT(p.name,'|||') AS products_csv
       FROM clients c LEFT JOIN products p ON p.client_id = c.id
+      ${where}
       GROUP BY c.id ORDER BY c.name
-    `).all() as (Client & { products_csv: string })[];
+    `).all(...params) as (Client & { products_csv: string })[];
     return rows.map(({ products_csv, ...r }) => ({
       ...r,
       products: products_csv ? products_csv.split('|||') : [],
@@ -44,14 +59,18 @@ export async function clientRoutes(app: FastifyInstance) {
     const body = req.body as Partial<Client>;
     if (!body.name) return reply.status(400).send({ error: 'Название обязательно' });
     const sn = body.short_name || body.name.split(' ').map(w => w[0]).join('').slice(0, 3).toUpperCase();
-    const type_en = { 'МСП': 'sme', 'Холдинг': 'holding', 'Международные': 'international' }[body.type ?? ''] ?? 'large';
+    const typeEnMap: Record<string, string> = { 'МСП': 'sme', 'Холдинг': 'holding', 'Международные': 'international' };
+    const type_en = typeEnMap[body.type ?? ''] ?? 'large';
+    const blockMap: Record<string, string> = { sme: 'MSE', large: 'Large', international: 'Int', holding: 'Large' };
+    const block = (body as any).block || blockMap[type_en] || 'Large';
     const today = new Date().toLocaleDateString('ru-RU').replace(/\//g, '.');
-    const info = db.prepare(`INSERT INTO clients (name,short_name,type,type_en,inn,kpp,ogrn,industry,manager,status,revenue,last_contact,city,phone,email,employees,segment,risk_level,balance,credit_limit)
-      VALUES (?,?,?,?,?,?,?,?,?,'active',?,?,?,?,?,?,?,?,?,?)`)
+    const info = db.prepare(`INSERT INTO clients (name,short_name,type,type_en,inn,kpp,ogrn,industry,manager,status,revenue,last_contact,city,phone,email,employees,segment,risk_level,balance,credit_limit,block,branch)
+      VALUES (?,?,?,?,?,?,?,?,?,'active',?,?,?,?,?,?,?,?,?,?,?,?)`)
       .run(body.name, sn, body.type ?? 'Крупный бизнес', type_en, body.inn ?? '', body.kpp ?? '', body.ogrn ?? '',
            body.industry ?? '', body.manager ?? '', body.revenue ?? '', today,
            body.city ?? 'Ташкент', body.phone ?? '', body.email ?? '', body.employees ?? '',
-           body.segment ?? 'Standard', body.risk_level ?? 'low', body.balance ?? '—', body.credit_limit ?? '—');
+           body.segment ?? 'Standard', body.risk_level ?? 'low', body.balance ?? '—', body.credit_limit ?? '—',
+           block, (body as any).branch ?? '');
     return reply.status(201).send(db.prepare('SELECT * FROM clients WHERE id = ?').get((info as { lastInsertRowid: number }).lastInsertRowid));
   });
 

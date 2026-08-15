@@ -282,6 +282,17 @@ db.exec(`CREATE TABLE IF NOT EXISTS custom_field_values (
 // Seed source select options for lead
 db.exec("UPDATE field_config SET field_type = 'select', options = '[\"inbound\",\"website\",\"referral\",\"cold\",\"event\",\"branch\",\"agent\"]' WHERE entity = 'lead' AND field = 'source' AND field_type IS 'text'");
 
+// Block & branch access control
+try { db.exec("ALTER TABLE users ADD COLUMN block TEXT DEFAULT ''"); } catch {}
+try { db.exec("ALTER TABLE users ADD COLUMN branch TEXT DEFAULT ''"); } catch {}
+try { db.exec("ALTER TABLE clients ADD COLUMN block TEXT DEFAULT ''"); } catch {}
+try { db.exec("ALTER TABLE clients ADD COLUMN branch TEXT DEFAULT ''"); } catch {}
+// Seed block for existing clients based on type_en
+db.exec("UPDATE clients SET block = 'Large' WHERE type_en = 'large'  AND (block = '' OR block IS NULL)");
+db.exec("UPDATE clients SET block = 'MSE'   WHERE type_en = 'sme'   AND (block = '' OR block IS NULL)");
+db.exec("UPDATE clients SET block = 'Int'   WHERE type_en = 'international' AND (block = '' OR block IS NULL)");
+db.exec("UPDATE clients SET block = 'Large' WHERE type_en = 'holding' AND (block = '' OR block IS NULL)");
+
 // Seed default field config (INSERT OR IGNORE — safe to run on existing DBs)
 const seedFieldConfig = db.prepare(
   'INSERT OR IGNORE INTO field_config (entity, field, label, required, visible, sort_order) VALUES (?, ?, ?, ?, ?, ?)'

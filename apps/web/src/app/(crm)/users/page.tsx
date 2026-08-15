@@ -27,7 +27,16 @@ const statusStyles: Record<string, string> = {
   inactive: 'bg-[#f3f4f6] text-[#6b7280]',
 };
 
-const EMPTY_FORM = { name: '', phone: '', login: '', password: '', role: 'manager' as UserRole, dept: '' };
+const BLOCKS = ['', 'MSE', 'Middle', 'Large', 'Int'] as const;
+const BLOCK_LABELS: Record<string, string> = { MSE: 'MSE', Middle: 'Middle', Large: 'Large', Int: 'Int' };
+const BLOCK_COLORS: Record<string, string> = {
+  MSE:    'bg-[#dcfce7] text-[#166534]',
+  Middle: 'bg-[#dbeafe] text-[#1d4ed8]',
+  Large:  'bg-[#ede9fe] text-[#6d28d9]',
+  Int:    'bg-[#fef3c7] text-[#92400e]',
+};
+
+const EMPTY_FORM = { name: '', phone: '', login: '', password: '', role: 'manager' as UserRole, dept: '', block: '', branch: '' };
 
 export default function UsersPage() {
   const me  = useAuthStore(s => s.user);
@@ -89,13 +98,15 @@ export default function UsersPage() {
       <div className="overflow-x-auto">
         <table className="crm-table min-w-[800px]">
           <colgroup>
-            <col className="w-[24%]"/>
-            <col className="w-[16%]"/>
-            <col className="w-[13%]"/>
+            <col className="w-[20%]"/>
             <col className="w-[14%]"/>
+            <col className="w-[11%]"/>
+            <col className="w-[12%]"/>
             <col className="w-[8%]"/>
             <col className="w-[10%]"/>
-            <col className="w-[12%]"/>
+            <col className="w-[7%]"/>
+            <col className="w-[9%]"/>
+            <col className="w-[10%]"/>
             <col className="w-[3%]"/>
           </colgroup>
           <thead>
@@ -104,6 +115,8 @@ export default function UsersPage() {
               <th>{t('users.colContact')}</th>
               <th>{t('users.colRole')}</th>
               <th>{t('users.colDept')}</th>
+              <th>Блок</th>
+              <th>Филиал</th>
               <th>{t('users.colClients')}</th>
               <th>{t('users.colStatus')}</th>
               <th>{t('users.colLastLogin')}</th>
@@ -133,6 +146,14 @@ export default function UsersPage() {
                   </span>
                 </td>
                 <td className="text-sm text-[#555] truncate max-w-0">{u.dept || '—'}</td>
+                <td>
+                  {(u as any).block ? (
+                    <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${BLOCK_COLORS[(u as any).block] ?? 'bg-[#f3f4f6] text-[#555]'}`}>
+                      {(u as any).block}
+                    </span>
+                  ) : <span className="text-sm text-[#ccc]">—</span>}
+                </td>
+                <td className="text-sm text-[#555] truncate max-w-0">{(u as any).branch || '—'}</td>
                 <td className="text-sm font-medium">{u.clients_count ?? 0}</td>
                 <td>
                   <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${statusStyles[u.status]}`}>
@@ -214,26 +235,59 @@ export default function UsersPage() {
               </div>
             </div>
           ) : (
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="field-label">{t('users.fPhone')}</label>
-                <input
-                  value={form.phone}
-                  onChange={e => setForm({ ...form, phone: e.target.value })}
-                  className="form-input"
-                  placeholder="+998 90 000-00-00"
-                />
+            <>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="field-label">{t('users.fPhone')}</label>
+                  <input
+                    value={form.phone}
+                    onChange={e => setForm({ ...form, phone: e.target.value })}
+                    className="form-input"
+                    placeholder="+998 90 000-00-00"
+                  />
+                </div>
+                <div>
+                  <label className="field-label">{t('users.fDept')}</label>
+                  <input
+                    value={form.dept}
+                    onChange={e => setForm({ ...form, dept: e.target.value })}
+                    className="form-input"
+                    placeholder="Корпоративный блок"
+                  />
+                </div>
               </div>
-              <div>
-                <label className="field-label">{t('users.fDept')}</label>
-                <input
-                  value={form.dept}
-                  onChange={e => setForm({ ...form, dept: e.target.value })}
-                  className="form-input"
-                  placeholder="Корпоративный блок"
-                />
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="field-label">Блок доступа</label>
+                  <select
+                    value={form.block}
+                    onChange={e => setForm({ ...form, block: e.target.value })}
+                    className="form-input"
+                  >
+                    <option value="">— без ограничений —</option>
+                    <option value="MSE">MSE (МСП)</option>
+                    <option value="Middle">Middle (Средний)</option>
+                    <option value="Large">Large (Крупный)</option>
+                    <option value="Int">Int (Международный)</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="field-label">Филиал</label>
+                  <input
+                    value={form.branch}
+                    onChange={e => setForm({ ...form, branch: e.target.value })}
+                    className="form-input"
+                    placeholder="Ташкентский филиал"
+                  />
+                </div>
               </div>
-            </div>
+              {form.block && (
+                <div className="rounded-xl bg-[#fef9c3] px-4 py-3 text-sm text-[#92400e]">
+                  Сотрудник будет видеть только клиентов блока <strong>{form.block}</strong>
+                  {form.branch && <> из филиала <strong>{form.branch}</strong></>}.
+                </div>
+              )}
+            </>
           )}
 
           {isAgent && (
