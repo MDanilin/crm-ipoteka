@@ -31,9 +31,22 @@
   }
 
   /* ── Inline status selects inside table cells ───────── */
+  /*
+   * Монохромно (Rocket Work): без цветной заливки по статусу, обычный
+   * текст + свой SVG-шеврон вместо системной стрелки браузера (нативный
+   * OS-виджет иначе рендерит текст/отступы/стрелку не так, как остальной
+   * интерфейс). Цвет для конкретного критичного статуса (просрочка,
+   * потерян) задаётся точечно в месте использования через text-[#c41f16].
+   */
   .status-select {
-    @apply w-full rounded-full px-2.5 py-1 text-[11px] font-semibold
-           border-none outline-none cursor-pointer;
+    @apply w-full rounded-lg pl-0 pr-5 py-1 text-sm font-medium text-[#111]
+           border-none outline-none cursor-pointer appearance-none bg-transparent
+           hover:bg-[#f6f6f6] transition-colors;
+    font-family: inherit;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10' fill='none'%3E%3Cpath d='M2 4l3 3 3-3' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 2px center;
+    background-size: 10px;
   }
 
   /* ── Data tables ────────────────────────────────────── */
@@ -45,14 +58,26 @@
   .crm-table {
     @apply w-full table-auto border-separate border-spacing-0 text-left;
   }
+  /*
+   * Шапка таблицы (Rocket Work): обычный регистр, без серого фона —
+   * только тонкая линия снизу. Было: bg-[#f6f6f6] + ВСЕ КАПС +
+   * letter-spacing — тяжелее, чем нужно.
+   */
   .crm-table thead tr {
-    @apply bg-[#f6f6f6] text-xs font-bold uppercase tracking-[0.08em] text-[#999];
+    @apply text-sm font-semibold text-[#888] border-b border-[#eee];
   }
-  .crm-table thead th:first-child { @apply rounded-l-xl; }
-  .crm-table thead th:last-child  { @apply rounded-r-xl; }
-  .crm-table thead th             { @apply px-5 py-4; }
-  .crm-table tbody tr             { @apply border-b border-[#f0f0f0] hover:bg-[#fcf8f8] transition-colors; }
+  .crm-table thead th             { @apply px-5 py-3; }
+  .crm-table tbody tr             { @apply border-b border-[#f0f0f0] hover:bg-[#fafafa] transition-colors; }
   .crm-table tbody td             { @apply px-5 py-4; }
+
+  /* ── Числовые/технические данные (ИНН, телефон, ID) ───
+   * Табличный моноширинный стек — лёгкий технологичный акцент
+   * без подключения отдельного шрифта.
+   */
+  .num {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-variant-numeric: tabular-nums;
+  }
 }
 
 @layer utilities {

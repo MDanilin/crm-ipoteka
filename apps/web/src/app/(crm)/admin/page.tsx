@@ -4,6 +4,7 @@ import { useState, useRef } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/api';
 import { useAuthStore } from '@/store/auth';
+import { Badge } from '@/components/ui/Badge';
 
 interface FieldConfig {
   id: number;
@@ -26,9 +27,9 @@ interface Product { id: number; name: string; number: string; limit_val: string;
 interface Company { id: number; name: string; short_name: string; type: string; inn: string; industry: string; city: string; manager: string; status: string; segment: string; risk_level: string; credit_limit: string; revenue: string; created_at: string; products_count: number; products: Product[]; }
 
 const ENTITY_LABELS: Record<string, string> = { lead: 'Лиды', client: 'Клиенты' };
-const STATUS_STYLES: Record<string, string> = { active: 'bg-[#dcfce7] text-[#166534]', inactive: 'bg-[#f3f4f6] text-[#6b7280]', pending: 'bg-[#fef9c3] text-[#854d0e]' };
-const RISK_STYLES: Record<string, string>   = { low: 'bg-[#dcfce7] text-[#166534]', medium: 'bg-[#fef9c3] text-[#854d0e]', high: 'bg-[#fee2e2] text-[#991b1b]' };
-const PROD_STATUS: Record<string, string>   = { active: 'bg-[#dcfce7] text-[#166534]', inactive: 'bg-[#fee2e2] text-[#991b1b]', closed: 'bg-[#f3f4f6] text-[#6b7280]' };
+const STATUS_STYLES: Record<string, 'green' | 'orange' | 'gray'> = { active: 'green', inactive: 'gray', pending: 'orange' };
+const RISK_STYLES: Record<string, 'green' | 'orange' | 'red'>     = { low: 'green', medium: 'orange', high: 'red' };
+const PROD_STATUS: Record<string, 'green' | 'red' | 'gray'>        = { active: 'green', inactive: 'red', closed: 'gray' };
 
 const FIELD_TYPES = [
   { value: 'text',     label: 'Текст' },
@@ -296,7 +297,7 @@ export default function AdminPage() {
 
                           {/* Field slug */}
                           <td>
-                            <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-mono ${cfg.is_custom ? 'bg-[#ede9fe] text-[#6d28d9]' : 'bg-[#f5f5f5] text-[#555]'}`}>
+                            <span className={`font-mono text-[13px] px-2 py-0.5 rounded-md bg-[#f5f5f5] ${cfg.is_custom ? 'text-[#6d28d9]' : 'text-[#555]'}`}>
                               {cfg.field}
                             </span>
                           </td>
@@ -356,7 +357,7 @@ export default function AdminPage() {
                           <td>
                             {canEdit
                               ? <Toggle checked={!!cfg.required} onChange={v => !isName && updateField(cfg.field, 'required', v ? 1 : 0)} disabled={isName}/>
-                              : <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${cfg.required ? 'bg-[#dcfce7] text-[#166534]' : 'bg-[#f3f4f6] text-[#6b7280]'}`}>{cfg.required ? 'Да' : 'Нет'}</span>
+                              : <Badge variant={cfg.required ? 'green' : 'gray'}>{cfg.required ? 'Да' : 'Нет'}</Badge>
                             }
                           </td>
 
@@ -364,7 +365,7 @@ export default function AdminPage() {
                           <td>
                             {canEdit
                               ? <Toggle checked={!!cfg.visible} onChange={v => !isName && updateField(cfg.field, 'visible', v ? 1 : 0)} disabled={isName}/>
-                              : <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${cfg.visible ? 'bg-[#dcfce7] text-[#166534]' : 'bg-[#f3f4f6] text-[#6b7280]'}`}>{cfg.visible ? 'Да' : 'Нет'}</span>
+                              : <Badge variant={cfg.visible ? 'green' : 'gray'}>{cfg.visible ? 'Да' : 'Нет'}</Badge>
                             }
                           </td>
 
@@ -444,17 +445,17 @@ export default function AdminPage() {
                         </div>
                         <div className="flex items-center gap-2 flex-shrink-0">
                           {c.products_count > 0 && (
-                            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#f3f4f6] text-[#555]">
+                            <Badge variant="gray">
                               {c.products_count} продукт{c.products_count > 1 ? 'а' : ''}
-                            </span>
+                            </Badge>
                           )}
-                          <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${STATUS_STYLES[c.status] ?? 'bg-[#f3f4f6] text-[#555]'}`}>
+                          <Badge variant={STATUS_STYLES[c.status] ?? 'gray'}>
                             {c.status === 'active' ? 'Активный' : c.status === 'pending' ? 'На рассмотрении' : 'Неактивный'}
-                          </span>
+                          </Badge>
                           {c.risk_level && c.risk_level !== 'low' && (
-                            <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${RISK_STYLES[c.risk_level]}`}>
+                            <Badge variant={RISK_STYLES[c.risk_level]}>
                               {c.risk_level === 'high' ? 'Высокий риск' : 'Средний риск'}
-                            </span>
+                            </Badge>
                           )}
                           <svg className={`transition-transform duration-200 text-[#ccc] ${isOpen ? 'rotate-90' : ''}`} width="14" height="14" viewBox="0 0 14 14" fill="none">
                             <path d="M5 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -485,9 +486,9 @@ export default function AdminPage() {
                                       {p.limit_val && p.limit_val !== '—' && <div className="text-right"><div className="text-[10px] text-[#aaa]">Лимит</div><div className="font-semibold">{p.limit_val}</div></div>}
                                       {p.used_val && p.used_val !== '—' && <div className="text-right"><div className="text-[10px] text-[#aaa]">Использовано</div><div className="font-semibold">{p.used_val}</div></div>}
                                       {p.rate && p.rate !== '—' && <div className="text-right"><div className="text-[10px] text-[#aaa]">Ставка</div><div className="font-semibold">{p.rate}</div></div>}
-                                      <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${PROD_STATUS[p.status] ?? 'bg-[#f3f4f6] text-[#555]'}`}>
+                                      <Badge variant={PROD_STATUS[p.status] ?? 'gray'}>
                                         {p.status === 'active' ? 'Активный' : p.status === 'closed' ? 'Закрыт' : 'Неактивный'}
-                                      </span>
+                                      </Badge>
                                     </div>
                                   </div>
                                 ))}

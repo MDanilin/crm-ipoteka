@@ -18,20 +18,29 @@ function useDebounced(value: string, ms: number) {
   return dv;
 }
 
-const STATUS_CFG: Record<string, { label: string; color: string }> = {
-  new:            { label: 'Новый',             color: 'bg-[#dbeafe] text-[#1d4ed8]' },
-  in_progress:    { label: 'В работе',          color: 'bg-[#fef9c3] text-[#854d0e]' },
-  meeting:        { label: 'Встреча назначена', color: 'bg-[#fde7d0] text-[#9a3412]' },
-  account_opened: { label: 'Открыт счёт',      color: 'bg-[#dcfce7] text-[#166534]' },
-  qualified:      { label: 'Квалифицирован',    color: 'bg-[#dcfce7] text-[#15803d]' },
-  proposal:       { label: 'Предложение',       color: 'bg-[#f3f4f6] text-[#374151]' },
-  converted:      { label: 'Конвертирован',     color: 'bg-[#ede9fe] text-[#6d28d9]' },
-  lost:           { label: 'Потерян',           color: 'bg-[#fee2e2] text-[#991b1b]' },
+// Монохромно (Rocket Work): цвет остаётся только у по-настоящему критичного
+// статуса — «Потерян». Остальное — обычный текст без заливки.
+const STATUS_CFG: Record<string, { label: string; critical?: boolean }> = {
+  new:            { label: 'Новый' },
+  in_progress:    { label: 'В работе' },
+  meeting:        { label: 'Встреча назначена' },
+  account_opened: { label: 'Открыт счёт' },
+  qualified:      { label: 'Квалифицирован' },
+  proposal:       { label: 'Предложение' },
+  converted:      { label: 'Конвертирован' },
+  lost:           { label: 'Потерян', critical: true },
 };
 
+// Значения из БД смешаны из двух поколений: старые лиды хранят источник уже
+// готовым русским текстом («Реклама», «Конференция», «Рекомендация» — эти
+// проходят через словарь как есть и выглядят нормально), новые — кодом на
+// латинице (inbound/website/.../dsa). Каждый новый код-слаг из backend
+// (routes/leads.ts, db.ts) должен иметь запись здесь — иначе бейдж покажет
+// сырой английский слаг вперемешку с кириллицей.
 const SRC_LABELS: Record<string, string> = {
   inbound: 'Входящий', website: 'Сайт', referral: 'Реферал',
   cold: 'Холодный', event: 'Мероприятие', branch: 'Филиал', agent: 'Агент',
+  dsa: 'DSA (выездной агент)',
 };
 
 // The 4-stage scenario flow shown in the timeline
@@ -282,11 +291,11 @@ export default function LeadsPage() {
       {view === 'board' && (
         <div className="flex gap-4 overflow-x-auto pb-4">
           {([
-            ['new',            t('leads.stageNew'),            'bg-[#dbeafe] text-[#1d4ed8]'],
-            ['in_progress',    t('leads.stageInProgress'),     'bg-[#fef9c3] text-[#854d0e]'],
-            ['meeting',        t('leads.stageMeeting'),        'bg-[#fde7d0] text-[#9a3412]'],
-            ['account_opened', t('leads.stageAccountOpened'),  'bg-[#dcfce7] text-[#166534]'],
-          ] as [string, string, string][]).map(([status, label, color]) => {
+            ['new',            t('leads.stageNew')],
+            ['in_progress',    t('leads.stageInProgress')],
+            ['meeting',        t('leads.stageMeeting')],
+            ['account_opened', t('leads.stageAccountOpened')],
+          ] as [string, string][]).map(([status, label]) => {
             const col = leads.filter(l => l.status === status);
             return (
               <div
@@ -319,7 +328,7 @@ export default function LeadsPage() {
                 }}
               >
                 <div className="flex items-center gap-2 mb-3">
-                  <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold ${color}`}>{label}</span>
+                  <span className="text-sm font-semibold text-[#111]">{label}</span>
                   <span className="text-xs text-[#aaa] ml-auto">{col.length}</span>
                 </div>
                 <div className="flex flex-col gap-2">
@@ -400,13 +409,7 @@ export default function LeadsPage() {
                   </td>
                   <td className="text-sm text-[#555] truncate max-w-0">{l.product || '—'}</td>
                   <td className="max-w-0 overflow-hidden">
-                    <span className={`inline-flex items-center max-w-full px-2.5 py-1 rounded-full text-[11px] font-semibold overflow-hidden ${
-                      l.source === 'branch' ? 'bg-[#fef3c7] text-[#92400e]' :
-                      l.source === 'agent'  ? 'bg-[#ede9fe] text-[#6d28d9]' :
-                      'bg-[#f3f4f6] text-[#555]'
-                    }`}>
-                      <span className="truncate">{SRC_LABELS[l.source] ?? l.source}</span>
-                    </span>
+                    <span className="block truncate text-sm text-[#111]">{SRC_LABELS[l.source] ?? l.source}</span>
                     {l.source === 'branch' && l.branch && <div className="text-[11px] text-[#888] mt-0.5 truncate">{l.branch}</div>}
                     {l.source === 'agent'  && l.agent_name && <div className="text-[11px] text-[#888] mt-0.5 truncate">{l.agent_name}</div>}
                   </td>
@@ -414,7 +417,7 @@ export default function LeadsPage() {
                     <select
                       value={l.status}
                       onChange={e => changeStatus.mutate({ id: l.id, status: e.target.value })}
-                      className={`status-select ${STATUS_CFG[l.status]?.color ?? 'bg-[#f3f4f6] text-[#555]'}`}
+                      className={`status-select ${STATUS_CFG[l.status]?.critical ? 'text-[#c41f16] font-semibold' : ''}`}
                     >
                       {Object.entries(STATUS_CFG).map(([k, v]) => (
                         <option key={k} value={k}>{v.label}</option>
@@ -504,9 +507,9 @@ export default function LeadsPage() {
           <div className="space-y-3">
             {arbitrations.map((arb: any) => {
               const lead = (() => { try { return JSON.parse(arb.new_lead_data); } catch { return {}; } })();
-              const statusCfg = arb.status === 'pending' ? { label: 'На рассмотрении', cls: 'bg-[#fef9c3] text-[#854d0e]' }
-                : arb.status === 'approved' ? { label: 'Одобрено', cls: 'bg-[#dcfce7] text-[#166534]' }
-                : { label: 'Отклонено', cls: 'bg-[#fee2e2] text-[#991b1b]' };
+              const statusCfg = arb.status === 'pending' ? { label: 'На рассмотрении', critical: false }
+                : arb.status === 'approved' ? { label: 'Одобрено', critical: false }
+                : { label: 'Отклонено', critical: true };
               return (
                 <div key={arb.id} className="rounded-2xl border border-[#f0f0f0] bg-white p-4">
                   <div className="flex items-center justify-between">
@@ -515,7 +518,7 @@ export default function LeadsPage() {
                       <div className="text-xs text-[#888] mt-0.5">Дубликат лида #{arb.existing_lead_id}</div>
                       {arb.review_comment && <div className="mt-1 text-xs text-[#555] italic">Ответ: «{arb.review_comment}»</div>}
                     </div>
-                    <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${statusCfg.cls}`}>{statusCfg.label}</span>
+                    <span className={`text-sm ${statusCfg.critical ? 'text-[#c41f16] font-semibold' : 'text-[#111]'}`}>{statusCfg.label}</span>
                   </div>
                 </div>
               );

@@ -9,11 +9,14 @@ import { api } from '@/lib/api';
 import type { Client } from '@crm/types';
 import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
+import { Badge } from '@/components/ui/Badge';
 
-const statusStyles: Record<string, string> = {
-  active:   'bg-[#dcfce7] text-[#166534]',
-  pending:  'bg-[#fef3c7] text-[#92400e]',
-  inactive: 'bg-[#f3f4f6] text-[#6b7280]',
+// Монохромная система статусов (см. components/ui/Badge.tsx) — цвет
+// остаётся только у critical-состояний, остальное обычный текст.
+const statusVariant: Record<string, 'green' | 'orange' | 'gray'> = {
+  active:   'green',
+  pending:  'orange',
+  inactive: 'gray',
 };
 const statusL = { active:'Активный', pending:'На рассмотрении', inactive:'Неактивный' } as const;
 const riskStyles: Record<string, string> = {
@@ -90,9 +93,9 @@ export default function ClientsPage() {
                     </div>
                   </div>
                 </td>
-                {/* Тип — бейдж, не обрезать */}
+                {/* Тип — просто текст, не обрезать */}
                 <td className="whitespace-nowrap">
-                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#f3f4f6] text-[#555]">{c.type}</span>
+                  <Badge variant="gray">{c.type}</Badge>
                 </td>
                 {/* Отрасль — текст с truncate + title */}
                 <td className="max-w-[180px]">
@@ -104,11 +107,11 @@ export default function ClientsPage() {
                 </td>
                 {/* Сегмент — бейдж, не обрезать */}
                 <td className="whitespace-nowrap">
-                  <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${c.segment === 'Premium' ? 'bg-[#ede9fe] text-[#6d28d9]' : 'bg-[#f3f4f6] text-[#6b7280]'}`}>{c.segment}</span>
+                  <Badge variant={c.segment === 'Premium' ? 'purple' : 'gray'}>{c.segment}</Badge>
                 </td>
                 {/* Статус — бейдж, не обрезать */}
                 <td className="whitespace-nowrap">
-                  <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${statusStyles[c.status] ?? 'bg-[#f3f4f6] text-[#555]'}`}>{t(`common.status.${c.status}`)}</span>
+                  <Badge variant={statusVariant[c.status] ?? 'gray'}>{t(`common.status.${c.status}`)}</Badge>
                 </td>
               </tr>
             ))}

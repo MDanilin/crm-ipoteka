@@ -11,11 +11,12 @@ import { useAuthStore } from '@/store/auth';
 import type { Campaign } from '@crm/types';
 import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
+import { Badge } from '@/components/ui/Badge';
 
-const STATUS_CFG: Record<string, { label: string; color: string }> = {
-  draft:     { label: 'Черновик',  color: 'bg-[#f3f4f6] text-[#555]' },
-  active:    { label: 'Активная',  color: 'bg-[#dcfce7] text-[#166534]' },
-  completed: { label: 'Завершена', color: 'bg-[#dbeafe] text-[#1d4ed8]' },
+const STATUS_CFG: Record<string, { label: string; variant: 'gray' | 'green' | 'blue' }> = {
+  draft:     { label: 'Черновик',  variant: 'gray' },
+  active:    { label: 'Активная',  variant: 'green' },
+  completed: { label: 'Завершена', variant: 'blue' },
 };
 
 export default function CampaignsPage() {
@@ -83,9 +84,9 @@ export default function CampaignsPage() {
                     <div className="text-base font-semibold truncate group-hover:text-[#111]">{c.name}</div>
                     <div className="text-xs text-[#aaa] mt-0.5">{c.source}</div>
                   </div>
-                  <span className={`ml-3 flex-shrink-0 inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${STATUS_CFG[c.status]?.color ?? 'bg-[#f3f4f6] text-[#555]'}`}>
+                  <Badge variant={STATUS_CFG[c.status]?.variant ?? 'gray'} className="ml-3 flex-shrink-0">
                     {STATUS_CFG[c.status]?.label ?? c.status}
-                  </span>
+                  </Badge>
                 </div>
 
                 <div className="grid grid-cols-3 gap-3 mb-5 border-t border-[#f5f5f5] pt-4">

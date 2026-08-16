@@ -9,34 +9,43 @@ import { useAuthStore } from '@/store/auth';
 import type { User, UserRole } from '@crm/types';
 import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
+import { Badge } from '@/components/ui/Badge';
 
 // roles resolved via t() below
 
-const roleStyles: Record<UserRole, string> = {
-  admin:      'bg-[#ede9fe] text-[#6d28d9]',
-  supervisor: 'bg-[#dbeafe] text-[#1d4ed8]',
-  manager:    'bg-[#dcfce7] text-[#166534]',
-  analyst:    'bg-[#f3f4f6] text-[#374151]',
-  agent:      'bg-[#fef3c7] text-[#92400e]',
-  operator:   'bg-[#e0f2fe] text-[#0369a1]',
-  dsa:        'bg-[#fce7f3] text-[#9d174d]',
+// Роль — категория сотрудника, не критичность, поэтому variant подобран
+// по типографической иерархии (purple для админа как самой "тяжёлой"
+// роли, остальное — обычный/приглушённый текст), а не по цветовому коду.
+const roleStyles: Record<UserRole, 'green' | 'red' | 'orange' | 'blue' | 'purple' | 'gray'> = {
+  admin:      'purple',
+  supervisor: 'blue',
+  manager:    'green',
+  analyst:    'gray',
+  agent:      'orange',
+  operator:   'blue',
+  dsa:        'gray',
 };
 
-const statusStyles: Record<string, string> = {
-  active:   'bg-[#dcfce7] text-[#166534]',
-  inactive: 'bg-[#f3f4f6] text-[#6b7280]',
+// active/inactive — это состояние, а не ошибка: green для активного
+// обычным текстом, gray для деактивированного (приглушённо, не красным).
+const statusStyles: Record<string, 'green' | 'red' | 'orange' | 'blue' | 'purple' | 'gray'> = {
+  active:   'green',
+  inactive: 'gray',
 };
 
 const BLOCKS = ['', 'MSE', 'Middle', 'Large', 'Int'] as const;
 const BLOCK_LABELS: Record<string, string> = { MSE: 'MSE', Middle: 'Middle', Large: 'Large', Int: 'Int' };
-const BLOCK_COLORS: Record<string, string> = {
-  MSE:    'bg-[#dcfce7] text-[#166534]',
-  Middle: 'bg-[#dbeafe] text-[#1d4ed8]',
-  Large:  'bg-[#ede9fe] text-[#6d28d9]',
-  Int:    'bg-[#fef3c7] text-[#92400e]',
+// Блок банка — чисто категориальная метка, без критичности, поэтому все
+// варианты сведены к нейтральному gray (все рендерятся как обычный текст).
+const BLOCK_COLORS: Record<string, 'green' | 'red' | 'orange' | 'blue' | 'purple' | 'gray'> = {
+  MSE:    'gray',
+  Middle: 'gray',
+  Large:  'gray',
+  Int:    'gray',
 };
 
 const EMPTY_FORM = { name: '', phone: '', login: '', password: '', role: 'manager' as UserRole, dept: '', block: '', branch: '' };
+const EMPTY_EDIT = { name: '', role: 'manager' as UserRole, dept: '', status: 'active', block: '', branch: '', password: '' };
 
 export default function UsersPage() {
   const me  = useAuthStore(s => s.user);
@@ -45,6 +54,8 @@ export default function UsersPage() {
   const [open,       setOpen]       = useState(false);
   const [form,       setForm]       = useState({ ...EMPTY_FORM });
   const [confirmDel, setConfirmDel] = useState<number | null>(null);
+  const [editing,    setEditing]    = useState<User | null>(null);
+  const [editForm,   setEditForm]   = useState({ ...EMPTY_EDIT });
 
   const allowed  = me?.role === 'admin' || me?.role === 'supervisor';
   const canAdmin = me?.role === 'admin';
@@ -68,6 +79,24 @@ export default function UsersPage() {
     mutationFn: (id: number) => api.delete(`/users/${id}`),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['users'] }); setConfirmDel(null); },
   });
+
+  const update = useMutation({
+    mutationFn: (body: typeof editForm) => api.put(`/users/${editing?.id}`, body),
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ['users'] }); setEditing(null); },
+  });
+
+  const openEdit = (u: User) => {
+    setEditing(u);
+    setEditForm({
+      name:   u.name,
+      role:   u.role,
+      dept:   u.dept || '',
+      status: u.status,
+      block:  (u as any).block  || '',
+      branch: (u as any).branch || '',
+      password: '',
+    });
+  };
 
   const isAgent = form.role === 'agent';
 
@@ -96,74 +125,65 @@ export default function UsersPage() {
       </div>
 
       <div className="overflow-x-auto">
-        <table className="crm-table min-w-[800px]">
-          <colgroup>
-            <col className="w-[20%]"/>
-            <col className="w-[14%]"/>
-            <col className="w-[11%]"/>
-            <col className="w-[12%]"/>
-            <col className="w-[8%]"/>
-            <col className="w-[10%]"/>
-            <col className="w-[7%]"/>
-            <col className="w-[9%]"/>
-            <col className="w-[10%]"/>
-            <col className="w-[3%]"/>
-          </colgroup>
+        <table className="crm-table min-w-[900px]">
           <thead>
             <tr>
-              <th>{t('users.colEmployee')}</th>
-              <th>{t('users.colContact')}</th>
-              <th>{t('users.colRole')}</th>
-              <th>{t('users.colDept')}</th>
-              <th>Блок</th>
-              <th>Филиал</th>
-              <th>{t('users.colClients')}</th>
-              <th>{t('users.colStatus')}</th>
-              <th>{t('users.colLastLogin')}</th>
+              <th className="min-w-[200px]">{t('users.colEmployee')}</th>
+              <th className="min-w-[110px]">{t('users.colRole')}</th>
+              <th className="min-w-[130px]">{t('users.colDept')}</th>
+              <th className="min-w-[90px]">Блок</th>
+              <th className="min-w-[110px]">Филиал</th>
+              <th className="min-w-[90px]">{t('users.colClients')}</th>
+              <th className="min-w-[100px]">{t('users.colStatus')}</th>
+              <th className="min-w-[100px]">{t('users.colLastLogin')}</th>
               <th/>
             </tr>
           </thead>
           <tbody>
             {users.map(u => (
-              <tr key={u.id}>
-                <td className="max-w-0">
-                  <div className="flex items-center gap-3">
-                    <div className={`grid size-10 place-items-center rounded-full text-xs font-bold flex-shrink-0 ${u.role === 'agent' ? 'bg-[#fef3c7] text-[#92400e]' : 'bg-[#f3dcd8] text-[#7c3f36]'}`}>
-                      {u.initials}
-                    </div>
-                    <div className="text-sm font-semibold truncate">{u.name}</div>
-                  </div>
-                </td>
-                <td className="text-sm text-[#aaa] truncate max-w-0">
-                  {u.role === 'agent'
-                    ? <span className="font-mono text-[#555]">{(u as unknown as Record<string,string>).login || '—'}</span>
-                    : ((u as unknown as Record<string,string>).phone || '—')
-                  }
-                </td>
+              <tr key={u.id} onClick={() => openEdit(u)} className="cursor-pointer">
+                {/* Сотрудник — имя + телефон/логин в две строки, без обрезки
+                    (см. рефернс Rocket Work: "Иванов Максим" / "+7 999..."). */}
                 <td>
-                  <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${roleStyles[u.role] ?? 'bg-[#f3f4f6] text-[#555]'}`}>
+                  <p className="text-sm font-semibold leading-snug">{u.name}</p>
+                  <p className="mt-0.5 text-xs text-[#aaa]">
+                    {u.role === 'agent'
+                      ? <span className="font-mono">{(u as unknown as Record<string,string>).login || '—'}</span>
+                      : ((u as unknown as Record<string,string>).phone || '—')
+                    }
+                  </p>
+                </td>
+                <td className="whitespace-nowrap">
+                  <Badge variant={roleStyles[u.role] ?? 'gray'}>
                     {t(`common.roles.${u.role}`)}
-                  </span>
+                  </Badge>
                 </td>
-                <td className="text-sm text-[#555] truncate max-w-0">{u.dept || '—'}</td>
-                <td>
+                <td className="max-w-[160px]">
+                  <span className="block truncate text-sm text-[#555]" title={u.dept || ''}>{u.dept || '—'}</span>
+                </td>
+                <td className="whitespace-nowrap">
                   {(u as any).block ? (
-                    <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${BLOCK_COLORS[(u as any).block] ?? 'bg-[#f3f4f6] text-[#555]'}`}>
+                    <Badge variant={BLOCK_COLORS[(u as any).block] ?? 'gray'}>
                       {(u as any).block}
-                    </span>
+                    </Badge>
                   ) : <span className="text-sm text-[#ccc]">—</span>}
                 </td>
-                <td className="text-sm text-[#555] truncate max-w-0">{(u as any).branch || '—'}</td>
-                <td className="text-sm font-medium">{u.clients_count ?? 0}</td>
-                <td>
-                  <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${statusStyles[u.status]}`}>
-                    {t(`common.status.${u.status}`)}
-                  </span>
+                <td className="max-w-[140px]">
+                  <span className="block truncate text-sm text-[#555]" title={(u as any).branch || ''}>{(u as any).branch || '—'}</span>
                 </td>
-                <td className="text-xs text-[#aaa]">{u.last_login || '—'}</td>
-                <td className="text-right">
+                <td className="whitespace-nowrap text-sm font-medium">{u.clients_count ?? 0}</td>
+                <td className="whitespace-nowrap">
+                  <Badge variant={statusStyles[u.status] ?? 'gray'}>
+                    {t(`common.status.${u.status}`)}
+                  </Badge>
+                </td>
+                <td className="whitespace-nowrap text-xs text-[#aaa]">{u.last_login || '—'}</td>
+                <td className="text-right whitespace-nowrap">
                   {canAdmin && u.id !== me?.id && (
-                    <button onClick={() => setConfirmDel(u.id)} className="text-xs text-[#e1261c] hover:opacity-70 transition-opacity">{t('users.deleteBtn')}</button>
+                    <button
+                      onClick={e => { e.stopPropagation(); setConfirmDel(u.id); }}
+                      className="text-xs text-[#e1261c] hover:opacity-70 transition-opacity"
+                    >{t('users.deleteBtn')}</button>
                   )}
                 </td>
               </tr>
@@ -308,6 +328,132 @@ export default function UsersPage() {
             </div>
           )}
         </div>
+      </Modal>
+
+      {/* Карточка сотрудника — быстрое модальное окно вместо отдельной
+          страницы (клик по строке). Редактирование доступно только admin
+          (совпадает с правами PUT /users/:id на бэкенде); supervisor
+          видит те же поля, но в режиме просмотра. */}
+      <Modal
+        open={editing !== null}
+        title={editing?.name || ''}
+        onClose={() => setEditing(null)}
+        footer={canAdmin ? <>
+          <Button variant="ghost" onClick={() => setEditing(null)}>{t('common.cancel')}</Button>
+          <Button onClick={() => update.mutate(editForm)} disabled={!editForm.name || update.isPending}>
+            {update.isPending ? t('common.saving', { defaultValue: 'Сохранение…' }) : t('common.save', { defaultValue: 'Сохранить' })}
+          </Button>
+        </> : <Button variant="ghost" onClick={() => setEditing(null)}>{t('common.close', { defaultValue: 'Закрыть' })}</Button>}
+      >
+        {editing && (
+          <div className="space-y-4">
+            <div className="text-sm text-[#aaa]">
+              {editing.role === 'agent'
+                ? <span className="font-mono">{(editing as unknown as Record<string,string>).login || '—'}</span>
+                : ((editing as unknown as Record<string,string>).phone || '—')
+              }
+            </div>
+
+            <div>
+              <label className="field-label">{t('users.fName')}</label>
+              <input
+                value={editForm.name}
+                onChange={e => setEditForm({ ...editForm, name: e.target.value })}
+                className="form-input"
+                disabled={!canAdmin}
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="field-label">{t('users.fRole')}</label>
+                <select
+                  value={editForm.role}
+                  onChange={e => setEditForm({ ...editForm, role: e.target.value as UserRole })}
+                  className="form-input"
+                  disabled={!canAdmin}
+                >
+                  <option value="manager">{t('common.roles.manager')}</option>
+                  <option value="operator">{t('common.roles.operator')}</option>
+                  <option value="dsa">{t('common.roles.dsa')}</option>
+                  <option value="supervisor">{t('common.roles.supervisor')}</option>
+                  <option value="analyst">{t('common.roles.analyst')}</option>
+                  <option value="admin">{t('common.roles.admin')}</option>
+                  <option value="agent">{t('common.roles.agent')}</option>
+                </select>
+              </div>
+              <div>
+                <label className="field-label">{t('users.colStatus')}</label>
+                <select
+                  value={editForm.status}
+                  onChange={e => setEditForm({ ...editForm, status: e.target.value })}
+                  className="form-input"
+                  disabled={!canAdmin}
+                >
+                  <option value="active">{t('common.status.active')}</option>
+                  <option value="inactive">{t('common.status.inactive')}</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="field-label">{t('users.fDept')}</label>
+                <input
+                  value={editForm.dept}
+                  onChange={e => setEditForm({ ...editForm, dept: e.target.value })}
+                  className="form-input"
+                  disabled={!canAdmin}
+                />
+              </div>
+              <div>
+                <label className="field-label">{t('users.colClients')}</label>
+                <input value={editing.clients_count ?? 0} className="form-input" disabled />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="field-label">Блок доступа</label>
+                <select
+                  value={editForm.block}
+                  onChange={e => setEditForm({ ...editForm, block: e.target.value })}
+                  className="form-input"
+                  disabled={!canAdmin}
+                >
+                  <option value="">— без ограничений —</option>
+                  <option value="MSE">MSE (МСП)</option>
+                  <option value="Middle">Middle (Средний)</option>
+                  <option value="Large">Large (Крупный)</option>
+                  <option value="Int">Int (Международный)</option>
+                </select>
+              </div>
+              <div>
+                <label className="field-label">Филиал</label>
+                <input
+                  value={editForm.branch}
+                  onChange={e => setEditForm({ ...editForm, branch: e.target.value })}
+                  className="form-input"
+                  disabled={!canAdmin}
+                />
+              </div>
+            </div>
+
+            {canAdmin && (
+              <div>
+                <label className="field-label">Сбросить пароль (необязательно)</label>
+                <input
+                  type="text"
+                  value={editForm.password}
+                  onChange={e => setEditForm({ ...editForm, password: e.target.value })}
+                  className="form-input"
+                  placeholder="Оставь пустым, чтобы не менять"
+                  autoComplete="off"
+                />
+              </div>
+            )}
+          </div>
+        )}
       </Modal>
 
       {/* Delete confirm */}

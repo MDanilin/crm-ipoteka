@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { api } from '@/lib/api';
 import { useAuthStore } from '@/store/auth';
 import type { User } from '@crm/types';
+import { Badge } from '@/components/ui/Badge';
 
 interface SlaViolation {
   id: number; name: string; contact: string; phone: string;
@@ -255,9 +256,7 @@ export default function SlaPage() {
                       </td>
                       <td className="px-5 py-4 text-xs text-[#aaa]">{v.created_at?.slice(0, 16).replace('T', ' ')}</td>
                       <td className="px-5 py-4">
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-[#fee2e2] text-[#991b1b] px-3 py-1 text-xs font-bold">
-                          +{fmtOverdue(v.overdue_minutes)}
-                        </span>
+                        <Badge variant="red" className="font-bold">+{fmtOverdue(v.overdue_minutes)}</Badge>
                       </td>
                       <td className="px-5 py-4 text-xs text-[#aaa]">{v.source || '—'}</td>
                       <td className="px-5 py-4 text-right">
@@ -340,9 +339,7 @@ export default function SlaPage() {
                             </span>
                           </td>
                           <td className="px-5 py-4">
-                            <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${ok ? 'bg-[#dcfce7] text-[#166534]' : 'bg-[#fee2e2] text-[#991b1b]'}`}>
-                              {ok ? '✓ В норме' : '✗ Нарушает'}
-                            </span>
+                            <Badge variant={ok ? 'green' : 'red'}>{ok ? '✓ В норме' : '✗ Нарушает'}</Badge>
                           </td>
                           <td className="px-5 py-4 text-sm text-[#555]">{m.processed}</td>
                         </tr>

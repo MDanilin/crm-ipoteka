@@ -9,16 +9,19 @@ import { useAuthStore } from '@/store/auth';
 import type { Task } from '@crm/types';
 import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
+import { Badge } from '@/components/ui/Badge';
 import { cn } from '@/lib/cn';
 
 const PRI_DOT = { high:'bg-[#e1261c]', medium:'bg-[#f59e0b]', low:'bg-[#10b981]' } as const;
 
-const typeStyles: Record<string, string> = {
-  call:     'bg-[#dbeafe] text-[#1d4ed8]',
-  meeting:  'bg-[#ede9fe] text-[#6d28d9]',
-  proposal: 'bg-[#fef3c7] text-[#92400e]',
-  document: 'bg-[#f3f4f6] text-[#374151]',
-  analysis: 'bg-[#dcfce7] text-[#166534]',
+// Тип задачи — категория (звонок/встреча/предложение/итд), не критичность,
+// поэтому только монохромные варианты Badge (без "red").
+const typeStyles: Record<string, 'green' | 'orange' | 'blue' | 'purple' | 'gray'> = {
+  call:     'blue',
+  meeting:  'purple',
+  proposal: 'orange',
+  document: 'gray',
+  analysis: 'green',
 };
 // TYPE_L resolved via t() below
 
@@ -63,7 +66,7 @@ export default function TasksPage() {
         {t.client_name && <div className="text-xs text-[#aaa]">{t.client_name}</div>}
       </div>
       <div className="flex items-center gap-3 flex-shrink-0">
-        <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${typeStyles[t.type] ?? 'bg-[#f3f4f6] text-[#555]'}`}>{tt(`tasks.types${t.type.charAt(0).toUpperCase() + t.type.slice(1)}`)}</span>
+        <Badge variant={typeStyles[t.type] ?? 'gray'}>{tt(`tasks.types${t.type.charAt(0).toUpperCase() + t.type.slice(1)}`)}</Badge>
         <div className="text-xs text-[#aaa] w-20 text-right">{t.due}</div>
         <div className="text-xs text-[#aaa] w-24 text-right">{t.manager}</div>
       </div>

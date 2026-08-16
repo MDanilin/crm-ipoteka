@@ -7,13 +7,14 @@ import '@/lib/i18n';
 import { api } from '@/lib/api';
 import { useAuthStore } from '@/store/auth';
 import type { DashboardStats } from '@crm/types';
+import { Badge } from '@/components/ui/Badge';
 
 const PRIORITY_COLOR = { high:'bg-[#e1261c]', medium:'bg-[#f59e0b]', low:'bg-[#10b981]' } as const;
 
-const statusStyles: Record<string, string> = {
-  active:   'bg-[#dcfce7] text-[#166534]',
-  pending:  'bg-[#fef3c7] text-[#92400e]',
-  inactive: 'bg-[#f3f4f6] text-[#6b7280]',
+const statusVariants: Record<string, 'green' | 'orange' | 'gray'> = {
+  active:   'green',
+  pending:  'orange',
+  inactive: 'gray',
 };
 
 export default function DashboardPage() {
@@ -136,9 +137,9 @@ export default function DashboardPage() {
                   <div className="text-xs text-[#aaa]">{c.industry}</div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap ${statusStyles[c.status] ?? 'bg-[#f3f4f6] text-[#6b7280]'}`}>
+                  <Badge variant={statusVariants[c.status] ?? 'gray'}>
                     {t(`common.status.${c.status}`)}
-                  </span>
+                  </Badge>
                   <span className="text-xs text-[#aaa]">{c.last_contact}</span>
                 </div>
               </div>

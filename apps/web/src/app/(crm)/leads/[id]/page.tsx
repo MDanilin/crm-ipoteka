@@ -9,15 +9,15 @@ import type { LeadDetail, LeadActivity, LeadTransfer, User } from '@crm/types';
 import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
 
-const STATUS_CFG: Record<string, { label: string; color: string }> = {
-  new:            { label: 'Новый',             color: 'bg-[#dbeafe] text-[#1d4ed8]' },
-  in_progress:    { label: 'В работе',          color: 'bg-[#fef9c3] text-[#854d0e]' },
-  meeting:        { label: 'Встреча назначена', color: 'bg-[#fde7d0] text-[#9a3412]' },
-  account_opened: { label: 'Открыт счёт',      color: 'bg-[#dcfce7] text-[#166534]' },
-  qualified:      { label: 'Квалифицирован',    color: 'bg-[#dcfce7] text-[#15803d]' },
-  proposal:       { label: 'Предложение',       color: 'bg-[#f3f4f6] text-[#374151]' },
-  converted:      { label: 'Конвертирован',     color: 'bg-[#ede9fe] text-[#6d28d9]' },
-  lost:           { label: 'Потерян',           color: 'bg-[#fee2e2] text-[#991b1b]' },
+const STATUS_CFG: Record<string, { label: string; critical?: boolean }> = {
+  new:            { label: 'Новый' },
+  in_progress:    { label: 'В работе' },
+  meeting:        { label: 'Встреча назначена' },
+  account_opened: { label: 'Открыт счёт' },
+  qualified:      { label: 'Квалифицирован' },
+  proposal:       { label: 'Предложение' },
+  converted:      { label: 'Конвертирован' },
+  lost:           { label: 'Потерян', critical: true },
 };
 
 const SRC_LABELS: Record<string, string> = {
@@ -109,7 +109,7 @@ function OwnershipTimeline({ transfers, currentManager, createdAt }: {
               <div>
                 <span className={`text-sm font-semibold ${entry.isCurrent ? 'text-[#111]' : 'text-[#555]'}`}>{entry.to || '—'}</span>
                 {entry.isCurrent && (
-                  <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#dcfce7] text-[#166534]">Текущий владелец</span>
+                  <span className="ml-2 text-[11px] font-semibold text-[#666]">Текущий владелец</span>
                 )}
               </div>
               <span className="text-[11px] text-[#bbb] flex-shrink-0">{fmtDate(entry.at)}</span>
@@ -240,7 +240,7 @@ export default function LeadDetailPage() {
               if (s === 'lost') { setLostOpen(true); }
               else { changeStatus.mutate({ status: s }); }
             }}
-            className={`rounded-full px-3 py-1.5 text-[12px] font-semibold border-none outline-none cursor-pointer ${STATUS_CFG[lead.status]?.color ?? 'bg-[#f3f4f6] text-[#555]'}`}
+            className={`status-select ${STATUS_CFG[lead.status]?.critical ? 'text-[#c41f16] font-semibold' : ''}`}
           >
             {Object.entries(STATUS_CFG).map(([k, v]) => (
               <option key={k} value={k}>{v.label}</option>

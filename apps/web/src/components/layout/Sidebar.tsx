@@ -218,8 +218,11 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                         onClick={onClose}
                         className={cn(
                           'flex h-[58px] items-center gap-5 rounded-xl px-4 text-left text-[20px] font-normal transition-colors',
+                          // Мягкий тонированный акцент вместо нейтрального
+                          // серого (Rocket Work) — существующий бренд-акцент
+                          // #e1261c на 6% непрозрачности.
                           active
-                            ? 'bg-[#f3f3f3] font-semibold text-[#111]'
+                            ? 'bg-[#e1261c]/[0.06] font-semibold text-[#111]'
                             : 'text-[#6f8095] hover:bg-[#fafafa]'
                         )}
                       >

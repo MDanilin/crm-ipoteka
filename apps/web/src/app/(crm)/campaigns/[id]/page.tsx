@@ -8,16 +8,19 @@ import { api } from '@/lib/api';
 import { useAuthStore } from '@/store/auth';
 import type { Campaign, CampaignContact } from '@crm/types';
 import { Button } from '@/components/ui/Button';
+import { Badge } from '@/components/ui/Badge';
 
 // ── Status config ──────────────────────────────────────────────────────────────
 
-const CALL_STATUSES: { value: string; label: string; color: string }[] = [
-  { value: 'pending',        label: 'Не обработан',   color: 'bg-[#f3f4f6] text-[#555]' },
-  { value: 'no_answer',      label: 'Не дозвонились', color: 'bg-[#f3f4f6] text-[#888]' },
-  { value: 'not_interested', label: 'Не интересно',   color: 'bg-[#fee2e2] text-[#991b1b]' },
-  { value: 'callback',       label: 'Перезвонить',    color: 'bg-[#fef3c7] text-[#92400e]' },
-  { value: 'meeting',        label: 'Встреча',        color: 'bg-[#fde7d0] text-[#9a3412]' },
-  { value: 'lead_created',   label: 'Лид создан',     color: 'bg-[#dcfce7] text-[#166534]' },
+type StatusVariant = 'green' | 'red' | 'orange' | 'blue' | 'purple' | 'gray';
+
+const CALL_STATUSES: { value: string; label: string; variant: StatusVariant }[] = [
+  { value: 'pending',        label: 'Не обработан',   variant: 'gray' },
+  { value: 'no_answer',      label: 'Не дозвонились', variant: 'gray' },
+  { value: 'not_interested', label: 'Не интересно',   variant: 'red' },
+  { value: 'callback',       label: 'Перезвонить',    variant: 'orange' },
+  { value: 'meeting',        label: 'Встреча',        variant: 'orange' },
+  { value: 'lead_created',   label: 'Лид создан',     variant: 'green' },
 ];
 
 const STATUS_MAP = Object.fromEntries(CALL_STATUSES.map(s => [s.value, s]));
@@ -40,9 +43,9 @@ function ResultSelect({ contact, campaignId }: { contact: CampaignContact; campa
     <div className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold ${cfg.color} hover:opacity-80 transition-opacity`}
+        className="inline-flex items-center gap-1 hover:opacity-70 transition-opacity"
       >
-        {cfg.label} <span className="text-[9px] opacity-60">▼</span>
+        <Badge variant={cfg.variant}>{cfg.label}</Badge> <span className="text-[9px] opacity-60">▼</span>
       </button>
       {open && (
         <div className="absolute top-full left-0 mt-1 z-20 bg-white rounded-xl shadow-lg border border-[#f0f0f0] w-52 py-1">
@@ -55,7 +58,7 @@ function ResultSelect({ contact, campaignId }: { contact: CampaignContact; campa
               }}
               className="w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-[#f9f9f9] text-left"
             >
-              <span className={`inline-flex px-2 py-0.5 rounded-full text-[10px] font-semibold ${s.color}`}>{s.label}</span>
+              <Badge variant={s.variant}>{s.label}</Badge>
             </button>
           ))}
           <div className="border-t border-[#f5f5f5] mt-1 px-3 pt-2 pb-2">
@@ -427,7 +430,9 @@ export default function CampaignDetailPage() {
                   const pct = campaign.total > 0 ? Math.round((s.count / campaign.total) * 100) : 0;
                   return (
                     <div key={s.value} className="flex items-center gap-3">
-                      <span className={`flex-shrink-0 inline-flex px-2 py-0.5 rounded-full text-[10px] font-semibold w-36 justify-center ${s.color}`}>{s.label}</span>
+                      <span className="flex-shrink-0 w-36 flex justify-center">
+                        <Badge variant={s.variant}>{s.label}</Badge>
+                      </span>
                       <div className="flex-1 h-1.5 bg-[#f3f3f3] rounded-full overflow-hidden">
                         <div className="h-full rounded-full bg-[#111]" style={{ width: `${pct}%` }}/>
                       </div>

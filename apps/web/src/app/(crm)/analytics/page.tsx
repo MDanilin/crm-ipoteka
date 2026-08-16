@@ -143,7 +143,7 @@ function LostTab() {
                     </div>
                   </td>
                   <td className="py-3 px-2 text-center">
-                    <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${i === 0 ? 'bg-[#fee2e2] text-[#991b1b]' : 'bg-[#f3f4f6] text-[#555]'}`}>{m.count}</span>
+                    <span className={`text-sm ${i === 0 ? 'text-[#c41f16] font-semibold' : 'text-[#111] font-bold'}`}>{m.count}</span>
                   </td>
                   <td className="py-3 px-2">
                     <div className="flex items-center gap-3">
@@ -243,11 +243,11 @@ function HQTab() {
                   <td className="py-3 px-3 text-[#991b1b]">{c.lost}</td>
                   <td className="py-3 px-3 text-[#555]">{c.active}</td>
                   <td className="py-3 px-3">
-                    <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${
-                      c.conversion_pct >= 50 ? 'bg-[#dcfce7] text-[#166534]' :
-                      c.conversion_pct >= 20 ? 'bg-[#fef9c3] text-[#854d0e]' :
-                      c.total > 0            ? 'bg-[#fee2e2] text-[#991b1b]' :
-                      'bg-[#f3f4f6] text-[#aaa]'
+                    <span className={`text-sm ${
+                      c.conversion_pct >= 50 ? 'text-[#111] font-bold' :
+                      c.conversion_pct >= 20 ? 'text-[#111] font-bold' :
+                      c.total > 0            ? 'text-[#c41f16] font-semibold' :
+                      'text-[#aaa]'
                     }`}>{c.total > 0 ? `${c.conversion_pct}%` : '—'}</span>
                   </td>
                   <td className="py-3 px-3 text-[#555]">{c.avg_days != null ? c.avg_days : '—'}</td>
@@ -283,10 +283,8 @@ function HQTab() {
                       return (
                         <td key={c.channel} className="py-2.5 px-3 text-center">
                           {val > 0 ? (
-                            <span className={`inline-flex items-center justify-center w-7 h-7 rounded-full text-xs font-bold ${
-                              stage.key === 'converted' ? 'bg-[#dcfce7] text-[#166534]' :
-                              stage.key === 'lost'      ? 'bg-[#fee2e2] text-[#991b1b]' :
-                              'bg-[#f3f4f6] text-[#555]'
+                            <span className={`text-sm ${
+                              stage.key === 'lost' ? 'text-[#c41f16] font-semibold' : 'text-[#111] font-bold'
                             }`}>{val}</span>
                           ) : (
                             <span className="text-[#ddd]">—</span>
@@ -332,11 +330,11 @@ function HQTab() {
                   </td>
                   <td className="py-3 px-3 text-center text-[#15803d] font-semibold">{e.converted}</td>
                   <td className="py-3 px-3">
-                    <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${
-                      e.conversion_pct >= 50 ? 'bg-[#dcfce7] text-[#166534]' :
-                      e.conversion_pct >= 20 ? 'bg-[#fef9c3] text-[#854d0e]' :
-                      e.leads > 0            ? 'bg-[#fee2e2] text-[#991b1b]' :
-                      'bg-[#f3f4f6] text-[#aaa]'
+                    <span className={`text-sm ${
+                      e.conversion_pct >= 50 ? 'text-[#111] font-bold' :
+                      e.conversion_pct >= 20 ? 'text-[#111] font-bold' :
+                      e.leads > 0            ? 'text-[#c41f16] font-semibold' :
+                      'text-[#aaa]'
                     }`}>{e.leads > 0 ? `${e.conversion_pct}%` : '—'}</span>
                   </td>
                   <td className="py-3 px-3 text-[#555] text-sm">{e.avg_days != null ? `${e.avg_days} д` : '—'}</td>
@@ -372,13 +370,13 @@ function HQTab() {
                       </div>
                     </td>
                     <td className="py-3 px-3">
-                      <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${e.calls > 0 ? 'bg-[#dbeafe] text-[#1d4ed8]' : 'text-[#ccc]'}`}>{e.calls > 0 ? e.calls : '—'}</span>
+                      <span className={`text-sm ${e.calls > 0 ? 'text-[#111] font-bold' : 'text-[#ccc]'}`}>{e.calls > 0 ? e.calls : '—'}</span>
                     </td>
                     <td className="py-3 px-3">
-                      <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${e.meetings > 0 ? 'bg-[#dcfce7] text-[#166534]' : 'text-[#ccc]'}`}>{e.meetings > 0 ? e.meetings : '—'}</span>
+                      <span className={`text-sm ${e.meetings > 0 ? 'text-[#111] font-bold' : 'text-[#ccc]'}`}>{e.meetings > 0 ? e.meetings : '—'}</span>
                     </td>
                     <td className="py-3 px-3">
-                      <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${e.tasks > 0 ? 'bg-[#fef9c3] text-[#854d0e]' : 'text-[#ccc]'}`}>{e.tasks > 0 ? e.tasks : '—'}</span>
+                      <span className={`text-sm ${e.tasks > 0 ? 'text-[#111] font-bold' : 'text-[#ccc]'}`}>{e.tasks > 0 ? e.tasks : '—'}</span>
                     </td>
                     <td className="py-3 px-3 font-semibold text-[#555]">{total > 0 ? total : '—'}</td>
                   </tr>

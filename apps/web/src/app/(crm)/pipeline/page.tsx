@@ -10,12 +10,12 @@ import type { Deal, PipelineStage } from '@crm/types';
 import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
 
-const STAGES: { id: PipelineStage; label: string; color: string; dot: string }[] = [
-  { id: 'qualification', label: 'Квалификация', color: 'bg-[#dbeafe] text-[#1d4ed8]', dot: 'bg-[#3b82f6]' },
-  { id: 'proposal',      label: 'Предложение',  color: 'bg-[#ede9fe] text-[#6d28d9]', dot: 'bg-[#8b5cf6]' },
-  { id: 'negotiation',   label: 'Переговоры',   color: 'bg-[#fef9c3] text-[#854d0e]', dot: 'bg-[#f59e0b]' },
-  { id: 'approval',      label: 'Согласование', color: 'bg-[#dcfce7] text-[#166534]', dot: 'bg-[#10b981]' },
-  { id: 'closed',        label: 'Закрыто',      color: 'bg-[#f3f4f6] text-[#374151]', dot: 'bg-[#6b7280]' },
+const STAGES: { id: PipelineStage; label: string; dot: string }[] = [
+  { id: 'qualification', label: 'Квалификация', dot: 'bg-[#3b82f6]' },
+  { id: 'proposal',      label: 'Предложение',  dot: 'bg-[#8b5cf6]' },
+  { id: 'negotiation',   label: 'Переговоры',   dot: 'bg-[#f59e0b]' },
+  { id: 'approval',      label: 'Согласование', dot: 'bg-[#10b981]' },
+  { id: 'closed',        label: 'Закрыто',      dot: 'bg-[#6b7280]' },
 ];
 
 const EMPTY_FORM = { client_name: '', product: '', amount_raw: '', probability: '50', stage: 'qualification', close_date: '', manager: '' };
@@ -257,7 +257,6 @@ export default function PipelinePage() {
             </thead>
             <tbody>
               {filtered.map(d => {
-                const stage = STAGES.find(s => s.id === d.stage);
                 return (
                   <tr key={d.id}>
                     <td className="max-w-0">
@@ -271,7 +270,7 @@ export default function PipelinePage() {
                       <select
                         value={d.stage}
                         onChange={e => changeStage.mutate({ id: d.id, stage: e.target.value })}
-                        className={`status-select ${stage?.color ?? 'bg-[#f3f4f6] text-[#555]'}`}
+                        className="status-select"
                       >
                         {STAGES.map(s => <option key={s.id} value={s.id}>{s.label}</option>)}
                       </select>
