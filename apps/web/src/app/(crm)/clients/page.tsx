@@ -60,23 +60,15 @@ export default function ClientsPage() {
 
       {/* Table */}
       <div className="overflow-x-auto">
-        <table className="crm-table min-w-[800px]">
-          <colgroup>
-            <col className="w-[30%]"/>
-            <col className="w-[14%]"/>
-            <col className="w-[18%]"/>
-            <col className="w-[16%]"/>
-            <col className="w-[12%]"/>
-            <col className="w-[10%]"/>
-          </colgroup>
+        <table className="crm-table min-w-[760px]">
           <thead>
             <tr>
-              <th>{t('clients.colClient')}</th>
-              <th>{t('clients.colType')}</th>
-              <th>{t('clients.colIndustry')}</th>
-              <th>{t('clients.colManager')}</th>
-              <th>{t('clients.colSegment')}</th>
-              <th>{t('clients.colStatus')}</th>
+              <th className="min-w-[220px] w-[30%]">{t('clients.colClient')}</th>
+              <th className="min-w-[130px]">{t('clients.colType')}</th>
+              <th className="min-w-[140px] w-[18%]">{t('clients.colIndustry')}</th>
+              <th className="min-w-[130px] w-[16%]">{t('clients.colManager')}</th>
+              <th className="min-w-[100px]">{t('clients.colSegment')}</th>
+              <th className="min-w-[140px]">{t('clients.colStatus')}</th>
             </tr>
           </thead>
           <tbody>
@@ -86,26 +78,36 @@ export default function ClientsPage() {
                 onClick={() => router.push(`/clients/${c.id}`)}
                 className="cursor-pointer"
               >
-                <td className="max-w-0">
+                {/* Клиент — аватар + название + город */}
+                <td>
                   <div className="flex items-center gap-3">
-                    <div className="grid size-10 place-items-center rounded-full bg-[#f3dcd8] text-xs font-bold text-[#7c3f36] flex-shrink-0">
+                    <div className="grid size-9 shrink-0 place-items-center rounded-full bg-[#f3dcd8] text-xs font-bold text-[#7c3f36]">
                       {c.short_name || c.name.slice(0,2).toUpperCase()}
                     </div>
                     <div className="min-w-0">
-                      <p className="font-semibold text-sm truncate">{c.name}</p>
-                      <p className="text-xs text-[#aaa] mt-0.5 truncate">{c.city}</p>
+                      <p className="font-semibold text-sm leading-snug truncate max-w-[220px]" title={c.name}>{c.name}</p>
+                      <p className="text-xs text-[#aaa] mt-0.5">{c.city}</p>
                     </div>
                   </div>
                 </td>
-                <td>
+                {/* Тип — бейдж, не обрезать */}
+                <td className="whitespace-nowrap">
                   <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#f3f4f6] text-[#555]">{c.type}</span>
                 </td>
-                <td className="text-sm text-[#555] truncate max-w-0">{c.industry || '—'}</td>
-                <td className="text-sm truncate max-w-0">{c.manager || '—'}</td>
-                <td>
+                {/* Отрасль — текст с truncate + title */}
+                <td className="max-w-[180px]">
+                  <span className="block text-sm text-[#555] truncate" title={c.industry || ''}>{c.industry || '—'}</span>
+                </td>
+                {/* Менеджер — текст с truncate + title */}
+                <td className="max-w-[160px]">
+                  <span className="block text-sm truncate" title={c.manager || ''}>{c.manager || '—'}</span>
+                </td>
+                {/* Сегмент — бейдж, не обрезать */}
+                <td className="whitespace-nowrap">
                   <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${c.segment === 'Premium' ? 'bg-[#ede9fe] text-[#6d28d9]' : 'bg-[#f3f4f6] text-[#6b7280]'}`}>{c.segment}</span>
                 </td>
-                <td>
+                {/* Статус — бейдж, не обрезать */}
+                <td className="whitespace-nowrap">
                   <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold ${statusStyles[c.status] ?? 'bg-[#f3f4f6] text-[#555]'}`}>{t(`common.status.${c.status}`)}</span>
                 </td>
               </tr>

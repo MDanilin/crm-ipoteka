@@ -38,12 +38,12 @@
 
   /* ── Data tables ────────────────────────────────────── */
   /*
-   * Always use this class on data tables.
-   * table-fixed + colgroup percentages lock column widths regardless of content.
-   * Without this, every row re-renders causes a full column-width recalculation.
+   * table-auto: колонки подстраиваются под контент.
+   * Текстовые ячейки ограничивают ширину через max-w-[N] + truncate.
+   * Бейджи используют whitespace-nowrap чтобы не обрезаться.
    */
   .crm-table {
-    @apply w-full table-fixed border-separate border-spacing-0 text-left;
+    @apply w-full table-auto border-separate border-spacing-0 text-left;
   }
   .crm-table thead tr {
     @apply bg-[#f6f6f6] text-xs font-bold uppercase tracking-[0.08em] text-[#999];
