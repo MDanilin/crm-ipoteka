@@ -61,17 +61,20 @@ export default function ClientsPage() {
         <span className="text-sm font-semibold">{t('clients.total', { count: clients.length })}</span>
       </div>
 
-      {/* Table */}
+      {/* Table — без принудительной общей min-width: колонки со свободным
+          текстом (Отрасль/Менеджер) сжимаются через max-w+truncate,
+          поэтому таблица помещается в экран без горизонтального скролла
+          (см. Rocket Work — там его тоже нет). */}
       <div className="overflow-x-auto">
-        <table className="crm-table min-w-[760px]">
+        <table className="crm-table">
           <thead>
             <tr>
-              <th className="min-w-[220px] w-[30%]">{t('clients.colClient')}</th>
-              <th className="min-w-[130px]">{t('clients.colType')}</th>
-              <th className="min-w-[140px] w-[18%]">{t('clients.colIndustry')}</th>
-              <th className="min-w-[130px] w-[16%]">{t('clients.colManager')}</th>
-              <th className="min-w-[100px]">{t('clients.colSegment')}</th>
-              <th className="min-w-[140px]">{t('clients.colStatus')}</th>
+              <th className="min-w-[170px]">{t('clients.colClient')}</th>
+              <th>{t('clients.colType')}</th>
+              <th>{t('clients.colIndustry')}</th>
+              <th>{t('clients.colManager')}</th>
+              <th>{t('clients.colSegment')}</th>
+              <th>{t('clients.colStatus')}</th>
             </tr>
           </thead>
           <tbody>
@@ -87,9 +90,9 @@ export default function ClientsPage() {
                     <div className="grid size-9 shrink-0 place-items-center rounded-full bg-[#f3dcd8] text-xs font-bold text-[#7c3f36]">
                       {c.short_name || c.name.slice(0,2).toUpperCase()}
                     </div>
-                    <div className="min-w-0">
-                      <p className="font-semibold text-sm leading-snug truncate max-w-[220px]" title={c.name}>{c.name}</p>
-                      <p className="text-xs text-[#aaa] mt-0.5">{c.city}</p>
+                    <div className="min-w-0 max-w-[150px]">
+                      <p className="font-semibold text-sm leading-snug truncate" title={c.name}>{c.name}</p>
+                      <p className="text-xs text-[#aaa] mt-0.5 truncate">{c.city}</p>
                     </div>
                   </div>
                 </td>
@@ -98,11 +101,11 @@ export default function ClientsPage() {
                   <Badge variant="gray">{c.type}</Badge>
                 </td>
                 {/* Отрасль — текст с truncate + title */}
-                <td className="max-w-[180px]">
+                <td className="max-w-[130px]">
                   <span className="block text-sm text-[#555] truncate" title={c.industry || ''}>{c.industry || '—'}</span>
                 </td>
                 {/* Менеджер — текст с truncate + title */}
-                <td className="max-w-[160px]">
+                <td className="max-w-[110px]">
                   <span className="block text-sm truncate" title={c.manager || ''}>{c.manager || '—'}</span>
                 </td>
                 {/* Сегмент — бейдж, не обрезать */}

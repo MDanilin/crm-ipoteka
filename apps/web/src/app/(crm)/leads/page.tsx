@@ -287,9 +287,13 @@ export default function LeadsPage() {
         ))}
       </div>
 
-      {/* Kanban Board */}
+      {/* Kanban Board — 4 колонки должны помещаться на обычном экране без
+          скролла (в отличие от полной 8-этапной воронки в статус-селекте
+          Table-вида, где скролл — общепринятая практика, как в Trello/
+          Jira/HubSpot). Карточки не обрезают текст (переносятся), поэтому
+          сужение колонки не ломает контент. */}
       {view === 'board' && (
-        <div className="flex gap-4 overflow-x-auto pb-4">
+        <div className="flex gap-3 overflow-x-auto pb-4">
           {([
             ['new',            t('leads.stageNew')],
             ['in_progress',    t('leads.stageInProgress')],
@@ -300,7 +304,7 @@ export default function LeadsPage() {
             return (
               <div
                 key={status}
-                className="kanban-col flex-shrink-0 w-64 rounded-2xl p-4 bg-[#f6f6f6] transition-colors"
+                className="kanban-col flex-shrink-0 w-52 rounded-2xl p-3 bg-[#f6f6f6] transition-colors"
                 onDragOver={e => {
                   e.preventDefault();
                   e.dataTransfer.dropEffect = 'move';
@@ -355,9 +359,12 @@ export default function LeadsPage() {
                       <div className="text-sm font-semibold leading-tight mb-0.5">{l.name}</div>
                       {l.inn && <div className="text-[10px] text-[#aaa]">ИНН {l.inn}</div>}
                       <div className="text-xs text-[#888] mt-1">{l.product || '—'}</div>
-                      <div className="flex items-center justify-between mt-2">
-                        <div className="text-xs text-[#aaa]">{l.phone}</div>
-                        <div className="text-xs text-[#bbb]">{l.manager || '—'}</div>
+                      {/* Телефон и менеджер — друг под другом, а не в строку:
+                          в узкой колонке justify-between ломал выравнивание,
+                          когда оба переносились по-разному. */}
+                      <div className="mt-2 space-y-0.5">
+                        <div className="text-xs text-[#aaa] truncate">{l.phone}</div>
+                        <div className="text-xs text-[#bbb] truncate" title={l.manager || ''}>{l.manager || '—'}</div>
                       </div>
                     </div>
                   ))}
