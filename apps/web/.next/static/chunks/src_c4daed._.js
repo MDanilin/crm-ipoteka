@@ -13,20 +13,20 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$apps$2f$web$2f$src$2f$lib$2f
 ;
 ;
 const VARIANTS = {
-    green: 'bg-green-100 text-green-700',
-    red: 'bg-red-100 text-red-700',
-    orange: 'bg-amber-100 text-amber-700',
-    blue: 'bg-blue-100 text-blue-700',
-    purple: 'bg-purple-100 text-purple-700',
-    gray: 'bg-gray-100 text-gray-500'
+    green: 'text-[#111]',
+    red: 'text-[#c41f16] font-semibold',
+    orange: 'text-[#111]',
+    blue: 'text-[#111]',
+    purple: 'text-[#111] font-semibold',
+    gray: 'text-[#999]'
 };
 function Badge({ variant = 'gray', children, className }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$apps$2f$web$2f$src$2f$lib$2f$cn$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])('inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold whitespace-nowrap', VARIANTS[variant], className),
+        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$apps$2f$web$2f$src$2f$lib$2f$cn$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])('inline-flex items-center text-sm whitespace-nowrap', VARIANTS[variant], className),
         children: children
     }, void 0, false, {
         fileName: "[project]/apps/web/src/components/ui/Badge.tsx",
-        lineNumber: 20,
+        lineNumber: 27,
         columnNumber: 5
     }, this);
 }
@@ -153,7 +153,7 @@ function IconDoc() {
                 strokeLinejoin: "round"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 22,
+                lineNumber: 23,
                 columnNumber: 95
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -163,13 +163,13 @@ function IconDoc() {
                 strokeLinecap: "round"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 22,
+                lineNumber: 23,
                 columnNumber: 248
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 22,
+        lineNumber: 23,
         columnNumber: 35
     }, this);
 }
@@ -191,7 +191,7 @@ function IconChart() {
                 strokeWidth: "1.5"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 23,
+                lineNumber: 24,
                 columnNumber: 95
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("rect", {
@@ -204,7 +204,7 @@ function IconChart() {
                 strokeWidth: "1.5"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 23,
+                lineNumber: 24,
                 columnNumber: 183
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("rect", {
@@ -217,13 +217,13 @@ function IconChart() {
                 strokeWidth: "1.5"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 23,
+                lineNumber: 24,
                 columnNumber: 273
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 23,
+        lineNumber: 24,
         columnNumber: 35
     }, this);
 }
@@ -245,7 +245,7 @@ function IconClip() {
                 strokeWidth: "1.5"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 24,
+                lineNumber: 25,
                 columnNumber: 95
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -255,7 +255,7 @@ function IconClip() {
                 strokeLinecap: "round"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 24,
+                lineNumber: 25,
                 columnNumber: 184
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -265,13 +265,13 @@ function IconClip() {
                 strokeLinecap: "round"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 24,
+                lineNumber: 25,
                 columnNumber: 278
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 24,
+        lineNumber: 25,
         columnNumber: 35
     }, this);
 }
@@ -293,7 +293,7 @@ function IconId() {
                 strokeWidth: "1.5"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 25,
+                lineNumber: 26,
                 columnNumber: 95
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("circle", {
@@ -304,7 +304,7 @@ function IconId() {
                 strokeWidth: "1.5"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 25,
+                lineNumber: 26,
                 columnNumber: 184
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -314,13 +314,13 @@ function IconId() {
                 strokeLinecap: "round"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 25,
+                lineNumber: 26,
                 columnNumber: 254
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 25,
+        lineNumber: 26,
         columnNumber: 35
     }, this);
 }
@@ -340,7 +340,7 @@ function IconEdit() {
                 strokeLinejoin: "round"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 26,
+                lineNumber: 27,
                 columnNumber: 95
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -350,13 +350,13 @@ function IconEdit() {
                 strokeLinecap: "round"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 26,
+                lineNumber: 27,
                 columnNumber: 226
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 26,
+        lineNumber: 27,
         columnNumber: 35
     }, this);
 }
@@ -378,7 +378,7 @@ function IconLock() {
                 strokeWidth: "1.5"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 27,
+                lineNumber: 28,
                 columnNumber: 95
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -388,7 +388,7 @@ function IconLock() {
                 strokeLinecap: "round"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 27,
+                lineNumber: 28,
                 columnNumber: 183
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("circle", {
@@ -398,13 +398,13 @@ function IconLock() {
                 fill: "currentColor"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 27,
+                lineNumber: 28,
                 columnNumber: 277
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 27,
+        lineNumber: 28,
         columnNumber: 35
     }, this);
 }
@@ -423,12 +423,12 @@ function IconPaperclip() {
             strokeLinejoin: "round"
         }, void 0, false, {
             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-            lineNumber: 28,
+            lineNumber: 29,
             columnNumber: 95
         }, this)
     }, void 0, false, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 28,
+        lineNumber: 29,
         columnNumber: 35
     }, this);
 }
@@ -448,7 +448,7 @@ function IconFile() {
                 strokeLinejoin: "round"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 29,
+                lineNumber: 30,
                 columnNumber: 95
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -458,13 +458,13 @@ function IconFile() {
                 strokeLinecap: "round"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 29,
+                lineNumber: 30,
                 columnNumber: 248
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 29,
+        lineNumber: 30,
         columnNumber: 35
     }, this);
 }
@@ -483,12 +483,12 @@ function IconCall() {
             strokeLinejoin: "round"
         }, void 0, false, {
             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-            lineNumber: 30,
+            lineNumber: 31,
             columnNumber: 95
         }, this)
     }, void 0, false, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 30,
+        lineNumber: 31,
         columnNumber: 35
     }, this);
 }
@@ -510,7 +510,7 @@ function IconMail() {
                 strokeWidth: "1.5"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 31,
+                lineNumber: 32,
                 columnNumber: 95
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -520,13 +520,13 @@ function IconMail() {
                 strokeLinecap: "round"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 31,
+                lineNumber: 32,
                 columnNumber: 184
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 31,
+        lineNumber: 32,
         columnNumber: 35
     }, this);
 }
@@ -546,7 +546,7 @@ function IconMeeting() {
                 strokeWidth: "1.5"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 32,
+                lineNumber: 33,
                 columnNumber: 95
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("circle", {
@@ -557,7 +557,7 @@ function IconMeeting() {
                 strokeWidth: "1.5"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 32,
+                lineNumber: 33,
                 columnNumber: 164
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -567,7 +567,7 @@ function IconMeeting() {
                 strokeLinecap: "round"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 32,
+                lineNumber: 33,
                 columnNumber: 236
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -577,13 +577,13 @@ function IconMeeting() {
                 strokeLinecap: "round"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 32,
+                lineNumber: 33,
                 columnNumber: 335
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 32,
+        lineNumber: 33,
         columnNumber: 35
     }, this);
 }
@@ -603,12 +603,12 @@ function IcoIndustry() {
             strokeLinejoin: "round"
         }, void 0, false, {
             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-            lineNumber: 35,
+            lineNumber: 36,
             columnNumber: 93
         }, this)
     }, void 0, false, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 35,
+        lineNumber: 36,
         columnNumber: 33
     }, this);
 }
@@ -627,7 +627,7 @@ function IcoPin() {
                 strokeLinejoin: "round"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 36,
+                lineNumber: 37,
                 columnNumber: 93
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("circle", {
@@ -638,13 +638,13 @@ function IcoPin() {
                 strokeWidth: "1.5"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 36,
+                lineNumber: 37,
                 columnNumber: 221
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 36,
+        lineNumber: 37,
         columnNumber: 33
     }, this);
 }
@@ -664,7 +664,7 @@ function IcoPerson() {
                 strokeWidth: "1.5"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 37,
+                lineNumber: 38,
                 columnNumber: 93
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -674,13 +674,13 @@ function IcoPerson() {
                 strokeLinecap: "round"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 37,
+                lineNumber: 38,
                 columnNumber: 163
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 37,
+        lineNumber: 38,
         columnNumber: 33
     }, this);
 }
@@ -700,7 +700,7 @@ function IcoGroup() {
                 strokeWidth: "1.5"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 38,
+                lineNumber: 39,
                 columnNumber: 93
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("circle", {
@@ -711,7 +711,7 @@ function IcoGroup() {
                 strokeWidth: "1.5"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 38,
+                lineNumber: 39,
                 columnNumber: 162
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -721,7 +721,7 @@ function IcoGroup() {
                 strokeLinecap: "round"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 38,
+                lineNumber: 39,
                 columnNumber: 234
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -731,13 +731,13 @@ function IcoGroup() {
                 strokeLinecap: "round"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 38,
+                lineNumber: 39,
                 columnNumber: 335
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 38,
+        lineNumber: 39,
         columnNumber: 33
     }, this);
 }
@@ -756,12 +756,12 @@ function IcoPhone() {
             strokeLinejoin: "round"
         }, void 0, false, {
             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-            lineNumber: 39,
+            lineNumber: 40,
             columnNumber: 93
         }, this)
     }, void 0, false, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 39,
+        lineNumber: 40,
         columnNumber: 33
     }, this);
 }
@@ -783,7 +783,7 @@ function IcoMail() {
                 strokeWidth: "1.5"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 40,
+                lineNumber: 41,
                 columnNumber: 93
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -793,13 +793,13 @@ function IcoMail() {
                 strokeLinecap: "round"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 40,
+                lineNumber: 41,
                 columnNumber: 182
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 40,
+        lineNumber: 41,
         columnNumber: 33
     }, this);
 }
@@ -819,7 +819,7 @@ function IcoCoin() {
                 strokeWidth: "1.5"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 41,
+                lineNumber: 42,
                 columnNumber: 93
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -829,13 +829,13 @@ function IcoCoin() {
                 strokeLinecap: "round"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 41,
+                lineNumber: 42,
                 columnNumber: 164
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 41,
+        lineNumber: 42,
         columnNumber: 33
     }, this);
 }
@@ -854,7 +854,7 @@ function IcoBank() {
                 strokeLinejoin: "round"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 42,
+                lineNumber: 43,
                 columnNumber: 93
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -864,7 +864,7 @@ function IcoBank() {
                 strokeLinecap: "round"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 42,
+                lineNumber: 43,
                 columnNumber: 183
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -874,7 +874,7 @@ function IcoBank() {
                 strokeLinecap: "round"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 42,
+                lineNumber: 43,
                 columnNumber: 283
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -884,13 +884,13 @@ function IcoBank() {
                 strokeLinecap: "round"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 42,
+                lineNumber: 43,
                 columnNumber: 365
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 42,
+        lineNumber: 43,
         columnNumber: 33
     }, this);
 }
@@ -912,7 +912,7 @@ function IcoInn() {
                 strokeWidth: "1.5"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 43,
+                lineNumber: 44,
                 columnNumber: 93
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -922,13 +922,13 @@ function IcoInn() {
                 strokeLinecap: "round"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 43,
+                lineNumber: 44,
                 columnNumber: 182
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 43,
+        lineNumber: 44,
         columnNumber: 33
     }, this);
 }
@@ -991,12 +991,12 @@ function DocIcon({ icon }) {
         className: "text-[#666]",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(C, {}, void 0, false, {
             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-            lineNumber: 63,
+            lineNumber: 64,
             columnNumber: 47
         }, this)
     }, void 0, false, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 63,
+        lineNumber: 64,
         columnNumber: 17
     }, this);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1004,7 +1004,7 @@ function DocIcon({ icon }) {
         children: icon
     }, void 0, false, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 64,
+        lineNumber: 65,
         columnNumber: 10
     }, this);
 }
@@ -1019,7 +1019,7 @@ function Modal({ title, onClose, children }) {
                 className: "absolute inset-0 bg-black/30"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 71,
+                lineNumber: 72,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1034,7 +1034,7 @@ function Modal({ title, onClose, children }) {
                                 children: title
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 74,
+                                lineNumber: 75,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1052,36 +1052,36 @@ function Modal({ title, onClose, children }) {
                                         strokeLinecap: "round"
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 77,
+                                        lineNumber: 78,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                    lineNumber: 76,
+                                    lineNumber: 77,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 75,
+                                lineNumber: 76,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                        lineNumber: 73,
+                        lineNumber: 74,
                         columnNumber: 9
                     }, this),
                     children
                 ]
             }, void 0, true, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 72,
+                lineNumber: 73,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 70,
+        lineNumber: 71,
         columnNumber: 5
     }, this);
 }
@@ -1094,14 +1094,14 @@ function Field({ label, children }) {
                 children: label
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 90,
+                lineNumber: 91,
                 columnNumber: 7
             }, this),
             children
         ]
     }, void 0, true, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 89,
+        lineNumber: 90,
         columnNumber: 5
     }, this);
 }
@@ -1112,7 +1112,7 @@ function Input(props) {
         className: "w-full h-11 rounded-xl bg-[#f5f5f5] px-4 text-sm outline-none placeholder:text-[#bbb] focus:bg-[#efefef] transition-colors"
     }, void 0, false, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 97,
+        lineNumber: 98,
         columnNumber: 10
     }, this);
 }
@@ -1123,27 +1123,27 @@ function ModalActions({ onCancel, onSubmit, pending, label }) {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                 onClick: onCancel,
-                className: "flex-1 h-11 rounded-xl border border-[#e5e7eb] text-sm font-medium text-[#555] hover:bg-[#f9fafb] transition-colors",
+                className: "flex-1 h-11 rounded-full border border-[#e5e7eb] text-sm font-medium text-[#555] hover:bg-[#f9fafb] transition-colors",
                 children: "Отмена"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 103,
+                lineNumber: 104,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                 onClick: onSubmit,
                 disabled: pending,
-                className: "flex-1 h-11 rounded-xl bg-[#111] text-white text-sm font-medium hover:bg-[#333] disabled:opacity-40 transition-colors",
+                className: "flex-1 h-11 rounded-full bg-[#111] text-white text-sm font-medium hover:bg-[#333] disabled:opacity-40 transition-colors",
                 children: pending ? 'Сохранение...' : label
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 104,
+                lineNumber: 105,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 102,
+        lineNumber: 103,
         columnNumber: 5
     }, this);
 }
@@ -1200,12 +1200,12 @@ function AddContactModal({ clientId, onClose }) {
                         onChange: (e)=>set('name', e.target.value)
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                        lineNumber: 125,
+                        lineNumber: 126,
                         columnNumber: 30
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 125,
+                    lineNumber: 126,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Field, {
@@ -1216,12 +1216,12 @@ function AddContactModal({ clientId, onClose }) {
                         onChange: (e)=>set('role', e.target.value)
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                        lineNumber: 126,
+                        lineNumber: 127,
                         columnNumber: 34
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 126,
+                    lineNumber: 127,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1235,12 +1235,12 @@ function AddContactModal({ clientId, onClose }) {
                                 onChange: (e)=>set('phone', e.target.value)
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 128,
+                                lineNumber: 129,
                                 columnNumber: 34
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 128,
+                            lineNumber: 129,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Field, {
@@ -1252,18 +1252,18 @@ function AddContactModal({ clientId, onClose }) {
                                 onChange: (e)=>set('email', e.target.value)
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 129,
+                                lineNumber: 130,
                                 columnNumber: 32
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 129,
+                            lineNumber: 130,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 127,
+                    lineNumber: 128,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -1284,17 +1284,17 @@ function AddContactModal({ clientId, onClose }) {
                                     strokeLinecap: "round"
                                 }, void 0, false, {
                                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                    lineNumber: 133,
+                                    lineNumber: 134,
                                     columnNumber: 93
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 133,
+                                lineNumber: 134,
                                 columnNumber: 33
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 132,
+                            lineNumber: 133,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1302,13 +1302,13 @@ function AddContactModal({ clientId, onClose }) {
                             children: "Основной контакт"
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 135,
+                            lineNumber: 136,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 131,
+                    lineNumber: 132,
                     columnNumber: 9
                 }, this),
                 error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1316,7 +1316,7 @@ function AddContactModal({ clientId, onClose }) {
                     children: error
                 }, void 0, false, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 137,
+                    lineNumber: 138,
                     columnNumber: 19
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ModalActions, {
@@ -1332,18 +1332,18 @@ function AddContactModal({ clientId, onClose }) {
                     }
                 }, void 0, false, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 138,
+                    lineNumber: 139,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-            lineNumber: 124,
+            lineNumber: 125,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 123,
+        lineNumber: 124,
         columnNumber: 5
     }, this);
 }
@@ -1440,7 +1440,7 @@ function AddProductModal({ clientId, onClose }) {
                                     children: "— Выберите из каталога —"
                                 }, void 0, false, {
                                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                    lineNumber: 182,
+                                    lineNumber: 183,
                                     columnNumber: 13
                                 }, this),
                                 Object.entries(byCategory).map(([cat, items])=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("optgroup", {
@@ -1450,18 +1450,18 @@ function AddProductModal({ clientId, onClose }) {
                                                 children: item.name
                                             }, item.id, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                lineNumber: 186,
+                                                lineNumber: 187,
                                                 columnNumber: 19
                                             }, this))
                                     }, cat, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 184,
+                                        lineNumber: 185,
                                         columnNumber: 15
                                     }, this))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 177,
+                            lineNumber: 178,
                             columnNumber: 11
                         }, this),
                         form.name && catalog.find((c)=>c.name === form.name)?.description && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1469,13 +1469,13 @@ function AddProductModal({ clientId, onClose }) {
                             children: catalog.find((c)=>c.name === form.name)?.description
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 192,
+                            lineNumber: 193,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 176,
+                    lineNumber: 177,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Field, {
@@ -1486,12 +1486,12 @@ function AddProductModal({ clientId, onClose }) {
                         onChange: (e)=>set('number', e.target.value)
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                        lineNumber: 195,
+                        lineNumber: 196,
                         columnNumber: 39
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 195,
+                    lineNumber: 196,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1505,12 +1505,12 @@ function AddProductModal({ clientId, onClose }) {
                                 onChange: (e)=>set('limit_val', e.target.value)
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 197,
+                                lineNumber: 198,
                                 columnNumber: 32
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 197,
+                            lineNumber: 198,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Field, {
@@ -1521,18 +1521,18 @@ function AddProductModal({ clientId, onClose }) {
                                 onChange: (e)=>set('used_val', e.target.value)
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 198,
+                                lineNumber: 199,
                                 columnNumber: 39
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 198,
+                            lineNumber: 199,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 196,
+                    lineNumber: 197,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1546,12 +1546,12 @@ function AddProductModal({ clientId, onClose }) {
                                 onChange: (e)=>set('rate', e.target.value)
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 201,
+                                lineNumber: 202,
                                 columnNumber: 33
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 201,
+                            lineNumber: 202,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Field, {
@@ -1562,18 +1562,18 @@ function AddProductModal({ clientId, onClose }) {
                                 onChange: (e)=>set('expires', e.target.value)
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 202,
+                                lineNumber: 203,
                                 columnNumber: 35
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 202,
+                            lineNumber: 203,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 200,
+                    lineNumber: 201,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Field, {
@@ -1582,21 +1582,21 @@ function AddProductModal({ clientId, onClose }) {
                         className: "flex gap-2",
                         children: STATUS_OPTS.map((o)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 onClick: ()=>set('status', o.v),
-                                className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$apps$2f$web$2f$src$2f$lib$2f$cn$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])('flex-1 h-10 rounded-xl border text-sm font-medium transition-colors', form.status === o.v ? 'bg-[#111] text-white border-[#111]' : 'border-[#e5e7eb] text-[#555] hover:border-[#999]'),
+                                className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$apps$2f$web$2f$src$2f$lib$2f$cn$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])('flex-1 h-10 rounded-full border text-sm font-medium transition-colors', form.status === o.v ? 'bg-[#111] text-white border-[#111]' : 'border-[#e5e7eb] text-[#555] hover:border-[#999]'),
                                 children: o.label
                             }, o.v, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 207,
+                                lineNumber: 208,
                                 columnNumber: 15
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                        lineNumber: 205,
+                        lineNumber: 206,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 204,
+                    lineNumber: 205,
                     columnNumber: 9
                 }, this),
                 error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1604,7 +1604,7 @@ function AddProductModal({ clientId, onClose }) {
                     children: error
                 }, void 0, false, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 215,
+                    lineNumber: 216,
                     columnNumber: 19
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ModalActions, {
@@ -1620,18 +1620,18 @@ function AddProductModal({ clientId, onClose }) {
                     }
                 }, void 0, false, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 216,
+                    lineNumber: 217,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-            lineNumber: 175,
+            lineNumber: 176,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 174,
+        lineNumber: 175,
         columnNumber: 5
     }, this);
 }
@@ -1712,28 +1712,28 @@ function AddCommModal({ clientId, onClose }) {
                         className: "flex gap-2",
                         children: TYPE_OPTS.map((o)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 onClick: ()=>set('type', o.v),
-                                className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$apps$2f$web$2f$src$2f$lib$2f$cn$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])('flex-1 h-11 rounded-xl border text-sm font-medium flex items-center justify-center gap-1.5 transition-colors', form.type === o.v ? 'bg-[#111] text-white border-[#111]' : 'border-[#e5e7eb] text-[#555] hover:border-[#999]'),
+                                className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$apps$2f$web$2f$src$2f$lib$2f$cn$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])('flex-1 h-11 rounded-full border text-sm font-medium flex items-center justify-center gap-1.5 transition-colors', form.type === o.v ? 'bg-[#111] text-white border-[#111]' : 'border-[#e5e7eb] text-[#555] hover:border-[#999]'),
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(o.Icon, {}, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 249,
+                                        lineNumber: 250,
                                         columnNumber: 17
                                     }, this),
                                     o.label
                                 ]
                             }, o.v, true, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 246,
+                                lineNumber: 247,
                                 columnNumber: 15
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                        lineNumber: 244,
+                        lineNumber: 245,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 243,
+                    lineNumber: 244,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Field, {
@@ -1746,12 +1746,12 @@ function AddCommModal({ clientId, onClose }) {
                         className: "w-full rounded-xl bg-[#f5f5f5] px-4 py-3 text-sm outline-none placeholder:text-[#bbb] focus:bg-[#efefef] transition-colors resize-none"
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                        lineNumber: 255,
+                        lineNumber: 256,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 254,
+                    lineNumber: 255,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1765,12 +1765,12 @@ function AddCommModal({ clientId, onClose }) {
                                 onChange: (e)=>set('contact', e.target.value)
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 260,
+                                lineNumber: 261,
                                 columnNumber: 34
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 260,
+                            lineNumber: 261,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Field, {
@@ -1781,18 +1781,18 @@ function AddCommModal({ clientId, onClose }) {
                                 onChange: (e)=>set('duration', e.target.value)
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 261,
+                                lineNumber: 262,
                                 columnNumber: 39
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 261,
+                            lineNumber: 262,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 259,
+                    lineNumber: 260,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1806,12 +1806,12 @@ function AddCommModal({ clientId, onClose }) {
                                 onChange: (e)=>set('date', e.target.value)
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 264,
+                                lineNumber: 265,
                                 columnNumber: 31
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 264,
+                            lineNumber: 265,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Field, {
@@ -1822,18 +1822,18 @@ function AddCommModal({ clientId, onClose }) {
                                 onChange: (e)=>set('result', e.target.value)
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 265,
+                                lineNumber: 266,
                                 columnNumber: 36
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 265,
+                            lineNumber: 266,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 263,
+                    lineNumber: 264,
                     columnNumber: 9
                 }, this),
                 error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1841,7 +1841,7 @@ function AddCommModal({ clientId, onClose }) {
                     children: error
                 }, void 0, false, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 267,
+                    lineNumber: 268,
                     columnNumber: 19
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ModalActions, {
@@ -1857,18 +1857,18 @@ function AddCommModal({ clientId, onClose }) {
                     }
                 }, void 0, false, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 268,
+                    lineNumber: 269,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-            lineNumber: 242,
+            lineNumber: 243,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 241,
+        lineNumber: 242,
         columnNumber: 5
     }, this);
 }
@@ -1975,12 +1975,12 @@ function AddTaskModal({ clientId, clientName, onClose }) {
                         onChange: (e)=>set('title', e.target.value)
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                        lineNumber: 304,
+                        lineNumber: 305,
                         columnNumber: 33
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 304,
+                    lineNumber: 305,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Field, {
@@ -1993,17 +1993,17 @@ function AddTaskModal({ clientId, clientName, onClose }) {
                                 children: o.label
                             }, o.v, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 308,
+                                lineNumber: 309,
                                 columnNumber: 15
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                        lineNumber: 306,
+                        lineNumber: 307,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 305,
+                    lineNumber: 306,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Field, {
@@ -2012,21 +2012,21 @@ function AddTaskModal({ clientId, clientName, onClose }) {
                         className: "flex gap-2",
                         children: PRIO_OPTS.map((o)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 onClick: ()=>set('priority', o.v),
-                                className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$apps$2f$web$2f$src$2f$lib$2f$cn$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])('flex-1 h-10 rounded-xl border-2 text-sm font-semibold transition-colors', form.priority === o.v ? o.color + ' bg-opacity-10' : 'border-[#e5e7eb] text-[#aaa] hover:border-[#ccc]'),
+                                className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$apps$2f$web$2f$src$2f$lib$2f$cn$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])('flex-1 h-10 rounded-full border-2 text-sm font-semibold transition-colors', form.priority === o.v ? o.color + ' bg-opacity-10' : 'border-[#e5e7eb] text-[#aaa] hover:border-[#ccc]'),
                                 children: o.label
                             }, o.v, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 319,
+                                lineNumber: 320,
                                 columnNumber: 15
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                        lineNumber: 317,
+                        lineNumber: 318,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 316,
+                    lineNumber: 317,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Field, {
@@ -2037,12 +2037,12 @@ function AddTaskModal({ clientId, clientName, onClose }) {
                         onChange: (e)=>set('due', e.target.value)
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                        lineNumber: 327,
+                        lineNumber: 328,
                         columnNumber: 29
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 327,
+                    lineNumber: 328,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Field, {
@@ -2055,12 +2055,12 @@ function AddTaskModal({ clientId, clientName, onClose }) {
                         className: "w-full rounded-xl bg-[#f5f5f5] px-4 py-3 text-sm outline-none placeholder:text-[#bbb] focus:bg-[#efefef] transition-colors resize-none"
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                        lineNumber: 329,
+                        lineNumber: 330,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 328,
+                    lineNumber: 329,
                     columnNumber: 9
                 }, this),
                 error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2068,7 +2068,7 @@ function AddTaskModal({ clientId, clientName, onClose }) {
                     children: error
                 }, void 0, false, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 333,
+                    lineNumber: 334,
                     columnNumber: 19
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ModalActions, {
@@ -2084,18 +2084,18 @@ function AddTaskModal({ clientId, clientName, onClose }) {
                     }
                 }, void 0, false, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 334,
+                    lineNumber: 335,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-            lineNumber: 303,
+            lineNumber: 304,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 302,
+        lineNumber: 303,
         columnNumber: 5
     }, this);
 }
@@ -2222,7 +2222,7 @@ function AddDocumentModal({ clientId, onClose }) {
                                     strokeLinejoin: "round"
                                 }, void 0, false, {
                                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                    lineNumber: 396,
+                                    lineNumber: 397,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -2232,13 +2232,13 @@ function AddDocumentModal({ clientId, onClose }) {
                                     strokeLinecap: "round"
                                 }, void 0, false, {
                                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                    lineNumber: 397,
+                                    lineNumber: 398,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 395,
+                            lineNumber: 396,
                             columnNumber: 11
                         }, this),
                         file ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2246,14 +2246,14 @@ function AddDocumentModal({ clientId, onClose }) {
                             children: file.name
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 400,
+                            lineNumber: 401,
                             columnNumber: 15
                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                             className: "text-sm text-[#aaa]",
                             children: "Нажмите чтобы выбрать файл"
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 401,
+                            lineNumber: 402,
                             columnNumber: 15
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2263,13 +2263,13 @@ function AddDocumentModal({ clientId, onClose }) {
                             accept: ".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg,.zip,.rar"
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 403,
+                            lineNumber: 404,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 394,
+                    lineNumber: 395,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Field, {
@@ -2280,12 +2280,12 @@ function AddDocumentModal({ clientId, onClose }) {
                         onChange: (e)=>set('name', e.target.value)
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                        lineNumber: 407,
+                        lineNumber: 408,
                         columnNumber: 35
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 407,
+                    lineNumber: 408,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Field, {
@@ -2296,20 +2296,20 @@ function AddDocumentModal({ clientId, onClose }) {
                             children: DOC_TYPES.map((t)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     onClick: ()=>set('icon', t.key),
                                     title: t.label,
-                                    className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$apps$2f$web$2f$src$2f$lib$2f$cn$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])('h-11 rounded-xl flex items-center justify-center transition-colors border', form.icon === t.key ? 'border-[#111] bg-[#f5f5f5] text-[#111]' : 'border-[#eee] text-[#999] hover:border-[#ccc] hover:text-[#555]'),
+                                    className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$apps$2f$web$2f$src$2f$lib$2f$cn$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])('h-11 rounded-full flex items-center justify-center transition-colors border', form.icon === t.key ? 'border-[#111] bg-[#f5f5f5] text-[#111]' : 'border-[#eee] text-[#999] hover:border-[#ccc] hover:text-[#555]'),
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(t.Icon, {}, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 414,
+                                        lineNumber: 415,
                                         columnNumber: 17
                                     }, this)
                                 }, t.key, false, {
                                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                    lineNumber: 411,
+                                    lineNumber: 412,
                                     columnNumber: 15
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 409,
+                            lineNumber: 410,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2317,13 +2317,13 @@ function AddDocumentModal({ clientId, onClose }) {
                             children: DOC_TYPES.find((t)=>t.key === form.icon)?.label
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 418,
+                            lineNumber: 419,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 408,
+                    lineNumber: 409,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2337,12 +2337,12 @@ function AddDocumentModal({ clientId, onClose }) {
                                 onChange: (e)=>set('date', e.target.value)
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 421,
+                                lineNumber: 422,
                                 columnNumber: 31
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 421,
+                            lineNumber: 422,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Field, {
@@ -2354,18 +2354,18 @@ function AddDocumentModal({ clientId, onClose }) {
                                 onChange: (e)=>set('size', e.target.value)
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 422,
+                                lineNumber: 423,
                                 columnNumber: 33
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 422,
+                            lineNumber: 423,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 420,
+                    lineNumber: 421,
                     columnNumber: 9
                 }, this),
                 error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2373,7 +2373,7 @@ function AddDocumentModal({ clientId, onClose }) {
                     children: error
                 }, void 0, false, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 424,
+                    lineNumber: 425,
                     columnNumber: 19
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ModalActions, {
@@ -2383,18 +2383,18 @@ function AddDocumentModal({ clientId, onClose }) {
                     onSubmit: handleSubmit
                 }, void 0, false, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 425,
+                    lineNumber: 426,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-            lineNumber: 392,
+            lineNumber: 393,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 391,
+        lineNumber: 392,
         columnNumber: 5
     }, this);
 }
@@ -2423,17 +2423,17 @@ function DelBtn({ onClick }) {
                 strokeLinecap: "round"
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 436,
+                lineNumber: 437,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-            lineNumber: 435,
+            lineNumber: 436,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 434,
+        lineNumber: 435,
         columnNumber: 5
     }, this);
 }
@@ -2441,7 +2441,7 @@ _c30 = DelBtn;
 function AddBtn({ onClick, children }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
         onClick: onClick,
-        className: "flex items-center gap-2 px-4 py-2 rounded-xl bg-[#111] text-white text-sm font-medium hover:bg-[#333] transition-colors",
+        className: "flex items-center gap-2 px-4 py-2 rounded-full bg-[#111] text-white text-sm font-medium hover:bg-[#333] transition-colors",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                 width: "13",
@@ -2455,19 +2455,19 @@ function AddBtn({ onClick, children }) {
                     strokeLinecap: "round"
                 }, void 0, false, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 446,
+                    lineNumber: 447,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 445,
+                lineNumber: 446,
                 columnNumber: 7
             }, this),
             children
         ]
     }, void 0, true, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 444,
+        lineNumber: 445,
         columnNumber: 5
     }, this);
 }
@@ -2478,7 +2478,7 @@ function Empty({ text }) {
         children: text
     }, void 0, false, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 454,
+        lineNumber: 455,
         columnNumber: 10
     }, this);
 }
@@ -2577,7 +2577,7 @@ function ClientDetailPage() {
         children: "Загрузка..."
     }, void 0, false, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 480,
+        lineNumber: 481,
         columnNumber: 25
     }, this);
     if (!c) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2585,7 +2585,7 @@ function ClientDetailPage() {
         children: "Клиент не найден"
     }, void 0, false, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 481,
+        lineNumber: 482,
         columnNumber: 18
     }, this);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2595,7 +2595,7 @@ function ClientDetailPage() {
                 onClose: ()=>setModal(null)
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 485,
+                lineNumber: 486,
                 columnNumber: 31
             }, this),
             modal === 'product' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(AddProductModal, {
@@ -2603,7 +2603,7 @@ function ClientDetailPage() {
                 onClose: ()=>setModal(null)
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 486,
+                lineNumber: 487,
                 columnNumber: 31
             }, this),
             modal === 'comm' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(AddCommModal, {
@@ -2611,7 +2611,7 @@ function ClientDetailPage() {
                 onClose: ()=>setModal(null)
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 487,
+                lineNumber: 488,
                 columnNumber: 31
             }, this),
             modal === 'doc' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(AddDocumentModal, {
@@ -2619,7 +2619,7 @@ function ClientDetailPage() {
                 onClose: ()=>setModal(null)
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 488,
+                lineNumber: 489,
                 columnNumber: 31
             }, this),
             modal === 'task' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(AddTaskModal, {
@@ -2628,7 +2628,7 @@ function ClientDetailPage() {
                 onClose: ()=>setModal(null)
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 489,
+                lineNumber: 490,
                 columnNumber: 31
             }, this),
             modal === 'edit' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(EditClientModal, {
@@ -2638,7 +2638,7 @@ function ClientDetailPage() {
                 pending: updateClient.isPending
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 490,
+                lineNumber: 491,
                 columnNumber: 31
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2650,16 +2650,16 @@ function ClientDetailPage() {
                     children: "← Все клиенты"
                 }, void 0, false, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 493,
+                    lineNumber: 494,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 492,
+                lineNumber: 493,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "bg-white border border-gray-200 rounded-xl p-6 mb-5 flex items-start gap-5",
+                className: "bg-white border border-[#f0f0f0] rounded-xl p-6 mb-5 flex items-start gap-5",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "w-14 h-14 rounded-xl flex items-center justify-center text-white text-lg font-extrabold flex-shrink-0 tracking-tight",
@@ -2669,7 +2669,7 @@ function ClientDetailPage() {
                         children: c.short_name || c.name[0]
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                        lineNumber: 498,
+                        lineNumber: 499,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2693,7 +2693,7 @@ function ClientDetailPage() {
                                                 strokeLinejoin: "round"
                                             }, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                lineNumber: 507,
+                                                lineNumber: 508,
                                                 columnNumber: 73
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -2703,20 +2703,20 @@ function ClientDetailPage() {
                                                 strokeLinecap: "round"
                                             }, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                lineNumber: 507,
+                                                lineNumber: 508,
                                                 columnNumber: 204
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 507,
+                                        lineNumber: 508,
                                         columnNumber: 13
                                     }, this),
                                     "Редактировать"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 503,
+                                lineNumber: 504,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2727,7 +2727,7 @@ function ClientDetailPage() {
                                         children: c.name
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 511,
+                                        lineNumber: 512,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$apps$2f$web$2f$src$2f$components$2f$ui$2f$Badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
@@ -2735,7 +2735,7 @@ function ClientDetailPage() {
                                         children: statusL[c.status]
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 512,
+                                        lineNumber: 513,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$apps$2f$web$2f$src$2f$components$2f$ui$2f$Badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
@@ -2743,7 +2743,7 @@ function ClientDetailPage() {
                                         children: riskL[c.risk_level]
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 513,
+                                        lineNumber: 514,
                                         columnNumber: 13
                                     }, this),
                                     c.rating && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$apps$2f$web$2f$src$2f$components$2f$ui$2f$Badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
@@ -2751,7 +2751,7 @@ function ClientDetailPage() {
                                         children: c.rating
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 514,
+                                        lineNumber: 515,
                                         columnNumber: 26
                                     }, this),
                                     c.segment === 'Premium' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$apps$2f$web$2f$src$2f$components$2f$ui$2f$Badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
@@ -2759,13 +2759,13 @@ function ClientDetailPage() {
                                         children: "Premium"
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 515,
+                                        lineNumber: 516,
                                         columnNumber: 41
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 510,
+                                lineNumber: 511,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2776,14 +2776,14 @@ function ClientDetailPage() {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(IcoIndustry, {}, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                lineNumber: 518,
+                                                lineNumber: 519,
                                                 columnNumber: 71
                                             }, this),
                                             c.industry
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 518,
+                                        lineNumber: 519,
                                         columnNumber: 29
                                     }, this),
                                     c.city && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2791,14 +2791,14 @@ function ClientDetailPage() {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(IcoPin, {}, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                lineNumber: 519,
+                                                lineNumber: 520,
                                                 columnNumber: 71
                                             }, this),
                                             c.city
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 519,
+                                        lineNumber: 520,
                                         columnNumber: 29
                                     }, this),
                                     c.manager && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2806,14 +2806,14 @@ function ClientDetailPage() {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(IcoPerson, {}, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                lineNumber: 520,
+                                                lineNumber: 521,
                                                 columnNumber: 71
                                             }, this),
                                             c.manager
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 520,
+                                        lineNumber: 521,
                                         columnNumber: 29
                                     }, this),
                                     c.inn && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2821,7 +2821,7 @@ function ClientDetailPage() {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(IcoInn, {}, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                lineNumber: 521,
+                                                lineNumber: 522,
                                                 columnNumber: 71
                                             }, this),
                                             "ИНН: ",
@@ -2829,7 +2829,7 @@ function ClientDetailPage() {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 521,
+                                        lineNumber: 522,
                                         columnNumber: 29
                                     }, this),
                                     c.employees && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2837,7 +2837,7 @@ function ClientDetailPage() {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(IcoGroup, {}, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                lineNumber: 522,
+                                                lineNumber: 523,
                                                 columnNumber: 71
                                             }, this),
                                             c.employees,
@@ -2845,13 +2845,13 @@ function ClientDetailPage() {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 522,
+                                        lineNumber: 523,
                                         columnNumber: 29
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 517,
+                                lineNumber: 518,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2862,14 +2862,14 @@ function ClientDetailPage() {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(IcoPhone, {}, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                lineNumber: 525,
+                                                lineNumber: 526,
                                                 columnNumber: 74
                                             }, this),
                                             c.phone
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 525,
+                                        lineNumber: 526,
                                         columnNumber: 32
                                     }, this),
                                     c.email && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2877,14 +2877,14 @@ function ClientDetailPage() {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(IcoMail, {}, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                lineNumber: 526,
+                                                lineNumber: 527,
                                                 columnNumber: 74
                                             }, this),
                                             c.email
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 526,
+                                        lineNumber: 527,
                                         columnNumber: 32
                                     }, this),
                                     c.revenue && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2892,7 +2892,7 @@ function ClientDetailPage() {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(IcoCoin, {}, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                lineNumber: 527,
+                                                lineNumber: 528,
                                                 columnNumber: 74
                                             }, this),
                                             "Выручка: ",
@@ -2900,7 +2900,7 @@ function ClientDetailPage() {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 527,
+                                        lineNumber: 528,
                                         columnNumber: 32
                                     }, this),
                                     c.credit_limit && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2908,7 +2908,7 @@ function ClientDetailPage() {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(IcoBank, {}, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                lineNumber: 528,
+                                                lineNumber: 529,
                                                 columnNumber: 74
                                             }, this),
                                             "Лимит: ",
@@ -2916,41 +2916,41 @@ function ClientDetailPage() {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 528,
+                                        lineNumber: 529,
                                         columnNumber: 32
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 524,
+                                lineNumber: 525,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                        lineNumber: 502,
+                        lineNumber: 503,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 497,
+                lineNumber: 498,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "flex gap-0.5 border-b border-gray-200 mb-5",
+                className: "flex gap-0.5 border-b border-[#f0f0f0] mb-5",
                 children: TABS.map((t)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         onClick: ()=>setTab(t),
-                        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$apps$2f$web$2f$src$2f$lib$2f$cn$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])('px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px', tab === t ? 'text-[#1d4ed8] border-[#1d4ed8] font-semibold' : 'text-gray-500 border-transparent hover:text-gray-900'),
+                        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$apps$2f$web$2f$src$2f$lib$2f$cn$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])('px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px', tab === t ? 'text-[#111] border-[#111] font-semibold' : 'text-gray-500 border-transparent hover:text-gray-900'),
                         children: t
                     }, t, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                        lineNumber: 536,
+                        lineNumber: 537,
                         columnNumber: 11
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 534,
+                lineNumber: 535,
                 columnNumber: 7
             }, this),
             tab === 'Продукты' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2962,12 +2962,12 @@ function ClientDetailPage() {
                             children: "Добавить продукт"
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 548,
+                            lineNumber: 549,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                        lineNumber: 547,
+                        lineNumber: 548,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2978,15 +2978,15 @@ function ClientDetailPage() {
                                 text: "Нет продуктов — добавьте первый"
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 552,
+                                lineNumber: 553,
                                 columnNumber: 60
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 552,
+                            lineNumber: 553,
                             columnNumber: 15
                         }, this) : c.products.map((p)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "bg-white border border-gray-200 rounded-xl p-5 group relative",
+                                className: "bg-white border border-[#f0f0f0] rounded-xl p-5 group relative",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-all",
@@ -3008,22 +3008,22 @@ function ClientDetailPage() {
                                                     strokeLinecap: "round"
                                                 }, void 0, false, {
                                                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                    lineNumber: 559,
+                                                    lineNumber: 560,
                                                     columnNumber: 23
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                lineNumber: 558,
+                                                lineNumber: 559,
                                                 columnNumber: 21
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                            lineNumber: 556,
+                                            lineNumber: 557,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 555,
+                                        lineNumber: 556,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3034,7 +3034,7 @@ function ClientDetailPage() {
                                                 children: p.name
                                             }, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                lineNumber: 564,
+                                                lineNumber: 565,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$apps$2f$web$2f$src$2f$components$2f$ui$2f$Badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
@@ -3042,13 +3042,13 @@ function ClientDetailPage() {
                                                 children: p.status === 'active' ? 'Активный' : p.status === 'expired' ? 'Истёк' : 'На рассмотрении'
                                             }, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                lineNumber: 565,
+                                                lineNumber: 566,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 563,
+                                        lineNumber: 564,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3056,7 +3056,7 @@ function ClientDetailPage() {
                                         children: p.number
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 569,
+                                        lineNumber: 570,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3085,7 +3085,7 @@ function ClientDetailPage() {
                                                         children: l
                                                     }, void 0, false, {
                                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                        lineNumber: 572,
+                                                        lineNumber: 573,
                                                         columnNumber: 34
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3093,18 +3093,18 @@ function ClientDetailPage() {
                                                         children: v
                                                     }, void 0, false, {
                                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                        lineNumber: 572,
+                                                        lineNumber: 573,
                                                         columnNumber: 74
                                                     }, this)
                                                 ]
                                             }, l, true, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                lineNumber: 572,
+                                                lineNumber: 573,
                                                 columnNumber: 21
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 570,
+                                        lineNumber: 571,
                                         columnNumber: 17
                                     }, this),
                                     p.usage_pct > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3120,12 +3120,12 @@ function ClientDetailPage() {
                                                     }
                                                 }, void 0, false, {
                                                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                    lineNumber: 578,
+                                                    lineNumber: 579,
                                                     columnNumber: 23
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                lineNumber: 577,
+                                                lineNumber: 578,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3137,30 +3137,30 @@ function ClientDetailPage() {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                lineNumber: 580,
+                                                lineNumber: 581,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 576,
+                                        lineNumber: 577,
                                         columnNumber: 19
                                     }, this)
                                 ]
                             }, p.id, true, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 554,
+                                lineNumber: 555,
                                 columnNumber: 15
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                        lineNumber: 550,
+                        lineNumber: 551,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 546,
+                lineNumber: 547,
                 columnNumber: 9
             }, this),
             tab === 'Контакты' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3172,12 +3172,12 @@ function ClientDetailPage() {
                             children: "Добавить контакт"
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 593,
+                            lineNumber: 594,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                        lineNumber: 592,
+                        lineNumber: 593,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3186,17 +3186,17 @@ function ClientDetailPage() {
                             text: "Нет контактов — добавьте первый"
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 596,
+                            lineNumber: 597,
                             columnNumber: 40
                         }, this) : c.contacts.map((ct)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "bg-white border border-gray-200 rounded-xl p-5 flex items-center gap-4 group",
+                                className: "bg-white border border-[#f0f0f0] rounded-xl p-5 flex items-center gap-4 group",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "w-10 h-10 rounded-full bg-[#1d4ed8] text-white text-sm font-bold flex items-center justify-center flex-shrink-0",
                                         children: ct.name.split(' ').map((w)=>w[0]).join('').slice(0, 2)
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 598,
+                                        lineNumber: 599,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3210,7 +3210,7 @@ function ClientDetailPage() {
                                                         children: ct.name
                                                     }, void 0, false, {
                                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                        lineNumber: 603,
+                                                        lineNumber: 604,
                                                         columnNumber: 21
                                                     }, this),
                                                     ct.is_primary === 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$apps$2f$web$2f$src$2f$components$2f$ui$2f$Badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
@@ -3218,13 +3218,13 @@ function ClientDetailPage() {
                                                         children: "Основной"
                                                     }, void 0, false, {
                                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                        lineNumber: 604,
+                                                        lineNumber: 605,
                                                         columnNumber: 45
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                lineNumber: 602,
+                                                lineNumber: 603,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3232,13 +3232,13 @@ function ClientDetailPage() {
                                                 children: ct.role
                                             }, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                lineNumber: 606,
+                                                lineNumber: 607,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 601,
+                                        lineNumber: 602,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3248,7 +3248,7 @@ function ClientDetailPage() {
                                                 children: ct.phone
                                             }, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                lineNumber: 609,
+                                                lineNumber: 610,
                                                 columnNumber: 32
                                             }, this),
                                             ct.email && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3256,13 +3256,13 @@ function ClientDetailPage() {
                                                 children: ct.email
                                             }, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                lineNumber: 610,
+                                                lineNumber: 611,
                                                 columnNumber: 32
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 608,
+                                        lineNumber: 609,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(DelBtn, {
@@ -3271,24 +3271,24 @@ function ClientDetailPage() {
                                         }
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 612,
+                                        lineNumber: 613,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, ct.id, true, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 597,
+                                lineNumber: 598,
                                 columnNumber: 15
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                        lineNumber: 595,
+                        lineNumber: 596,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 591,
+                lineNumber: 592,
                 columnNumber: 9
             }, this),
             tab === 'Задачи' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3300,21 +3300,21 @@ function ClientDetailPage() {
                             children: "Добавить задачу"
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 623,
+                            lineNumber: 624,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                        lineNumber: 622,
+                        lineNumber: 623,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-white border border-gray-200 rounded-xl overflow-hidden",
+                        className: "bg-white border border-[#f0f0f0] rounded-xl overflow-hidden",
                         children: c.tasks.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Empty, {
                             text: "Нет задач — добавьте первую"
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 626,
+                            lineNumber: 627,
                             columnNumber: 35
                         }, this) : c.tasks.map((t)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$apps$2f$web$2f$src$2f$lib$2f$cn$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])('flex items-center gap-3 px-5 py-3 border-b border-gray-100 last:border-0', t.done && 'opacity-50'),
@@ -3333,17 +3333,17 @@ function ClientDetailPage() {
                                                 strokeLinecap: "round"
                                             }, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                lineNumber: 629,
+                                                lineNumber: 630,
                                                 columnNumber: 86
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                            lineNumber: 629,
+                                            lineNumber: 630,
                                             columnNumber: 30
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 628,
+                                        lineNumber: 629,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3351,7 +3351,7 @@ function ClientDetailPage() {
                                         children: t.title
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 631,
+                                        lineNumber: 632,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3359,24 +3359,24 @@ function ClientDetailPage() {
                                         children: t.due
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 632,
+                                        lineNumber: 633,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, t.id, true, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 627,
+                                lineNumber: 628,
                                 columnNumber: 13
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                        lineNumber: 625,
+                        lineNumber: 626,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 621,
+                lineNumber: 622,
                 columnNumber: 9
             }, this),
             tab === 'Коммуникации' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3388,21 +3388,21 @@ function ClientDetailPage() {
                             children: "Добавить коммуникацию"
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 643,
+                            lineNumber: 644,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                        lineNumber: 642,
+                        lineNumber: 643,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-white border border-gray-200 rounded-xl divide-y divide-gray-100",
+                        className: "bg-white border border-[#f0f0f0] rounded-xl divide-y divide-gray-100",
                         children: c.comms.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Empty, {
                             text: "Нет коммуникаций — добавьте первую"
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 646,
+                            lineNumber: 647,
                             columnNumber: 37
                         }, this) : c.comms.map((cm)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex gap-3 px-5 py-4 group",
@@ -3411,20 +3411,20 @@ function ClientDetailPage() {
                                         className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$apps$2f$web$2f$src$2f$lib$2f$cn$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])('w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5', cm.type === 'call' ? 'bg-blue-100 text-blue-600' : cm.type === 'email' ? 'bg-green-100 text-green-600' : 'bg-purple-100 text-purple-600'),
                                         children: cm.type === 'call' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(IconCall, {}, void 0, false, {
                                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                            lineNumber: 650,
+                                            lineNumber: 651,
                                             columnNumber: 41
                                         }, this) : cm.type === 'email' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(IconMail, {}, void 0, false, {
                                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                            lineNumber: 650,
+                                            lineNumber: 651,
                                             columnNumber: 78
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(IconMeeting, {}, void 0, false, {
                                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                            lineNumber: 650,
+                                            lineNumber: 651,
                                             columnNumber: 93
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 648,
+                                        lineNumber: 649,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3438,7 +3438,7 @@ function ClientDetailPage() {
                                                         children: cm.type === 'call' ? 'Звонок' : cm.type === 'email' ? 'Email' : 'Встреча'
                                                     }, void 0, false, {
                                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                        lineNumber: 654,
+                                                        lineNumber: 655,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3446,7 +3446,7 @@ function ClientDetailPage() {
                                                         children: cm.date
                                                     }, void 0, false, {
                                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                        lineNumber: 655,
+                                                        lineNumber: 656,
                                                         columnNumber: 21
                                                     }, this),
                                                     cm.manager && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3457,13 +3457,13 @@ function ClientDetailPage() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                        lineNumber: 656,
+                                                        lineNumber: 657,
                                                         columnNumber: 36
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                lineNumber: 653,
+                                                lineNumber: 654,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3471,7 +3471,7 @@ function ClientDetailPage() {
                                                 children: cm.summary
                                             }, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                lineNumber: 658,
+                                                lineNumber: 659,
                                                 columnNumber: 19
                                             }, this),
                                             (cm.contact || cm.duration && cm.duration !== '—') && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3482,7 +3482,7 @@ function ClientDetailPage() {
                                                 ].filter(Boolean).join(' · ')
                                             }, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                lineNumber: 660,
+                                                lineNumber: 661,
                                                 columnNumber: 21
                                             }, this),
                                             cm.result && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3493,13 +3493,13 @@ function ClientDetailPage() {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                lineNumber: 662,
+                                                lineNumber: 663,
                                                 columnNumber: 33
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 652,
+                                        lineNumber: 653,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(DelBtn, {
@@ -3508,24 +3508,24 @@ function ClientDetailPage() {
                                         }
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 664,
+                                        lineNumber: 665,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, cm.id, true, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 647,
+                                lineNumber: 648,
                                 columnNumber: 15
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                        lineNumber: 645,
+                        lineNumber: 646,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 641,
+                lineNumber: 642,
                 columnNumber: 9
             }, this),
             tab === 'Документы' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3537,28 +3537,28 @@ function ClientDetailPage() {
                             children: "Добавить документ"
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 675,
+                            lineNumber: 676,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                        lineNumber: 674,
+                        lineNumber: 675,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-white border border-gray-200 rounded-xl overflow-hidden",
+                        className: "bg-white border border-[#f0f0f0] rounded-xl overflow-hidden",
                         children: c.docs.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Empty, {
                             text: "Нет документов — добавьте первый"
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 678,
+                            lineNumber: 679,
                             columnNumber: 36
                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
                             className: "w-full",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                        className: "bg-gray-50 border-b border-gray-200",
+                                        className: "bg-gray-50 border-b border-[#f0f0f0]",
                                         children: [
                                             'Документ',
                                             'Дата',
@@ -3569,17 +3569,17 @@ function ClientDetailPage() {
                                                 children: h
                                             }, h, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                lineNumber: 683,
+                                                lineNumber: 684,
                                                 columnNumber: 23
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 681,
+                                        lineNumber: 682,
                                         columnNumber: 19
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                    lineNumber: 680,
+                                    lineNumber: 681,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -3595,7 +3595,7 @@ function ClientDetailPage() {
                                                                 icon: d.icon
                                                             }, void 0, false, {
                                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                                lineNumber: 692,
+                                                                lineNumber: 693,
                                                                 columnNumber: 27
                                                             }, this),
                                                             d.file_url ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -3606,18 +3606,18 @@ function ClientDetailPage() {
                                                                 children: d.name
                                                             }, void 0, false, {
                                                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                                lineNumber: 694,
+                                                                lineNumber: 695,
                                                                 columnNumber: 31
                                                             }, this) : d.name
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                        lineNumber: 691,
+                                                        lineNumber: 692,
                                                         columnNumber: 25
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                    lineNumber: 690,
+                                                    lineNumber: 691,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -3625,7 +3625,7 @@ function ClientDetailPage() {
                                                     children: d.date
                                                 }, void 0, false, {
                                                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                    lineNumber: 699,
+                                                    lineNumber: 700,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -3633,7 +3633,7 @@ function ClientDetailPage() {
                                                     children: d.size
                                                 }, void 0, false, {
                                                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                    lineNumber: 700,
+                                                    lineNumber: 701,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -3644,46 +3644,46 @@ function ClientDetailPage() {
                                                         }
                                                     }, void 0, false, {
                                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                        lineNumber: 702,
+                                                        lineNumber: 703,
                                                         columnNumber: 25
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                                    lineNumber: 701,
+                                                    lineNumber: 702,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, d.id, true, {
                                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                            lineNumber: 689,
+                                            lineNumber: 690,
                                             columnNumber: 21
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                    lineNumber: 687,
+                                    lineNumber: 688,
                                     columnNumber: 17
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 679,
+                            lineNumber: 680,
                             columnNumber: 15
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                        lineNumber: 677,
+                        lineNumber: 678,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                lineNumber: 673,
+                lineNumber: 674,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 484,
+        lineNumber: 485,
         columnNumber: 5
     }, this);
 }
@@ -3739,12 +3739,12 @@ function EditClientModal({ client, onClose, onSave, pending }) {
                         placeholder: "ООО Пример"
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                        lineNumber: 745,
+                        lineNumber: 746,
                         columnNumber: 35
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 745,
+                    lineNumber: 746,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3765,17 +3765,17 @@ function EditClientModal({ client, onClose, onSave, pending }) {
                                         children: t
                                     }, t, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 749,
+                                        lineNumber: 750,
                                         columnNumber: 76
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 748,
+                                lineNumber: 749,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 747,
+                            lineNumber: 748,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Field, {
@@ -3786,18 +3786,18 @@ function EditClientModal({ client, onClose, onSave, pending }) {
                                 placeholder: "Агропром, IT..."
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 752,
+                                lineNumber: 753,
                                 columnNumber: 34
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 752,
+                            lineNumber: 753,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 746,
+                    lineNumber: 747,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3810,12 +3810,12 @@ function EditClientModal({ client, onClose, onSave, pending }) {
                                 onChange: (e)=>set('inn', e.target.value)
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 755,
+                                lineNumber: 756,
                                 columnNumber: 30
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 755,
+                            lineNumber: 756,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Field, {
@@ -3825,18 +3825,18 @@ function EditClientModal({ client, onClose, onSave, pending }) {
                                 onChange: (e)=>set('city', e.target.value)
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 756,
+                                lineNumber: 757,
                                 columnNumber: 32
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 756,
+                            lineNumber: 757,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 754,
+                    lineNumber: 755,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3849,12 +3849,12 @@ function EditClientModal({ client, onClose, onSave, pending }) {
                                 onChange: (e)=>set('phone', e.target.value)
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 759,
+                                lineNumber: 760,
                                 columnNumber: 34
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 759,
+                            lineNumber: 760,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Field, {
@@ -3864,18 +3864,18 @@ function EditClientModal({ client, onClose, onSave, pending }) {
                                 onChange: (e)=>set('email', e.target.value)
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 760,
+                                lineNumber: 761,
                                 columnNumber: 32
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 760,
+                            lineNumber: 761,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 758,
+                    lineNumber: 759,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3888,12 +3888,12 @@ function EditClientModal({ client, onClose, onSave, pending }) {
                                 onChange: (e)=>set('manager', e.target.value)
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 763,
+                                lineNumber: 764,
                                 columnNumber: 35
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 763,
+                            lineNumber: 764,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Field, {
@@ -3908,7 +3908,7 @@ function EditClientModal({ client, onClose, onSave, pending }) {
                                         children: "Активный"
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 766,
+                                        lineNumber: 767,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -3916,7 +3916,7 @@ function EditClientModal({ client, onClose, onSave, pending }) {
                                         children: "На рассмотрении"
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 767,
+                                        lineNumber: 768,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -3924,24 +3924,24 @@ function EditClientModal({ client, onClose, onSave, pending }) {
                                         children: "Неактивный"
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 768,
+                                        lineNumber: 769,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 765,
+                                lineNumber: 766,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 764,
+                            lineNumber: 765,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 762,
+                    lineNumber: 763,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3958,25 +3958,25 @@ function EditClientModal({ client, onClose, onSave, pending }) {
                                         children: "Standard"
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 775,
+                                        lineNumber: 776,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                         children: "Premium"
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 775,
+                                        lineNumber: 776,
                                         columnNumber: 40
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 774,
+                                lineNumber: 775,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 773,
+                            lineNumber: 774,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Field, {
@@ -3991,7 +3991,7 @@ function EditClientModal({ client, onClose, onSave, pending }) {
                                         children: "Низкий"
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 780,
+                                        lineNumber: 781,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -3999,7 +3999,7 @@ function EditClientModal({ client, onClose, onSave, pending }) {
                                         children: "Средний"
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 781,
+                                        lineNumber: 782,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -4007,24 +4007,24 @@ function EditClientModal({ client, onClose, onSave, pending }) {
                                         children: "Высокий"
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                        lineNumber: 782,
+                                        lineNumber: 783,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 779,
+                                lineNumber: 780,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 778,
+                            lineNumber: 779,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 772,
+                    lineNumber: 773,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4038,12 +4038,12 @@ function EditClientModal({ client, onClose, onSave, pending }) {
                                 placeholder: "A+, A, B..."
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 787,
+                                lineNumber: 788,
                                 columnNumber: 34
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 787,
+                            lineNumber: 788,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Field, {
@@ -4054,18 +4054,18 @@ function EditClientModal({ client, onClose, onSave, pending }) {
                                 placeholder: "500 чел."
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 788,
+                                lineNumber: 789,
                                 columnNumber: 37
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 788,
+                            lineNumber: 789,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 786,
+                    lineNumber: 787,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4079,12 +4079,12 @@ function EditClientModal({ client, onClose, onSave, pending }) {
                                 placeholder: "100 млрд UZS"
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 791,
+                                lineNumber: 792,
                                 columnNumber: 34
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 791,
+                            lineNumber: 792,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Field, {
@@ -4095,18 +4095,18 @@ function EditClientModal({ client, onClose, onSave, pending }) {
                                 placeholder: "10 млрд UZS"
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                                lineNumber: 792,
+                                lineNumber: 793,
                                 columnNumber: 42
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                            lineNumber: 792,
+                            lineNumber: 793,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 790,
+                    lineNumber: 791,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ModalActions, {
@@ -4116,18 +4116,18 @@ function EditClientModal({ client, onClose, onSave, pending }) {
                     label: "Сохранить"
                 }, void 0, false, {
                     fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-                    lineNumber: 794,
+                    lineNumber: 795,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-            lineNumber: 744,
+            lineNumber: 745,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/apps/web/src/app/(crm)/clients/[id]/page.tsx",
-        lineNumber: 743,
+        lineNumber: 744,
         columnNumber: 5
     }, this);
 }

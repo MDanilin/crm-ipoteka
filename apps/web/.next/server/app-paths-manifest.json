@@ -1,20 +1,10 @@
 {
   "/page": "app/page.js",
   "/(crm)/dashboard/page": "app/(crm)/dashboard/page.js",
+  "/icon.svg/route": "app/icon.svg/route.js",
   "/login/page": "app/login/page.js",
-  "/(crm)/clients/page": "app/(crm)/clients/page.js",
-  "/(crm)/tasks/page": "app/(crm)/tasks/page.js",
-  "/(crm)/pipeline/page": "app/(crm)/pipeline/page.js",
   "/(crm)/leads/page": "app/(crm)/leads/page.js",
-  "/(crm)/analytics/page": "app/(crm)/analytics/page.js",
-  "/(crm)/users/page": "app/(crm)/users/page.js",
-  "/(crm)/clients/[id]/page": "app/(crm)/clients/[id]/page.js",
-  "/(crm)/leads/[id]/page": "app/(crm)/leads/[id]/page.js",
-  "/(crm)/campaigns/page": "app/(crm)/campaigns/page.js",
-  "/(crm)/campaigns/[id]/page": "app/(crm)/campaigns/[id]/page.js",
-  "/(dsa)/dsa/page": "app/(dsa)/dsa/page.js",
-  "/(dsa)/dsa/new/page": "app/(dsa)/dsa/new/page.js",
-  "/(crm)/sla/page": "app/(crm)/sla/page.js",
-  "/_not-found/page": "app/_not-found/page.js",
-  "/(crm)/pipeline/[id]/page": "app/(crm)/pipeline/[id]/page.js"
+  "/(crm)/clients/page": "app/(crm)/clients/page.js",
+  "/(crm)/pipeline/page": "app/(crm)/pipeline/page.js",
+  "/_not-found/page": "app/_not-found/page.js"
 }

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useRef } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -48,7 +48,7 @@ function Toggle({ checked, onChange, disabled }: { checked: boolean; onChange: (
       type="button"
       onClick={() => !disabled && onChange(!checked)}
       disabled={disabled}
-      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${checked ? 'bg-[#111]' : 'bg-[#e5e5e5]'} ${disabled ? 'opacity-40 cursor-not-allowed' : ''}`}
+      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${checked ? 'bg-g90' : 'bg-g30'} ${disabled ? 'opacity-40 cursor-not-allowed' : ''}`}
     >
       <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform ${checked ? 'translate-x-6' : 'translate-x-1'}`} />
     </button>
@@ -81,13 +81,13 @@ export default function AdminPage() {
 
   if (!canView) return (
     <div className="flex flex-col items-center justify-center py-32 text-center">
-      <div className="mb-4 flex size-[52px] items-center justify-center rounded-[14px] bg-[#f5f5f5] border border-[#f0f0f0]">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#bbb" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <div className="mb-4 flex size-[52px] items-center justify-center rounded-[14px] bg-g10 border border-g20">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#aeb6c2" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
           <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
         </svg>
       </div>
       <h2 className="text-base font-semibold tracking-[-0.03em] mb-1.5">Нет доступа</h2>
-      <p className="text-[13px] text-[#aaa]">Раздел доступен администратору, руководителю и аналитику</p>
+      <p className="text-[13px] text-g60">Раздел доступен администратору, руководителю и аналитику</p>
     </div>
   );
 
@@ -146,8 +146,8 @@ export default function AdminPage() {
   function handleDragOver(e: React.DragEvent, targetId: number) {
     e.preventDefault();
     const el = e.currentTarget as HTMLElement;
-    el.style.background = '#f0f4ff';
-    el.style.outline = '2px solid #c7d2fe';
+    el.style.background = '#edf3fa';
+    el.style.outline = '2px solid #d2e0ef';
     el.style.outlineOffset = '-2px';
   }
 
@@ -205,15 +205,15 @@ export default function AdminPage() {
       <div className="mb-8 flex items-end justify-between gap-4">
         <div>
           <h1 className="text-[clamp(36px,4vw,60px)] font-semibold leading-none tracking-[-0.08em]">Админка</h1>
-          <p className="mt-4 text-base text-[#aaa]">Конфигурация системы и просмотр данных</p>
+          <p className="mt-4 text-base text-g60">Конфигурация системы и просмотр данных</p>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 border-b border-[#f0f0f0] mb-8">
+      <div className="flex gap-1 border-b border-g20 mb-8">
         {([['fields','Поля форм'],['companies','Компании']] as [string,string][]).map(([key, label]) => (
           <button key={key} onClick={() => setTab(key as any)}
-            className={`px-5 py-3 text-sm font-semibold transition-colors border-b-2 -mb-px ${tab === key ? 'border-[#111] text-[#111]' : 'border-transparent text-[#aaa] hover:text-[#666]'}`}>
+            className={`px-5 py-3 text-sm font-semibold transition-colors border-b-2 -mb-px ${tab === key ? 'border-g90 text-g90' : 'border-transparent text-g60 hover:text-g70'}`}>
             {label}
           </button>
         ))}
@@ -223,12 +223,12 @@ export default function AdminPage() {
       {tab === 'fields' && (
         <div>
           {!canEdit && (
-            <div className="mb-6 rounded-2xl bg-[#fef9c3] px-5 py-3 text-sm text-[#854d0e]">
+            <div className="mb-6 rounded-2xl bg-warn-bg px-5 py-3 text-sm text-warn">
               Только администратор может изменять конфигурацию полей.
             </div>
           )}
           {canEdit && saved && (
-            <div className="mb-6 flex items-center gap-3 rounded-2xl border border-[#bbf7d0] bg-[#f0fdf4] px-5 py-3 text-sm font-medium text-[#166534]">
+            <div className="mb-6 flex items-center gap-3 rounded-2xl border border-ok-border bg-ok-bg px-5 py-3 text-sm font-medium text-ok">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-5"/>
               </svg>
@@ -240,14 +240,14 @@ export default function AdminPage() {
           <div className="flex gap-2 mb-6">
             {(['lead', 'client'] as const).map(e => (
               <button key={e} onClick={() => { setEntity(e); setLocalConfigs(null); }}
-                className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors ${entity === e ? 'bg-[#111] text-white' : 'bg-[#f5f5f5] text-[#555] hover:bg-[#ececec]'}`}>
+                className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors ${entity === e ? 'bg-g90 text-white' : 'bg-g10 text-g80 hover:bg-g20'}`}>
                 {ENTITY_LABELS[e]}
               </button>
             ))}
           </div>
 
-          {cfgLoading ? <div className="text-sm text-[#aaa] py-8">Загрузка...</div> : (
-            <div className="rounded-2xl border border-[#f0f0f0] overflow-hidden">
+          {cfgLoading ? <div className="text-sm text-g60 py-8">Загрузка...</div> : (
+            <div className="rounded-2xl border border-g20 overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="crm-table min-w-[700px] w-full">
                   <colgroup>
@@ -291,13 +291,13 @@ export default function AdminPage() {
                           {/* Drag handle */}
                           {canEdit && (
                             <td className="px-3">
-                              <span className="cursor-grab text-[#ccc] select-none hover:text-[#999]" title="Перетащить">≡</span>
+                              <span className="cursor-grab text-g40 select-none hover:text-g60" title="Перетащить">≡</span>
                             </td>
                           )}
 
                           {/* Field slug */}
                           <td>
-                            <span className={`font-mono text-[13px] px-2 py-0.5 rounded-md bg-[#f5f5f5] ${cfg.is_custom ? 'text-[#6d28d9]' : 'text-[#555]'}`}>
+                            <span className={`font-mono text-[13px] px-2 py-0.5 rounded-md bg-g10 ${cfg.is_custom ? 'text-ac' : 'text-g80'}`}>
                               {cfg.field}
                             </span>
                           </td>
@@ -309,7 +309,7 @@ export default function AdminPage() {
                                 value={cfg.label}
                                 onChange={e => updateField(cfg.field, 'label', e.target.value)}
                                 disabled={isName}
-                                className="h-9 w-full rounded-lg border border-[#e5e5e5] bg-[#fafafa] px-3 text-sm outline-none focus:border-[#999] focus:bg-white disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="h-9 w-full rounded-lg border border-g30 bg-g5 px-3 text-sm outline-none focus:border-g60 focus:bg-white disabled:opacity-50 disabled:cursor-not-allowed"
                               />
                             ) : <span className="text-sm">{cfg.label}</span>}
                           </td>
@@ -320,11 +320,11 @@ export default function AdminPage() {
                               <select
                                 value={cfg.field_type || 'text'}
                                 onChange={e => updateField(cfg.field, 'field_type', e.target.value)}
-                                className="h-9 w-full rounded-lg border border-[#e5e5e5] bg-[#fafafa] px-2 text-sm outline-none focus:border-[#999] focus:bg-white"
+                                className="h-9 w-full rounded-lg border border-g30 bg-g5 px-2 text-sm outline-none focus:border-g60 focus:bg-white"
                               >
                                 {FIELD_TYPES.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}
                               </select>
-                            ) : <span className="text-sm text-[#666]">{typeLabel(cfg.field_type)}</span>}
+                            ) : <span className="text-sm text-g70">{typeLabel(cfg.field_type)}</span>}
                           </td>
 
                           {/* Validation rules summary / edit button */}
@@ -332,17 +332,17 @@ export default function AdminPage() {
                             {canEdit ? (
                               <button
                                 onClick={() => setEditingField({ ...cfg })}
-                                className="flex items-center gap-1.5 rounded-lg border border-[#e5e5e5] px-3 py-1.5 text-[12px] text-[#666] hover:bg-[#f5f5f5] transition-colors"
+                                className="flex items-center gap-1.5 rounded-lg border border-g30 px-3 py-1.5 text-[12px] text-g70 hover:bg-g10 transition-colors"
                               >
                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                   <circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
                                 </svg>
                                 {cfg.validation_regex || cfg.min_length || cfg.max_length || (cfg.field_type === 'select' && opts.length > 0)
-                                  ? <span className="font-semibold text-[#111]">Настроено</span>
+                                  ? <span className="font-semibold text-g90">Настроено</span>
                                   : 'Настроить'}
                               </button>
                             ) : (
-                              <span className="text-xs text-[#bbb]">
+                              <span className="text-xs text-g40">
                                 {[
                                   cfg.min_length > 0 && `мин ${cfg.min_length}`,
                                   cfg.max_length > 0 && `макс ${cfg.max_length}`,
@@ -375,7 +375,7 @@ export default function AdminPage() {
                               {cfg.is_custom ? (
                                 <button
                                   onClick={() => { if (confirm(`Удалить поле «${cfg.label}»? Все данные будут потеряны.`)) deleteField.mutate(cfg.id); }}
-                                  className="flex h-8 w-8 items-center justify-center rounded-lg text-[#ccc] hover:bg-[#fee2e2] hover:text-[#dc2626] transition-colors"
+                                  className="flex h-8 w-8 items-center justify-center rounded-lg text-g40 hover:bg-dn-bg hover:text-dn transition-colors"
                                   title="Удалить поле"
                                 >
                                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -399,19 +399,19 @@ export default function AdminPage() {
               <button
                 onClick={() => saveConfigs.mutate(entityCfgs)}
                 disabled={!isDirty || saveConfigs.isPending}
-                className="flex h-11 items-center gap-2 rounded-full bg-[#111] px-6 text-sm font-semibold text-white transition-colors hover:bg-[#333] disabled:opacity-40 disabled:cursor-not-allowed"
+                className="flex h-11 items-center gap-2 rounded-full bg-g90 px-6 text-sm font-semibold text-white transition-colors hover:bg-g80 disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 {saveConfigs.isPending ? 'Сохраняем...' : 'Сохранить'}
               </button>
               {isDirty && (
                 <button onClick={() => setLocalConfigs(null)}
-                  className="h-11 rounded-full border border-[#e5e5e5] px-5 text-sm font-medium text-[#555] hover:bg-[#f8f8f8] transition-colors">
+                  className="h-11 rounded-full border border-g30 px-5 text-sm font-medium text-g80 hover:bg-g5 transition-colors">
                   Отмена
                 </button>
               )}
               <button
                 onClick={() => { setAddForm({ ...EMPTY_ADD }); setAddErr(''); setShowAdd(true); }}
-                className="ml-auto flex h-11 items-center gap-2 rounded-full border border-[#e5e5e5] px-5 text-sm font-semibold text-[#111] hover:bg-[#f5f5f5] transition-colors"
+                className="ml-auto flex h-11 items-center gap-2 rounded-full border border-g30 px-5 text-sm font-semibold text-g90 hover:bg-g10 transition-colors"
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
@@ -426,22 +426,22 @@ export default function AdminPage() {
       {/* ─── TAB: Companies ─── */}
       {tab === 'companies' && (
         <div>
-          {compLoading ? <div className="text-sm text-[#aaa] py-8">Загрузка...</div> : (
+          {compLoading ? <div className="text-sm text-g60 py-8">Загрузка...</div> : (
             <div>
-              <p className="text-sm text-[#aaa] mb-4">{companies.length} компаний в базе</p>
+              <p className="text-sm text-g60 mb-4">{companies.length} компаний в базе</p>
               <div className="space-y-2">
                 {companies.map(c => {
                   const isOpen = expandedId === c.id;
                   return (
-                    <div key={c.id} className="rounded-2xl border border-[#f0f0f0] bg-white overflow-hidden">
+                    <div key={c.id} className="rounded-2xl border border-g20 bg-white overflow-hidden">
                       <button onClick={() => setExpandedId(isOpen ? null : c.id)}
-                        className="w-full flex items-center gap-4 px-5 py-4 text-left hover:bg-[#fafafa] transition-colors">
-                        <div className="grid size-10 place-items-center rounded-full bg-[#f3dcd8] text-xs font-bold text-[#7c3f36] flex-shrink-0">
+                        className="w-full flex items-center gap-4 px-5 py-4 text-left hover:bg-g5 transition-colors">
+                        <div className="grid size-10 place-items-center rounded-full bg-g10 text-xs font-bold text-g70 flex-shrink-0">
                           {c.short_name || c.name.slice(0, 2).toUpperCase()}
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="font-semibold text-sm truncate">{c.name}</div>
-                          <div className="text-xs text-[#aaa] mt-0.5 truncate">{[c.industry, c.city, c.inn && `ИНН ${c.inn}`].filter(Boolean).join(' · ')}</div>
+                          <div className="text-xs text-g60 mt-0.5 truncate">{[c.industry, c.city, c.inn && `ИНН ${c.inn}`].filter(Boolean).join(' · ')}</div>
                         </div>
                         <div className="flex items-center gap-2 flex-shrink-0">
                           {c.products_count > 0 && (
@@ -457,35 +457,35 @@ export default function AdminPage() {
                               {c.risk_level === 'high' ? 'Высокий риск' : 'Средний риск'}
                             </Badge>
                           )}
-                          <svg className={`transition-transform duration-200 text-[#ccc] ${isOpen ? 'rotate-90' : ''}`} width="14" height="14" viewBox="0 0 14 14" fill="none">
+                          <svg className={`transition-transform duration-200 text-g40 ${isOpen ? 'rotate-90' : ''}`} width="14" height="14" viewBox="0 0 14 14" fill="none">
                             <path d="M5 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                           </svg>
                         </div>
                       </button>
                       {isOpen && (
-                        <div className="border-t border-[#f5f5f5] px-5 py-4 bg-[#fafafa]">
+                        <div className="border-t border-g10 px-5 py-4 bg-g5">
                           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
                             {[['Менеджер', c.manager], ['Выручка', c.revenue], ['Кредитный лимит', c.credit_limit], ['Сегмент', c.segment]].map(([k, v]) => (
                               <div key={k}>
-                                <div className="text-[10px] uppercase tracking-wider text-[#bbb] font-semibold mb-1">{k}</div>
+                                <div className="text-[10px] uppercase tracking-wider text-g40 font-semibold mb-1">{k}</div>
                                 <div className="text-sm font-medium">{v || '—'}</div>
                               </div>
                             ))}
                           </div>
                           {c.products.length > 0 ? (
                             <div>
-                              <div className="text-[10px] uppercase tracking-wider text-[#bbb] font-semibold mb-2">Продукты / Вложения</div>
+                              <div className="text-[10px] uppercase tracking-wider text-g40 font-semibold mb-2">Продукты / Вложения</div>
                               <div className="space-y-2">
                                 {c.products.map((p, i) => (
-                                  <div key={p.id ?? i} className="flex items-center gap-3 rounded-xl bg-white border border-[#f0f0f0] px-4 py-3">
+                                  <div key={p.id ?? i} className="flex items-center gap-3 rounded-xl bg-white border border-g20 px-4 py-3">
                                     <div className="flex-1 min-w-0">
                                       <div className="text-sm font-semibold truncate">{p.name}</div>
-                                      {p.number && <div className="text-xs text-[#aaa] mt-0.5">№ {p.number}</div>}
+                                      {p.number && <div className="text-xs text-g60 mt-0.5">№ {p.number}</div>}
                                     </div>
                                     <div className="flex items-center gap-4 flex-shrink-0 text-sm">
-                                      {p.limit_val && p.limit_val !== '—' && <div className="text-right"><div className="text-[10px] text-[#aaa]">Лимит</div><div className="font-semibold">{p.limit_val}</div></div>}
-                                      {p.used_val && p.used_val !== '—' && <div className="text-right"><div className="text-[10px] text-[#aaa]">Использовано</div><div className="font-semibold">{p.used_val}</div></div>}
-                                      {p.rate && p.rate !== '—' && <div className="text-right"><div className="text-[10px] text-[#aaa]">Ставка</div><div className="font-semibold">{p.rate}</div></div>}
+                                      {p.limit_val && p.limit_val !== '—' && <div className="text-right"><div className="text-[10px] text-g60">Лимит</div><div className="font-semibold">{p.limit_val}</div></div>}
+                                      {p.used_val && p.used_val !== '—' && <div className="text-right"><div className="text-[10px] text-g60">Использовано</div><div className="font-semibold">{p.used_val}</div></div>}
+                                      {p.rate && p.rate !== '—' && <div className="text-right"><div className="text-[10px] text-g60">Ставка</div><div className="font-semibold">{p.rate}</div></div>}
                                       <Badge variant={PROD_STATUS[p.status] ?? 'gray'}>
                                         {p.status === 'active' ? 'Активный' : p.status === 'closed' ? 'Закрыт' : 'Неактивный'}
                                       </Badge>
@@ -494,7 +494,7 @@ export default function AdminPage() {
                                 ))}
                               </div>
                             </div>
-                          ) : <div className="text-sm text-[#ccc]">Продуктов не добавлено</div>}
+                          ) : <div className="text-sm text-g40">Продуктов не добавлено</div>}
                         </div>
                       )}
                     </div>
@@ -512,9 +512,9 @@ export default function AdminPage() {
           <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl" onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-5">
               <h2 className="text-base font-semibold tracking-[-0.03em]">
-                Правила для поля <span className="font-mono text-[13px] text-[#6d28d9] bg-[#ede9fe] px-2 py-0.5 rounded-md">{editingField.field}</span>
+                Правила для поля <span className="font-mono text-[13px] text-ac bg-ac-bg px-2 py-0.5 rounded-md">{editingField.field}</span>
               </h2>
-              <button onClick={() => setEditingField(null)} className="text-[#aaa] hover:text-[#555]">
+              <button onClick={() => setEditingField(null)} className="text-g60 hover:text-g80">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
               </button>
             </div>
@@ -522,11 +522,11 @@ export default function AdminPage() {
             <div className="space-y-4">
               {/* Placeholder */}
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-[#aaa] mb-1.5">Подсказка (placeholder)</label>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-g60 mb-1.5">Подсказка (placeholder)</label>
                 <input
                   value={editingField.placeholder || ''}
                   onChange={e => setEditingField(f => f ? { ...f, placeholder: e.target.value } : f)}
-                  className="h-9 w-full rounded-lg border border-[#e5e5e5] bg-[#fafafa] px-3 text-sm outline-none focus:border-[#999] focus:bg-white"
+                  className="h-9 w-full rounded-lg border border-g30 bg-g5 px-3 text-sm outline-none focus:border-g60 focus:bg-white"
                   placeholder="Введите текст подсказки..."
                 />
               </div>
@@ -535,19 +535,19 @@ export default function AdminPage() {
               {['text', 'phone', 'textarea'].includes(editingField.field_type) && (
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-[#aaa] mb-1.5">Мин. длина</label>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-g60 mb-1.5">Мин. длина</label>
                     <input type="number" min="0"
                       value={editingField.min_length || ''}
                       onChange={e => setEditingField(f => f ? { ...f, min_length: parseInt(e.target.value) || 0 } : f)}
-                      className="h-9 w-full rounded-lg border border-[#e5e5e5] bg-[#fafafa] px-3 text-sm outline-none focus:border-[#999] focus:bg-white"
+                      className="h-9 w-full rounded-lg border border-g30 bg-g5 px-3 text-sm outline-none focus:border-g60 focus:bg-white"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-[#aaa] mb-1.5">Макс. длина</label>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-g60 mb-1.5">Макс. длина</label>
                     <input type="number" min="0"
                       value={editingField.max_length || ''}
                       onChange={e => setEditingField(f => f ? { ...f, max_length: parseInt(e.target.value) || 0 } : f)}
-                      className="h-9 w-full rounded-lg border border-[#e5e5e5] bg-[#fafafa] px-3 text-sm outline-none focus:border-[#999] focus:bg-white"
+                      className="h-9 w-full rounded-lg border border-g30 bg-g5 px-3 text-sm outline-none focus:border-g60 focus:bg-white"
                     />
                   </div>
                 </div>
@@ -557,19 +557,19 @@ export default function AdminPage() {
               {editingField.field_type === 'number' && (
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-[#aaa] mb-1.5">Мин. значение</label>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-g60 mb-1.5">Мин. значение</label>
                     <input type="number"
                       value={editingField.min_length || ''}
                       onChange={e => setEditingField(f => f ? { ...f, min_length: parseInt(e.target.value) || 0 } : f)}
-                      className="h-9 w-full rounded-lg border border-[#e5e5e5] bg-[#fafafa] px-3 text-sm outline-none focus:border-[#999] focus:bg-white"
+                      className="h-9 w-full rounded-lg border border-g30 bg-g5 px-3 text-sm outline-none focus:border-g60 focus:bg-white"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-[#aaa] mb-1.5">Макс. значение</label>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-g60 mb-1.5">Макс. значение</label>
                     <input type="number"
                       value={editingField.max_length || ''}
                       onChange={e => setEditingField(f => f ? { ...f, max_length: parseInt(e.target.value) || 0 } : f)}
-                      className="h-9 w-full rounded-lg border border-[#e5e5e5] bg-[#fafafa] px-3 text-sm outline-none focus:border-[#999] focus:bg-white"
+                      className="h-9 w-full rounded-lg border border-g30 bg-g5 px-3 text-sm outline-none focus:border-g60 focus:bg-white"
                     />
                   </div>
                 </div>
@@ -577,11 +577,11 @@ export default function AdminPage() {
 
               {/* Regex */}
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-[#aaa] mb-1.5">Regex-паттерн</label>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-g60 mb-1.5">Regex-паттерн</label>
                 <input
                   value={editingField.validation_regex || ''}
                   onChange={e => setEditingField(f => f ? { ...f, validation_regex: e.target.value } : f)}
-                  className="h-9 w-full rounded-lg border border-[#e5e5e5] bg-[#fafafa] px-3 text-sm font-mono outline-none focus:border-[#999] focus:bg-white"
+                  className="h-9 w-full rounded-lg border border-g30 bg-g5 px-3 text-sm font-mono outline-none focus:border-g60 focus:bg-white"
                   placeholder="^[a-zA-Z]+$"
                 />
               </div>
@@ -589,7 +589,7 @@ export default function AdminPage() {
               {/* Options for select */}
               {editingField.field_type === 'select' && (
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-[#aaa] mb-1.5">Варианты (по одному на строке)</label>
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-g60 mb-1.5">Варианты (по одному на строке)</label>
                   <textarea
                     rows={5}
                     value={parseOpts(editingField.options).join('\n')}
@@ -597,7 +597,7 @@ export default function AdminPage() {
                       const lines = e.target.value.split('\n').map(l => l.trim()).filter(Boolean);
                       setEditingField(f => f ? { ...f, options: JSON.stringify(lines) } : f);
                     }}
-                    className="w-full rounded-lg border border-[#e5e5e5] bg-[#fafafa] px-3 py-2.5 text-sm outline-none focus:border-[#999] focus:bg-white resize-none"
+                    className="w-full rounded-lg border border-g30 bg-g5 px-3 py-2.5 text-sm outline-none focus:border-g60 focus:bg-white resize-none"
                     placeholder={'Вариант 1\nВариант 2\nВариант 3'}
                   />
                 </div>
@@ -615,12 +615,12 @@ export default function AdminPage() {
                   updateField(editingField.field, 'options', editingField.options);
                   setEditingField(null);
                 }}
-                className="flex-1 h-11 rounded-full bg-[#111] text-sm font-semibold text-white hover:bg-[#333] transition-colors"
+                className="flex-1 h-11 rounded-full bg-g90 text-sm font-semibold text-white hover:bg-g80 transition-colors"
               >
                 Применить
               </button>
               <button onClick={() => setEditingField(null)}
-                className="h-11 rounded-full border border-[#e5e5e5] px-5 text-sm font-medium text-[#555] hover:bg-[#f8f8f8] transition-colors">
+                className="h-11 rounded-full border border-g30 px-5 text-sm font-medium text-g80 hover:bg-g5 transition-colors">
                 Отмена
               </button>
             </div>
@@ -634,63 +634,63 @@ export default function AdminPage() {
           <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl" onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-5">
               <h2 className="text-base font-semibold tracking-[-0.03em]">Новое поле — {ENTITY_LABELS[entity]}</h2>
-              <button onClick={() => setShowAdd(false)} className="text-[#aaa] hover:text-[#555]">
+              <button onClick={() => setShowAdd(false)} className="text-g60 hover:text-g80">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
               </button>
             </div>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-[#aaa] mb-1.5">Название (label) *</label>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-g60 mb-1.5">Название (label) *</label>
                 <input
                   value={addForm.label}
                   onChange={e => {
                     const label = e.target.value;
                     setAddForm(f => ({ ...f, label, field: labelToSlug(label) }));
                   }}
-                  className="h-9 w-full rounded-lg border border-[#e5e5e5] bg-[#fafafa] px-3 text-sm outline-none focus:border-[#999] focus:bg-white"
+                  className="h-9 w-full rounded-lg border border-g30 bg-g5 px-3 text-sm outline-none focus:border-g60 focus:bg-white"
                   placeholder="Например: Дата рождения"
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-[#aaa] mb-1.5">
-                  Slug (идентификатор) * <span className="normal-case font-normal text-[#bbb]">a-z, 0-9, _</span>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-g60 mb-1.5">
+                  Slug (идентификатор) * <span className="normal-case font-normal text-g40">a-z, 0-9, _</span>
                 </label>
                 <input
                   value={addForm.field}
                   onChange={e => setAddForm(f => ({ ...f, field: e.target.value.replace(/[^a-z0-9_]/g, '') }))}
-                  className="h-9 w-full rounded-lg border border-[#e5e5e5] bg-[#fafafa] px-3 text-sm font-mono outline-none focus:border-[#999] focus:bg-white"
+                  className="h-9 w-full rounded-lg border border-g30 bg-g5 px-3 text-sm font-mono outline-none focus:border-g60 focus:bg-white"
                   placeholder="birth_date"
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-[#aaa] mb-1.5">Тип поля</label>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-g60 mb-1.5">Тип поля</label>
                 <select
                   value={addForm.field_type}
                   onChange={e => setAddForm(f => ({ ...f, field_type: e.target.value }))}
-                  className="h-9 w-full rounded-lg border border-[#e5e5e5] bg-[#fafafa] px-2 text-sm outline-none focus:border-[#999] focus:bg-white"
+                  className="h-9 w-full rounded-lg border border-g30 bg-g5 px-2 text-sm outline-none focus:border-g60 focus:bg-white"
                 >
                   {FIELD_TYPES.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}
                 </select>
               </div>
               {addForm.field_type === 'select' && (
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-[#aaa] mb-1.5">Варианты (по одному на строке)</label>
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-g60 mb-1.5">Варианты (по одному на строке)</label>
                   <textarea
                     rows={4}
                     value={addForm.options.split('\n').filter(Boolean).join('\n')}
                     onChange={e => setAddForm(f => ({ ...f, options: e.target.value }))}
-                    className="w-full rounded-lg border border-[#e5e5e5] bg-[#fafafa] px-3 py-2.5 text-sm outline-none focus:border-[#999] focus:bg-white resize-none"
+                    className="w-full rounded-lg border border-g30 bg-g5 px-3 py-2.5 text-sm outline-none focus:border-g60 focus:bg-white resize-none"
                     placeholder={'Вариант 1\nВариант 2'}
                   />
                 </div>
               )}
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-[#aaa] mb-1.5">Подсказка (placeholder)</label>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-g60 mb-1.5">Подсказка (placeholder)</label>
                 <input
                   value={addForm.placeholder}
                   onChange={e => setAddForm(f => ({ ...f, placeholder: e.target.value }))}
-                  className="h-9 w-full rounded-lg border border-[#e5e5e5] bg-[#fafafa] px-3 text-sm outline-none focus:border-[#999] focus:bg-white"
+                  className="h-9 w-full rounded-lg border border-g30 bg-g5 px-3 text-sm outline-none focus:border-g60 focus:bg-white"
                   placeholder="Введите значение..."
                 />
               </div>
@@ -702,7 +702,7 @@ export default function AdminPage() {
                 <span className="text-sm font-medium">Видимое</span>
                 <Toggle checked={addForm.visible} onChange={v => setAddForm(f => ({ ...f, visible: v }))}/>
               </div>
-              {addErr && <p className="text-sm text-[#dc2626]">{addErr}</p>}
+              {addErr && <p className="text-sm text-dn">{addErr}</p>}
             </div>
 
             <div className="flex gap-3 mt-6">
@@ -715,12 +715,12 @@ export default function AdminPage() {
                   addField.mutate({ ...addForm, entity, options });
                 }}
                 disabled={addField.isPending}
-                className="flex-1 h-11 rounded-full bg-[#111] text-sm font-semibold text-white hover:bg-[#333] transition-colors disabled:opacity-40"
+                className="flex-1 h-11 rounded-full bg-g90 text-sm font-semibold text-white hover:bg-g80 transition-colors disabled:opacity-40"
               >
                 {addField.isPending ? 'Создаём...' : 'Создать поле'}
               </button>
               <button onClick={() => setShowAdd(false)}
-                className="h-11 rounded-full border border-[#e5e5e5] px-5 text-sm font-medium text-[#555] hover:bg-[#f8f8f8] transition-colors">
+                className="h-11 rounded-full border border-g30 px-5 text-sm font-medium text-g80 hover:bg-g5 transition-colors">
                 Отмена
               </button>
             </div>

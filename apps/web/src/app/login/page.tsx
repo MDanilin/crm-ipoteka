@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -25,7 +25,7 @@ function rawDigits(local: string) {
 function Brand() {
   return (
     <div className="flex items-center gap-3">
-      <div className="grid size-9 place-items-center rounded-full bg-[#111] text-lg font-bold text-white select-none">И</div>
+      <div className="grid size-9 place-items-center rounded-full bg-g90 text-lg font-bold text-white select-none">И</div>
       <span className="text-[20px] font-bold tracking-[-0.04em]">Ипотека Банк</span>
     </div>
   );
@@ -125,23 +125,23 @@ export default function LoginPage() {
 
   return (
     <main className="min-h-screen bg-white p-0 sm:p-8 lg:p-[60px]">
-      <section className="relative flex min-h-[calc(100vh-0px)] sm:min-h-[calc(100vh-64px)] lg:min-h-[calc(100vh-120px)] flex-col bg-[#fcfcfc] px-8 py-7 sm:px-12 lg:px-[9vw]">
+      <section className="relative flex min-h-[calc(100vh-0px)] sm:min-h-[calc(100vh-64px)] lg:min-h-[calc(100vh-120px)] flex-col bg-g5 px-8 py-7 sm:px-12 lg:px-[9vw]">
 
         <div className="mb-10 flex items-center justify-between flex-wrap gap-4">
           <Brand />
           <div className="flex items-center gap-3">
             <LanguageSwitcher />
             {/* Mode toggle */}
-            <div className="flex items-center gap-1 bg-[#f3f3f3] rounded-full p-1">
+            <div className="flex items-center gap-1 bg-g10 rounded-full p-1">
               <button
                 onClick={() => switchMode('staff')}
-                className={`h-8 px-4 rounded-full text-sm font-semibold transition-all ${mode === 'staff' ? 'bg-[#111] text-white' : 'text-[#888] hover:text-[#111]'}`}
+                className={`h-8 px-4 rounded-full text-sm font-semibold transition-all ${mode === 'staff' ? 'bg-g90 text-white' : 'text-g70 hover:text-g90'}`}
               >
                 {t('login.staffMode')}
               </button>
               <button
                 onClick={() => switchMode('agent')}
-                className={`h-8 px-4 rounded-full text-sm font-semibold transition-all ${mode === 'agent' ? 'bg-[#111] text-white' : 'text-[#888] hover:text-[#111]'}`}
+                className={`h-8 px-4 rounded-full text-sm font-semibold transition-all ${mode === 'agent' ? 'bg-g90 text-white' : 'text-g70 hover:text-g90'}`}
               >
                 {t('login.agentMode')}
               </button>
@@ -156,7 +156,7 @@ export default function LoginPage() {
             {mode === 'agent' ? (
               <>
                 <p className="mb-2 text-[16px] font-semibold">{t('login.agentTitle')}</p>
-                <p className="mb-8 text-sm text-[#aaa]">{t('login.agentSubtitle')}</p>
+                <p className="mb-8 text-sm text-g60">{t('login.agentSubtitle')}</p>
 
                 <div className="space-y-4">
                   <div>
@@ -185,13 +185,13 @@ export default function LoginPage() {
                   </div>
                 </div>
 
-                {error && <p className="mt-3 text-sm text-[#e1261c]">{error}</p>}
+                {error && <p className="mt-3 text-sm text-dn">{error}</p>}
 
                 <div className="mt-6">
                   <button
                     onClick={handleAgentLogin}
                     disabled={!agentLogin || !agentPass || loading}
-                    className="flex h-11 items-center gap-2 rounded-full bg-[#111] px-5 text-sm font-semibold text-white hover:bg-[#333] transition-colors disabled:opacity-40"
+                    className="flex h-11 items-center gap-2 rounded-full bg-g90 px-5 text-sm font-semibold text-white hover:bg-g80 transition-colors disabled:opacity-40"
                   >
                     {loading ? t('login.loadingBtn') : t('login.submitBtn')}
                   </button>
@@ -206,7 +206,7 @@ export default function LoginPage() {
                     className="flex items-center gap-3 cursor-text"
                     onClick={() => phoneRef.current?.focus()}
                   >
-                    <span className="text-[clamp(42px,6vw,78px)] font-medium leading-none tracking-[-0.08em] select-none shrink-0">+998</span>
+                    <span className="text-[clamp(48px,7vw,108px)] font-medium leading-none tracking-[-0.08em] select-none shrink-0">+998</span>
                     <input
                       ref={phoneRef}
                       type="tel" inputMode="numeric" autoFocus
@@ -219,43 +219,43 @@ export default function LoginPage() {
                       }}
                       onKeyDown={e => { if (e.key === 'Enter' && phoneReady) handleSendOtp(); }}
                       placeholder="XX XXX-XX-XX"
-                      className="min-w-0 flex-1 bg-transparent text-[clamp(42px,6vw,78px)] font-medium leading-none tracking-[-0.08em] outline-none placeholder:text-[#e3e3e3]"
+                      className="min-w-0 flex-1 bg-transparent text-[clamp(48px,7vw,108px)] font-medium leading-none tracking-[-0.08em] outline-none placeholder:text-g20"
                     />
                   </div>
-                  {loading && <p className="mt-4 text-sm text-[#aaa]">{t('login.sendingCode')}</p>}
-                  {error && <p className="mt-3 text-sm text-[#e1261c]">{error}</p>}
+                  {loading && <p className="mt-4 text-sm text-g60">{t('login.sendingCode')}</p>}
+                  {error && <p className="mt-3 text-sm text-dn">{error}</p>}
                 </>
               ) : (
                 <>
                   <button
                     onClick={() => { setStep('phone'); setOtpVal(''); setDevOtp(''); setError(''); }}
-                    className="mb-6 flex h-11 items-center gap-2 rounded-full bg-[#f2f2f2] px-5 text-sm font-semibold text-[#111] hover:bg-[#e8e8e8] transition-colors"
+                    className="mb-6 flex h-11 items-center gap-2 rounded-full bg-g10 px-5 text-sm font-semibold text-g90 hover:bg-g30 transition-colors"
                   >
                     ← {fullPhone}
                   </button>
                   <p className="mb-4 text-[16px] font-semibold">{t('login.enterCode')}</p>
-                  <div className="border-b-2 border-[#111] pb-3">
+                  <div className="border-b-2 border-g90 pb-3">
                     <input
                       ref={otpRef} type="text" inputMode="numeric" autoFocus
                       value={otpVal}
                       onChange={handleOtpChange}
                       placeholder="000000" maxLength={6}
-                      className="w-full bg-transparent text-[clamp(52px,7vw,88px)] font-medium leading-none tracking-[0.12em] outline-none placeholder:text-[#e3e3e3]"
+                      className="w-full bg-transparent text-[clamp(56px,8vw,120px)] font-medium leading-none tracking-[0.12em] outline-none placeholder:text-g20"
                     />
                   </div>
-                  {error && <p className="mt-3 text-sm text-[#e1261c]">{error}</p>}
-                  {loading && <p className="mt-3 text-sm text-[#aaa]">{t('login.verifying')}</p>}
+                  {error && <p className="mt-3 text-sm text-dn">{error}</p>}
+                  {loading && <p className="mt-3 text-sm text-g60">{t('login.verifying')}</p>}
                   <div className="mt-6 flex flex-wrap items-center gap-3">
                     <button
                       onClick={() => { setDevOtp(''); handleSendOtp(); }}
-                      className="flex h-11 items-center gap-2 rounded-full bg-[#f2f2f2] px-5 text-sm font-semibold text-[#111] hover:bg-[#e8e8e8] transition-colors"
+                      className="flex h-11 items-center gap-2 rounded-full bg-g10 px-5 text-sm font-semibold text-g90 hover:bg-g30 transition-colors"
                     >
                       {t('login.resend')}
                     </button>
                     {devOtp && (
-                      <div className="flex h-11 items-center gap-2 rounded-full bg-[#fef3c7] border border-[#fcd34d] px-4 text-sm">
-                        <span className="font-mono font-bold tracking-widest text-[#92400e]">{devOtp}</span>
-                        <span className="text-[#b45309] text-xs">dev</span>
+                      <div className="flex h-11 items-center gap-2 rounded-full bg-warn-bg border border-warn-border px-4 text-sm">
+                        <span className="font-mono font-bold tracking-widest text-warn">{devOtp}</span>
+                        <span className="text-warn text-xs">dev</span>
                       </div>
                     )}
                   </div>
@@ -265,9 +265,9 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <footer className="mt-8 flex items-center justify-between text-xs text-[#aaa]">
+        <footer className="mt-8 flex items-center justify-between text-xs text-g60">
           <span>{t('login.copyright')}</span>
-          <a href="#" className="hover:text-[#111] transition-colors">{t('login.restoreAccess')}</a>
+          <a href="#" className="hover:text-g90 transition-colors">{t('login.restoreAccess')}</a>
         </footer>
       </section>
     </main>

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useEffect } from 'react';
 import { cn } from '@/lib/cn';
@@ -28,11 +28,11 @@ export function Modal({ open, title, onClose, children, footer }: {
           <h3 className="text-2xl font-semibold tracking-[-0.04em]">{title}</h3>
           <button
             onClick={onClose}
-            className="rounded-full bg-[#f2f2f2] p-2 hover:bg-[#e8e8e8] transition-colors"
+            className="rounded-full bg-g10 p-2 hover:bg-g30 transition-colors"
             aria-label="Закрыть"
           >
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-              <path d="M4 4l10 10M14 4L4 14" stroke="#111" strokeWidth="1.8" strokeLinecap="round"/>
+              <path d="M4 4l10 10M14 4L4 14" stroke="#171c24" strokeWidth="1.8" strokeLinecap="round"/>
             </svg>
           </button>
         </div>

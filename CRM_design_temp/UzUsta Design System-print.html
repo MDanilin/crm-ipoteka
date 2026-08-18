@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta name="omelette-print-source" content="v1777871869209593 UzUsta Design System.html">
+<title>UzUsta — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+doc-page:not(:defined){visibility:hidden}
+*{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+*{animation-delay:-99s !important;animation-duration:.001s !important;animation-iteration-count:1 !important;animation-fill-mode:both !important;animation-play-state:running !important;transition-duration:0s !important}
+:root{--bg:#f4f5f1;--card:#fff;--ink:#0e1a18;--ink2:#2a3936;--ink3:#5a6864;--inkMute:#8a9591;--line:rgba(14,26,24,0.08);--lineStrong:rgba(14,26,24,0.14);--accent:#ff6b35;--accentDeep:#d94d1a;--accent2:#ffb547;--emerald:#1f9d6e;--emeraldSoft:#e3f5ec;--sky:#4a90e2;--skySoft:#e8f0fb;--pink:#ff8fa3;--pinkSoft:#ffe4ea;--gold:#ffc94a;--serif:'Manrope','Inter',system-ui,sans-serif;--sans:'Inter',-apple-system,system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+doc-page{color:var(--ink);font-family:var(--sans);font-size:11px;line-height:1.5;-webkit-font-smoothing:antialiased}
+em{font-style:normal}
+.ds-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:20px;border-bottom:1px solid var(--line);margin-bottom:32px;break-inside:avoid}
+.ds-head h1{font-family:var(--serif);font-size:38px;font-weight:700;letter-spacing:-0.04em;line-height:1.0}
+.ds-head h1 em{font-weight:300;color:var(--accent)}
+.ds-head .meta{font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:0.14em;text-transform:uppercase;max-width:170px;text-align:right;line-height:1.6;flex-shrink:0}
+.ds-sec{margin-bottom:40px;break-inside:avoid}
+.ds-sec-head{display:grid;grid-template-columns:120px 1fr;gap:24px;margin-bottom:18px;align-items:baseline;break-after:avoid}
+.ds-sec-num{font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:0.14em;text-transform:uppercase}
+.ds-sec-num span{display:inline-block;width:5px;height:5px;border-radius:5px;background:var(--accent);margin-right:6px;vertical-align:2px}
+.ds-sec-head h2{font-family:var(--serif);font-size:22px;font-weight:700;letter-spacing:-0.035em;line-height:1.1}
+.ds-sec-head h2 em{font-weight:300;color:var(--accent)}
+.ds-sec-head p{font-size:11px;color:var(--ink3);margin-top:6px;max-width:440px;line-height:1.5}
+.card{background:var(--card);border-radius:12px;padding:16px;border:1px solid var(--line);break-inside:avoid}
+.grp-label{font-family:var(--mono);font-size:8px;color:var(--ink3);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px}
+.palette{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;break-inside:avoid}
+.swatch{background:var(--card);border-radius:10px;overflow:hidden;border:1px solid var(--line);break-inside:avoid}
+.swatch-color{height:52px}
+.swatch-info{padding:8px 10px}
+.swatch-name{font-size:10px;font-weight:600;color:var(--ink);margin-bottom:2px;line-height:1.25}
+.swatch-hex{font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:0.04em}
+.swatch-token{font-family:var(--mono);font-size:8px;color:var(--inkMute);margin-top:1px}
+.type-row{display:grid;grid-template-columns:100px 1fr 120px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line);gap:16px;break-inside:avoid}
+.type-row:last-child{border-bottom:none}
+.type-label{font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:0.12em;text-transform:uppercase}
+.type-meta{font-family:var(--mono);font-size:9px;color:var(--inkMute);text-align:right;line-height:1.5}
+.comp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.comp-card{background:var(--card);border-radius:12px;border:1px solid var(--line);padding:16px;display:flex;flex-direction:column;gap:12px;break-inside:avoid}
+.comp-card-label{font-family:var(--mono);font-size:8px;color:var(--ink3);letter-spacing:0.12em;text-transform:uppercase}
+.comp-card-stage{flex:1;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;padding:10px 0}
+.comp-card h3{font-family:var(--serif);font-size:15px;font-weight:700;letter-spacing:-0.02em;margin-top:6px}
+.comp-card p{font-size:10px;color:var(--ink3);line-height:1.4;margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:11px;font-family:var(--sans);font-size:11px;font-weight:600;border:none;letter-spacing:-0.01em}
+.btn-primary{background:var(--ink);color:#fff}
+.btn-accent{background:var(--accent);color:#fff}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn-pill{background:var(--ink);color:#fff;padding:8px 14px;border-radius:999px;font-size:10px}
+.chip{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:999px;font-size:10px;font-weight:500}
+.input{display:flex;align-items:center;gap:8px;padding:9px 11px;background:var(--card);border-radius:11px;border:1px solid var(--line);width:100%;max-width:260px}
+.avatar{width:34px;height:34px;border-radius:34px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;font-size:12px;flex-shrink:0}
+.list-row{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--card);border-radius:12px;border:1px solid var(--line);width:100%;max-width:300px}
+.list-icon{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.list-row .meta{flex:1}
+.list-row .title{font-size:11px;font-weight:600;color:var(--ink)}
+.list-row .sub{font-size:9px;color:var(--ink3);margin-top:1px}
+.icon-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:9px;break-inside:avoid}
+.icon-cell{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 6px;background:var(--card);border-radius:10px;border:1px solid var(--line);break-inside:avoid}
+.icon-cell-label{font-family:var(--mono);font-size:8px;color:var(--ink3)}
+.spacing-row{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}
+.spacing-row:last-child{border-bottom:none}
+.spacing-token{font-family:var(--mono);font-size:10px;color:var(--ink2);width:72px}
+.spacing-bar{height:11px;background:var(--accent);border-radius:3px}
+.spacing-px{font-family:var(--mono);font-size:9px;color:var(--inkMute);margin-left:auto}
+.radius-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.radius-card{background:var(--card);border:1px solid var(--line);padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:8px;break-inside:avoid}
+.radius-shape{width:40px;height:40px;background:var(--accent)}
+.radius-label{font-family:var(--mono);font-size:9px;color:var(--ink3)}
+.radius-px{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--ink)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.prin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.prin-card{background:var(--card);border-radius:12px;border:1px solid var(--line);padding:18px;break-inside:avoid}
+.prin-num{font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px}
+.prin-card h3{font-family:var(--serif);font-size:16px;font-weight:700;letter-spacing:-0.03em;line-height:1.15}
+.prin-card h3 em{font-weight:300;color:var(--accent)}
+.prin-card p{margin-top:8px;font-size:10px;color:var(--ink3);line-height:1.5}
+.spec-card{padding:20px;margin-bottom:12px;display:grid;grid-template-columns:170px 1fr;gap:22px;align-items:center}
+.ds-foot{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:24px;font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:0.08em;text-transform:uppercase;break-inside:avoid}
+</style>
+</head>
+<body>
+<doc-page margin="0.55in">
+
+<header class="ds-head">
+<div>
+<div style="font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:12px;"><span style="display:inline-block;width:5px;height:5px;border-radius:5px;background:var(--accent);margin-right:6px;vertical-align:2px;"></span>Design System v1.0</div>
+<h1>Uz<em>Usta</em> — <em>design system</em></h1>
+<p style="font-size:12px;color:var(--ink3);max-width:400px;margin-top:12px;line-height:1.5;">Цвета, типографика, компоненты и принципы для приложения и лендинга. Передача в разработку.</p>
+</div>
+<div class="meta">Tashkent, 2026<br/>Mobile-first<br/>iOS 26 / Material 3</div>
+</header>
+
+<section class="ds-sec">
+<div class="ds-sec-head">
+<div class="ds-sec-num"><span></span>01 / Color</div>
+<div>
+<h2>Палитра <em>UzUsta</em></h2>
+<p>Тёплая, человечная, премиальная. Мандарин — для действия и акцентов, изумруд — для безопасности, чернила — для иерархии.</p>
+</div>
+</div>
+<div style="margin-bottom:12px;">
+<div class="grp-label">Brand</div>
+<div class="palette">
+<div class="swatch"><div class="swatch-color" style="background:#ff6b35;"></div><div class="swatch-info"><div class="swatch-name">Mandarin</div><div class="swatch-hex">#FF6B35</div><div class="swatch-token">--accent</div></div></div>
+<div class="swatch"><div class="swatch-color" style="background:#d94d1a;"></div><div class="swatch-info"><div class="swatch-name">Mandarin Deep</div><div class="swatch-hex">#D94D1A</div><div class="swatch-token">--accent-deep</div></div></div>
+<div class="swatch"><div class="swatch-color" style="background:#ffb547;"></div><div class="swatch-info"><div class="swatch-name">Amber</div><div class="swatch-hex">#FFB547</div><div class="swatch-token">--accent-2</div></div></div>
+<div class="swatch"><div class="swatch-color" style="background:#ffc94a;"></div><div class="swatch-info"><div class="swatch-name">Gold</div><div class="swatch-hex">#FFC94A</div><div class="swatch-token">--gold</div></div></div>
+</div>
+</div>
+<div style="margin-bottom:12px;">
+<div class="grp-label">Ink (text &amp; surfaces)</div>
+<div class="palette">
+<div class="swatch"><div class="swatch-color" style="background:#0e1a18;"></div><div class="swatch-info"><div class="swatch-name">Ink</div><div class="swatch-hex">#0E1A18</div><div class="swatch-token">--ink</div></div></div>
+<div class="swatch"><div class="swatch-color" style="background:#2a3936;"></div><div class="swatch-info"><div class="swatch-name">Ink-2</div><div class="swatch-hex">#2A3936</div><div class="swatch-token">--ink-2</div></div></div>
+<div class="swatch"><div class="swatch-color" style="background:#5a6864;"></div><div class="swatch-info"><div class="swatch-name">Ink-3</div><div class="swatch-hex">#5A6864</div><div class="swatch-token">--ink-3</div></div></div>
+<div class="swatch"><div class="swatch-color" style="background:#f4f5f1;box-shadow:inset 0 0 0 1px var(--line);"></div><div class="swatch-info"><div class="swatch-name">Background</div><div class="swatch-hex">#F4F5F1</div><div class="swatch-token">--bg</div></div></div>
+</div>
+</div>
+<div>
+<div class="grp-label">Semantic</div>
+<div class="palette">
+<div class="swatch"><div class="swatch-color" style="background:#1f9d6e;"></div><div class="swatch-info"><div class="swatch-name">Emerald (safe / verified)</div><div class="swatch-hex">#1F9D6E</div><div class="swatch-token">--emerald</div></div></div>
+<div class="swatch"><div class="swatch-color" style="background:#4a90e2;"></div><div class="swatch-info"><div class="swatch-name">Sky (info)</div><div class="swatch-hex">#4A90E2</div><div class="swatch-token">--sky</div></div></div>
+<div class="swatch"><div class="swatch-color" style="background:#ff8fa3;"></div><div class="swatch-info"><div class="swatch-name">Pink (delete / care)</div><div class="swatch-hex">#FF8FA3</div><div class="swatch-token">--pink</div></div></div>
+<div class="swatch"><div class="swatch-color" style="background:#e3f5ec;"></div><div class="swatch-info"><div class="swatch-name">Soft tint base</div><div class="swatch-hex">#E3F5EC</div><div class="swatch-token">--*-soft</div></div></div>
+</div>
+</div>
+</section>
+
+<section class="ds-sec">
+<div class="ds-sec-head">
+<div class="ds-sec-num"><span></span>02 / Type</div>
+<div>
+<h2>Типографика <em>две гарнитуры</em></h2>
+<p>Manrope для заголовков и сумм — округлый, цифровой, дружелюбный. Inter для UI-текста — нейтральная читаемость. JetBrains Mono для меток и таблиц.</p>
+</div>
+</div>
+<div class="card spec-card">
+<div>
+<div class="grp-label">Display typeface</div>
+<div style="font-family:var(--serif);font-size:40px;font-weight:700;letter-spacing:-0.04em;line-height:1;color:var(--ink);">Manrope</div>
+<div style="font-family:var(--mono);font-size:9px;color:var(--ink3);margin-top:10px;letter-spacing:0.04em;">200 / 300 / 400 / 500 / 600 / 700 / 800</div>
+<div style="font-family:var(--mono);font-size:8px;color:var(--inkMute);margin-top:4px;">Open-source · Google Fonts</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px;">
+<div style="font-family:var(--serif);font-size:26px;font-weight:200;letter-spacing:-0.03em;line-height:1.05;color:var(--ink);">Скруглённый</div>
+<div style="font-family:var(--serif);font-size:26px;font-weight:400;letter-spacing:-0.03em;line-height:1.05;color:var(--ink);">диджитальный</div>
+<div style="font-family:var(--serif);font-size:26px;font-weight:700;letter-spacing:-0.04em;line-height:1.05;color:var(--ink);">человечный</div>
+<div style="font-family:var(--serif);font-size:26px;font-weight:800;letter-spacing:-0.04em;line-height:1.05;color:var(--accent);">UzUsta — 2026</div>
+</div>
+</div>
+<div class="card" style="padding:0 16px;">
+<div class="type-row">
+<div class="type-label">Display / Hero</div>
+<div style="font-family:var(--serif);font-size:34px;font-weight:700;letter-spacing:-0.04em;line-height:1.0;">Найдите мастера <em style="font-weight:300;color:var(--accent);">за 2 минуты</em></div>
+<div class="type-meta">Manrope 700 / 300<br/>56–84px · -4%</div>
+</div>
+<div class="type-row">
+<div class="type-label">Title L</div>
+<div style="font-family:var(--serif);font-size:22px;font-weight:700;letter-spacing:-0.035em;">Что починим сегодня?</div>
+<div class="type-meta">Manrope 700 · 32px</div>
+</div>
+<div class="type-row">
+<div class="type-label">Title M</div>
+<div style="font-family:var(--serif);font-size:17px;font-weight:700;letter-spacing:-0.03em;">Популярные категории</div>
+<div class="type-meta">Manrope 700 · 22px</div>
+</div>
+<div class="type-row">
+<div class="type-label">Body L</div>
+<div style="font-family:var(--sans);font-size:13px;line-height:1.5;">Сантехники, электрики, уборка, ремонт — у вас под рукой.</div>
+<div class="type-meta">Inter 400 · 16/24</div>
+</div>
+<div class="type-row">
+<div class="type-label">Body / UI</div>
+<div style="font-family:var(--sans);font-size:11px;font-weight:500;">Алишер Каримов · Сантехник, 7 лет</div>
+<div class="type-meta">Inter 500 · 14/20</div>
+</div>
+<div class="type-row">
+<div class="type-label">Caption</div>
+<div style="font-family:var(--sans);font-size:10px;color:var(--ink3);">312 заказов · приедет за 18 мин</div>
+<div class="type-meta">Inter 400 · 12/16</div>
+</div>
+<div class="type-row">
+<div class="type-label">Mono / label</div>
+<div style="font-family:var(--mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink3);">приедет за · 18 мин</div>
+<div class="type-meta">JetBrains 500 · 11px / 0.14em</div>
+</div>
+</div>
+</section>
+
+<section class="ds-sec">
+<div class="ds-sec-head">
+<div class="ds-sec-num"><span></span>03 / Space &amp; shape</div>
+<div>
+<h2>Шкалы и <em>радиусы</em></h2>
+<p>Геометрический шаг 4px. Радиусы 14 / 18 / 26 — листы, карточки, экраны. iPhone-фрейм 48px.</p>
+</div>
+</div>
+<div class="two-col">
+<div class="card">
+<div class="grp-label">Spacing scale</div>
+<div class="spacing-row"><span class="spacing-token">--space-1</span><span class="spacing-bar" style="width:4px;"></span><span class="spacing-px">4px</span></div>
+<div class="spacing-row"><span class="spacing-token">--space-2</span><span class="spacing-bar" style="width:8px;"></span><span class="spacing-px">8px</span></div>
+<div class="spacing-row"><span class="spacing-token">--space-3</span><span class="spacing-bar" style="width:12px;"></span><span class="spacing-px">12px</span></div>
+<div class="spacing-row"><span class="spacing-token">--space-4</span><span class="spacing-bar" style="width:16px;"></span><span class="spacing-px">16px</span></div>
+<div class="spacing-row"><span class="spacing-token">--space-5</span><span class="spacing-bar" style="width:20px;"></span><span class="spacing-px">20px</span></div>
+<div class="spacing-row"><span class="spacing-token">--space-6</span><span class="spacing-bar" style="width:24px;"></span><span class="spacing-px">24px</span></div>
+<div class="spacing-row"><span class="spacing-token">--space-8</span><span class="spacing-bar" style="width:32px;"></span><span class="spacing-px">32px</span></div>
+</div>
+<div class="card">
+<div class="grp-label">Radii</div>
+<div class="radius-grid">
+<div class="radius-card"><div class="radius-shape" style="border-radius:8px;"></div><div class="radius-label">--r-sm</div><div class="radius-px">8</div></div>
+<div class="radius-card"><div class="radius-shape" style="border-radius:14px;"></div><div class="radius-label">--r-md</div><div class="radius-px">14</div></div>
+<div class="radius-card"><div class="radius-shape" style="border-radius:18px;"></div><div class="radius-label">--r-lg</div><div class="radius-px">18</div></div>
+<div class="radius-card"><div class="radius-shape" style="border-radius:26px;"></div><div class="radius-label">--r-xl</div><div class="radius-px">26</div></div>
+<div class="radius-card"><div class="radius-shape" style="border-radius:999px;"></div><div class="radius-label">--r-full</div><div class="radius-px">999</div></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="ds-sec" style="break-before:page;">
+<div class="ds-sec-head">
+<div class="ds-sec-num"><span></span>04 / Components</div>
+<div>
+<h2>Базовые <em>компоненты</em></h2>
+<p>Атомы и молекулы, из которых собраны экраны. Состояния — hover/active/disabled — строятся осветлением цвета без чёрной обводки.</p>
+</div>
+</div>
+<div class="comp-grid">
+<div class="comp-card">
+<div>
+<div class="comp-card-label">Buttons</div>
+<h3>Кнопки</h3>
+<p>Primary — основное действие на экране. Accent — позитивные конверсии. Ghost — второстепенные.</p>
+</div>
+<div class="comp-card-stage">
+<span class="btn btn-primary">Подтвердить</span>
+<span class="btn btn-accent">Опубликовать заказ</span>
+<span class="btn btn-ghost">Отмена</span>
+<span class="btn btn-pill">Откликнуться</span>
+</div>
+</div>
+<div class="comp-card">
+<div>
+<div class="comp-card-label">Chips &amp; tags</div>
+<h3>Чипы</h3>
+<p>Метаданные, статусы, фильтры. Цветовые пары: фон-soft + контентный цвет.</p>
+</div>
+<div class="comp-card-stage">
+<span class="chip" style="background:#e3f5ec;color:#1f9d6e;">✓ Верифицирован</span>
+<span class="chip" style="background:rgba(255,201,74,0.2);color:var(--ink);">★ Топ-рейтинг</span>
+<span class="chip" style="background:var(--accent);color:#fff;">⚡ Срочный</span>
+<span class="chip" style="background:#ffe4ea;color:#ff8fa3;">Отменён</span>
+<span class="chip" style="background:#f4f5f1;color:var(--ink2);">312 заказов</span>
+</div>
+</div>
+<div class="comp-card">
+<div>
+<div class="comp-card-label">Input</div>
+<h3>Поля ввода</h3>
+<p>Поиск всегда с микрофонной кнопкой — ИИ-ввод приоритетный.</p>
+</div>
+<div class="comp-card-stage" style="flex-direction:column;align-items:stretch;">
+<div class="input">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#5a6864" stroke-width="1.6"/><path d="M16 16l4 4" stroke="#5a6864" stroke-width="1.6" stroke-linecap="round"/></svg>
+<span style="flex:1;color:var(--inkMute);font-size:11px;">Опишите задачу или скажите голосом</span>
+<span style="width:24px;height:24px;border-radius:24px;background:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><rect x="9" y="3" width="6" height="11" rx="3" stroke="#fff" stroke-width="1.6"/><path d="M5 11a7 7 0 0014 0M12 18v3" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>
+</span>
+</div>
+<div class="input" style="border:2px solid var(--accent);">
+<span style="flex:1;color:var(--ink);font-size:11px;">+998 90 123 45 67</span>
+</div>
+</div>
+</div>
+<div class="comp-card">
+<div>
+<div class="comp-card-label">Avatar</div>
+<h3>Аватары</h3>
+<p>Инициалы — на фирменных цветах. Размеры 32 / 44 / 56 / 88.</p>
+</div>
+<div class="comp-card-stage">
+<span class="avatar" style="background:var(--accent);">АК</span>
+<span class="avatar" style="background:var(--emerald);">ДМ</span>
+<span class="avatar" style="background:var(--sky);">ЗА</span>
+<span class="avatar" style="background:var(--gold);color:var(--ink);">МД</span>
+<span class="avatar" style="background:var(--pink);color:var(--ink);">БС</span>
+<span class="avatar" style="width:44px;height:44px;font-size:15px;background:var(--accent2);color:var(--ink);">АК</span>
+</div>
+</div>
+<div class="comp-card">
+<div>
+<div class="comp-card-label">List row</div>
+<h3>Строки списка</h3>
+<p>Иконка-плашка слева, мета-чипы под заголовком, цена справа.</p>
+</div>
+<div class="comp-card-stage" style="flex-direction:column;">
+<div class="list-row">
+<div class="list-icon" style="background:var(--skySoft);">🔧</div>
+<div class="meta">
+<div class="title">Сантехника · Алишер К.</div>
+<div class="sub">Замена крана</div>
+</div>
+<div style="text-align:right;">
+<div style="font-family:var(--serif);font-size:11px;font-weight:700;">200 000</div>
+<div style="font-size:8px;color:var(--inkMute);">сум</div>
+</div>
+</div>
+<div class="list-row">
+<div class="list-icon" style="background:var(--emeraldSoft);">🧽</div>
+<div class="meta">
+<div class="title">Уборка · Зухра А.</div>
+<div class="sub">Генеральная уборка</div>
+</div>
+<span class="chip" style="background:#e3f5ec;color:#1f9d6e;">Готов</span>
+</div>
+</div>
+</div>
+<div class="comp-card">
+<div>
+<div class="comp-card-label">Hero card</div>
+<h3>Карточки-герои</h3>
+<p>Тёмная — для срочности. Градиент мандарина — для AI и выручки.</p>
+</div>
+<div class="comp-card-stage" style="gap:8px;">
+<div style="padding:12px;border-radius:14px;background:var(--ink);color:#fff;min-width:120px;min-height:88px;display:flex;flex-direction:column;justify-content:space-between;">
+<span style="font-family:var(--mono);font-size:8px;letter-spacing:0.1em;color:var(--gold);text-transform:uppercase;">⚡ 30 мин</span>
+<div>
+<div style="font-family:var(--serif);font-size:14px;font-weight:700;">Срочный вызов</div>
+<div style="font-size:9px;opacity:0.6;margin-top:2px;">Мастер за 30 минут</div>
+</div>
+</div>
+<div style="padding:12px;border-radius:14px;background:linear-gradient(135deg,var(--accent2) 0%,var(--accent) 100%);color:#fff;min-width:120px;min-height:88px;display:flex;flex-direction:column;justify-content:space-between;">
+<span style="font-family:var(--mono);font-size:8px;letter-spacing:0.1em;text-transform:uppercase;">✨ AI</span>
+<div>
+<div style="font-family:var(--serif);font-size:14px;font-weight:700;">AI-помощник</div>
+<div style="font-size:9px;opacity:0.85;margin-top:2px;">Опишите голосом или фото</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="ds-sec">
+<div class="ds-sec-head">
+<div class="ds-sec-num"><span></span>05 / Iconography</div>
+<div>
+<h2>Иконки <em>monoline</em></h2>
+<p>Stroke 1.6 · 24×24 viewBox · скруглённые концы. Эмодзи допустимы только для категорий.</p>
+</div>
+</div>
+<div class="icon-grid">
+<div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#0e1a18" stroke-width="1.6"/><path d="M16 16l4 4" stroke="#0e1a18" stroke-width="1.6" stroke-linecap="round"/></svg><span class="icon-cell-label">search</span></div>
+<div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="9" y="3" width="6" height="11" rx="3" stroke="#0e1a18" stroke-width="1.6"/><path d="M5 11a7 7 0 0014 0M12 18v3" stroke="#0e1a18" stroke-width="1.6" stroke-linecap="round"/></svg><span class="icon-cell-label">mic</span></div>
+<div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 9a6 6 0 0112 0c0 5 2 6 2 6H4s2-1 2-6zM10 19a2 2 0 004 0" stroke="#0e1a18" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="icon-cell-label">bell</span></div>
+<div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 22s7-7.5 7-13a7 7 0 10-14 0c0 5.5 7 13 7 13z" stroke="#0e1a18" stroke-width="1.6"/><circle cx="12" cy="9" r="2.5" stroke="#0e1a18" stroke-width="1.6"/></svg><span class="icon-cell-label">pin</span></div>
+<div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="#ffc94a" stroke="#ffc94a" stroke-width="1.4"><path d="M12 3l2.5 6 6.5.6-5 4.4 1.6 6.5L12 17l-5.6 3.5L8 14 3 9.6 9.5 9 12 3z" stroke-linejoin="round"/></svg><span class="icon-cell-label">star</span></div>
+<div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6l8-3z" stroke="#1f9d6e" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#1f9d6e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="icon-cell-label">shield</span></div>
+<div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#0e1a18" stroke-width="1.6"/><path d="M12 7v5l3 2" stroke="#0e1a18" stroke-width="1.6" stroke-linecap="round"/></svg><span class="icon-cell-label">clock</span></div>
+<div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="#ff6b35"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg><span class="icon-cell-label">bolt</span></div>
+<div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A15 15 0 013 6a2 2 0 012-2z" stroke="#0e1a18" stroke-width="1.6" stroke-linejoin="round"/></svg><span class="icon-cell-label">phone</span></div>
+<div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 5h16v11H8l-4 4V5z" stroke="#0e1a18" stroke-width="1.6" stroke-linejoin="round"/></svg><span class="icon-cell-label">chat</span></div>
+<div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#0e1a18" stroke-width="1.6"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7" stroke="#0e1a18" stroke-width="1.6" stroke-linecap="round"/></svg><span class="icon-cell-label">user</span></div>
+<div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="#0e1a18" stroke-width="1.6"/><path d="M3 9h18" stroke="#0e1a18" stroke-width="1.6"/></svg><span class="icon-cell-label">wallet</span></div>
+<div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="14" rx="3" stroke="#0e1a18" stroke-width="1.6"/><circle cx="12" cy="13" r="3.5" stroke="#0e1a18" stroke-width="1.6"/><path d="M8 6l1.5-2h5L16 6" stroke="#0e1a18" stroke-width="1.6" stroke-linejoin="round"/></svg><span class="icon-cell-label">camera</span></div>
+<div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 11l8-7 8 7v9a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1v-9z" stroke="#0e1a18" stroke-width="1.6" stroke-linejoin="round"/></svg><span class="icon-cell-label">home</span></div>
+<div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h10" stroke="#0e1a18" stroke-width="1.6" stroke-linecap="round"/></svg><span class="icon-cell-label">list</span></div>
+<div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#0e1a18" stroke-width="1.8" stroke-linecap="round"/></svg><span class="icon-cell-label">plus</span></div>
+</div>
+</section>
+
+<section class="ds-sec">
+<div class="ds-sec-head">
+<div class="ds-sec-num"><span></span>06 / Principles</div>
+<div>
+<h2>Принципы <em>визуального языка</em></h2>
+<p>Шесть правил, которым подчиняются все экраны.</p>
+</div>
+</div>
+<div class="prin-grid">
+<div class="prin-card">
+<div class="prin-num">01 · Воздух</div>
+<h3>Дыхание<br/>важнее плотности</h3>
+<p>Большие отступы (20–24px между блоками), щедрые радиусы. Никогда не упирать текст в край.</p>
+</div>
+<div class="prin-card">
+<div class="prin-num">02 · Тёплый акцент</div>
+<h3>Мандарин — для<br/><em>действия</em></h3>
+<p>Один акцентный цвет на экран. Используем его в CTA, активном состоянии, индикаторах прогресса.</p>
+</div>
+<div class="prin-card">
+<div class="prin-num">03 · Контраст веса</div>
+<h3>Bold + <em>Light</em></h3>
+<p>В заголовках Manrope 700 — основа, 300 + мандарин — акцентное слово. Это даёт ритм без курсива и засечек.</p>
+</div>
+<div class="prin-card">
+<div class="prin-num">04 · Безопасность</div>
+<h3>Изумрудный = доверие</h3>
+<p>Verified-метки, защищённая сделка, гарантия — всегда emerald + щит. Никогда mandarin для безопасности.</p>
+</div>
+<div class="prin-card">
+<div class="prin-num">05 · Soft tints</div>
+<h3>Категории — <em>пастель</em></h3>
+<p>Каждая категория — свой soft-tint фон + эмодзи. Облегчает беглое сканирование без перегруза цветом.</p>
+</div>
+<div class="prin-card">
+<div class="prin-num">06 · Без слопа</div>
+<h3>Меньше элементов —<br/>больше смысла</h3>
+<p>Никаких лишних иконок, цифр-украшений, градиентов ради градиентов. Каждый элемент должен заработать своё место.</p>
+</div>
+</div>
+</section>
+
+<footer class="ds-foot">
+<span>UzUsta Design System v1.0</span>
+<span>For development handoff</span>
+<span>© 2026 UzUsta</span>
+</footer>
+
+</doc-page>
+<script src="doc-page.js"></script>
+</body>
+</html>

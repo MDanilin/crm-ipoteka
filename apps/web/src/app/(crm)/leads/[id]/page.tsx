@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -26,10 +26,10 @@ const SRC_LABELS: Record<string, string> = {
 };
 
 const ACT_CFG: Record<string, { label: string; icon: string; bg: string }> = {
-  call:    { label: 'Звонок',  icon: '📞', bg: 'bg-[#dbeafe]' },
-  meeting: { label: 'Встреча', icon: '🤝', bg: 'bg-[#dcfce7]' },
-  task:    { label: 'Задача',  icon: '✓',  bg: 'bg-[#fef9c3]' },
-  note:    { label: 'Заметка', icon: '📝', bg: 'bg-[#f3f4f6]' },
+  call:    { label: 'Звонок',  icon: '📞', bg: 'bg-ac-bg' },
+  meeting: { label: 'Встреча', icon: '🤝', bg: 'bg-ok-bg' },
+  task:    { label: 'Задача',  icon: '✓',  bg: 'bg-warn-bg' },
+  note:    { label: 'Заметка', icon: '📝', bg: 'bg-g10' },
 };
 
 const SCENARIO_STAGES = ['new', 'in_progress', 'meeting', 'account_opened'] as const;
@@ -55,12 +55,12 @@ function StageLine({ raw }: { raw: string }) {
         return (
           <div key={s} className="flex items-center">
             <div className="flex flex-col items-center min-w-[120px]">
-              <div className={`w-3 h-3 rounded-full ${done ? 'bg-[#111]' : 'bg-[#ddd]'}`}/>
-              <div className={`text-[11px] mt-1.5 text-center font-medium leading-tight ${done ? 'text-[#111]' : 'text-[#bbb]'}`}>{STATUS_CFG[s]?.label}</div>
-              <div className={`text-[10px] mt-0.5 ${ts ? 'text-[#888]' : 'text-[#ccc]'}`}>{ts ? fmtTs(ts) : '—'}</div>
+              <div className={`w-3 h-3 rounded-full ${done ? 'bg-g90' : 'bg-g30'}`}/>
+              <div className={`text-[11px] mt-1.5 text-center font-medium leading-tight ${done ? 'text-g90' : 'text-g40'}`}>{STATUS_CFG[s]?.label}</div>
+              <div className={`text-[10px] mt-0.5 ${ts ? 'text-g70' : 'text-g40'}`}>{ts ? fmtTs(ts) : '—'}</div>
             </div>
             {i < SCENARIO_STAGES.length - 1 && (
-              <div className={`h-px w-8 mx-1 mt-[-18px] flex-shrink-0 ${done && times[SCENARIO_STAGES[i + 1] as string] ? 'bg-[#111]' : 'bg-[#e5e5e5]'}`}/>
+              <div className={`h-px w-8 mx-1 mt-[-18px] flex-shrink-0 ${done && times[SCENARIO_STAGES[i + 1] as string] ? 'bg-g90' : 'bg-g30'}`}/>
             )}
           </div>
         );
@@ -97,32 +97,32 @@ function OwnershipTimeline({ transfers, currentManager, createdAt }: {
         <div key={i} className="flex gap-4 pb-6 last:pb-0">
           {/* Timeline line */}
           <div className="flex flex-col items-center">
-            <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm flex-shrink-0 font-bold ${entry.isCurrent ? 'bg-[#111] text-white' : 'bg-[#f3f3f3] text-[#555]'}`}>
+            <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm flex-shrink-0 font-bold ${entry.isCurrent ? 'bg-g90 text-white' : 'bg-g10 text-g80'}`}>
               {entry.to.split(' ').map(w => w[0]).slice(0, 2).join('') || '?'}
             </div>
-            {i < chain.length - 1 && <div className="w-px flex-1 bg-[#e5e5e5] mt-2"/>}
+            {i < chain.length - 1 && <div className="w-px flex-1 bg-g30 mt-2"/>}
           </div>
 
           {/* Content */}
           <div className="flex-1 min-w-0 pt-1.5 pb-2">
             <div className="flex items-start justify-between gap-2 flex-wrap">
               <div>
-                <span className={`text-sm font-semibold ${entry.isCurrent ? 'text-[#111]' : 'text-[#555]'}`}>{entry.to || '—'}</span>
+                <span className={`text-sm font-semibold ${entry.isCurrent ? 'text-g90' : 'text-g80'}`}>{entry.to || '—'}</span>
                 {entry.isCurrent && (
-                  <span className="ml-2 text-[11px] font-semibold text-[#666]">Текущий владелец</span>
+                  <span className="ml-2 text-[11px] font-semibold text-g70">Текущий владелец</span>
                 )}
               </div>
-              <span className="text-[11px] text-[#bbb] flex-shrink-0">{fmtDate(entry.at)}</span>
+              <span className="text-[11px] text-g40 flex-shrink-0">{fmtDate(entry.at)}</span>
             </div>
 
             {entry.from && (
-              <p className="text-xs text-[#aaa] mt-0.5">
-                Передан от: <span className="text-[#555]">{entry.from}</span>
-                {entry.by && entry.by !== entry.from && <> · Инициатор: <span className="text-[#555]">{entry.by}</span></>}
+              <p className="text-xs text-g60 mt-0.5">
+                Передан от: <span className="text-g80">{entry.from}</span>
+                {entry.by && entry.by !== entry.from && <> · Инициатор: <span className="text-g80">{entry.by}</span></>}
               </p>
             )}
             {entry.reason && (
-              <div className="mt-1.5 inline-block bg-[#f9f9f9] rounded-lg px-3 py-1 text-xs text-[#555]">
+              <div className="mt-1.5 inline-block bg-g5 rounded-lg px-3 py-1 text-xs text-g80">
                 {entry.reason}
               </div>
             )}
@@ -192,11 +192,11 @@ export default function LeadDetailPage() {
     onSuccess: () => qc.invalidateQueries({ queryKey: ['lead', id] }),
   });
 
-  if (isLoading) return <div className="flex items-center justify-center h-64 text-[#aaa] text-sm">Загрузка...</div>;
+  if (isLoading) return <div className="flex items-center justify-center h-64 text-g60 text-sm">Загрузка...</div>;
   if (!lead) return (
     <div className="flex flex-col items-center justify-center py-24 text-center">
       <div className="text-2xl font-semibold tracking-[-0.04em] mb-2">Лид не найден</div>
-      <button onClick={() => router.push('/leads')} className="text-sm text-[#aaa] hover:text-[#111] mt-3">← Все лиды</button>
+      <button onClick={() => router.push('/leads')} className="text-sm text-g60 hover:text-g90 mt-3">← Все лиды</button>
     </div>
   );
 
@@ -208,7 +208,7 @@ export default function LeadDetailPage() {
 
   return (
     <div>
-      <button onClick={() => router.push('/leads')} className="flex items-center gap-2 text-sm text-[#aaa] hover:text-[#111] transition-colors mb-5">
+      <button onClick={() => router.push('/leads')} className="flex items-center gap-2 text-sm text-g60 hover:text-g90 transition-colors mb-5">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
           <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
@@ -219,13 +219,13 @@ export default function LeadDetailPage() {
       <div className="mb-8 flex flex-col sm:flex-row sm:items-end gap-4 justify-between">
         <div>
           <h1 className="text-[clamp(32px,4vw,60px)] font-semibold leading-none tracking-[-0.07em]">{lead.name}</h1>
-          {lead.inn && <p className="mt-2 text-sm text-[#aaa]">ИНН {lead.inn}</p>}
+          {lead.inn && <p className="mt-2 text-sm text-g60">ИНН {lead.inn}</p>}
         </div>
         <div className="flex items-center gap-3 flex-wrap self-start sm:self-auto">
           {canTransfer && (
             <button
               onClick={() => setTransferOpen(true)}
-              className="flex items-center gap-2 h-9 px-4 rounded-full border border-[#e5e5e5] text-sm font-semibold text-[#555] hover:border-[#111] hover:text-[#111] transition-colors"
+              className="flex items-center gap-2 h-9 px-4 rounded-full border border-g30 text-sm font-semibold text-g80 hover:border-g90 hover:text-g90 transition-colors"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                 <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -240,7 +240,7 @@ export default function LeadDetailPage() {
               if (s === 'lost') { setLostOpen(true); }
               else { changeStatus.mutate({ status: s }); }
             }}
-            className={`status-select ${STATUS_CFG[lead.status]?.critical ? 'text-[#c41f16] font-semibold' : ''}`}
+            className={`status-select ${STATUS_CFG[lead.status]?.critical ? 'text-dn font-semibold' : ''}`}
           >
             {Object.entries(STATUS_CFG).map(([k, v]) => (
               <option key={k} value={k}>{v.label}</option>
@@ -250,7 +250,7 @@ export default function LeadDetailPage() {
       </div>
 
       {/* Info strip */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 border-y border-[#eee] py-6 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 border-y border-g20 py-6 mb-6">
         {[
           { label: 'Источник', value: srcFull },
           { label: 'Телефон',  value: lead.phone   || '—' },
@@ -259,31 +259,31 @@ export default function LeadDetailPage() {
           { label: 'Менеджер', value: lead.manager || '—' },
         ].map(f => (
           <div key={f.label}>
-            <div className="text-[11px] font-bold uppercase tracking-[0.08em] text-[#999] mb-1">{f.label}</div>
+            <div className="text-[11px] font-bold uppercase tracking-[0.08em] text-g60 mb-1">{f.label}</div>
             <div className="text-sm font-medium">{f.value}</div>
           </div>
         ))}
       </div>
 
       {/* Stage timeline */}
-      <div className="border border-[#f0f0f0] rounded-2xl p-6 mb-6">
+      <div className="border border-g20 rounded-2xl p-6 mb-6">
         <div className="text-base font-semibold mb-4">Воронка лида</div>
         <StageLine raw={lead.stage_times ?? '{}'} />
       </div>
 
       {/* Ownership history */}
-      <div className="border border-[#f0f0f0] rounded-2xl p-6 mb-6">
+      <div className="border border-g20 rounded-2xl p-6 mb-6">
         <div className="flex items-center justify-between mb-5">
           <div>
             <div className="text-base font-semibold">История владения</div>
-            <div className="text-sm text-[#aaa] mt-0.5">
+            <div className="text-sm text-g60 mt-0.5">
               {transfers.length === 0 ? 'Передач не было' : `${transfers.length} ${transfers.length === 1 ? 'передача' : transfers.length < 5 ? 'передачи' : 'передач'}`}
             </div>
           </div>
           {canTransfer && (
             <button
               onClick={() => setTransferOpen(true)}
-              className="text-sm font-semibold text-[#555] hover:text-[#111] transition-colors"
+              className="text-sm font-semibold text-g80 hover:text-g90 transition-colors"
             >
               Передать →
             </button>
@@ -297,17 +297,17 @@ export default function LeadDetailPage() {
       </div>
 
       {/* Activities */}
-      <div className="border border-[#f0f0f0] rounded-2xl p-6">
+      <div className="border border-g20 rounded-2xl p-6">
         <div className="flex items-center justify-between mb-5">
           <div>
             <div className="text-base font-semibold">Активности</div>
-            <div className="text-sm text-[#aaa] mt-0.5">{lead.activities.length} записей</div>
+            <div className="text-sm text-g60 mt-0.5">{lead.activities.length} записей</div>
           </div>
           <Button size="sm" onClick={() => setAddOpen(!addOpen)}>+ Активность</Button>
         </div>
 
         {addOpen && (
-          <div className="bg-[#f9f9f9] rounded-2xl p-5 mb-6 space-y-3">
+          <div className="bg-g5 rounded-2xl p-5 mb-6 space-y-3">
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="field-label">Тип</label>
@@ -339,28 +339,28 @@ export default function LeadDetailPage() {
         )}
 
         {lead.activities.length === 0 ? (
-          <div className="py-12 text-center text-sm text-[#aaa]">Активностей нет — добавьте первый звонок или встречу</div>
+          <div className="py-12 text-center text-sm text-g60">Активностей нет — добавьте первый звонок или встречу</div>
         ) : (
           <div className="space-y-0">
             {[...lead.activities].reverse().map((a, i) => {
               const cfg = ACT_CFG[a.type] ?? ACT_CFG.note;
               return (
-                <div key={a.id} className={`flex gap-4 group py-4 ${i < lead.activities.length - 1 ? 'border-b border-[#f5f5f5]' : ''}`}>
+                <div key={a.id} className={`flex gap-4 group py-4 ${i < lead.activities.length - 1 ? 'border-b border-g10' : ''}`}>
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-base flex-shrink-0 ${cfg.bg}`}>{cfg.icon}</div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-xs font-bold uppercase tracking-[0.06em] text-[#555]">{cfg.label}</span>
-                        <span className="text-[11px] text-[#bbb]">{a.date}</span>
-                        {a.manager && <span className="text-[11px] text-[#bbb]">· {a.manager}</span>}
+                        <span className="text-xs font-bold uppercase tracking-[0.06em] text-g80">{cfg.label}</span>
+                        <span className="text-[11px] text-g40">{a.date}</span>
+                        {a.manager && <span className="text-[11px] text-g40">· {a.manager}</span>}
                       </div>
                       <button onClick={() => delActivity.mutate(a.id)}
-                        className="opacity-0 group-hover:opacity-100 text-xs text-[#e1261c] hover:opacity-70 transition-all flex-shrink-0">
+                        className="opacity-0 group-hover:opacity-100 text-xs text-dn hover:opacity-70 transition-all flex-shrink-0">
                         Удалить
                       </button>
                     </div>
-                    <div className="text-sm text-[#111] mt-1 leading-snug">{a.summary}</div>
-                    {a.result && <div className="text-xs text-[#888] mt-1 bg-[#f9f9f9] rounded-lg px-3 py-1.5 inline-block">Итог: {a.result}</div>}
+                    <div className="text-sm text-g90 mt-1 leading-snug">{a.summary}</div>
+                    {a.result && <div className="text-xs text-g70 mt-1 bg-g5 rounded-lg px-3 py-1.5 inline-block">Итог: {a.result}</div>}
                   </div>
                 </div>
               );
@@ -379,14 +379,14 @@ export default function LeadDetailPage() {
           <Button
             onClick={() => { changeStatus.mutate({ status: 'lost', lost_reason: lostReason }); setLostOpen(false); setLostReason(''); }}
             disabled={changeStatus.isPending}
-            className="bg-[#e1261c] hover:bg-[#c41f16]"
+            className="bg-dn hover:bg-dn"
           >
             Закрыть как проигранный
           </Button>
         </>}
       >
         <div className="space-y-4">
-          <p className="text-sm text-[#777]">Укажите основную причину, чтобы аналитика потерь была точной.</p>
+          <p className="text-sm text-g70">Укажите основную причину, чтобы аналитика потерь была точной.</p>
 
           {/* Preset reasons */}
           <div className="flex flex-wrap gap-2">
@@ -402,8 +402,8 @@ export default function LeadDetailPage() {
                 onClick={() => setLostReason(r)}
                 className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
                   lostReason === r
-                    ? 'bg-[#111] text-white border-[#111]'
-                    : 'bg-white text-[#555] border-[#e5e5e5] hover:border-[#999]'
+                    ? 'bg-g90 text-white border-g90'
+                    : 'bg-white text-g80 border-g30 hover:border-g60'
                 }`}
               >
                 {r}
@@ -437,8 +437,8 @@ export default function LeadDetailPage() {
       >
         <div className="space-y-4">
           {/* Current owner */}
-          <div className="rounded-xl bg-[#f9f9f9] px-4 py-3 text-sm">
-            <span className="text-[#aaa]">Текущий владелец: </span>
+          <div className="rounded-xl bg-g5 px-4 py-3 text-sm">
+            <span className="text-g60">Текущий владелец: </span>
             <span className="font-semibold">{lead.manager || '—'}</span>
           </div>
 
@@ -469,7 +469,7 @@ export default function LeadDetailPage() {
           </div>
 
           {transfer.isError && (
-            <p className="text-sm text-[#e1261c]">{(transfer.error as { error?: string })?.error ?? 'Ошибка передачи'}</p>
+            <p className="text-sm text-dn">{(transfer.error as { error?: string })?.error ?? 'Ошибка передачи'}</p>
           )}
         </div>
       </Modal>

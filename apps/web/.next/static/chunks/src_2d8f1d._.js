@@ -544,6 +544,32 @@ function CampaignDetailPage() {
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "flex items-center gap-2 flex-wrap",
                         children: [
+                            canManage && allContacts.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$apps$2f$web$2f$src$2f$components$2f$ui$2f$Button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
+                                variant: "ghost",
+                                size: "sm",
+                                onClick: ()=>{
+                                    const rows = allContacts.map((c)=>({
+                                            'Компания': c.company,
+                                            'ИНН': c.inn,
+                                            'Контакт': c.contact_name,
+                                            'Телефон': c.phone,
+                                            'Оператор': c.assigned_to || '—',
+                                            'Статус': STATUS_MAP[c.call_status]?.label ?? c.call_status,
+                                            'Комментарий': c.result_note || '',
+                                            'Дата звонка': c.called_at ? new Date(c.called_at).toLocaleString('ru-RU') : '',
+                                            'Дубликат': c.is_duplicate ? 'Да' : 'Нет'
+                                        }));
+                                    const ws = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$xlsx$40$0$2e$18$2e$5$2f$node_modules$2f$xlsx$2f$xlsx$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__.utils.json_to_sheet(rows);
+                                    const wb = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$xlsx$40$0$2e$18$2e$5$2f$node_modules$2f$xlsx$2f$xlsx$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__.utils.book_new();
+                                    __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$xlsx$40$0$2e$18$2e$5$2f$node_modules$2f$xlsx$2f$xlsx$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__.utils.book_append_sheet(wb, ws, 'Контакты');
+                                    __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$xlsx$40$0$2e$18$2e$5$2f$node_modules$2f$xlsx$2f$xlsx$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__.writeFile(wb, `${campaign.name}.xlsx`);
+                                },
+                                children: "↓ Выгрузить Excel"
+                            }, void 0, false, {
+                                fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
+                                lineNumber: 244,
+                                columnNumber: 13
+                            }, this),
                             canManage && campaign.status !== 'completed' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$apps$2f$web$2f$src$2f$components$2f$ui$2f$Button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
                                 variant: "ghost",
                                 size: "sm",
@@ -551,7 +577,7 @@ function CampaignDetailPage() {
                                 children: "Завершить"
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                lineNumber: 244,
+                                lineNumber: 263,
                                 columnNumber: 13
                             }, this),
                             canManage && allContacts.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -564,7 +590,7 @@ function CampaignDetailPage() {
                                         onChange: handleFile
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                        lineNumber: 248,
+                                        lineNumber: 267,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$apps$2f$web$2f$src$2f$components$2f$ui$2f$Button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -573,7 +599,7 @@ function CampaignDetailPage() {
                                         children: "↑ Импорт Excel"
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                        lineNumber: 249,
+                                        lineNumber: 268,
                                         columnNumber: 15
                                     }, this)
                                 ]
@@ -584,7 +610,7 @@ function CampaignDetailPage() {
                                 children: "Распределить"
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                lineNumber: 253,
+                                lineNumber: 272,
                                 columnNumber: 13
                             }, this),
                             canManage && allContacts.length > 0 && operators.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$apps$2f$web$2f$src$2f$components$2f$ui$2f$Button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -594,7 +620,7 @@ function CampaignDetailPage() {
                                 children: "Перераспределить"
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                lineNumber: 256,
+                                lineNumber: 275,
                                 columnNumber: 13
                             }, this),
                             canManage && allContacts.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -605,7 +631,7 @@ function CampaignDetailPage() {
                                 onChange: handleFile
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                lineNumber: 259,
+                                lineNumber: 278,
                                 columnNumber: 13
                             }, this)
                         ]
@@ -630,12 +656,12 @@ function CampaignDetailPage() {
                     onChange: handleFile
                 }, void 0, false, {
                     fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                    lineNumber: 267,
+                    lineNumber: 286,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                lineNumber: 266,
+                lineNumber: 285,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -648,7 +674,7 @@ function CampaignDetailPage() {
                                 children: "Всего"
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                lineNumber: 274,
+                                lineNumber: 293,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -656,13 +682,13 @@ function CampaignDetailPage() {
                                 children: campaign.total
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                lineNumber: 275,
+                                lineNumber: 294,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                        lineNumber: 273,
+                        lineNumber: 292,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -672,7 +698,7 @@ function CampaignDetailPage() {
                                 children: "Обработано"
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                lineNumber: 278,
+                                lineNumber: 297,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -680,13 +706,13 @@ function CampaignDetailPage() {
                                 children: campaign.processed
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                lineNumber: 279,
+                                lineNumber: 298,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                        lineNumber: 277,
+                        lineNumber: 296,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -696,7 +722,7 @@ function CampaignDetailPage() {
                                 children: "Осталось"
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                lineNumber: 282,
+                                lineNumber: 301,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -704,13 +730,13 @@ function CampaignDetailPage() {
                                 children: campaign.pending
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                lineNumber: 283,
+                                lineNumber: 302,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                        lineNumber: 281,
+                        lineNumber: 300,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -720,7 +746,7 @@ function CampaignDetailPage() {
                                 children: "Конверсия"
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                lineNumber: 286,
+                                lineNumber: 305,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -731,13 +757,13 @@ function CampaignDetailPage() {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                lineNumber: 287,
+                                lineNumber: 306,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                        lineNumber: 285,
+                        lineNumber: 304,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -747,7 +773,7 @@ function CampaignDetailPage() {
                                 children: "Прогресс"
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                lineNumber: 290,
+                                lineNumber: 309,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -762,12 +788,12 @@ function CampaignDetailPage() {
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                            lineNumber: 293,
+                                            lineNumber: 312,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                        lineNumber: 292,
+                                        lineNumber: 311,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -778,25 +804,25 @@ function CampaignDetailPage() {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                        lineNumber: 295,
+                                        lineNumber: 314,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                lineNumber: 291,
+                                lineNumber: 310,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                        lineNumber: 289,
+                        lineNumber: 308,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                lineNumber: 272,
+                lineNumber: 291,
                 columnNumber: 7
             }, this),
             importPreview && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -812,7 +838,7 @@ function CampaignDetailPage() {
                                     children: "Предпросмотр импорта"
                                 }, void 0, false, {
                                     fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                    lineNumber: 305,
+                                    lineNumber: 324,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -829,13 +855,13 @@ function CampaignDetailPage() {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                    lineNumber: 306,
+                                    lineNumber: 325,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                            lineNumber: 304,
+                            lineNumber: 323,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -852,7 +878,7 @@ function CampaignDetailPage() {
                                                     children: "Компания"
                                                 }, void 0, false, {
                                                     fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                    lineNumber: 314,
+                                                    lineNumber: 333,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -860,7 +886,7 @@ function CampaignDetailPage() {
                                                     children: "ИНН"
                                                 }, void 0, false, {
                                                     fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                    lineNumber: 315,
+                                                    lineNumber: 334,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -868,7 +894,7 @@ function CampaignDetailPage() {
                                                     children: "Контакт"
                                                 }, void 0, false, {
                                                     fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                    lineNumber: 316,
+                                                    lineNumber: 335,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -876,18 +902,18 @@ function CampaignDetailPage() {
                                                     children: "Телефон"
                                                 }, void 0, false, {
                                                     fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                    lineNumber: 317,
+                                                    lineNumber: 336,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                            lineNumber: 313,
+                                            lineNumber: 332,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                        lineNumber: 312,
+                                        lineNumber: 331,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -900,7 +926,7 @@ function CampaignDetailPage() {
                                                             children: r.company || '—'
                                                         }, void 0, false, {
                                                             fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                            lineNumber: 323,
+                                                            lineNumber: 342,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -908,7 +934,7 @@ function CampaignDetailPage() {
                                                             children: r.inn || '—'
                                                         }, void 0, false, {
                                                             fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                            lineNumber: 324,
+                                                            lineNumber: 343,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -916,7 +942,7 @@ function CampaignDetailPage() {
                                                             children: r.contact_name || '—'
                                                         }, void 0, false, {
                                                             fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                            lineNumber: 325,
+                                                            lineNumber: 344,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -924,13 +950,13 @@ function CampaignDetailPage() {
                                                             children: r.phone || '—'
                                                         }, void 0, false, {
                                                             fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                            lineNumber: 326,
+                                                            lineNumber: 345,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, i, true, {
                                                     fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                    lineNumber: 322,
+                                                    lineNumber: 341,
                                                     columnNumber: 21
                                                 }, this)),
                                             importPreview.length > 8 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
@@ -944,29 +970,29 @@ function CampaignDetailPage() {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                    lineNumber: 330,
+                                                    lineNumber: 349,
                                                     columnNumber: 25
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                lineNumber: 330,
+                                                lineNumber: 349,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                        lineNumber: 320,
+                                        lineNumber: 339,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                lineNumber: 311,
+                                lineNumber: 330,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                            lineNumber: 310,
+                            lineNumber: 329,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -978,7 +1004,7 @@ function CampaignDetailPage() {
                                     children: "Отмена"
                                 }, void 0, false, {
                                     fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                    lineNumber: 336,
+                                    lineNumber: 355,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$apps$2f$web$2f$src$2f$components$2f$ui$2f$Button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -987,24 +1013,24 @@ function CampaignDetailPage() {
                                     children: importMut.isPending ? 'Импортирую...' : `Импортировать ${importPreview.length} контактов`
                                 }, void 0, false, {
                                     fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                    lineNumber: 337,
+                                    lineNumber: 356,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                            lineNumber: 335,
+                            lineNumber: 354,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                    lineNumber: 303,
+                    lineNumber: 322,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                lineNumber: 302,
+                lineNumber: 321,
                 columnNumber: 9
             }, this),
             distOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1020,7 +1046,7 @@ function CampaignDetailPage() {
                                     children: "Распределить контакты"
                                 }, void 0, false, {
                                     fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                    lineNumber: 350,
+                                    lineNumber: 369,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1028,13 +1054,13 @@ function CampaignDetailPage() {
                                     children: "Выберите операторов для обзвона"
                                 }, void 0, false, {
                                     fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                    lineNumber: 351,
+                                    lineNumber: 370,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                            lineNumber: 349,
+                            lineNumber: 368,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1052,7 +1078,7 @@ function CampaignDetailPage() {
                                             className: "rounded"
                                         }, void 0, false, {
                                             fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                            lineNumber: 356,
+                                            lineNumber: 375,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1060,7 +1086,7 @@ function CampaignDetailPage() {
                                             children: u.name.split(' ').map((w)=>w[0]).slice(0, 2).join('')
                                         }, void 0, false, {
                                             fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                            lineNumber: 365,
+                                            lineNumber: 384,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1068,18 +1094,18 @@ function CampaignDetailPage() {
                                             children: u.name
                                         }, void 0, false, {
                                             fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                            lineNumber: 368,
+                                            lineNumber: 387,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, u.id, true, {
                                     fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                    lineNumber: 355,
+                                    lineNumber: 374,
                                     columnNumber: 17
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                            lineNumber: 353,
+                            lineNumber: 372,
                             columnNumber: 13
                         }, this),
                         selectedOps.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1091,7 +1117,7 @@ function CampaignDetailPage() {
                             ]
                         }, void 0, true, {
                             fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                            lineNumber: 373,
+                            lineNumber: 392,
                             columnNumber: 15
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1103,7 +1129,7 @@ function CampaignDetailPage() {
                                     children: "Отмена"
                                 }, void 0, false, {
                                     fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                    lineNumber: 378,
+                                    lineNumber: 397,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$apps$2f$web$2f$src$2f$components$2f$ui$2f$Button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -1112,24 +1138,24 @@ function CampaignDetailPage() {
                                     children: "Распределить"
                                 }, void 0, false, {
                                     fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                    lineNumber: 379,
+                                    lineNumber: 398,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                            lineNumber: 377,
+                            lineNumber: 396,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                    lineNumber: 348,
+                    lineNumber: 367,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                lineNumber: 347,
+                lineNumber: 366,
                 columnNumber: 9
             }, this),
             allContacts.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1140,7 +1166,7 @@ function CampaignDetailPage() {
                         children: "📂"
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                        lineNumber: 390,
+                        lineNumber: 409,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1148,7 +1174,7 @@ function CampaignDetailPage() {
                         children: "Контакты не загружены"
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                        lineNumber: 391,
+                        lineNumber: 410,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1156,7 +1182,7 @@ function CampaignDetailPage() {
                         children: "Импортируйте Excel-файл со списком клиентов"
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                        lineNumber: 392,
+                        lineNumber: 411,
                         columnNumber: 11
                     }, this),
                     canManage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$apps$2f$web$2f$src$2f$components$2f$ui$2f$Button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -1164,7 +1190,7 @@ function CampaignDetailPage() {
                         children: "↑ Загрузить Excel"
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                        lineNumber: 393,
+                        lineNumber: 412,
                         columnNumber: 25
                     }, this),
                     importError && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1172,13 +1198,13 @@ function CampaignDetailPage() {
                         children: importError
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                        lineNumber: 394,
+                        lineNumber: 413,
                         columnNumber: 27
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                lineNumber: 389,
+                lineNumber: 408,
                 columnNumber: 9
             }, this),
             contacts.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -1194,7 +1220,7 @@ function CampaignDetailPage() {
                                         children: "Результаты обзвона"
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                        lineNumber: 405,
+                                        lineNumber: 424,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1209,7 +1235,7 @@ function CampaignDetailPage() {
                                                         children: s.label
                                                     }, void 0, false, {
                                                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                        lineNumber: 411,
+                                                        lineNumber: 430,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1221,12 +1247,12 @@ function CampaignDetailPage() {
                                                             }
                                                         }, void 0, false, {
                                                             fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                            lineNumber: 413,
+                                                            lineNumber: 432,
                                                             columnNumber: 25
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                        lineNumber: 412,
+                                                        lineNumber: 431,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1234,19 +1260,19 @@ function CampaignDetailPage() {
                                                         children: s.count
                                                     }, void 0, false, {
                                                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                        lineNumber: 415,
+                                                        lineNumber: 434,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, s.value, true, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                lineNumber: 410,
+                                                lineNumber: 429,
                                                 columnNumber: 21
                                             }, this);
                                         })
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                        lineNumber: 406,
+                                        lineNumber: 425,
                                         columnNumber: 15
                                     }, this),
                                     dups > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1257,13 +1283,13 @@ function CampaignDetailPage() {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                        lineNumber: 421,
+                                        lineNumber: 440,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                lineNumber: 404,
+                                lineNumber: 423,
                                 columnNumber: 13
                             }, this),
                             analytics.byOp.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1274,7 +1300,7 @@ function CampaignDetailPage() {
                                         children: "Эффективность операторов"
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                        lineNumber: 430,
+                                        lineNumber: 449,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
@@ -1289,7 +1315,7 @@ function CampaignDetailPage() {
                                                             children: "Оператор"
                                                         }, void 0, false, {
                                                             fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                            lineNumber: 434,
+                                                            lineNumber: 453,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1297,7 +1323,7 @@ function CampaignDetailPage() {
                                                             children: "Всего"
                                                         }, void 0, false, {
                                                             fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                            lineNumber: 435,
+                                                            lineNumber: 454,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1305,7 +1331,7 @@ function CampaignDetailPage() {
                                                             children: "Обработ."
                                                         }, void 0, false, {
                                                             fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                            lineNumber: 436,
+                                                            lineNumber: 455,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1313,7 +1339,7 @@ function CampaignDetailPage() {
                                                             children: "Встречи"
                                                         }, void 0, false, {
                                                             fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                            lineNumber: 437,
+                                                            lineNumber: 456,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1321,18 +1347,18 @@ function CampaignDetailPage() {
                                                             children: "Лиды"
                                                         }, void 0, false, {
                                                             fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                            lineNumber: 438,
+                                                            lineNumber: 457,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                    lineNumber: 433,
+                                                    lineNumber: 452,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                lineNumber: 432,
+                                                lineNumber: 451,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -1344,7 +1370,7 @@ function CampaignDetailPage() {
                                                                 children: row.op
                                                             }, void 0, false, {
                                                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                                lineNumber: 444,
+                                                                lineNumber: 463,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1352,7 +1378,7 @@ function CampaignDetailPage() {
                                                                 children: row.total
                                                             }, void 0, false, {
                                                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                                lineNumber: 445,
+                                                                lineNumber: 464,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1360,7 +1386,7 @@ function CampaignDetailPage() {
                                                                 children: row.processed
                                                             }, void 0, false, {
                                                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                                lineNumber: 446,
+                                                                lineNumber: 465,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1368,7 +1394,7 @@ function CampaignDetailPage() {
                                                                 children: row.meetings
                                                             }, void 0, false, {
                                                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                                lineNumber: 447,
+                                                                lineNumber: 466,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1376,36 +1402,36 @@ function CampaignDetailPage() {
                                                                 children: row.leads
                                                             }, void 0, false, {
                                                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                                lineNumber: 448,
+                                                                lineNumber: 467,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, row.op, true, {
                                                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                        lineNumber: 443,
+                                                        lineNumber: 462,
                                                         columnNumber: 23
                                                     }, this))
                                             }, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                lineNumber: 441,
+                                                lineNumber: 460,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                        lineNumber: 431,
+                                        lineNumber: 450,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                lineNumber: 429,
+                                lineNumber: 448,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                        lineNumber: 402,
+                        lineNumber: 421,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1418,20 +1444,20 @@ function CampaignDetailPage() {
                                 className: "h-9 rounded-full border border-[#e5e5e5] bg-[#f9f9f9] px-4 text-sm outline-none focus:border-[#aaa] w-56"
                             }, void 0, false, {
                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                lineNumber: 459,
+                                lineNumber: 478,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                 value: filterStatus,
                                 onChange: (e)=>setFilterStatus(e.target.value),
-                                className: "h-9 rounded-full border border-[#e5e5e5] bg-[#f9f9f9] px-4 text-sm outline-none",
+                                className: "h-9 w-44 rounded-full border border-[#e5e5e5] bg-[#f9f9f9] px-4 text-sm outline-none",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                         value: "all",
                                         children: "Все статусы"
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                        lineNumber: 467,
+                                        lineNumber: 486,
                                         columnNumber: 15
                                     }, this),
                                     CALL_STATUSES.map((s)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1439,26 +1465,26 @@ function CampaignDetailPage() {
                                             children: s.label
                                         }, s.value, false, {
                                             fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                            lineNumber: 468,
+                                            lineNumber: 487,
                                             columnNumber: 39
                                         }, this))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                lineNumber: 465,
+                                lineNumber: 484,
                                 columnNumber: 13
                             }, this),
                             operators.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                 value: filterOp,
                                 onChange: (e)=>setFilterOp(e.target.value),
-                                className: "h-9 rounded-full border border-[#e5e5e5] bg-[#f9f9f9] px-4 text-sm outline-none",
+                                className: "h-9 w-44 rounded-full border border-[#e5e5e5] bg-[#f9f9f9] px-4 text-sm outline-none",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                         value: "all",
                                         children: "Все операторы"
                                     }, void 0, false, {
                                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                        lineNumber: 473,
+                                        lineNumber: 492,
                                         columnNumber: 17
                                     }, this),
                                     operators.map((op)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1466,13 +1492,13 @@ function CampaignDetailPage() {
                                             children: op
                                         }, op, false, {
                                             fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                            lineNumber: 474,
+                                            lineNumber: 493,
                                             columnNumber: 38
                                         }, this))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                lineNumber: 471,
+                                lineNumber: 490,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1484,20 +1510,70 @@ function CampaignDetailPage() {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                lineNumber: 477,
+                                lineNumber: 496,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                        lineNumber: 458,
+                        lineNumber: 477,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "overflow-x-auto",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
-                            className: "w-full min-w-[700px] border-separate border-spacing-0 text-left",
+                            className: "w-full min-w-[700px] table-fixed border-separate border-spacing-0 text-left",
                             children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("colgroup", {
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("col", {
+                                            className: "w-[28%]"
+                                        }, void 0, false, {
+                                            fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
+                                            lineNumber: 503,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("col", {
+                                            className: "w-[10%]"
+                                        }, void 0, false, {
+                                            fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
+                                            lineNumber: 504,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("col", {
+                                            className: "w-[20%]"
+                                        }, void 0, false, {
+                                            fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
+                                            lineNumber: 505,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("col", {
+                                            className: "w-[16%]"
+                                        }, void 0, false, {
+                                            fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
+                                            lineNumber: 506,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("col", {
+                                            className: "w-[14%]"
+                                        }, void 0, false, {
+                                            fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
+                                            lineNumber: 507,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("col", {
+                                            className: "w-[12%]"
+                                        }, void 0, false, {
+                                            fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
+                                            lineNumber: 508,
+                                            columnNumber: 17
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
+                                    lineNumber: 502,
+                                    columnNumber: 15
+                                }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                         className: "bg-[#f6f6f6] text-xs font-bold uppercase tracking-[0.08em] text-[#999]",
@@ -1507,7 +1583,7 @@ function CampaignDetailPage() {
                                                 children: "Компания"
                                             }, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                lineNumber: 485,
+                                                lineNumber: 512,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1515,7 +1591,7 @@ function CampaignDetailPage() {
                                                 children: "ИНН"
                                             }, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                lineNumber: 486,
+                                                lineNumber: 513,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1523,7 +1599,7 @@ function CampaignDetailPage() {
                                                 children: "Контакт / Телефон"
                                             }, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                lineNumber: 487,
+                                                lineNumber: 514,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1531,7 +1607,7 @@ function CampaignDetailPage() {
                                                 children: "Оператор"
                                             }, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                lineNumber: 488,
+                                                lineNumber: 515,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1539,7 +1615,7 @@ function CampaignDetailPage() {
                                                 children: "Результат"
                                             }, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                lineNumber: 489,
+                                                lineNumber: 516,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1547,18 +1623,18 @@ function CampaignDetailPage() {
                                                 children: "Комментарий"
                                             }, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                lineNumber: 490,
+                                                lineNumber: 517,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                        lineNumber: 484,
+                                        lineNumber: 511,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                    lineNumber: 483,
+                                    lineNumber: 510,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -1567,14 +1643,14 @@ function CampaignDetailPage() {
                                                 className: "border-b border-[#f5f5f5] hover:bg-[#fcf8f8] transition-colors",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "px-4 py-3",
+                                                        className: "px-4 py-3 max-w-0",
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                className: "text-sm font-medium",
+                                                                className: "text-sm font-medium truncate",
                                                                 children: c.company || '—'
                                                             }, void 0, false, {
                                                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                                lineNumber: 497,
+                                                                lineNumber: 524,
                                                                 columnNumber: 23
                                                             }, this),
                                                             !!c.is_duplicate && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1582,61 +1658,61 @@ function CampaignDetailPage() {
                                                                 children: "⚠ Дубль в базе"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                                lineNumber: 498,
+                                                                lineNumber: 525,
                                                                 columnNumber: 44
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                        lineNumber: 496,
+                                                        lineNumber: 523,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "px-4 py-3 text-xs text-[#888] font-mono",
+                                                        className: "px-4 py-3 text-xs text-[#888] font-mono truncate",
                                                         children: c.inn || '—'
                                                     }, void 0, false, {
                                                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                        lineNumber: 500,
+                                                        lineNumber: 527,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "px-4 py-3",
+                                                        className: "px-4 py-3 max-w-0",
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                className: "text-sm",
+                                                                className: "text-sm truncate",
                                                                 children: c.contact_name || '—'
                                                             }, void 0, false, {
                                                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                                lineNumber: 502,
+                                                                lineNumber: 529,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                className: "text-xs text-[#aaa]",
+                                                                className: "text-xs text-[#aaa] truncate",
                                                                 children: c.phone
                                                             }, void 0, false, {
                                                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                                lineNumber: 503,
+                                                                lineNumber: 530,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                        lineNumber: 501,
+                                                        lineNumber: 528,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "px-4 py-3 text-sm text-[#555]",
+                                                        className: "px-4 py-3 text-sm text-[#555] truncate",
                                                         children: c.assigned_to || /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                             className: "text-[#ccc]",
                                                             children: "—"
                                                         }, void 0, false, {
                                                             fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                            lineNumber: 505,
-                                                            columnNumber: 85
+                                                            lineNumber: 532,
+                                                            columnNumber: 94
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                        lineNumber: 505,
+                                                        lineNumber: 532,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1646,12 +1722,12 @@ function CampaignDetailPage() {
                                                             campaignId: id
                                                         }, void 0, false, {
                                                             fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                            lineNumber: 507,
+                                                            lineNumber: 534,
                                                             columnNumber: 23
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                        lineNumber: 506,
+                                                        lineNumber: 533,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1659,13 +1735,13 @@ function CampaignDetailPage() {
                                                         children: c.result_note || '—'
                                                     }, void 0, false, {
                                                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                        lineNumber: 509,
+                                                        lineNumber: 536,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, c.id, true, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                lineNumber: 495,
+                                                lineNumber: 522,
                                                 columnNumber: 19
                                             }, this)),
                                         filtered.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$3_$40$babel$2b$core$40$7$2e$29$2e$7_react$2d$dom$40$19$2e$0$2e$0_react$40$19$2e$0$2e$0_$5f$react$40$19$2e$0$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
@@ -1675,29 +1751,29 @@ function CampaignDetailPage() {
                                                 children: "Нет контактов по фильтру"
                                             }, void 0, false, {
                                                 fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                                lineNumber: 513,
+                                                lineNumber: 540,
                                                 columnNumber: 23
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                            lineNumber: 513,
+                                            lineNumber: 540,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                                    lineNumber: 493,
+                                    lineNumber: 520,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                            lineNumber: 482,
+                            lineNumber: 501,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/apps/web/src/app/(crm)/campaigns/[id]/page.tsx",
-                        lineNumber: 481,
+                        lineNumber: 500,
                         columnNumber: 11
                     }, this)
                 ]

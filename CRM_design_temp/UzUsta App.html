@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>UzUsta — App Design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    em { font-style: normal; }
+    body { background: #f4f5f1; cursor: auto; min-height: 100vh; }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background:
+        radial-gradient(900px 500px at 15% 10%, rgba(255,107,53,0.06), transparent 60%),
+        radial-gradient(900px 500px at 85% 90%, rgba(31,157,110,0.05), transparent 60%);
+      pointer-events: none; z-index: 0;
+    }
+    #root { position: relative; z-index: 1; }
+
+    /* Top toolbar with language switch */
+    .app-toolbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 24px;
+      background: rgba(244, 245, 241, 0.7);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(14,26,24,0.06);
+    }
+    .app-toolbar-meta {
+      font-family: 'JetBrains Mono', monospace; font-size: 11px;
+      color: #5a6864; letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .lang-switch {
+      display: inline-flex; padding: 3px;
+      background: rgba(14,26,24,0.06); border-radius: 999px;
+    }
+    .lang-switch button {
+      padding: 6px 14px; border: none; background: transparent;
+      font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+      color: #5a6864; cursor: pointer; border-radius: 999px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .lang-switch button.active {
+      background: #0e1a18; color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-toolbar">
+  <div style="display:flex; align-items:center; gap:12px;">
+    <span style="font-family: 'Manrope', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: -0.04em;">
+      Uz<span style="font-weight: 300; color: #ff6b35;">Usta</span>
+    </span>
+    <span style="width:1px; height:18px; background: rgba(14,26,24,0.1);"></span>
+    <span class="app-toolbar-meta">Mobile App · Design exploration</span>
+  </div>
+  <div class="lang-switch" id="langSwitch">
+    <button data-lang="ru" class="active">RU</button>
+    <button data-lang="en">EN</button>
+  </div>
+</div>
+
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="ios-frame.jsx"></script>
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="app-shared.jsx"></script>
+<script type="text/babel" src="app-screens-client.jsx"></script>
+<script type="text/babel" src="app-screens-master.jsx"></script>
+
+<script type="text/babel" data-presets="react">
+  const { useState, useEffect } = React;
+
+  function App() {
+    const [lang, setLang] = useState('ru');
+
+    // Sync language switch + reset canvas transform on first paint
+    useEffect(() => {
+      const buttons = document.querySelectorAll('#langSwitch button');
+      const handler = (e) => {
+        const newLang = e.currentTarget.dataset.lang;
+        setLang(newLang);
+        buttons.forEach(b => b.classList.toggle('active', b.dataset.lang === newLang));
+      };
+      buttons.forEach(b => b.addEventListener('click', handler));
+
+      // Force-center: reset world transform after fonts/layout settle
+      const resetTransform = () => {
+        const world = document.querySelector('.design-canvas > div');
+        if (world) world.style.transform = 'translate3d(0px, 0px, 0) scale(1)';
+      };
+      const t1 = setTimeout(resetTransform, 100);
+      const t2 = setTimeout(resetTransform, 600);
+
+      return () => {
+        buttons.forEach(b => b.removeEventListener('click', handler));
+        clearTimeout(t1); clearTimeout(t2);
+      };
+    }, []);
+
+    const wrapDevice = (Comp, dark = false) => (
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <IOSDevice dark={dark}>
+          <Comp lang={lang}/>
+        </IOSDevice>
+      </div>
+    );
+
+    const clientArtboards = [
+      { id: 'c-onb', label: lang === 'ru' ? '01 Онбординг' : '01 Onboarding', Comp: ClientOnboarding, dark: false },
+      { id: 'c-home', label: lang === 'ru' ? '02 Главная' : '02 Home', Comp: ClientHome },
+      { id: 'c-create', label: lang === 'ru' ? '03 Создание заказа' : '03 New order', Comp: ClientCreateOrder },
+      { id: 'c-match', label: lang === 'ru' ? '04 Отклики мастеров' : '04 Pro offers', Comp: ClientMatches },
+      { id: 'c-prof', label: lang === 'ru' ? '05 Профиль мастера' : '05 Pro profile', Comp: ClientMasterProfile },
+      { id: 'c-track', label: lang === 'ru' ? '06 Мастер в пути' : '06 Tracking', Comp: ClientTracking },
+      { id: 'c-chat', label: lang === 'ru' ? '07 Чат' : '07 Chat', Comp: ClientChat },
+      { id: 'c-pay', label: lang === 'ru' ? '08 Оплата' : '08 Payment', Comp: ClientPayment },
+      { id: 'c-rate', label: lang === 'ru' ? '09 Оценка' : '09 Rating', Comp: ClientRating },
+      { id: 'c-hist', label: lang === 'ru' ? '10 История' : '10 History', Comp: ClientHistory },
+      { id: 'c-me', label: lang === 'ru' ? '11 Профиль' : '11 Profile', Comp: ClientProfile },
+    ];
+
+    const masterArtboards = [
+      { id: 'm-onb', label: lang === 'ru' ? '01 Онбординг' : '01 Onboarding', Comp: MasterOnboarding, dark: true },
+      { id: 'm-feed', label: lang === 'ru' ? '02 Заявки' : '02 Job feed', Comp: MasterFeed },
+      { id: 'm-active', label: lang === 'ru' ? '03 Активный заказ' : '03 Active job', Comp: MasterActive },
+      { id: 'm-chat', label: lang === 'ru' ? '04 Чат с клиентом' : '04 Client chat', Comp: MasterChat },
+      { id: 'm-earn', label: lang === 'ru' ? '05 Заработок' : '05 Earnings', Comp: MasterEarnings },
+      { id: 'm-prof', label: lang === 'ru' ? '06 Профиль' : '06 Profile', Comp: MasterProfile },
+    ];
+
+    const ABW = 402, ABH = 874;
+
+    return (
+      <DesignCanvas
+        title="UzUsta — Mobile App"
+        subtitle={lang === 'ru'
+          ? 'Два приложения: для клиентов и для мастеров. iOS-фреймы, RU/EN.'
+          : 'Two apps: client and pro. iOS frames, RU/EN.'}
+      >
+        <DCSection
+          id="client"
+          title={lang === 'ru' ? 'Приложение клиента' : 'Client app'}
+          subtitle={lang === 'ru'
+            ? 'Заказчик: найти мастера, отследить, оплатить, оценить'
+            : 'Customer: find a pro, track, pay, rate'}
+        >
+          {clientArtboards.map(a => (
+            <DCArtboard key={a.id} id={a.id} label={a.label} width={ABW} height={ABH}>
+              <IOSDevice dark={a.dark}>
+                <a.Comp lang={lang}/>
+              </IOSDevice>
+            </DCArtboard>
+          ))}
+        </DCSection>
+
+        <DCSection
+          id="master"
+          title={lang === 'ru' ? 'Приложение мастера' : 'Pro app'}
+          subtitle={lang === 'ru'
+            ? 'Исполнитель: получать заявки, выполнять, зарабатывать'
+            : 'Pro: receive jobs, deliver, earn'}
+        >
+          {masterArtboards.map(a => (
+            <DCArtboard key={a.id} id={a.id} label={a.label} width={ABW} height={ABH}>
+              <IOSDevice dark={a.dark}>
+                <a.Comp lang={lang}/>
+              </IOSDevice>
+            </DCArtboard>
+          ))}
+        </DCSection>
+      </DesignCanvas>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+
+</body>
+</html>

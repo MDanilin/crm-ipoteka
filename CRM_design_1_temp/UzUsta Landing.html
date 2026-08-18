@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>UzUsta — найдите мастера за 2 минуты</title>
+<meta name="description" content="UzUsta — сервис поиска проверенных мастеров в Узбекистане: ремонт, сантехника, электрика, уборка и другое. Без звонков и посредников."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="landing.css"/>
+<script>
+(function(){
+  var K='uzu_intro_seen',r=document.documentElement;
+  try{ if(sessionStorage.getItem(K)) return; }catch(e){ return; }
+  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  r.classList.add('intro-on');
+  var lifted=false;
+  function end(){
+    if(lifted) return; lifted=true;
+    var n=document.getElementById('intro');
+    r.classList.remove('intro-on'); r.classList.add('intro-done');
+    try{ sessionStorage.setItem(K,'1'); }catch(e){}
+    if(n){ n.classList.add('out'); setTimeout(function(){ n.remove(); r.classList.remove('intro-done'); },900); }
+    else r.classList.remove('intro-done');
+  }
+  setTimeout(end,1150);
+  window.addEventListener('load',function(){ setTimeout(end,1150); });
+})();
+</script>
+</head>
+<body>
+
+<div class="intro" id="intro" aria-hidden="true">
+<div class="intro-mark">
+<svg class="intro-flag" viewBox="0 0 30 20">
+<rect width="30" height="20" fill="#1eb53a"/>
+<rect width="30" height="13.4" fill="#fff"/>
+<rect width="30" height="6.6" fill="#0099b5"/>
+<rect y="6.2" width="30" height="0.8" fill="#ce1126"/>
+<rect y="13" width="30" height="0.8" fill="#ce1126"/>
+<circle cx="6.6" cy="3.3" r="2.2" fill="#fff"/>
+<circle cx="7.5" cy="3.3" r="2.2" fill="#0099b5"/>
+<g fill="#fff"><circle cx="10.6" cy="1.5" r=".38"/><circle cx="12.6" cy="1.5" r=".38"/><circle cx="14.6" cy="1.5" r=".38"/><circle cx="9.6" cy="3.3" r=".38"/><circle cx="11.6" cy="3.3" r=".38"/><circle cx="13.6" cy="3.3" r=".38"/><circle cx="15.6" cy="3.3" r=".38"/><circle cx="10.6" cy="5.1" r=".38"/><circle cx="12.6" cy="5.1" r=".38"/><circle cx="14.6" cy="5.1" r=".38"/><circle cx="16.6" cy="5.1" r=".38"/><circle cx="16.6" cy="1.5" r=".38"/></g>
+</svg>
+<span class="intro-word">Uz<em>Usta</em></span>
+</div>
+</div>
+
+<div class="ann"><span data-i="ann"></span></div>
+
+<nav class="nav" id="nav">
+<div class="wrap">
+<a href="#top" class="brand">
+<svg class="flag" viewBox="0 0 30 20" aria-label="O‘zbekiston">
+<rect width="30" height="20" fill="#1eb53a"/>
+<rect width="30" height="13.4" fill="#fff"/>
+<rect width="30" height="6.6" fill="#0099b5"/>
+<rect y="6.2" width="30" height="0.8" fill="#ce1126"/>
+<rect y="13" width="30" height="0.8" fill="#ce1126"/>
+<circle cx="6.6" cy="3.3" r="2.2" fill="#fff"/>
+<circle cx="7.5" cy="3.3" r="2.2" fill="#0099b5"/>
+<g fill="#fff"><circle cx="10.6" cy="1.5" r=".38"/><circle cx="12.6" cy="1.5" r=".38"/><circle cx="14.6" cy="1.5" r=".38"/><circle cx="9.6" cy="3.3" r=".38"/><circle cx="11.6" cy="3.3" r=".38"/><circle cx="13.6" cy="3.3" r=".38"/><circle cx="15.6" cy="3.3" r=".38"/><circle cx="10.6" cy="5.1" r=".38"/><circle cx="12.6" cy="5.1" r=".38"/><circle cx="14.6" cy="5.1" r=".38"/><circle cx="16.6" cy="5.1" r=".38"/><circle cx="16.6" cy="1.5" r=".38"/></g>
+</svg>
+<span>Uz<em>Usta</em></span>
+</a>
+<div class="nlinks">
+<a href="#categories" data-i="nav_find"></a>
+<a href="#how" data-i="nav_how"></a>
+<a href="#why" data-i="nav_why"></a>
+<a href="#masters" data-i="nav_masters"></a>
+</div>
+<div class="nright">
+<div class="lang" id="lang">
+<button data-l="uz">UZ</button>
+<button data-l="ru" class="on">RU</button>
+<button data-l="en">EN</button>
+</div>
+<a href="#masters" class="btn btn-p btn-s hide-sm" data-i="cta_master"></a>
+<button class="burger" id="burger" aria-label="Menu" aria-expanded="false">
+<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+</button>
+</div>
+</div>
+<div class="msheet" id="msheet">
+<a href="#categories" data-i="nav_find"></a>
+<a href="#how" data-i="nav_how"></a>
+<a href="#why" data-i="nav_why"></a>
+<a href="#masters" data-i="nav_masters"></a>
+<a href="#masters" class="btn btn-p" style="justify-content:center;margin-top:6px" data-i="cta_master"></a>
+</div>
+</nav>
+
+<section class="hero" id="top">
+<div class="wrap">
+<div class="hero-grid">
+<div>
+<span class="eyebrow" data-i="hero_eyebrow"></span>
+<h1><span data-i="hero_t1"></span> <span data-i="hero_t2"></span> <em data-i="hero_em"></em></h1>
+<p class="hero-sub" data-i="hero_sub"></p>
+<div class="hero-btns">
+<a href="#categories" class="btn btn-a"><span data-i="hero_cta"></span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+<a href="#masters" class="btn btn-g" data-i="cta_master"></a>
+</div>
+<p class="hero-note">
+<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#1f9d6e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+<span data-i="hero_note"></span>
+</p>
+</div>
+
+<div class="phone">
+<div class="phone-in">
+<div class="pq" data-i="hero_cta"></div>
+<div class="psearch">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8a9591" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M16 16l4 4" stroke-linecap="round"/></svg>
+<span data-i="search_ph"></span>
+<span class="mic"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg></span>
+</div>
+<div class="pcats">
+<div class="pcat" style="background:var(--skyS);border-color:transparent"><i>🔧</i><span data-i="c1"></span></div>
+<div class="pcat"><i>⚡</i><span data-i="c2"></span></div>
+<div class="pcat"><i>🧼</i><span data-i="c3"></span></div>
+</div>
+<div class="ppro">
+<span class="av" style="background:var(--accent)">AR</span>
+<div><div class="n" data-i="card_name"></div><div class="m">★ 4.9 · <span data-i="card_role"></span></div></div>
+<span class="p">180k</span>
+</div>
+<div class="ppro">
+<span class="av" style="background:var(--em)">DM</span>
+<div><div class="n">Dilshod M.</div><div class="m">★ 4.8 · <span data-i="c2"></span></div></div>
+<span class="p">160k</span>
+</div>
+<div class="ppro">
+<span class="av" style="background:var(--sky)">ZA</span>
+<div><div class="n">Zuhra A.</div><div class="m">★ 5.0 · <span data-i="c3"></span></div></div>
+<span class="p">200k</span>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="sec" id="categories">
+<div class="wrap">
+<div class="shead rv">
+<div>
+<span class="eyebrow" data-i="cat_eyebrow"></span>
+<h2 style="margin-top:18px"><span data-i="cat_t"></span> <em data-i="cat_em"></em></h2>
+</div>
+<p data-i="cat_sub"></p>
+</div>
+<div class="cats">
+<a href="#" class="cat rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0 5 5l-8.4 8.4a2.1 2.1 0 0 1-3-3z"/><path d="M17.5 3.5 21 7l-2 2-3.5-3.5z"/></svg></span><h3 data-i="c1"></h3></a>
+<a href="#" class="cat rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.2 6 10a6 6 0 0 1-12 0c0-3.8 6-10 6-10z"/></svg></span><h3 data-i="c2"></h3></a>
+<a href="#" class="cat rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></span><h3 data-i="c3"></h3></a>
+<a href="#" class="cat rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l1.5 4.2 4.2 1.5-4.2 1.5L12 15l-1.5-4.3L6.3 9.2l4.2-1.5z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></svg></span><h3 data-i="c4"></h3></a>
+<a href="#" class="cat rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2.5" width="14" height="19" rx="2.5"/><circle cx="12" cy="14" r="4"/><path d="M8.5 6h2"/></svg></span><h3 data-i="c5"></h3></a>
+<a href="#" class="cat rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="7" rx="2"/><path d="M7 16v1.5M12 16v2.5M17 16v1.5"/></svg></span><h3 data-i="c6"></h3></a>
+<a href="#" class="cat rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 11.5V8.5A1.5 1.5 0 0 1 5 7h14a1.5 1.5 0 0 1 1.5 1.5v3"/><path d="M2.5 11.5h19v5h-19z"/><path d="M5 16.5V19M19 16.5V19"/></svg></span><h3 data-i="c7"></h3></a>
+</div>
+</div>
+</section>
+
+<section class="sec" id="how" style="padding-top:0">
+<div class="wrap">
+<div class="shead rv">
+<div>
+<span class="eyebrow" data-i="how_eyebrow"></span>
+<h2 style="margin-top:18px"><span data-i="how_t"></span> <em data-i="how_em"></em></h2>
+</div>
+<p data-i="how_sub"></p>
+</div>
+<div class="how-grid">
+<div>
+<div class="step rv"><span class="n">01</span><div><h3 data-i="h1t"></h3><p data-i="h1d"></p></div></div>
+<div class="step rv"><span class="n">02</span><div><h3 data-i="h2t"></h3><p data-i="h2d"></p></div></div>
+<div class="step rv"><span class="n">03</span><div><h3 data-i="h3t"></h3><p data-i="h3d"></p></div></div>
+<div class="step rv"><span class="n">04</span><div><h3 data-i="h4t"></h3><p data-i="h4d"></p></div></div>
+</div>
+<div class="chat rv">
+<div class="chat-top">
+<span class="av" style="width:44px;height:44px;font-size:15px;background:var(--accent)">AR</span>
+<div>
+<div class="nm" data-i="card_name"></div>
+<div class="rl"><span data-i="card_role"></span> · ★ 4.9</div>
+</div>
+</div>
+<div class="crow"><span class="k" data-i="card_svc_l"></span><span class="v" data-i="card_svc"></span></div>
+<div class="crow"><span class="k" data-i="card_price_l"></span><span class="v big" data-i="card_price"></span></div>
+<div class="crow" style="border:0"><span class="k" data-i="card_pay_l"></span><span class="v" data-i="card_pay"></span></div>
+<p class="cnote">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d9a017" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg>
+<span data-i="card_note"></span>
+</p>
+<a href="#" class="btn btn-p" style="width:100%;justify-content:center" data-i="card_btn"></a>
+</div>
+</div>
+</div>
+</section>
+
+<section class="sec flowsec" id="flow" style="padding-top:0">
+<div class="wrap">
+<div class="shead rv">
+<div>
+<span class="eyebrow" data-i="fl_eyebrow"></span>
+<h2 style="margin-top:18px"><span data-i="fl_t"></span> <em data-i="fl_em"></em></h2>
+</div>
+<p data-i="fl_sub"></p>
+</div>
+<div class="flegend rv">
+<span><i class="k-cl"></i><span data-i="fl_client"></span></span>
+<span><i class="k-pr"></i><span data-i="fl_master"></span></span>
+</div>
+<div class="flow rv">
+<div class="fnode cl" style="grid-column:1"><span class="fdot">01</span></div>
+<div class="fcard cl" style="grid-column:1"><div class="fbox"><span class="fby" data-i="fl_client"></span><h3 data-i="s1t"></h3><p data-i="s1d"></p></div></div>
+<div class="fnode pr" style="grid-column:2"><span class="fdot">02</span></div>
+<div class="fcard pr" style="grid-column:2"><div class="fbox"><span class="fby" data-i="fl_master"></span><h3 data-i="s2t"></h3><p data-i="s2d"></p></div></div>
+<div class="fnode pr" style="grid-column:3"><span class="fdot">03</span></div>
+<div class="fcard pr" style="grid-column:3"><div class="fbox"><span class="fby" data-i="fl_master"></span><h3 data-i="s3t"></h3><p data-i="s3d"></p></div></div>
+<div class="fnode pr" style="grid-column:4"><span class="fdot">04</span></div>
+<div class="fcard pr" style="grid-column:4"><div class="fbox"><span class="fby" data-i="fl_master"></span><h3 data-i="s4t"></h3><p data-i="s4d"></p></div></div>
+<div class="fnode pr" style="grid-column:5"><span class="fdot">05</span></div>
+<div class="fcard pr" style="grid-column:5"><div class="fbox"><span class="fby" data-i="fl_master"></span><h3 data-i="s5t"></h3><p data-i="s5d"></p></div></div>
+<div class="fnode cl" style="grid-column:6"><span class="fdot">06</span></div>
+<div class="fcard cl" style="grid-column:6"><div class="fbox"><span class="fby" data-i="fl_client"></span><h3 data-i="s6t"></h3><p data-i="s6d"></p></div></div>
+</div>
+</div>
+</section>
+
+<section class="sec why" id="why">
+<div class="wrap">
+<div class="shead rv">
+<div>
+<span class="eyebrow" data-i="why_eyebrow"></span>
+<h2 style="margin-top:18px"><span data-i="why_t"></span> <em data-i="why_em"></em></h2>
+</div>
+</div>
+<div class="wgrid rv">
+<div class="w"><span class="g" data-i="w1g"></span><div class="n">01</div><h3 data-i="w1t"></h3><p data-i="w1d"></p></div>
+<div class="w"><span class="g" data-i="w2g"></span><div class="n">02</div><h3 data-i="w2t"></h3><p data-i="w2d"></p></div>
+<div class="w"><span class="g" data-i="w3g"></span><div class="n">03</div><h3 data-i="w3t"></h3><p data-i="w3d"></p></div>
+<div class="w"><span class="g" data-i="w4g"></span><div class="n">04</div><h3 data-i="w4t"></h3><p data-i="w4d"></p></div>
+<div class="w"><span class="g" data-i="w5g"></span><div class="n">05</div><h3 data-i="w5t"></h3><p data-i="w5d"></p></div>
+<div class="w"><span class="g" data-i="w6g"></span><div class="n">06</div><h3 data-i="w6t"></h3><p data-i="w6d"></p></div>
+</div>
+</div>
+</section>
+
+<section class="sec">
+<div class="wrap">
+<div class="side-grid">
+<div class="side-card rv">
+<span class="eyebrow" data-i="side_eyebrow"></span>
+<h2><span data-i="side_t"></span> <em style="color:var(--accent2)" data-i="side_em"></em></h2>
+<p data-i="side_d"></p>
+<a href="mailto:support@uzusta.uz" class="btn btn-a" style="margin-top:26px" data-i="side_cta"></a>
+</div>
+<div class="checks rv">
+<div class="check"><span class="b"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1f9d6e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span data-i="side_l1"></span></div>
+<div class="check"><span class="b"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1f9d6e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span data-i="side_l2"></span></div>
+<div class="check"><span class="b"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1f9d6e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span data-i="side_l3"></span></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="sec mast" id="masters">
+<div class="wrap">
+<div class="mgrid">
+<div class="rv">
+<span class="eyebrow" data-i="m_eyebrow"></span>
+<h2><span data-i="m_t"></span> <em data-i="m_em"></em></h2>
+<p class="sub" data-i="m_sub"></p>
+<a href="#" class="btn btn-a"><span data-i="m_cta"></span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+</div>
+<div class="mlist rv">
+<div class="mitem"><span class="d"></span><span data-i="m1"></span></div>
+<div class="mitem"><span class="d"></span><span data-i="m2"></span></div>
+<div class="mitem"><span class="d"></span><span data-i="m3"></span></div>
+<div class="mitem"><span class="d"></span><span data-i="m4"></span></div>
+</div>
+</div>
+</div>
+</section>
+
+<footer class="foot">
+<div class="wrap">
+<div class="fgrid">
+<div>
+<a href="#top" class="brand" style="font-size:21px">
+<svg class="flag" viewBox="0 0 30 20" aria-hidden="true">
+<rect width="30" height="20" fill="#1eb53a"/><rect width="30" height="13.4" fill="#fff"/><rect width="30" height="6.6" fill="#0099b5"/><rect y="6.2" width="30" height="0.8" fill="#ce1126"/><rect y="13" width="30" height="0.8" fill="#ce1126"/><circle cx="6.6" cy="3.3" r="2.2" fill="#fff"/><circle cx="7.5" cy="3.3" r="2.2" fill="#0099b5"/>
+</svg>
+<span>Uz<em>Usta</em></span>
+</a>
+<p class="fabout" data-i="f_about"></p>
+<span class="fmade" data-i="f_made"></span>
+</div>
+<div>
+<h4 data-i="f_company"></h4>
+<ul>
+<li><a href="https://gavharlabs.uz" target="_blank" rel="noopener">Gavhar Labs</a></li>
+<li><a href="#how" data-i="f_how"></a></li>
+<li><a href="#why" data-i="nav_why"></a></li>
+</ul>
+</div>
+<div>
+<h4 data-i="f_users"></h4>
+<ul>
+<li><a href="#categories" data-i="f_find"></a></li>
+<li><a href="#masters" data-i="f_become"></a></li>
+</ul>
+</div>
+<div>
+<h4 data-i="f_docs"></h4>
+<ul>
+<li><a href="https://uzusta.uz/oferta.html" data-i="f_oferta"></a></li>
+<li><a href="https://uzusta.uz/terms.html" data-i="f_terms"></a></li>
+<li><a href="https://uzusta.uz/privacy.html" data-i="f_privacy"></a></li>
+</ul>
+</div>
+<div>
+<h4 data-i="f_contacts"></h4>
+<ul>
+<li><a href="mailto:support@uzusta.uz">support@uzusta.uz</a></li>
+</ul>
+</div>
+</div>
+<div class="fbot">
+<span data-i="f_copy"></span>
+<span data-i="f_dev"></span>
+</div>
+<div class="wordmark">Uz<em>Usta</em></div>
+</div>
+</footer>
+
+<script src="landing-i18n.js"></script>
+<script>
+(function(){
+var STORE='uzu_lang', def=localStorage.getItem(STORE)||'ru';
+function apply(l){
+  var d=window.I18N[l]||window.I18N.ru;
+  document.querySelectorAll('[data-i]').forEach(function(el){
+    var v=d[el.getAttribute('data-i')];
+    if(v!=null) el.textContent=v;
+  });
+  document.documentElement.lang=l;
+  document.querySelectorAll('#lang button').forEach(function(b){
+    b.classList.toggle('on', b.getAttribute('data-l')===l);
+  });
+  try{localStorage.setItem(STORE,l)}catch(e){}
+}
+document.getElementById('lang').addEventListener('click',function(e){
+  var b=e.target.closest('button'); if(b) apply(b.getAttribute('data-l'));
+});
+apply(def);
+
+var nav=document.getElementById('nav');
+addEventListener('scroll',function(){nav.classList.toggle('stuck',scrollY>8)},{passive:true});
+
+var bg=document.getElementById('burger'), sheet=document.getElementById('msheet');
+function setMenu(open){nav.classList.toggle('open',open);bg.setAttribute('aria-expanded',open?'true':'false')}
+bg.addEventListener('click',function(){setMenu(!nav.classList.contains('open'))});
+sheet.addEventListener('click',function(e){if(e.target.closest('a'))setMenu(false)});
+
+if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)} });
+  },{threshold:.12,rootMargin:'0px 0px -40px'});
+  document.querySelectorAll('.rv').forEach(function(el,i){el.style.transitionDelay=(i%4*60)+'ms';io.observe(el)});
+}else{
+  document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in')});
+}
+})();
+</script>
+</body>
+</html>

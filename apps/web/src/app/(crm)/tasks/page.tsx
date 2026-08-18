@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -12,7 +12,7 @@ import { Modal } from '@/components/ui/Modal';
 import { Badge } from '@/components/ui/Badge';
 import { cn } from '@/lib/cn';
 
-const PRI_DOT = { high:'bg-[#e1261c]', medium:'bg-[#f59e0b]', low:'bg-[#10b981]' } as const;
+const PRI_DOT = { high:'bg-dn', medium:'bg-warn', low:'bg-ok' } as const;
 
 // Тип задачи — категория (звонок/встреча/предложение/итд), не критичность,
 // поэтому только монохромные варианты Badge (без "red").
@@ -50,25 +50,25 @@ export default function TasksPage() {
   const open_  = tasks.filter(t => !t.done);
   const closed = tasks.filter(t =>  t.done);
 
-  if (isLoading) return <div className="flex items-center justify-center h-64 text-[#aaa] text-sm">{tt('common.loading')}</div>;
+  if (isLoading) return <div className="flex items-center justify-center h-64 text-g60 text-sm">{tt('common.loading')}</div>;
 
   const TaskRow = ({ t }: { t: Task }) => (
     <div
-      className={cn('flex items-center gap-4 px-5 py-4 border-b border-[#f0f0f0] last:border-0 hover:bg-[#fcf8f8] cursor-pointer transition-colors', t.done && 'opacity-60')}
+      className={cn('flex items-center gap-4 px-5 py-4 border-b border-g20 last:border-0 hover:bg-g5 cursor-pointer transition-colors', t.done && 'opacity-60')}
       onClick={() => toggle.mutate({ id: t.id, done: !t.done })}
     >
-      <div className={cn('w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center transition-colors', t.done ? 'bg-[#10b981] border-[#10b981]' : 'border-[#ddd]')}>
+      <div className={cn('w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center transition-colors', t.done ? 'bg-ok border-ok' : 'border-g30')}>
         {!!t.done && <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2L6.5 2" stroke="white" strokeWidth="1.5" strokeLinecap="round"/></svg>}
       </div>
       <div className={cn('w-2 h-2 rounded-full flex-shrink-0', PRI_DOT[t.priority])}/>
       <div className="flex-1 min-w-0">
-        <div className={cn('text-sm font-medium', t.done && 'line-through text-[#aaa]')}>{t.title}</div>
-        {t.client_name && <div className="text-xs text-[#aaa]">{t.client_name}</div>}
+        <div className={cn('text-sm font-medium', t.done && 'line-through text-g60')}>{t.title}</div>
+        {t.client_name && <div className="text-xs text-g60">{t.client_name}</div>}
       </div>
       <div className="flex items-center gap-3 flex-shrink-0">
         <Badge variant={typeStyles[t.type] ?? 'gray'}>{tt(`tasks.types${t.type.charAt(0).toUpperCase() + t.type.slice(1)}`)}</Badge>
-        <div className="text-xs text-[#aaa] w-20 text-right">{t.due}</div>
-        <div className="text-xs text-[#aaa] w-24 text-right">{t.manager}</div>
+        <div className="text-xs text-g60 w-20 text-right">{t.due}</div>
+        <div className="text-xs text-g60 w-24 text-right">{t.manager}</div>
       </div>
     </div>
   );
@@ -79,24 +79,24 @@ export default function TasksPage() {
       <div className="mb-8 flex flex-col justify-between gap-4 xl:flex-row xl:items-end">
         <div>
           <h1 className="text-[clamp(42px,5vw,72px)] font-semibold leading-none tracking-[-0.08em]">{tt('tasks.title')}</h1>
-          <p className="mt-4 text-base text-[#aaa]">{tt('tasks.statLine', { open: open_.length, done: closed.length })}</p>
+          <p className="mt-4 text-base text-g60">{tt('tasks.statLine', { open: open_.length, done: closed.length })}</p>
         </div>
         <Button onClick={() => setOpen(true)}>{tt('tasks.newBtn')}</Button>
       </div>
 
       {/* Open tasks */}
-      <div className="border border-[#f0f0f0] rounded-2xl overflow-hidden mb-4">
-        <div className="px-5 py-4 border-b border-[#f0f0f0]">
+      <div className="border border-g20 rounded-2xl overflow-hidden mb-4">
+        <div className="px-5 py-4 border-b border-g20">
           <span className="text-sm font-semibold">{tt('tasks.openSection', { count: open_.length })}</span>
         </div>
         {open_.length === 0 ? (
-          <div className="py-10 text-center text-sm text-[#aaa]">{tt('tasks.noOpen')}</div>
+          <div className="py-10 text-center text-sm text-g60">{tt('tasks.noOpen')}</div>
         ) : open_.map(t => <TaskRow key={t.id} t={t}/>)}
       </div>
 
       {closed.length > 0 && (
-        <div className="border border-[#f0f0f0] rounded-2xl overflow-hidden">
-          <div className="px-5 py-4 border-b border-[#f0f0f0]">
+        <div className="border border-g20 rounded-2xl overflow-hidden">
+          <div className="px-5 py-4 border-b border-g20">
             <span className="text-sm font-semibold">{tt('tasks.doneSection', { count: closed.length })}</span>
           </div>
           {closed.map(t => <TaskRow key={t.id} t={t}/>)}

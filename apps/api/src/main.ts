@@ -8,6 +8,7 @@ import { pipeline } from 'node:stream/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { db } from './db.js';
+import { isSmsConfigured } from './sms.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const UPLOADS_DIR = path.join(__dirname, '..', 'uploads');
@@ -71,3 +72,11 @@ setInterval(autoCloseStaleLeads, 60 * 60 * 1000);
 const PORT = Number(process.env.PORT) || 3001;
 await app.listen({ port: PORT, host: '0.0.0.0' });
 console.log(`\n  API ready → http://localhost:${PORT}\n`);
+
+if (!isSmsConfigured()) {
+  console.warn(
+    '\n  ⚠️  SMS НЕ ПОДКЛЮЧЕНО: коды входа возвращаются прямо в ответе API (dev_otp).\n' +
+    '     Это нормально для тестирования, но НЕЛЬЗЯ так работать с реальными\n' +
+    '     сотрудниками банка. Подключить провайдера — см. apps/api/src/sms.ts.\n'
+  );
+}

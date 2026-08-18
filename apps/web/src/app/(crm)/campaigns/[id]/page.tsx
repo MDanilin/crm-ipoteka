@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useRef, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -48,7 +48,7 @@ function ResultSelect({ contact, campaignId }: { contact: CampaignContact; campa
         <Badge variant={cfg.variant}>{cfg.label}</Badge> <span className="text-[9px] opacity-60">▼</span>
       </button>
       {open && (
-        <div className="absolute top-full left-0 mt-1 z-20 bg-white rounded-xl shadow-lg border border-[#f0f0f0] w-52 py-1">
+        <div className="absolute top-full left-0 mt-1 z-20 bg-white rounded-xl shadow-lg border border-g20 w-52 py-1">
           {CALL_STATUSES.filter(s => s.value !== 'pending').map(s => (
             <button
               key={s.value}
@@ -56,18 +56,18 @@ function ResultSelect({ contact, campaignId }: { contact: CampaignContact; campa
                 upd.mutate({ call_status: s.value, result_note: note || undefined });
                 setOpen(false);
               }}
-              className="w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-[#f9f9f9] text-left"
+              className="w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-g5 text-left"
             >
               <Badge variant={s.variant}>{s.label}</Badge>
             </button>
           ))}
-          <div className="border-t border-[#f5f5f5] mt-1 px-3 pt-2 pb-2">
+          <div className="border-t border-g10 mt-1 px-3 pt-2 pb-2">
             <input
               value={note}
               onChange={e => setNote(e.target.value)}
               onKeyDown={e => { if (e.key === 'Enter' && note) { upd.mutate({ call_status: contact.call_status, result_note: note }); setOpen(false); }}}
               placeholder="Комментарий..."
-              className="w-full text-xs border border-[#eee] rounded-lg px-2.5 py-1.5 outline-none focus:border-[#aaa]"
+              className="w-full text-xs border border-g20 rounded-lg px-2.5 py-1.5 outline-none focus:border-g60"
             />
           </div>
         </div>
@@ -215,11 +215,11 @@ export default function CampaignDetailPage() {
   });
   const staffUsers = users.filter(u => ['manager', 'supervisor', 'admin', 'operator'].includes(u.role));
 
-  if (isLoading) return <div className="flex items-center justify-center h-64 text-[#aaa] text-sm">Загрузка...</div>;
+  if (isLoading) return <div className="flex items-center justify-center h-64 text-g60 text-sm">Загрузка...</div>;
   if (!campaign) return (
     <div className="py-24 text-center">
       <div className="text-2xl font-semibold mb-2">Кампания не найдена</div>
-      <button onClick={() => router.push('/campaigns')} className="text-sm text-[#aaa] hover:text-[#111] mt-3">← Все кампании</button>
+      <button onClick={() => router.push('/campaigns')} className="text-sm text-g60 hover:text-g90 mt-3">← Все кампании</button>
     </div>
   );
 
@@ -229,7 +229,7 @@ export default function CampaignDetailPage() {
   return (
     <div>
       {/* Back */}
-      <button onClick={() => router.push('/campaigns')} className="flex items-center gap-2 text-sm text-[#aaa] hover:text-[#111] mb-5">
+      <button onClick={() => router.push('/campaigns')} className="flex items-center gap-2 text-sm text-g60 hover:text-g90 mb-5">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
           <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
@@ -240,7 +240,7 @@ export default function CampaignDetailPage() {
       <div className="mb-8 flex flex-col sm:flex-row sm:items-end gap-4 justify-between">
         <div>
           <h1 className="text-[clamp(32px,4vw,60px)] font-semibold leading-none tracking-[-0.07em]">{campaign.name}</h1>
-          <p className="mt-2 text-sm text-[#aaa]">{campaign.source} · создана {campaign.created_at?.slice(0, 10)}</p>
+          <p className="mt-2 text-sm text-g60">{campaign.source} · создана {campaign.created_at?.slice(0, 10)}</p>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
           {canManage && allContacts.length > 0 && (
@@ -291,30 +291,30 @@ export default function CampaignDetailPage() {
       )}
 
       {/* Stats strip */}
-      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 border-y border-[#eee] py-6 mb-6">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 border-y border-g20 py-6 mb-6">
         <div>
-          <div className="text-[11px] font-bold uppercase tracking-[0.08em] text-[#999] mb-2">Всего</div>
+          <div className="text-[11px] font-bold uppercase tracking-[0.08em] text-g60 mb-2">Всего</div>
           <div className="text-4xl font-bold leading-none">{campaign.total}</div>
         </div>
         <div>
-          <div className="text-[11px] font-bold uppercase tracking-[0.08em] text-[#999] mb-2">Обработано</div>
+          <div className="text-[11px] font-bold uppercase tracking-[0.08em] text-g60 mb-2">Обработано</div>
           <div className="text-4xl font-bold leading-none">{campaign.processed}</div>
         </div>
         <div>
-          <div className="text-[11px] font-bold uppercase tracking-[0.08em] text-[#999] mb-2">Осталось</div>
-          <div className="text-4xl font-bold leading-none text-[#aaa]">{campaign.pending}</div>
+          <div className="text-[11px] font-bold uppercase tracking-[0.08em] text-g60 mb-2">Осталось</div>
+          <div className="text-4xl font-bold leading-none text-g60">{campaign.pending}</div>
         </div>
         <div>
-          <div className="text-[11px] font-bold uppercase tracking-[0.08em] text-[#999] mb-2">Конверсия</div>
+          <div className="text-[11px] font-bold uppercase tracking-[0.08em] text-g60 mb-2">Конверсия</div>
           <div className="text-4xl font-bold leading-none">{analytics.convRate}%</div>
         </div>
         <div>
-          <div className="text-[11px] font-bold uppercase tracking-[0.08em] text-[#999] mb-2">Прогресс</div>
+          <div className="text-[11px] font-bold uppercase tracking-[0.08em] text-g60 mb-2">Прогресс</div>
           <div className="flex items-center gap-2 mt-2">
-            <div className="flex-1 h-2 bg-[#f0f0f0] rounded-full overflow-hidden">
-              <div className="h-full bg-[#111] rounded-full transition-all" style={{ width: `${pct}%` }}/>
+            <div className="flex-1 h-2 bg-g20 rounded-full overflow-hidden">
+              <div className="h-full bg-g90 rounded-full transition-all" style={{ width: `${pct}%` }}/>
             </div>
-            <span className="text-sm font-bold text-[#555] w-10">{pct}%</span>
+            <span className="text-sm font-bold text-g80 w-10">{pct}%</span>
           </div>
         </div>
       </div>
@@ -323,16 +323,16 @@ export default function CampaignDetailPage() {
       {importPreview && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm">
           <div className="bg-white rounded-2xl w-full max-w-2xl shadow-2xl">
-            <div className="px-6 py-5 border-b border-[#f0f0f0]">
+            <div className="px-6 py-5 border-b border-g20">
               <div className="text-lg font-semibold">Предпросмотр импорта</div>
-              <div className="text-sm text-[#aaa] mt-1">
+              <div className="text-sm text-g60 mt-1">
                 {importPreview.length} контактов · {(() => { const knownDupInns = new Set(contacts.filter(c => c.is_duplicate).map(c => c.inn)); const existingInns = new Set(contacts.map(c => c.inn).filter(Boolean)); return importPreview.filter(c => c.inn && (knownDupInns.has(c.inn) || existingInns.has(c.inn))).length; })()} дублей по ИНН
               </div>
             </div>
             <div className="overflow-auto max-h-72 px-6 py-3">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="text-[11px] uppercase tracking-[0.08em] text-[#999]">
+                  <tr className="text-[11px] uppercase tracking-[0.08em] text-g60">
                     <th className="text-left py-2">Компания</th>
                     <th className="text-left py-2">ИНН</th>
                     <th className="text-left py-2">Контакт</th>
@@ -341,20 +341,20 @@ export default function CampaignDetailPage() {
                 </thead>
                 <tbody>
                   {importPreview.slice(0, 8).map((r, i) => (
-                    <tr key={i} className="border-t border-[#f9f9f9]">
+                    <tr key={i} className="border-t border-g5">
                       <td className="py-1.5 pr-3 font-medium truncate max-w-[140px]">{r.company || '—'}</td>
-                      <td className="py-1.5 pr-3 text-[#555]">{r.inn || '—'}</td>
-                      <td className="py-1.5 pr-3 text-[#555]">{r.contact_name || '—'}</td>
-                      <td className="py-1.5 text-[#555]">{r.phone || '—'}</td>
+                      <td className="py-1.5 pr-3 text-g80">{r.inn || '—'}</td>
+                      <td className="py-1.5 pr-3 text-g80">{r.contact_name || '—'}</td>
+                      <td className="py-1.5 text-g80">{r.phone || '—'}</td>
                     </tr>
                   ))}
                   {importPreview.length > 8 && (
-                    <tr><td colSpan={4} className="py-2 text-xs text-[#aaa]">...ещё {importPreview.length - 8} строк</td></tr>
+                    <tr><td colSpan={4} className="py-2 text-xs text-g60">...ещё {importPreview.length - 8} строк</td></tr>
                   )}
                 </tbody>
               </table>
             </div>
-            <div className="px-6 py-4 border-t border-[#f0f0f0] flex justify-end gap-2">
+            <div className="px-6 py-4 border-t border-g20 flex justify-end gap-2">
               <Button variant="ghost" onClick={() => setImportPreview(null)}>Отмена</Button>
               <Button onClick={() => importMut.mutate(importPreview)} disabled={importMut.isPending}>
                 {importMut.isPending ? 'Импортирую...' : `Импортировать ${importPreview.length} контактов`}
@@ -368,13 +368,13 @@ export default function CampaignDetailPage() {
       {distOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm">
           <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl">
-            <div className="px-6 py-5 border-b border-[#f0f0f0]">
+            <div className="px-6 py-5 border-b border-g20">
               <div className="text-lg font-semibold">Распределить контакты</div>
-              <div className="text-sm text-[#aaa] mt-1">Выберите операторов для обзвона</div>
+              <div className="text-sm text-g60 mt-1">Выберите операторов для обзвона</div>
             </div>
             <div className="px-6 py-4 space-y-2">
               {staffUsers.map(u => (
-                <label key={u.id} className="flex items-center gap-3 cursor-pointer hover:bg-[#fafafa] -mx-2 px-2 rounded-xl py-2">
+                <label key={u.id} className="flex items-center gap-3 cursor-pointer hover:bg-g5 -mx-2 px-2 rounded-xl py-2">
                   <input
                     type="checkbox"
                     checked={selectedOps.includes(u.name)}
@@ -384,7 +384,7 @@ export default function CampaignDetailPage() {
                     )}
                     className="rounded"
                   />
-                  <div className="grid size-8 place-items-center rounded-full bg-[#f3dcd8] text-xs font-bold text-[#7c3f36] flex-shrink-0">
+                  <div className="grid size-8 place-items-center rounded-full bg-g10 text-xs font-bold text-g70 flex-shrink-0">
                     {u.name.split(' ').map(w => w[0]).slice(0,2).join('')}
                   </div>
                   <span className="text-sm font-medium">{u.name}</span>
@@ -392,11 +392,11 @@ export default function CampaignDetailPage() {
               ))}
             </div>
             {selectedOps.length > 0 && (
-              <div className="px-6 pb-2 text-xs text-[#aaa]">
+              <div className="px-6 pb-2 text-xs text-g60">
                 ~{Math.ceil(campaign.pending / selectedOps.length)} контактов на оператора
               </div>
             )}
-            <div className="px-6 py-4 border-t border-[#f0f0f0] flex justify-end gap-2">
+            <div className="px-6 py-4 border-t border-g20 flex justify-end gap-2">
               <Button variant="ghost" onClick={() => setDistOpen(false)}>Отмена</Button>
               <Button onClick={() => distMut.mutate(selectedOps)} disabled={!selectedOps.length || distMut.isPending}>
                 Распределить
@@ -408,12 +408,12 @@ export default function CampaignDetailPage() {
 
       {/* Empty state */}
       {allContacts.length === 0 && (
-        <div className="flex flex-col items-center justify-center py-16 text-center border border-dashed border-[#e5e5e5] rounded-2xl">
+        <div className="flex flex-col items-center justify-center py-16 text-center border border-dashed border-g30 rounded-2xl">
           <div className="text-4xl mb-4">📂</div>
           <div className="text-base font-semibold mb-1">Контакты не загружены</div>
-          <div className="text-sm text-[#aaa] mb-4">Импортируйте Excel-файл со списком клиентов</div>
+          <div className="text-sm text-g60 mb-4">Импортируйте Excel-файл со списком клиентов</div>
           {canManage && <Button onClick={() => fileRef.current?.click()}>↑ Загрузить Excel</Button>}
-          {importError && <div className="mt-3 text-sm text-[#e1261c]">{importError}</div>}
+          {importError && <div className="mt-3 text-sm text-dn">{importError}</div>}
         </div>
       )}
 
@@ -423,7 +423,7 @@ export default function CampaignDetailPage() {
           {/* Analytics row */}
           <div className="grid lg:grid-cols-2 gap-6 mb-6">
             {/* By status */}
-            <div className="border border-[#f0f0f0] rounded-2xl p-6">
+            <div className="border border-g20 rounded-2xl p-6">
               <div className="text-base font-semibold mb-4">Результаты обзвона</div>
               <div className="space-y-2.5">
                 {analytics.byStatus.filter(s => s.value !== 'pending').map(s => {
@@ -433,8 +433,8 @@ export default function CampaignDetailPage() {
                       <span className="flex-shrink-0 w-36 flex justify-center">
                         <Badge variant={s.variant}>{s.label}</Badge>
                       </span>
-                      <div className="flex-1 h-1.5 bg-[#f3f3f3] rounded-full overflow-hidden">
-                        <div className="h-full rounded-full bg-[#111]" style={{ width: `${pct}%` }}/>
+                      <div className="flex-1 h-1.5 bg-g10 rounded-full overflow-hidden">
+                        <div className="h-full rounded-full bg-g90" style={{ width: `${pct}%` }}/>
                       </div>
                       <span className="text-xs font-semibold w-10 text-right">{s.count}</span>
                     </div>
@@ -442,7 +442,7 @@ export default function CampaignDetailPage() {
                 })}
               </div>
               {dups > 0 && (
-                <div className="mt-4 rounded-xl bg-[#fef3c7] px-4 py-2.5 text-xs text-[#92400e]">
+                <div className="mt-4 rounded-xl bg-warn-bg px-4 py-2.5 text-xs text-warn">
                   {dups} контактов имеют дубль ИНН в базе лидов
                 </div>
               )}
@@ -450,11 +450,11 @@ export default function CampaignDetailPage() {
 
             {/* By operator */}
             {analytics.byOp.length > 0 && (
-              <div className="border border-[#f0f0f0] rounded-2xl p-6">
+              <div className="border border-g20 rounded-2xl p-6">
                 <div className="text-base font-semibold mb-4">Эффективность операторов</div>
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="text-[11px] uppercase tracking-[0.06em] text-[#999]">
+                    <tr className="text-[11px] uppercase tracking-[0.06em] text-g60">
                       <th className="text-left pb-3">Оператор</th>
                       <th className="text-right pb-3">Всего</th>
                       <th className="text-right pb-3">Обработ.</th>
@@ -464,12 +464,12 @@ export default function CampaignDetailPage() {
                   </thead>
                   <tbody>
                     {analytics.byOp.map(row => (
-                      <tr key={row.op} className="border-t border-[#f9f9f9]">
+                      <tr key={row.op} className="border-t border-g5">
                         <td className="py-2 font-medium text-sm">{row.op}</td>
                         <td className="py-2 text-right text-sm">{row.total}</td>
                         <td className="py-2 text-right text-sm">{row.processed}</td>
-                        <td className="py-2 text-right text-sm text-[#9a3412]">{row.meetings}</td>
-                        <td className="py-2 text-right text-sm font-semibold text-[#166534]">{row.leads}</td>
+                        <td className="py-2 text-right text-sm text-warn">{row.meetings}</td>
+                        <td className="py-2 text-right text-sm font-semibold text-ok">{row.leads}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -484,21 +484,21 @@ export default function CampaignDetailPage() {
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="Поиск по компании, ИНН..."
-              className="h-9 rounded-full border border-[#e5e5e5] bg-[#f9f9f9] px-4 text-sm outline-none focus:border-[#aaa] w-56"
+              className="h-9 rounded-full border border-g30 bg-g5 px-4 text-sm outline-none focus:border-g60 w-56"
             />
             <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)}
-              className="h-9 w-44 rounded-full border border-[#e5e5e5] bg-[#f9f9f9] px-4 text-sm outline-none">
+              className="h-9 w-44 rounded-full border border-g30 bg-g5 px-4 text-sm outline-none">
               <option value="all">Все статусы</option>
               {CALL_STATUSES.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
             </select>
             {operators.length > 0 && (
               <select value={filterOp} onChange={e => setFilterOp(e.target.value)}
-                className="h-9 w-44 rounded-full border border-[#e5e5e5] bg-[#f9f9f9] px-4 text-sm outline-none">
+                className="h-9 w-44 rounded-full border border-g30 bg-g5 px-4 text-sm outline-none">
                 <option value="all">Все операторы</option>
                 {operators.map(op => <option key={op} value={op}>{op}</option>)}
               </select>
             )}
-            <div className="text-xs text-[#aaa]">{filtered.length} из {contacts.length}</div>
+            <div className="text-xs text-g60">{filtered.length} из {contacts.length}</div>
           </div>
 
           {/* Contacts table */}
@@ -513,7 +513,7 @@ export default function CampaignDetailPage() {
                 <col className="w-[12%]"/>
               </colgroup>
               <thead>
-                <tr className="bg-[#f6f6f6] text-xs font-bold uppercase tracking-[0.08em] text-[#999]">
+                <tr className="bg-g10 text-xs font-bold uppercase tracking-[0.08em] text-g60">
                   <th className="rounded-l-xl px-4 py-3">Компания</th>
                   <th className="px-4 py-3">ИНН</th>
                   <th className="px-4 py-3">Контакт / Телефон</th>
@@ -524,25 +524,25 @@ export default function CampaignDetailPage() {
               </thead>
               <tbody>
                 {filtered.map(c => (
-                  <tr key={c.id} className="border-b border-[#f5f5f5] hover:bg-[#fcf8f8] transition-colors">
+                  <tr key={c.id} className="border-b border-g10 hover:bg-g5 transition-colors">
                     <td className="px-4 py-3 max-w-0">
                       <div className="text-sm font-medium truncate">{c.company || '—'}</div>
-                      {!!c.is_duplicate && <div className="text-[10px] text-[#92400e] mt-0.5">⚠ Дубль в базе</div>}
+                      {!!c.is_duplicate && <div className="text-[10px] text-warn mt-0.5">⚠ Дубль в базе</div>}
                     </td>
-                    <td className="px-4 py-3 text-xs text-[#888] font-mono truncate">{c.inn || '—'}</td>
+                    <td className="px-4 py-3 text-xs text-g70 font-mono truncate">{c.inn || '—'}</td>
                     <td className="px-4 py-3 max-w-0">
                       <div className="text-sm truncate">{c.contact_name || '—'}</div>
-                      <div className="text-xs text-[#aaa] truncate">{c.phone}</div>
+                      <div className="text-xs text-g60 truncate">{c.phone}</div>
                     </td>
-                    <td className="px-4 py-3 text-sm text-[#555] truncate">{c.assigned_to || <span className="text-[#ccc]">—</span>}</td>
+                    <td className="px-4 py-3 text-sm text-g80 truncate">{c.assigned_to || <span className="text-g40">—</span>}</td>
                     <td className="px-4 py-3">
                       <ResultSelect contact={c} campaignId={id}/>
                     </td>
-                    <td className="px-4 py-3 text-xs text-[#888] max-w-[160px] truncate">{c.result_note || '—'}</td>
+                    <td className="px-4 py-3 text-xs text-g70 max-w-[160px] truncate">{c.result_note || '—'}</td>
                   </tr>
                 ))}
                 {filtered.length === 0 && (
-                  <tr><td colSpan={6} className="py-10 text-center text-sm text-[#aaa]">Нет контактов по фильтру</td></tr>
+                  <tr><td colSpan={6} className="py-10 text-center text-sm text-g60">Нет контактов по фильтру</td></tr>
                 )}
               </tbody>
             </table>

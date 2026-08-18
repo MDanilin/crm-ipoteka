@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -20,9 +20,9 @@ const statusVariant: Record<string, 'green' | 'orange' | 'gray'> = {
 };
 const statusL = { active:'Активный', pending:'На рассмотрении', inactive:'Неактивный' } as const;
 const riskStyles: Record<string, string> = {
-  low:    'bg-[#dcfce7] text-[#166534]',
-  medium: 'bg-[#fef3c7] text-[#92400e]',
-  high:   'bg-[#fee2e2] text-[#991b1b]',
+  low:    'bg-ok-bg text-ok',
+  medium: 'bg-warn-bg text-warn',
+  high:   'bg-dn-bg text-dn',
 };
 const riskL = { low:'Низкий', medium:'Средний', high:'Высокий' } as const;
 
@@ -43,7 +43,7 @@ export default function ClientsPage() {
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['clients'] }); setOpen(false); setForm({ name:'', type:'Крупный бизнес', industry:'', inn:'', city:'Ташкент', phone:'', email:'', manager:'', segment:'Standard', status:'active', risk_level:'low', rating:'', revenue:'', credit_limit:'', employees:'' }); },
   });
 
-  if (isLoading) return <div className="flex items-center justify-center h-64 text-[#aaa] text-sm">{t('common.loading')}</div>;
+  if (isLoading) return <div className="flex items-center justify-center h-64 text-g60 text-sm">{t('common.loading')}</div>;
 
   return (
     <div>
@@ -51,13 +51,13 @@ export default function ClientsPage() {
       <div className="mb-8 flex flex-col justify-between gap-4 xl:flex-row xl:items-end">
         <div>
           <h1 className="text-[clamp(42px,5vw,72px)] font-semibold leading-none tracking-[-0.08em]">{t('clients.title')}</h1>
-          <p className="mt-4 text-base text-[#aaa]">{t('clients.subtitle')}</p>
+          <p className="mt-4 text-base text-g60">{t('clients.subtitle')}</p>
         </div>
         <Button onClick={() => setOpen(true)}>{t('clients.newBtn')}</Button>
       </div>
 
       {/* Count row */}
-      <div className="mb-5 flex items-center justify-between border-y border-[#eee] py-4">
+      <div className="mb-5 flex items-center justify-between border-y border-g20 py-4">
         <span className="text-sm font-semibold">{t('clients.total', { count: clients.length })}</span>
       </div>
 
@@ -87,12 +87,12 @@ export default function ClientsPage() {
                 {/* Клиент — аватар + название + город */}
                 <td>
                   <div className="flex items-center gap-3">
-                    <div className="grid size-9 shrink-0 place-items-center rounded-full bg-[#f3dcd8] text-xs font-bold text-[#7c3f36]">
+                    <div className="grid size-9 shrink-0 place-items-center rounded-full bg-g10 text-xs font-bold text-g70">
                       {c.short_name || c.name.slice(0,2).toUpperCase()}
                     </div>
                     <div className="min-w-0 max-w-[150px]">
                       <p className="font-semibold text-sm leading-snug truncate" title={c.name}>{c.name}</p>
-                      <p className="text-xs text-[#aaa] mt-0.5 truncate">{c.city}</p>
+                      <p className="text-xs text-g60 mt-0.5 truncate">{c.city}</p>
                     </div>
                   </div>
                 </td>
@@ -102,7 +102,7 @@ export default function ClientsPage() {
                 </td>
                 {/* Отрасль — текст с truncate + title */}
                 <td className="max-w-[130px]">
-                  <span className="block text-sm text-[#555] truncate" title={c.industry || ''}>{c.industry || '—'}</span>
+                  <span className="block text-sm text-g80 truncate" title={c.industry || ''}>{c.industry || '—'}</span>
                 </td>
                 {/* Менеджер — текст с truncate + title */}
                 <td className="max-w-[110px]">

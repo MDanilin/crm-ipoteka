@@ -4,87 +4,236 @@
 
 @layer base {
   :root {
-    --font-inter: 'Inter', system-ui, sans-serif;
+    /* ── Graphite ramp (UzUsta Operations design system) ─────────────────
+     * Девять ступеней с холодным подтоном — единственная основа интерфейса.
+     * Поверхности: c0–c2 | Границы: c3–c4 | Текст: c6–c9
+     */
+    --c0:  #ffffff;   /* карточки, инпуты, строки таблицы          */
+    --c1:  #f8f9fb;   /* фон приложения, шапки таблиц, тулбары     */
+    --c2:  #f1f3f6;   /* активные пункты меню, полосатость строк   */
+    --c3:  #e7eaef;   /* hover-поверхность                         */
+    --c4:  #d5dae1;   /* границы инпутов, разделители              */
+    --c5:  #aeb6c2;   /* приглушённый текст, disabled              */
+    --c6:  #7c8695;   /* мета, лейблы, плейсхолдеры                */
+    --c7:  #515b6b;   /* вторичный текст, описания                 */
+    --c8:  #333c49;   /* тёмный вторичный                          */
+    --c9:  #171c24;   /* основной текст, кнопки primary            */
+
+    /* ── Borders ────────────────────────────────────────────────────── */
+    --line:  #e4e8ed;   /* внешние рамки карточек, таблиц           */
+    --line2: #eef1f4;   /* внутренние разделители строк             */
+
+    /* ── Accent — единственный интерактивный цвет: фокус, ссылки,
+       выбор, активная навигация. Мандарин из продуктового бренда
+       UzUsta в интерфейс CRM не переносится. ─────────────────────── */
+    --accent:    #2e5f94;
+    --accent-w:  #edf3fa;   /* светлый фон под акцент                 */
+    --accent-d:  #24507f;   /* hover/pressed акцент                   */
+
+    /* ── Semantic (статусы — только смысловая нагрузка, не настроение) */
+    --ok:     #2f7d5f;   --ok-w:   #eaf3ee;   /* success              */
+    --warn:   #8a6a1c;   --warn-w: #f6f2e6;   /* warning              */
+    --danger: #a13c3c;   --danger-w: #f8eded; /* error / danger       */
+    --info:   #2e5f94;   --info-w:  #edf3fa;  /* info / active — same as accent */
+
+    /* ── Typography ─────────────────────────────────────────────────── */
+    /* Одна гарнитура на весь интерфейс — вторая (Manrope) добавляет шум,
+       её роль в продуктовом лендинге, не в рабочих экранах CRM. */
+    --font-sans:    var(--font-inter),    -apple-system, system-ui, sans-serif;
+    --font-display: var(--font-inter),    system-ui, sans-serif;
+    --font-mono:    var(--font-jetbrains), ui-monospace, 'JetBrains Mono', monospace;
+
+    /* ── Radius ── максимум 6px нигде не превышается ──────────────────── */
+    --radius-sm:  3px;
+    --radius:     5px;
+    --radius-md:  6px;
+    --radius-lg:  8px;
   }
+
   html { @apply antialiased; }
-  body { @apply bg-white text-[#111]; }
-}
 
-@layer components {
-  /* ── Form fields ───────────────────────────────────── */
-  .field-label {
-    @apply block text-[11px] font-semibold uppercase tracking-wider text-[#999] mb-1.5;
-  }
-  .form-input {
-    @apply h-11 w-full rounded-xl bg-[#f5f5f5] px-4 text-sm outline-none
-           placeholder:text-[#aaa] focus:bg-[#efefef] transition-colors;
+  body {
+    background: var(--c1);
+    color: var(--c9);
+    font-family: var(--font-sans);
   }
 
-  /* ── Filter bar selects ────────────────────────────── */
-  /*
-   * Always use this class on <select> elements in filter bars.
-   * min-w prevents the bar from reflowing when the selected option text changes.
-   */
-  .filter-select {
-    @apply h-9 min-w-[160px] rounded-full border border-[#e5e5e5]
-           bg-[#f9f9f9] px-4 text-sm outline-none cursor-pointer;
-  }
-
-  /* ── Inline status selects inside table cells ───────── */
-  /*
-   * Монохромно (Rocket Work): без цветной заливки по статусу, обычный
-   * текст + свой SVG-шеврон вместо системной стрелки браузера (нативный
-   * OS-виджет иначе рендерит текст/отступы/стрелку не так, как остальной
-   * интерфейс). Цвет для конкретного критичного статуса (просрочка,
-   * потерян) задаётся точечно в месте использования через text-[#c41f16].
-   */
-  .status-select {
-    @apply w-full rounded-lg pl-0 pr-5 py-1 text-sm font-medium text-[#111]
-           border-none outline-none cursor-pointer appearance-none bg-transparent
-           hover:bg-[#f6f6f6] transition-colors;
-    font-family: inherit;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10' fill='none'%3E%3Cpath d='M2 4l3 3 3-3' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 2px center;
-    background-size: 10px;
-  }
-
-  /* ── Data tables ────────────────────────────────────── */
-  /*
-   * table-auto: колонки подстраиваются под контент.
-   * Текстовые ячейки ограничивают ширину через max-w-[N] + truncate.
-   * Бейджи используют whitespace-nowrap чтобы не обрезаться.
-   */
-  .crm-table {
-    @apply w-full table-auto border-separate border-spacing-0 text-left;
-  }
-  /*
-   * Шапка таблицы (Rocket Work): обычный регистр, без серого фона —
-   * только тонкая линия снизу. Было: bg-[#f6f6f6] + ВСЕ КАПС +
-   * letter-spacing — тяжелее, чем нужно.
-   */
-  .crm-table thead tr {
-    @apply text-sm font-semibold text-[#888] border-b border-[#eee];
-  }
-  .crm-table thead th             { @apply px-4 py-3; }
-  .crm-table tbody tr             { @apply border-b border-[#f0f0f0] hover:bg-[#fafafa] transition-colors; }
-  .crm-table tbody td             { @apply px-4 py-3.5; }
-
-  /* ── Числовые/технические данные (ИНН, телефон, ID) ───
-   * Табличный моноширинный стек — лёгкий технологичный акцент
-   * без подключения отдельного шрифта.
-   */
-  .num {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  /* Tabular numbers for mono elements */
+  .num,
+  [data-num] {
+    font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
   }
 }
 
+@layer components {
+  /* ── Form fields ───────────────────────────────────────────────────── */
+  .field-label {
+    @apply block text-[11px] font-semibold uppercase tracking-wider mb-1.5;
+    color: var(--c6);
+    font-family: var(--font-mono);
+    letter-spacing: 0.1em;
+  }
+
+  .form-input {
+    @apply h-10 w-full px-3 text-sm outline-none transition-all;
+    background: var(--c0);
+    border: 1px solid var(--c4);
+    border-radius: var(--radius);
+    color: var(--c9);
+  }
+  .form-input::placeholder { color: var(--c5); }
+  .form-input:focus {
+    border-color: var(--c9);
+    box-shadow: 0 0 0 3px rgba(26, 26, 30, 0.07);
+  }
+
+  /* ── Filter bar selects ────────────────────────────────────────────── */
+  .filter-select {
+    @apply h-9 min-w-[160px] px-3 text-sm outline-none cursor-pointer;
+    background: var(--c0);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    color: var(--c9);
+  }
+  .filter-select:hover { background: var(--c2); }
+
+  /* ── Inline status selects inside table cells ──────────────────────── */
+  /*
+   * Монохромно: без цветной заливки по статусу.
+   * Цвет задаётся точечно через text-[--danger] где нужно.
+   */
+  .status-select {
+    @apply w-full rounded py-1 text-sm font-medium border-none outline-none
+           cursor-pointer appearance-none bg-transparent transition-colors;
+    padding-left: 0;
+    padding-right: 18px;
+    color: var(--c9);
+    font-family: inherit;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10' fill='none'%3E%3Cpath d='M2 4l3 3 3-3' stroke='%238a8a91' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 2px center;
+    background-size: 10px;
+  }
+  .status-select:hover { background-color: var(--c2); border-radius: var(--radius-sm); }
+
+  /* ── Data tables ────────────────────────────────────────────────────── */
+  /*
+   * table-auto: колонки подстраиваются под контент.
+   * Шапка — mono uppercase, compact density (9.5px / 0.1em tracking).
+   */
+  .crm-table {
+    @apply w-full table-auto border-separate border-spacing-0 text-left;
+  }
+  .crm-table thead tr {
+    background: var(--c1);
+    border-bottom: 1px solid var(--line);
+  }
+  .crm-table thead th {
+    @apply px-3 py-2.5 whitespace-nowrap;
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c6);
+  }
+  .crm-table tbody tr {
+    border-bottom: 1px solid var(--line2);
+    transition: background 0.1s;
+  }
+  .crm-table tbody tr:hover { background: var(--c2); }
+  .crm-table tbody tr:nth-child(even) { background: #fcfcfd; }
+  .crm-table tbody tr:nth-child(even):hover { background: var(--c2); }
+  .crm-table tbody td { @apply px-3 py-2.5; font-size: 12.5px; }
+
+  /* ── Status badge ───────────────────────────────────────────────────── */
+  .badge {
+    @apply inline-flex items-center gap-1.5 px-2 py-0.5 whitespace-nowrap;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.4;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--line);
+  }
+  .badge-dot {
+    @apply block flex-shrink-0;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+  }
+  /* semantic variants */
+  .badge-neutral { background: var(--c2);      color: var(--c7);    border-color: var(--c3); }
+  .badge-active  { background: var(--info-w);  color: var(--info);  border-color: #dde3ea; }
+  .badge-ok      { background: var(--ok-w);    color: var(--ok);    border-color: #dbe8e1; }
+  .badge-warn    { background: var(--warn-w);  color: var(--warn);  border-color: #ece4cf; }
+  .badge-danger  { background: var(--danger-w);color: var(--danger);border-color: #eed8d8; }
+
+  /* ── KPI card ───────────────────────────────────────────────────────── */
+  .kpi-card {
+    @apply p-4;
+    background: var(--c0);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+  }
+  .kpi-label {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--c6);
+    margin-bottom: 9px;
+  }
+  .kpi-value {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    color: var(--c9);
+  }
+  .kpi-delta {
+    @apply inline-flex items-center gap-1 mt-2;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .kpi-delta-up   { color: var(--ok); }
+  .kpi-delta-down { color: var(--danger); }
+  .kpi-delta-flat { color: var(--c6); }
+
+  /* ── Sidebar nav item ────────────────────────────────────────────────── */
+  .nav-item {
+    @apply flex items-center gap-2.5 px-2.5 py-1.5 w-full text-left transition-colors;
+    font-size: 13px;
+    font-weight: 450;
+    color: var(--c7);
+    border-radius: var(--radius);
+  }
+  .nav-item:hover      { background: var(--c2); color: var(--c9); }
+  .nav-item.active     { background: var(--c2); color: var(--c9); font-weight: 600; }
+}
+
 @layer utilities {
   .scrollbar-thin::-webkit-scrollbar        { width: 4px; height: 4px; }
-  .scrollbar-thin::-webkit-scrollbar-track  { @apply bg-transparent; }
-  .scrollbar-thin::-webkit-scrollbar-thumb  { @apply bg-[#e0e0e0] rounded; }
+  .scrollbar-thin::-webkit-scrollbar-track  { background: transparent; }
+  .scrollbar-thin::-webkit-scrollbar-thumb  { background: var(--c4); border-radius: 2px; }
 
-  /* Truncate text inside table cells — use on td content that can overflow */
+  /* Truncate text inside table cells */
   .cell-text { @apply text-sm truncate; }
+
+  /* Numeric mono utility */
+  .tabnum {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Display font utility */
+  .font-display { font-family: var(--font-display); }
+
+  /* Accent colour shortcuts */
+  .text-accent  { color: var(--accent); }
+  .bg-accent    { background: var(--accent); }
+  .bg-accent-w  { background: var(--accent-w); }
 }

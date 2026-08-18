@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CRM — Ипотека Банк</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#1a56db;--blue-d:#0f3fa0;--blue-l:#3b82f6;--blue-xl:#eff6ff;
+  --gray-50:#f9fafb;--gray-100:#f3f4f6;--gray-200:#e5e7eb;--gray-300:#d1d5db;
+  --gray-400:#9ca3af;--gray-500:#6b7280;--gray-700:#374151;--gray-900:#111827;
+  --green:#16a34a;--green-l:#dcfce7;--red:#dc2626;--red-l:#fee2e2;
+  --orange:#d97706;--orange-l:#fef3c7;--purple:#7c3aed;--purple-l:#ede9fe;
+  --sidebar-w:240px;--header-h:56px;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',sans-serif;color:var(--gray-900);background:#fff;height:100vh;overflow:hidden}
+input,select,textarea,button{font-family:inherit}
+button{cursor:pointer;border:none;background:none}
+a{color:inherit;text-decoration:none}
+
+/* ── LOGIN ── */
+#login-page{display:flex;flex-direction:column;height:100vh;background:#fff}
+.lp-header{display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px;position:relative;z-index:10}
+.lp-logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px;letter-spacing:-0.3px}
+.lp-logo-icon{width:32px;height:32px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center}
+.lp-logo-icon svg{width:18px;height:18px}
+.lp-nav{display:flex;gap:24px;font-size:14px;color:var(--gray-500)}
+.lp-nav a{display:flex;align-items:center;gap:4px}
+.lp-nav a:hover{color:var(--gray-900)}
+.lp-body{flex:1;display:flex;position:relative;overflow:hidden}
+.lp-gradient{position:absolute;inset:0;background:radial-gradient(ellipse 80% 120% at -10% 50%,#1a56db 0%,#3b6fd4 25%,#6b9fe8 45%,rgba(219,234,254,0.3) 65%,transparent 80%);pointer-events:none}
+.lp-content{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:center;padding:0 0 0 44%;width:100%}
+.lp-back{position:absolute;top:32px;left:calc(44% - 12px);width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.9);border:1px solid var(--gray-200);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s;display:none}
+.lp-back:hover{background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.lp-label{font-size:15px;color:var(--gray-500);margin-bottom:8px;font-weight:400}
+.lp-bigfield{font-size:52px;font-weight:700;letter-spacing:-2px;color:var(--gray-900);border:none;outline:none;background:transparent;width:100%;line-height:1.1;caret-color:var(--blue)}
+.lp-bigfield::placeholder{color:var(--gray-300)}
+.lp-bigfield:focus{outline:none}
+.lp-step2{margin-top:20px;display:none}
+.lp-err{font-size:14px;color:var(--red);margin-top:12px;min-height:20px}
+.lp-hint{font-size:13px;color:var(--gray-400);margin-top:6px}
+.lp-submit{margin-top:24px;display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:var(--blue);cursor:pointer;background:none;border:none;padding:0}
+.lp-submit:hover{color:var(--blue-d)}
+.lp-restore{position:absolute;bottom:32px;left:44%;font-size:14px;color:var(--gray-500)}
+.lp-restore a{color:var(--gray-500);display:flex;align-items:center;gap:4px}
+.lp-restore a:hover{color:var(--gray-900)}
+.lp-footer{padding:16px 40px;font-size:12px;color:var(--gray-400)}
+
+/* ── APP SHELL ── */
+#app{display:none;height:100vh;overflow:hidden}
+.app-wrap{display:flex;height:100vh}
+
+/* sidebar */
+.sidebar{width:var(--sidebar-w);background:#fff;border-right:1px solid var(--gray-200);display:flex;flex-direction:column;flex-shrink:0;height:100vh;overflow-y:auto}
+.sb-brand{padding:16px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--gray-100)}
+.sb-brand-icon{width:32px;height:32px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sb-brand-text{font-size:14px;font-weight:700;letter-spacing:-0.3px;line-height:1.2}
+.sb-brand-sub{font-size:10px;color:var(--gray-400);font-weight:400;text-transform:uppercase;letter-spacing:.06em}
+.sb-section{padding:8px 12px 4px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-400);margin-top:4px}
+.sb-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;margin:1px 8px;cursor:pointer;font-size:14px;color:var(--gray-700);transition:.12s;user-select:none}
+.sb-item:hover{background:var(--gray-100)}
+.sb-item.active{background:var(--blue-xl);color:var(--blue);font-weight:600}
+.sb-item .icon{width:18px;height:18px;flex-shrink:0;opacity:.7}
+.sb-item.active .icon{opacity:1}
+.sb-spacer{flex:1}
+.sb-user{padding:12px 16px;border-top:1px solid var(--gray-100);display:flex;align-items:center;gap:10px;cursor:pointer}
+.sb-user:hover{background:var(--gray-50)}
+.sb-avatar{width:32px;height:32px;border-radius:50%;background:var(--blue);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sb-user-name{font-size:13px;font-weight:600;line-height:1.3}
+.sb-user-role{font-size:11px;color:var(--gray-400)}
+
+/* main */
+.main{flex:1;display:flex;flex-direction:column;height:100vh;overflow:hidden;background:var(--gray-50)}
+.topbar{height:var(--header-h);background:#fff;border-bottom:1px solid var(--gray-200);display:flex;align-items:center;padding:0 24px;gap:12px;flex-shrink:0}
+.topbar-title{font-size:18px;font-weight:700;letter-spacing:-0.4px;flex:1}
+.search-box{position:relative;flex:0 0 280px}
+.search-box input{width:100%;padding:7px 12px 7px 34px;border:1px solid var(--gray-200);border-radius:8px;font-size:13px;background:var(--gray-50);color:var(--gray-900)}
+.search-box input:focus{outline:none;border-color:var(--blue-l);background:#fff}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--gray-400);pointer-events:none}
+.search-results{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:1px solid var(--gray-200);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.1);z-index:200;overflow:hidden;display:none}
+.sr-item{padding:10px 14px;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:8px}
+.sr-item:hover{background:var(--gray-50)}
+.sr-group{padding:4px 14px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-400);background:var(--gray-50)}
+.content{flex:1;overflow-y:auto;padding:24px}
+
+/* ── COMPONENTS ── */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;font-size:14px;font-weight:500;transition:.15s;cursor:pointer;border:none}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:var(--blue-d)}
+.btn-ghost{background:transparent;color:var(--gray-700);border:1px solid var(--gray-200)}
+.btn-ghost:hover{background:var(--gray-100)}
+.btn-sm{padding:5px 12px;font-size:13px}
+.btn-danger{background:var(--red);color:#fff}
+.btn-danger:hover{background:#b91c1c}
+
+.card{background:#fff;border-radius:12px;border:1px solid var(--gray-200)}
+.card-header{padding:16px 20px;border-bottom:1px solid var(--gray-100);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-size:15px;font-weight:600}
+.card-body{padding:20px}
+
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
+.badge-green{background:var(--green-l);color:var(--green)}
+.badge-red{background:var(--red-l);color:var(--red)}
+.badge-orange{background:var(--orange-l);color:var(--orange)}
+.badge-blue{background:var(--blue-xl);color:var(--blue)}
+.badge-purple{background:var(--purple-l);color:var(--purple)}
+.badge-gray{background:var(--gray-100);color:var(--gray-500)}
+
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.stat-card{background:#fff;border:1px solid var(--gray-200);border-radius:12px;padding:20px}
+.stat-label{font-size:12px;color:var(--gray-500);font-weight:500;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.stat-value{font-size:28px;font-weight:800;letter-spacing:-1px;color:var(--gray-900)}
+.stat-sub{font-size:12px;color:var(--gray-400);margin-top:4px}
+
+.table{width:100%;border-collapse:collapse}
+.table th{text-align:left;padding:10px 12px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-400);background:var(--gray-50);border-bottom:1px solid var(--gray-200)}
+.table td{padding:12px 12px;font-size:14px;border-bottom:1px solid var(--gray-100);vertical-align:middle}
+.table tr:last-child td{border-bottom:none}
+.table tr:hover td{background:var(--gray-50)}
+.table-wrap{overflow-x:auto}
+
+/* modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:500;display:flex;align-items:center;justify-content:center;display:none}
+.modal-overlay.show{display:flex}
+.modal{background:#fff;border-radius:16px;width:520px;max-width:95vw;max-height:90vh;overflow-y:auto;box-shadow:0 24px 60px rgba(0,0,0,.2)}
+.modal-header{padding:20px 24px;border-bottom:1px solid var(--gray-100);display:flex;align-items:center;justify-content:space-between}
+.modal-title{font-size:17px;font-weight:700}
+.modal-close{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--gray-400);cursor:pointer;background:var(--gray-100)}
+.modal-close:hover{background:var(--gray-200);color:var(--gray-700)}
+.modal-body{padding:24px}
+.modal-footer{padding:16px 24px;border-top:1px solid var(--gray-100);display:flex;justify-content:flex-end;gap:8px}
+
+.form-row{margin-bottom:16px}
+.form-label{font-size:12px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;display:block}
+.form-input{width:100%;padding:9px 12px;border:1px solid var(--gray-200);border-radius:8px;font-size:14px;color:var(--gray-900);background:#fff;transition:.15s}
+.form-input:focus{outline:none;border-color:var(--blue-l);box-shadow:0 0 0 3px rgba(59,130,246,.1)}
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* page sections */
+.page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.page-title{font-size:22px;font-weight:800;letter-spacing:-0.6px}
+.page-sub{font-size:14px;color:var(--gray-400);margin-top:2px}
+
+/* client detail */
+.client-hero{background:#fff;border:1px solid var(--gray-200);border-radius:12px;padding:24px;margin-bottom:20px;display:flex;align-items:center;gap:20px}
+.client-avatar{width:56px;height:56px;border-radius:12px;background:var(--blue);color:#fff;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;letter-spacing:-1px}
+.client-info{flex:1}
+.client-name{font-size:22px;font-weight:800;letter-spacing:-0.6px}
+.client-meta{font-size:13px;color:var(--gray-500);margin-top:4px;display:flex;gap:16px;flex-wrap:wrap}
+.client-meta span{display:flex;align-items:center;gap:4px}
+.detail-tabs{display:flex;gap:2px;border-bottom:1px solid var(--gray-200);margin-bottom:20px}
+.detail-tab{padding:10px 16px;font-size:14px;font-weight:500;color:var(--gray-500);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:.15s}
+.detail-tab:hover{color:var(--gray-900)}
+.detail-tab.active{color:var(--blue);border-bottom-color:var(--blue);font-weight:600}
+.detail-panel{display:none}
+.detail-panel.active{display:block}
+
+/* pipeline kanban */
+.kanban{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px}
+.kanban-col{flex:0 0 240px;background:var(--gray-100);border-radius:12px;padding:12px}
+.kanban-col-header{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-500);margin-bottom:10px;padding:0 4px;display:flex;align-items:center;justify-content:space-between}
+.kanban-card{background:#fff;border:1px solid var(--gray-200);border-radius:8px;padding:12px;margin-bottom:8px;cursor:pointer}
+.kanban-card:hover{border-color:var(--blue-l);box-shadow:0 2px 8px rgba(26,86,219,.08)}
+.kanban-card-title{font-size:13px;font-weight:600;margin-bottom:4px}
+.kanban-card-sub{font-size:12px;color:var(--gray-500)}
+.kanban-card-foot{margin-top:8px;display:flex;align-items:center;justify-content:space-between}
+.prob-bar{height:3px;background:var(--gray-200);border-radius:2px;margin-top:6px;overflow:hidden}
+.prob-fill{height:100%;background:var(--blue);border-radius:2px;transition:.3s}
+
+/* tasks */
+.task-item{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--gray-100);cursor:pointer}
+.task-item:hover{background:var(--gray-50)}
+.task-check{width:18px;height:18px;border-radius:50%;border:2px solid var(--gray-300);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:.15s}
+.task-check.done{background:var(--green);border-color:var(--green)}
+.task-item.done .task-title{text-decoration:line-through;color:var(--gray-400)}
+
+/* priority dots */
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dot-high{background:var(--red)}
+.dot-medium{background:var(--orange)}
+.dot-low{background:var(--green)}
+
+/* comm list */
+.comm-item{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--gray-100)}
+.comm-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
+.comm-call{background:#dbeafe}
+.comm-email{background:#dcfce7}
+.comm-meeting{background:#ede9fe}
+
+/* users table role badges */
+.role-admin{background:#fef9c3;color:#854d0e}
+.role-supervisor{background:#ede9fe;color:#6d28d9}
+.role-manager{background:#dbeafe;color:#1e40af}
+.role-analyst{background:#dcfce7;color:#166534}
+
+/* progress ring simple */
+.ring-wrap{position:relative;display:inline-flex;align-items:center;justify-content:center}
+
+/* scrollbar */
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--gray-300);border-radius:2px}
+
+/* hidden */
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+
+<!-- ═══ LOGIN PAGE ═══ -->
+<div id="login-page">
+  <div class="lp-header">
+    <div class="lp-logo">
+      <div class="lp-logo-icon">
+        <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="5" width="4" height="10" rx="1" fill="white"/>
+          <rect x="7" y="5" width="4" height="10" rx="1" fill="white" opacity=".8"/>
+          <rect x="13" y="5" width="4" height="10" rx="1" fill="white"/>
+          <rect x="1" y="2" width="16" height="2" rx="1" fill="white"/>
+        </svg>
+      </div>
+      <div>
+        <div>Ипотека Банк</div>
+        <div style="font-size:10px;color:var(--gray-400);font-weight:400;text-transform:uppercase;letter-spacing:.06em">Корпоративный CRM</div>
+      </div>
+    </div>
+    <div class="lp-nav">
+      <a href="#">Для сотрудников ↗</a>
+      <a href="#">Поддержка ↗</a>
+    </div>
+  </div>
+  <div class="lp-body">
+    <div class="lp-gradient"></div>
+    <div class="lp-content">
+      <div id="lp-back" class="lp-back" onclick="loginStep(1)">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <div id="lp-label" class="lp-label">Вход в систему</div>
+      <input id="lp-login" class="lp-bigfield" placeholder="логин" autocomplete="username" spellcheck="false"
+        oninput="loginInput(this)" onkeydown="loginKey(event,1)">
+      <div id="lp-step2" class="lp-step2">
+        <div class="lp-label" style="margin-top:4px">Пароль</div>
+        <input id="lp-pass" class="lp-bigfield" type="password" placeholder="••••••••" autocomplete="current-password"
+          onkeydown="loginKey(event,2)">
+      </div>
+      <div id="lp-err" class="lp-err"></div>
+      <button id="lp-btn" class="lp-submit" onclick="loginSubmit()" style="display:none">
+        Войти <span>→</span>
+      </button>
+    </div>
+    <div class="lp-restore">
+      <a href="#">Восстановить доступ →</a>
+    </div>
+  </div>
+  <div class="lp-footer">© Ipoteka Bank 2026 · OTP Group · Версия 2.0</div>
+</div>
+
+<!-- ═══ APP ═══ -->
+<div id="app">
+<div class="app-wrap">
+
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="sb-brand">
+      <div class="sb-brand-icon">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <rect x="1" y="5" width="4" height="10" rx="1" fill="white"/>
+          <rect x="7" y="5" width="4" height="10" rx="1" fill="white" opacity=".8"/>
+          <rect x="13" y="5" width="4" height="10" rx="1" fill="white"/>
+          <rect x="1" y="2" width="16" height="2" rx="1" fill="white"/>
+        </svg>
+      </div>
+      <div>
+        <div class="sb-brand-text">Ипотека Банк</div>
+        <div class="sb-brand-sub">Corporate CRM</div>
+      </div>
+    </div>
+    <div id="sb-nav"></div>
+    <div class="sb-spacer"></div>
+    <div class="sb-user" id="sb-user-btn" onclick="showProfile()">
+      <div class="sb-avatar" id="sb-avatar">АК</div>
+      <div>
+        <div class="sb-user-name" id="sb-name">—</div>
+        <div class="sb-user-role" id="sb-role">—</div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title" id="topbar-title">Дашборд</div>
+      <div class="search-box">
+        <span class="search-icon">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.3"/><path d="M9.5 9.5l2.5 2.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </span>
+        <input type="search" placeholder="Поиск клиентов, задач..." id="search-inp" oninput="doSearch(this.value)" onblur="setTimeout(()=>hideSearch(),200)">
+        <div class="search-results" id="search-results"></div>
+      </div>
+      <button class="btn btn-primary btn-sm" id="topbar-action" style="display:none"></button>
+    </div>
+    <div class="content" id="content"></div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ MODAL ═══ -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title"></div>
+      <div class="modal-close" onclick="closeModal()">✕</div>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-footer" id="modal-footer"></div>
+  </div>
+</div>
+
+<script>
+// ═══ STATE ═══
+let token = localStorage.getItem('crm_token') || '';
+let user  = null;
+let _loginStep = 1;
+
+// ═══ API ═══
+async function api(method, path, body) {
+  const res = await fetch(path, {
+    method,
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+    body: body ? JSON.stringify(body) : undefined
+  });
+  const data = await res.json();
+  if (!res.ok) throw data;
+  return data;
+}
+const GET  = p => api('GET', p);
+const POST = (p,b) => api('POST', p, b);
+const PUT  = (p,b) => api('PUT', p, b);
+const DEL  = p => api('DELETE', p);
+
+// ═══ LOGIN ═══
+function loginInput(el) {
+  const v = el.value.trim();
+  if (v.length >= 2 && _loginStep === 1) {
+    document.getElementById('lp-btn').style.display = 'inline-flex';
+  }
+}
+function loginKey(e, step) {
+  if (e.key === 'Enter') {
+    if (step === 1) loginStep(2);
+    else loginSubmit();
+  }
+}
+function loginStep(n) {
+  _loginStep = n;
+  if (n === 2) {
+    document.getElementById('lp-step2').style.display = 'block';
+    document.getElementById('lp-back').style.display = 'flex';
+    document.getElementById('lp-pass').focus();
+  } else {
+    document.getElementById('lp-step2').style.display = 'none';
+    document.getElementById('lp-back').style.display = 'none';
+    document.getElementById('lp-login').focus();
+  }
+}
+async function loginSubmit() {
+  const login    = document.getElementById('lp-login').value.trim();
+  const password = document.getElementById('lp-pass').value;
+  if (!login) { document.getElementById('lp-login').focus(); return; }
+  if (!password) { loginStep(2); return; }
+  document.getElementById('lp-err').textContent = '';
+  try {
+    const r = await POST('/api/auth/login', { login, password });
+    token = r.token;
+    user  = r.user;
+    localStorage.setItem('crm_token', token);
+    startApp();
+  } catch (e) {
+    document.getElementById('lp-err').textContent = e.error || 'Ошибка входа';
+  }
+}
+
+// ═══ APP INIT ═══
+async function startApp() {
+  if (!user && token) {
+    try { user = await GET('/api/auth/me'); }
+    catch { showLogin(); return; }
+  }
+  if (!user) { showLogin(); return; }
+  document.getElementById('login-page').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  renderSidebar();
+  navigate('dashboard');
+}
+
+function showLogin() {
+  document.getElementById('login-page').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
+}
+
+async function logout() {
+  try { await POST('/api/auth/logout', {}); } catch {}
+  token = ''; user = null;
+  localStorage.removeItem('crm_token');
+  showLogin();
+}
+
+// ═══ SIDEBAR ═══
+const NAV = [
+  { id:'dashboard', label:'Дашборд',   roles:['admin','supervisor','manager','analyst'], icon:'grid' },
+  { id:'clients',   label:'Клиенты',   roles:['admin','supervisor','manager','analyst'], icon:'users' },
+  { id:'tasks',     label:'Задачи',    roles:['admin','supervisor','manager'],           icon:'check' },
+  { id:'pipeline',  label:'Воронка',   roles:['admin','supervisor','manager'],           icon:'funnel' },
+  { id:'leads',     label:'Лиды',      roles:['admin','supervisor','manager'],           icon:'star' },
+  { id:'analytics', label:'Аналитика', roles:['admin','supervisor','analyst'],           icon:'chart' },
+  { id:'users',     label:'Сотрудники',roles:['admin','supervisor'],                     icon:'team' },
+];
+const ICONS = {
+  grid:   `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="1" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.3"/><rect x="1" y="9" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="9" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.3"/></svg>`,
+  users:  `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="6" cy="5" r="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M1 13c0-2.8 2.2-5 5-5s5 2.2 5 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="12" cy="5" r="2" stroke="currentColor" stroke-width="1.3"/><path d="M14.5 13c0-2-1.3-3.7-3-4.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>`,
+  check:  `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="3" stroke="currentColor" stroke-width="1.3"/><path d="M4.5 8l2.5 2.5L11.5 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  funnel: `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 3h12l-4.5 5.5V13l-3-1.5V8.5L2 3z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>`,
+  star:   `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2l1.8 3.6L14 6.3l-3 2.9.7 4.1L8 11.2l-3.7 2.1.7-4.1-3-2.9 4.2-.7L8 2z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>`,
+  chart:  `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 12l4-4 3 3 5-6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  team:   `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>`,
+};
+const ROLE_LABELS = { admin:'Администратор', supervisor:'Руководитель', manager:'Менеджер', analyst:'Аналитик' };
+
+function renderSidebar() {
+  document.getElementById('sb-avatar').textContent = user.initials || user.name[0];
+  document.getElementById('sb-name').textContent   = user.name;
+  document.getElementById('sb-role').textContent   = ROLE_LABELS[user.role] || user.role;
+  const nav = NAV.filter(n => n.roles.includes(user.role));
+  document.getElementById('sb-nav').innerHTML = nav.map(n =>
+    `<div class="sb-item" id="nav-${n.id}" onclick="navigate('${n.id}')">
+      <span class="icon">${ICONS[n.icon]}</span>${n.label}
+    </div>`).join('');
+}
+
+function navigate(page, params) {
+  document.querySelectorAll('.sb-item').forEach(el => el.classList.remove('active'));
+  const navEl = document.getElementById('nav-' + page);
+  if (navEl) navEl.classList.add('active');
+  const titles = { dashboard:'Дашборд', clients:'Клиенты', tasks:'Задачи', pipeline:'Воронка', leads:'Лиды', analytics:'Аналитика', users:'Сотрудники' };
+  if (titles[page]) document.getElementById('topbar-title').textContent = titles[page];
+  const btn = document.getElementById('topbar-action');
+  btn.style.display = 'none';
+  const views = { dashboard:viewDashboard, clients:viewClients, tasks:viewTasks, pipeline:viewPipeline, leads:viewLeads, analytics:viewAnalytics, users:viewUsers };
+  if (views[page]) views[page](params);
+}
+
+// ═══ VIEWS ═══
+
+// ── DASHBOARD ──
+async function viewDashboard() {
+  document.getElementById('content').innerHTML = '<div style="color:var(--gray-400);padding:40px;text-align:center;font-size:14px">Загрузка...</div>';
+  const d = await GET('/api/dashboard');
+  const roleName = ROLE_LABELS[user.role] || user.role;
+  document.getElementById('content').innerHTML = `
+    <div style="margin-bottom:6px;font-size:13px;color:var(--gray-400)">Добро пожаловать, ${user.name.split(' ')[0]} · ${roleName}</div>
+    <div class="page-header"><div><div class="page-title">Обзор</div></div></div>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">Клиентов</div>
+        <div class="stat-value">${d.clientCount}</div>
+        <div class="stat-sub">в базе CRM</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Активных сделок</div>
+        <div class="stat-value">${d.activeDeals}</div>
+        <div class="stat-sub">в воронке</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Открытых задач</div>
+        <div class="stat-value">${d.openTasks}</div>
+        <div class="stat-sub">требуют внимания</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Pipeline</div>
+        <div class="stat-value" style="font-size:20px;letter-spacing:-0.5px">${d.pipelineTotal}</div>
+        <div class="stat-sub">потенциальных сделок</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Ближайшие задачи</div><button class="btn btn-ghost btn-sm" onclick="navigate('tasks')">Все задачи</button></div>
+        <div>${d.todayTasks.map(t => `
+          <div class="task-item${t.done?' done':''}" onclick="navigate('tasks')">
+            <div class="task-check${t.done?' done':''}">
+              ${t.done ? '<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>' : ''}
+            </div>
+            <div class="dot dot-${t.priority}"></div>
+            <div style="flex:1">
+              <div class="task-title" style="font-size:13px;font-weight:500">${t.title}</div>
+              ${t.client_name ? `<div style="font-size:12px;color:var(--gray-400)">${t.client_name}</div>` : ''}
+            </div>
+            <div style="font-size:12px;color:var(--gray-400)">${t.due || ''}</div>
+          </div>`).join('') || '<div style="padding:20px;text-align:center;color:var(--gray-400);font-size:13px">Задач нет</div>'}
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Последние клиенты</div><button class="btn btn-ghost btn-sm" onclick="navigate('clients')">Все клиенты</button></div>
+        <div class="table-wrap">
+          <table class="table">
+            ${d.myClients.map(c => `
+              <tr style="cursor:pointer" onclick="navigate('client',${c.id})">
+                <td><div style="font-weight:600;font-size:13px">${c.name}</div><div style="font-size:12px;color:var(--gray-400)">${c.industry}</div></td>
+                <td>${statusBadge(c.status)}</td>
+                <td style="font-size:12px;color:var(--gray-400)">${c.last_contact || '—'}</td>
+              </tr>`).join('')}
+          </table>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ── CLIENTS ──
+async function viewClients() {
+  const btn = document.getElementById('topbar-action');
+  btn.textContent = '+ Новый клиент'; btn.style.display = 'inline-flex';
+  btn.onclick = () => modalNewClient();
+  document.getElementById('content').innerHTML = '<div style="color:var(--gray-400);padding:40px;text-align:center;font-size:14px">Загрузка...</div>';
+  const clients = await GET('/api/clients');
+  document.getElementById('content').innerHTML = `
+    <div class="page-header">
+      <div><div class="page-title">Клиенты</div><div class="page-sub">${clients.length} компаний в базе</div></div>
+    </div>
+    <div class="card">
+      <div class="table-wrap">
+        <table class="table">
+          <thead><tr>
+            <th>Компания</th><th>Тип</th><th>Отрасль</th><th>Менеджер</th>
+            <th>Сегмент</th><th>Статус</th><th>Риск</th><th>Последний контакт</th>
+          </tr></thead>
+          <tbody>
+            ${clients.map(c => `
+              <tr style="cursor:pointer" onclick="navigate('client',${c.id})">
+                <td>
+                  <div style="display:flex;align-items:center;gap:10px">
+                    <div style="width:32px;height:32px;border-radius:8px;background:var(--blue);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">${c.short_name||c.name[0]}</div>
+                    <div>
+                      <div style="font-weight:600;font-size:14px">${c.name}</div>
+                      <div style="font-size:12px;color:var(--gray-400)">${c.city||''}</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="badge badge-blue">${c.type}</span></td>
+                <td style="font-size:13px;color:var(--gray-500)">${c.industry||'—'}</td>
+                <td style="font-size:13px">${c.manager||'—'}</td>
+                <td><span class="badge ${c.segment==='Premium'?'badge-purple':'badge-gray'}">${c.segment||'—'}</span></td>
+                <td>${statusBadge(c.status)}</td>
+                <td>${riskBadge(c.risk_level)}</td>
+                <td style="font-size:12px;color:var(--gray-400)">${c.last_contact||'—'}</td>
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>`;
+}
+
+// ── CLIENT DETAIL ──
+async function navigate_client(id) {
+  document.getElementById('topbar-title').textContent = 'Клиент';
+  document.getElementById('content').innerHTML = '<div style="color:var(--gray-400);padding:40px;text-align:center;font-size:14px">Загрузка...</div>';
+  const c = await GET('/api/clients/' + id);
+  document.getElementById('topbar-title').textContent = c.name;
+  document.getElementById('content').innerHTML = `
+    <div style="margin-bottom:16px"><button class="btn btn-ghost btn-sm" onclick="navigate('clients')">← Все клиенты</button></div>
+    <div class="client-hero">
+      <div class="client-avatar" style="background:${clientColor(c.type_en)}">${c.short_name||c.name[0]}</div>
+      <div class="client-info">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <div class="client-name">${c.name}</div>
+          ${statusBadge(c.status)}
+          ${riskBadge(c.risk_level)}
+          ${c.rating ? `<span class="badge badge-purple">${c.rating}</span>` : ''}
+        </div>
+        <div class="client-meta" style="margin-top:6px">
+          <span>🏭 ${c.industry||'—'}</span>
+          <span>📍 ${c.city||'—'}</span>
+          <span>👤 ${c.manager||'—'}</span>
+          ${c.inn ? `<span>ИНН: ${c.inn}</span>` : ''}
+          ${c.employees ? `<span>👥 ${c.employees} чел.</span>` : ''}
+        </div>
+        <div class="client-meta" style="margin-top:6px">
+          ${c.phone ? `<span>📞 ${c.phone}</span>` : ''}
+          ${c.email ? `<span>✉️ ${c.email}</span>` : ''}
+          ${c.revenue ? `<span>💰 Выручка: ${c.revenue}</span>` : ''}
+          ${c.credit_limit ? `<span>🏦 Лимит: ${c.credit_limit}</span>` : ''}
+        </div>
+      </div>
+    </div>
+    <div class="detail-tabs">
+      ${['Продукты','Контакты','Задачи','Коммуникации','Документы'].map((t,i) =>
+        `<div class="detail-tab${i===0?' active':''}" onclick="switchTab(this,'tab-${i}')">${t}</div>`).join('')}
+    </div>
+    <div id="tab-0" class="detail-panel active">${renderProducts(c.products, id)}</div>
+    <div id="tab-1" class="detail-panel">${renderContacts(c.contacts, id)}</div>
+    <div id="tab-2" class="detail-panel">${renderClientTasks(c.tasks, id)}</div>
+    <div id="tab-3" class="detail-panel">${renderComms(c.comms, id)}</div>
+    <div id="tab-4" class="detail-panel">${renderDocs(c.docs)}</div>
+  `;
+}
+
+function switchTab(el, tabId) {
+  document.querySelectorAll('.detail-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.detail-panel').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById(tabId).classList.add('active');
+}
+
+function renderProducts(products, clientId) {
+  if (!products.length) return `<div style="padding:32px;text-align:center;color:var(--gray-400);font-size:14px">Нет продуктов</div>`;
+  return `<div style="display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))">
+    ${products.map(p => `
+      <div class="card">
+        <div class="card-body">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+            <div style="font-size:14px;font-weight:700">${p.name}</div>
+            <span class="badge ${p.status==='active'?'badge-green':p.status==='expired'?'badge-red':'badge-gray'}">${p.status==='active'?'Активный':p.status==='expired'?'Истёк':'—'}</span>
+          </div>
+          <div style="font-size:11px;color:var(--gray-400);margin-bottom:12px">${p.number}</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px">
+            <div><div style="color:var(--gray-400)">Лимит</div><div style="font-weight:600">${p.limit_val}</div></div>
+            <div><div style="color:var(--gray-400)">Использовано</div><div style="font-weight:600">${p.used_val}</div></div>
+            <div><div style="color:var(--gray-400)">Ставка</div><div style="font-weight:600">${p.rate}</div></div>
+            <div><div style="color:var(--gray-400)">Истекает</div><div style="font-weight:600">${p.expires}</div></div>
+          </div>
+          ${p.usage_pct > 0 ? `<div class="prob-bar" style="margin-top:12px"><div class="prob-fill" style="width:${p.usage_pct}%;background:${p.usage_pct>80?'var(--red)':p.usage_pct>60?'var(--orange)':'var(--blue)'}"></div></div><div style="font-size:11px;color:var(--gray-400);margin-top:4px">Использовано ${p.usage_pct}%</div>` : ''}
+        </div>
+      </div>`).join('')}
+  </div>`;
+}
+
+function renderContacts(contacts, clientId) {
+  return `<div style="display:grid;gap:12px">
+    ${contacts.map(ct => `
+      <div class="card">
+        <div class="card-body" style="display:flex;align-items:center;gap:16px">
+          <div class="sb-avatar" style="width:40px;height:40px;font-size:14px">${ct.name.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
+          <div style="flex:1">
+            <div style="font-weight:600;font-size:14px">${ct.name}${ct.is_primary?'<span class="badge badge-blue" style="margin-left:8px;font-size:10px">Основной</span>':''}</div>
+            <div style="font-size:12px;color:var(--gray-400)">${ct.role||'—'}</div>
+          </div>
+          <div style="font-size:13px;text-align:right">
+            ${ct.phone ? `<div>${ct.phone}</div>` : ''}
+            ${ct.email ? `<div style="color:var(--gray-400)">${ct.email}</div>` : ''}
+          </div>
+        </div>
+      </div>`).join('') || '<div style="padding:32px;text-align:center;color:var(--gray-400);font-size:14px">Нет контактов</div>'}
+  </div>`;
+}
+
+function renderClientTasks(tasks, clientId) {
+  if (!tasks.length) return `<div style="padding:32px;text-align:center;color:var(--gray-400);font-size:14px">Нет задач</div>`;
+  return `<div class="card"><div>${tasks.map(t => `
+    <div class="task-item${t.done?' done':''}">
+      <div class="task-check${t.done?' done':''}">
+        ${t.done?'<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>':''}
+      </div>
+      <div class="dot dot-${t.priority}"></div>
+      <div style="flex:1"><div class="task-title" style="font-size:13px;font-weight:500">${t.title}</div></div>
+      <div style="font-size:12px;color:var(--gray-400)">${t.due||''}</div>
+    </div>`).join('')}</div></div>`;
+}
+
+function renderComms(comms, clientId) {
+  if (!comms.length) return `<div style="padding:32px;text-align:center;color:var(--gray-400);font-size:14px">Нет коммуникаций</div>`;
+  const typeIcon = { call:'📞', email:'✉️', meeting:'🤝' };
+  const typeLabel = { call:'Звонок', email:'Email', meeting:'Встреча' };
+  return `<div class="card"><div style="padding:0 20px">${comms.map(cm => `
+    <div class="comm-item">
+      <div class="comm-icon comm-${cm.type}">${typeIcon[cm.type]||'💬'}</div>
+      <div style="flex:1">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px">
+          <div style="font-size:13px;font-weight:600">${typeLabel[cm.type]||cm.type}</div>
+          <div style="font-size:11px;color:var(--gray-400)">${cm.date}</div>
+        </div>
+        <div style="font-size:13px;color:var(--gray-700)">${cm.summary}</div>
+        ${cm.contact ? `<div style="font-size:12px;color:var(--gray-400);margin-top:4px">${cm.contact}${cm.duration!=='—'?` · ${cm.duration}`:''}</div>` : ''}
+        ${cm.result ? `<div style="font-size:12px;color:var(--green);margin-top:2px">→ ${cm.result}</div>` : ''}
+      </div>
+    </div>`).join('')}</div></div>`;
+}
+
+function renderDocs(docs) {
+  if (!docs.length) return `<div style="padding:32px;text-align:center;color:var(--gray-400);font-size:14px">Нет документов</div>`;
+  return `<div class="card"><div class="table-wrap"><table class="table">
+    <thead><tr><th>Документ</th><th>Дата</th><th>Размер</th></tr></thead>
+    <tbody>${docs.map(d => `
+      <tr>
+        <td style="display:flex;align-items:center;gap:8px;font-size:14px">${d.icon} ${d.name}</td>
+        <td style="font-size:13px;color:var(--gray-500)">${d.date}</td>
+        <td style="font-size:13px;color:var(--gray-400)">${d.size}</td>
+      </tr>`).join('')}
+    </tbody>
+  </table></div></div>`;
+}
+
+// ── TASKS ──
+async function viewTasks() {
+  const btn = document.getElementById('topbar-action');
+  btn.textContent = '+ Задача'; btn.style.display = 'inline-flex';
+  btn.onclick = () => modalNewTask();
+  document.getElementById('content').innerHTML = '<div style="color:var(--gray-400);padding:40px;text-align:center;font-size:14px">Загрузка...</div>';
+  const tasks = await GET('/api/tasks');
+  const open = tasks.filter(t => !t.done), done = tasks.filter(t => t.done);
+  const renderList = arr => arr.map(t => `
+    <div class="task-item${t.done?' done':''}" style="cursor:pointer" onclick="toggleTask(${t.id},${t.done?0:1},this)">
+      <div class="task-check${t.done?' done':''}">
+        ${t.done?'<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>':''}
+      </div>
+      <div class="dot dot-${t.priority}"></div>
+      <div style="flex:1">
+        <div class="task-title" style="font-size:14px;font-weight:500">${t.title}</div>
+        ${t.client_name ? `<div style="font-size:12px;color:var(--gray-400)">${t.client_name}</div>` : ''}
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:12px;color:var(--gray-400)">${t.due||''}</div>
+        <div style="font-size:11px;color:var(--gray-400)">${t.manager||''}</div>
+      </div>
+      <span class="badge ${typeColor(t.type)}" style="margin-left:8px">${typeLabel(t.type)}</span>
+    </div>`).join('');
+  document.getElementById('content').innerHTML = `
+    <div class="page-header"><div><div class="page-title">Задачи</div><div class="page-sub">${open.length} открытых · ${done.length} выполнено</div></div></div>
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-header"><div class="card-title">Открытые (${open.length})</div></div>
+      <div>${renderList(open) || '<div style="padding:20px;text-align:center;color:var(--gray-400);font-size:13px">Нет открытых задач</div>'}</div>
+    </div>
+    ${done.length ? `<div class="card">
+      <div class="card-header"><div class="card-title">Выполнено (${done.length})</div></div>
+      <div>${renderList(done)}</div>
+    </div>` : ''}`;
+}
+
+async function toggleTask(id, newDone, el) {
+  await PUT('/api/tasks/' + id, { done: !!newDone });
+  viewTasks();
+}
+
+// ── PIPELINE ──
+async function viewPipeline() {
+  const btn = document.getElementById('topbar-action');
+  btn.textContent = '+ Сделка'; btn.style.display = 'inline-flex';
+  btn.onclick = () => modalNewDeal();
+  document.getElementById('content').innerHTML = '<div style="color:var(--gray-400);padding:40px;text-align:center;font-size:14px">Загрузка...</div>';
+  const deals = await GET('/api/pipeline');
+  const stages = [
+    { id:'qualification', label:'Квалификация' },
+    { id:'proposal',      label:'Предложение' },
+    { id:'negotiation',   label:'Переговоры' },
+    { id:'approval',      label:'Согласование' },
+    { id:'closed',        label:'Закрыто' },
+  ];
+  const byStage = id => deals.filter(d => d.stage === id);
+  const stageColors = { qualification:'#3b82f6', proposal:'#8b5cf6', negotiation:'#f59e0b', approval:'#10b981', closed:'#6b7280' };
+  document.getElementById('content').innerHTML = `
+    <div class="page-header"><div><div class="page-title">Воронка продаж</div><div class="page-sub">${deals.filter(d=>d.stage!=='closed').length} активных сделок</div></div></div>
+    <div class="kanban">
+      ${stages.map(s => {
+        const col = byStage(s.id);
+        const total = col.reduce((sum,d) => sum + (d.amount_raw||0), 0);
+        return `<div class="kanban-col">
+          <div class="kanban-col-header" style="color:${stageColors[s.id]}">
+            <span>${s.label}</span><span>${col.length}</span>
+          </div>
+          ${total > 0 ? `<div style="font-size:11px;color:var(--gray-500);padding:0 4px;margin-bottom:8px">${total.toFixed(1)} млрд</div>` : ''}
+          ${col.map(d => `
+            <div class="kanban-card">
+              <div class="kanban-card-title">${d.client_name}</div>
+              <div class="kanban-card-sub">${d.product}</div>
+              <div class="kanban-card-foot">
+                <span style="font-size:12px;font-weight:700;color:var(--gray-700)">${d.amount}</span>
+                <span style="font-size:11px;color:var(--gray-400)">${d.manager}</span>
+              </div>
+              <div class="prob-bar"><div class="prob-fill" style="width:${d.probability}%"></div></div>
+              <div style="font-size:10px;color:var(--gray-400);margin-top:2px">${d.probability}% · ${d.close_date||'—'}</div>
+            </div>`).join('')}
+        </div>`;
+      }).join('')}
+    </div>`;
+}
+
+// ── LEADS ──
+async function viewLeads() {
+  const btn = document.getElementById('topbar-action');
+  btn.textContent = '+ Лид'; btn.style.display = 'inline-flex';
+  btn.onclick = () => modalNewLead();
+  document.getElementById('content').innerHTML = '<div style="color:var(--gray-400);padding:40px;text-align:center;font-size:14px">Загрузка...</div>';
+  const leads = await GET('/api/leads');
+  const statusMap = { new:'Новый', qualified:'Квалифицирован', proposal:'Предложение', converted:'Конвертирован', lost:'Потерян' };
+  const sBadge = s => ({ new:'badge-blue', qualified:'badge-purple', proposal:'badge-orange', converted:'badge-green', lost:'badge-gray' }[s] || 'badge-gray');
+  document.getElementById('content').innerHTML = `
+    <div class="page-header"><div><div class="page-title">Лиды</div><div class="page-sub">${leads.length} потенциальных клиентов</div></div></div>
+    <div class="card">
+      <div class="table-wrap">
+        <table class="table">
+          <thead><tr><th>Компания</th><th>Контакт</th><th>Продукт</th><th>Источник</th><th>Статус</th><th>Менеджер</th></tr></thead>
+          <tbody>
+            ${leads.map(l => `
+              <tr>
+                <td><div style="font-weight:600;font-size:14px">${l.name}</div><div style="font-size:12px;color:var(--gray-400)">${l.phone||''}</div></td>
+                <td style="font-size:13px">${l.contact||'—'}</td>
+                <td style="font-size:13px">${l.product||'—'}</td>
+                <td style="font-size:13px;color:var(--gray-500)">${l.source||'—'}</td>
+                <td><span class="badge ${sBadge(l.status)}">${statusMap[l.status]||l.status}</span></td>
+                <td style="font-size:13px">${l.manager||'—'}</td>
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>`;
+}
+
+// ── ANALYTICS ──
+async function viewAnalytics() {
+  const d = await GET('/api/dashboard');
+  const pipe = await GET('/api/pipeline');
+  const closed = pipe.filter(p => p.stage === 'closed');
+  const closedAmt = closed.reduce((s,p) => s + (p.amount_raw||0), 0);
+  document.getElementById('content').innerHTML = `
+    <div class="page-header"><div><div class="page-title">Аналитика</div><div class="page-sub">Корпоративный блок</div></div></div>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">Всего клиентов</div>
+        <div class="stat-value">${d.clientCount}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Закрытых сделок</div>
+        <div class="stat-value">${closed.length}</div>
+        <div class="stat-sub">${closedAmt.toFixed(0)} млрд UZS</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Pipeline (актив)</div>
+        <div class="stat-value" style="font-size:20px">${d.pipelineTotal}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Открытых задач</div>
+        <div class="stat-value">${d.openTasks}</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Pipeline по стадиям</div></div>
+        <div class="card-body">
+          ${[['qualification','Квалификация'],['proposal','Предложение'],['negotiation','Переговоры'],['approval','Согласование'],['closed','Закрыто']].map(([id,label]) => {
+            const items = pipe.filter(p => p.stage === id);
+            const amt = items.reduce((s,p) => s + (p.amount_raw||0), 0);
+            const max = Math.max(...['qualification','proposal','negotiation','approval','closed'].map(s => pipe.filter(p=>p.stage===s).reduce((a,p)=>a+(p.amount_raw||0),0)));
+            const pct = max > 0 ? (amt / max * 100) : 0;
+            return `<div style="margin-bottom:12px">
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+                <span style="color:var(--gray-600)">${label}</span>
+                <span style="font-weight:600">${items.length} сд. · ${amt.toFixed(0)} млрд</span>
+              </div>
+              <div style="height:6px;background:var(--gray-100);border-radius:3px;overflow:hidden">
+                <div style="height:100%;width:${pct}%;background:var(--blue);border-radius:3px;transition:.3s"></div>
+              </div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Последние коммуникации</div></div>
+        <div style="padding:0 20px">${(d.recentComms||[]).map(cm => `
+          <div class="comm-item">
+            <div class="comm-icon comm-${cm.type}">${{call:'📞',email:'✉️',meeting:'🤝'}[cm.type]||'💬'}</div>
+            <div style="flex:1">
+              <div style="font-size:13px;font-weight:600">${cm.client_name||'—'}</div>
+              <div style="font-size:12px;color:var(--gray-500)">${cm.summary}</div>
+              <div style="font-size:11px;color:var(--gray-400)">${cm.date}</div>
+            </div>
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+}
+
+// ── USERS ──
+async function viewUsers() {
+  if (!['admin','supervisor'].includes(user.role)) {
+    document.getElementById('content').innerHTML = `<div style="padding:40px;text-align:center;color:var(--gray-400)">Нет доступа</div>`;
+    return;
+  }
+  const btn = document.getElementById('topbar-action');
+  if (user.role === 'admin') {
+    btn.textContent = '+ Сотрудник'; btn.style.display = 'inline-flex';
+    btn.onclick = () => modalNewUser();
+  }
+  document.getElementById('content').innerHTML = '<div style="color:var(--gray-400);padding:40px;text-align:center;font-size:14px">Загрузка...</div>';
+  const users = await GET('/api/users');
+  document.getElementById('content').innerHTML = `
+    <div class="page-header"><div><div class="page-title">Сотрудники</div><div class="page-sub">${users.length} пользователей в системе</div></div></div>
+    <div class="card">
+      <div class="table-wrap">
+        <table class="table">
+          <thead><tr><th>Сотрудник</th><th>Логин</th><th>Роль</th><th>Отдел</th><th>Таб.№</th><th>Клиентов</th><th>Последний вход</th><th>Статус</th>${user.role==='admin'?'<th></th>':''}</tr></thead>
+          <tbody>
+            ${users.map(u => `
+              <tr>
+                <td>
+                  <div style="display:flex;align-items:center;gap:10px">
+                    <div class="sb-avatar" style="width:32px;height:32px;font-size:11px">${u.initials||u.name[0]}</div>
+                    <div style="font-weight:600;font-size:14px">${u.name}</div>
+                  </div>
+                </td>
+                <td style="font-size:13px;color:var(--gray-500)">${u.login}</td>
+                <td><span class="badge role-${u.role}">${ROLE_LABELS[u.role]||u.role}</span></td>
+                <td style="font-size:13px">${u.dept||'—'}</td>
+                <td style="font-size:13px;color:var(--gray-400)">${u.tab||'—'}</td>
+                <td style="font-size:14px;font-weight:600">${u.clients_count}</td>
+                <td style="font-size:12px;color:var(--gray-400)">${u.last_login ? new Date(u.last_login).toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) : '—'}</td>
+                <td>${u.status==='active'?'<span class="badge badge-green">Активен</span>':'<span class="badge badge-gray">Неактивен</span>'}</td>
+                ${user.role==='admin' ? `<td><button class="btn btn-ghost btn-sm" onclick="modalEditUser(${JSON.stringify(u).replace(/"/g,'&quot;')})">Изменить</button></td>` : ''}
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>`;
+}
+
+// ═══ MODALS ═══
+
+function openModal(title, body, footer) {
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-body').innerHTML = body;
+  document.getElementById('modal-footer').innerHTML = footer;
+  document.getElementById('modal').classList.add('show');
+}
+function closeModal() { document.getElementById('modal').classList.remove('show'); }
+
+function modalNewClient() {
+  openModal('Новый клиент', `
+    <div class="form-row"><label class="form-label">Название компании *</label><input class="form-input" id="m-name" placeholder="ООО Пример"></div>
+    <div class="form-row-2">
+      <div class="form-row"><label class="form-label">Тип</label>
+        <select class="form-input" id="m-type"><option>Крупный бизнес</option><option>МСП</option><option>Холдинг</option><option>Международные</option></select>
+      </div>
+      <div class="form-row"><label class="form-label">Отрасль</label><input class="form-input" id="m-industry" placeholder="Банки, IT..."></div>
+    </div>
+    <div class="form-row-2">
+      <div class="form-row"><label class="form-label">ИНН</label><input class="form-input" id="m-inn" placeholder="1234567890"></div>
+      <div class="form-row"><label class="form-label">Город</label><input class="form-input" id="m-city" value="Ташкент"></div>
+    </div>
+    <div class="form-row-2">
+      <div class="form-row"><label class="form-label">Телефон</label><input class="form-input" id="m-phone"></div>
+      <div class="form-row"><label class="form-label">Email</label><input class="form-input" id="m-email"></div>
+    </div>
+    <div class="form-row-2">
+      <div class="form-row"><label class="form-label">Менеджер</label><input class="form-input" id="m-mgr" value="${user.name}"></div>
+      <div class="form-row"><label class="form-label">Сегмент</label>
+        <select class="form-input" id="m-seg"><option>Standard</option><option>Premium</option></select>
+      </div>
+    </div>`,
+    `<button class="btn btn-ghost" onclick="closeModal()">Отмена</button>
+     <button class="btn btn-primary" onclick="submitNewClient()">Создать клиента</button>`);
+}
+
+async function submitNewClient() {
+  const name = document.getElementById('m-name').value.trim();
+  if (!name) { document.getElementById('m-name').focus(); return; }
+  try {
+    await POST('/api/clients', {
+      name, type: document.getElementById('m-type').value,
+      industry: document.getElementById('m-industry').value,
+      inn: document.getElementById('m-inn').value,
+      city: document.getElementById('m-city').value,
+      phone: document.getElementById('m-phone').value,
+      email: document.getElementById('m-email').value,
+      manager: document.getElementById('m-mgr').value,
+      segment: document.getElementById('m-seg').value,
+    });
+    closeModal(); viewClients();
+  } catch (e) { alert(e.error || 'Ошибка'); }
+}
+
+function modalNewTask() {
+  openModal('Новая задача', `
+    <div class="form-row"><label class="form-label">Название *</label><input class="form-input" id="mt-title" placeholder="Что нужно сделать?"></div>
+    <div class="form-row-2">
+      <div class="form-row"><label class="form-label">Тип</label>
+        <select class="form-input" id="mt-type"><option value="call">Звонок</option><option value="meeting">Встреча</option><option value="proposal">КП</option><option value="document">Документ</option><option value="analysis">Анализ</option></select>
+      </div>
+      <div class="form-row"><label class="form-label">Приоритет</label>
+        <select class="form-input" id="mt-pri"><option value="high">Высокий</option><option value="medium" selected>Средний</option><option value="low">Низкий</option></select>
+      </div>
+    </div>
+    <div class="form-row-2">
+      <div class="form-row"><label class="form-label">Срок</label><input class="form-input" id="mt-due" type="date"></div>
+      <div class="form-row"><label class="form-label">Менеджер</label><input class="form-input" id="mt-mgr" value="${user.name}"></div>
+    </div>
+    <div class="form-row"><label class="form-label">Клиент</label><input class="form-input" id="mt-client" placeholder="Название клиента"></div>`,
+    `<button class="btn btn-ghost" onclick="closeModal()">Отмена</button>
+     <button class="btn btn-primary" onclick="submitNewTask()">Создать задачу</button>`);
+}
+
+async function submitNewTask() {
+  const title = document.getElementById('mt-title').value.trim();
+  if (!title) return;
+  const due = document.getElementById('mt-due').value;
+  try {
+    await POST('/api/tasks', {
+      title,
+      type: document.getElementById('mt-type').value,
+      priority: document.getElementById('mt-pri').value,
+      due: due ? new Date(due).toLocaleDateString('ru-RU').replace(/\//g,'.') : '',
+      manager: document.getElementById('mt-mgr').value,
+      client_name: document.getElementById('mt-client').value,
+    });
+    closeModal(); viewTasks();
+  } catch (e) { alert(e.error || 'Ошибка'); }
+}
+
+function modalNewDeal() {
+  openModal('Новая сделка', `
+    <div class="form-row"><label class="form-label">Клиент *</label><input class="form-input" id="md-client" placeholder="Название компании"></div>
+    <div class="form-row"><label class="form-label">Продукт</label><input class="form-input" id="md-product" placeholder="Кредитная линия, FX..."></div>
+    <div class="form-row-2">
+      <div class="form-row"><label class="form-label">Сумма (млрд)</label><input class="form-input" id="md-amt" type="number" placeholder="10"></div>
+      <div class="form-row"><label class="form-label">Вероятность %</label><input class="form-input" id="md-prob" type="number" value="50" min="0" max="100"></div>
+    </div>
+    <div class="form-row-2">
+      <div class="form-row"><label class="form-label">Стадия</label>
+        <select class="form-input" id="md-stage"><option value="qualification">Квалификация</option><option value="proposal">Предложение</option><option value="negotiation">Переговоры</option><option value="approval">Согласование</option></select>
+      </div>
+      <div class="form-row"><label class="form-label">Дата закрытия</label><input class="form-input" id="md-date" type="date"></div>
+    </div>
+    <div class="form-row"><label class="form-label">Менеджер</label><input class="form-input" id="md-mgr" value="${user.name}"></div>`,
+    `<button class="btn btn-ghost" onclick="closeModal()">Отмена</button>
+     <button class="btn btn-primary" onclick="submitNewDeal()">Добавить сделку</button>`);
+}
+
+async function submitNewDeal() {
+  const client_name = document.getElementById('md-client').value.trim();
+  if (!client_name) return;
+  const raw = parseFloat(document.getElementById('md-amt').value) || 0;
+  const due = document.getElementById('md-date').value;
+  try {
+    await POST('/api/pipeline', {
+      client_name, product: document.getElementById('md-product').value,
+      amount: raw + ' млрд', amount_raw: raw,
+      probability: parseInt(document.getElementById('md-prob').value) || 50,
+      stage: document.getElementById('md-stage').value,
+      close_date: due ? new Date(due).toLocaleDateString('ru-RU').replace(/\//g,'.') : '',
+      manager: document.getElementById('md-mgr').value,
+    });
+    closeModal(); viewPipeline();
+  } catch (e) { alert(e.error || 'Ошибка'); }
+}
+
+function modalNewLead() {
+  openModal('Новый лид', `
+    <div class="form-row"><label class="form-label">Компания *</label><input class="form-input" id="ml-name" placeholder="Название"></div>
+    <div class="form-row-2">
+      <div class="form-row"><label class="form-label">Контакт</label><input class="form-input" id="ml-contact" placeholder="Имя"></div>
+      <div class="form-row"><label class="form-label">Телефон</label><input class="form-input" id="ml-phone"></div>
+    </div>
+    <div class="form-row-2">
+      <div class="form-row"><label class="form-label">Источник</label>
+        <select class="form-input" id="ml-source"><option>Реклама</option><option>Рекомендация</option><option>Конференция</option><option>Сайт</option><option>Партнёр</option></select>
+      </div>
+      <div class="form-row"><label class="form-label">Продукт</label><input class="form-input" id="ml-product" placeholder="РКО, Кредит..."></div>
+    </div>
+    <div class="form-row"><label class="form-label">Менеджер</label><input class="form-input" id="ml-mgr" value="${user.name}"></div>`,
+    `<button class="btn btn-ghost" onclick="closeModal()">Отмена</button>
+     <button class="btn btn-primary" onclick="submitNewLead()">Добавить лид</button>`);
+}
+
+async function submitNewLead() {
+  const name = document.getElementById('ml-name').value.trim();
+  if (!name) return;
+  try {
+    await POST('/api/leads', { name, contact: document.getElementById('ml-contact').value, phone: document.getElementById('ml-phone').value, source: document.getElementById('ml-source').value, product: document.getElementById('ml-product').value, manager: document.getElementById('ml-mgr').value });
+    closeModal(); viewLeads();
+  } catch (e) { alert(e.error || 'Ошибка'); }
+}
+
+function modalNewUser() {
+  openModal('Новый сотрудник', `
+    <div class="form-row"><label class="form-label">ФИО *</label><input class="form-input" id="mu-name" placeholder="Имя Фамилия"></div>
+    <div class="form-row-2">
+      <div class="form-row"><label class="form-label">Логин *</label><input class="form-input" id="mu-login" placeholder="i.ivanov"></div>
+      <div class="form-row"><label class="form-label">Пароль *</label><input class="form-input" id="mu-pass" type="password"></div>
+    </div>
+    <div class="form-row-2">
+      <div class="form-row"><label class="form-label">Роль</label>
+        <select class="form-input" id="mu-role"><option value="manager">Менеджер</option><option value="supervisor">Руководитель</option><option value="analyst">Аналитик</option><option value="admin">Администратор</option></select>
+      </div>
+      <div class="form-row"><label class="form-label">Таб. номер</label><input class="form-input" id="mu-tab" placeholder="10000"></div>
+    </div>
+    <div class="form-row"><label class="form-label">Отдел</label><input class="form-input" id="mu-dept" placeholder="Корпоративный блок"></div>`,
+    `<button class="btn btn-ghost" onclick="closeModal()">Отмена</button>
+     <button class="btn btn-primary" onclick="submitNewUser()">Создать</button>`);
+}
+
+async function submitNewUser() {
+  const name = document.getElementById('mu-name').value.trim();
+  const login = document.getElementById('mu-login').value.trim();
+  const password = document.getElementById('mu-pass').value;
+  if (!name || !login || !password) { alert('Заполните обязательные поля'); return; }
+  try {
+    await POST('/api/users', { name, login, password, role: document.getElementById('mu-role').value, tab: document.getElementById('mu-tab').value, dept: document.getElementById('mu-dept').value });
+    closeModal(); viewUsers();
+  } catch (e) { alert(e.error || 'Ошибка'); }
+}
+
+function modalEditUser(u) {
+  openModal('Редактировать сотрудника', `
+    <div class="form-row"><label class="form-label">ФИО</label><input class="form-input" id="eu-name" value="${u.name}"></div>
+    <div class="form-row-2">
+      <div class="form-row"><label class="form-label">Роль</label>
+        <select class="form-input" id="eu-role">
+          ${['manager','supervisor','analyst','admin'].map(r => `<option value="${r}"${u.role===r?' selected':''}>${ROLE_LABELS[r]}</option>`).join('')}
+        </select>
+      </div>
+      <div class="form-row"><label class="form-label">Статус</label>
+        <select class="form-input" id="eu-status">
+          <option value="active"${u.status==='active'?' selected':''}>Активен</option>
+          <option value="inactive"${u.status==='inactive'?' selected':''}>Неактивен</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row"><label class="form-label">Новый пароль (оставьте пустым, чтобы не менять)</label><input class="form-input" id="eu-pass" type="password"></div>`,
+    `<button class="btn btn-ghost" onclick="closeModal()">Отмена</button>
+     <button class="btn btn-danger btn-sm" onclick="deleteUser(${u.id})">Удалить</button>
+     <button class="btn btn-primary" onclick="submitEditUser(${u.id})">Сохранить</button>`);
+}
+
+async function submitEditUser(id) {
+  const body = { name: document.getElementById('eu-name').value, role: document.getElementById('eu-role').value, status: document.getElementById('eu-status').value };
+  const pass = document.getElementById('eu-pass').value;
+  if (pass) body.password = pass;
+  try { await PUT('/api/users/' + id, body); closeModal(); viewUsers(); }
+  catch (e) { alert(e.error || 'Ошибка'); }
+}
+
+async function deleteUser(id) {
+  if (!confirm('Удалить пользователя?')) return;
+  try { await DEL('/api/users/' + id); closeModal(); viewUsers(); }
+  catch (e) { alert(e.error || 'Ошибка'); }
+}
+
+function showProfile() {
+  openModal('Профиль', `
+    <div style="text-align:center;padding:8px 0 20px">
+      <div class="sb-avatar" style="width:64px;height:64px;font-size:22px;margin:0 auto 12px">${user.initials||user.name[0]}</div>
+      <div style="font-size:18px;font-weight:700">${user.name}</div>
+      <div style="font-size:14px;color:var(--gray-400);margin-top:4px">${ROLE_LABELS[user.role]} · ${user.dept||''}</div>
+      <div style="font-size:13px;color:var(--gray-400);margin-top:2px">Таб. ${user.tab||'—'}</div>
+    </div>`,
+    `<button class="btn btn-ghost" onclick="closeModal()">Закрыть</button>
+     <button class="btn btn-danger" onclick="logout();closeModal()">Выйти из системы</button>`);
+}
+
+// ═══ SEARCH ═══
+let _searchTimer;
+async function doSearch(q) {
+  clearTimeout(_searchTimer);
+  if (q.length < 2) { hideSearch(); return; }
+  _searchTimer = setTimeout(async () => {
+    const r = await GET('/api/search?q=' + encodeURIComponent(q));
+    const sr = document.getElementById('search-results');
+    let html = '';
+    if (r.clients.length) {
+      html += '<div class="sr-group">Клиенты</div>';
+      html += r.clients.map(c => `<div class="sr-item" onclick="navigate('client',${c.id})">${ICONS.users} <div><div style="font-weight:600">${c.name}</div><div style="font-size:11px;color:var(--gray-400)">${c.industry}</div></div></div>`).join('');
+    }
+    if (r.leads.length) {
+      html += '<div class="sr-group">Лиды</div>';
+      html += r.leads.map(l => `<div class="sr-item" onclick="navigate('leads')">${ICONS.star} ${l.name}</div>`).join('');
+    }
+    if (!html) html = '<div class="sr-item" style="color:var(--gray-400)">Ничего не найдено</div>';
+    sr.innerHTML = html;
+    sr.style.display = 'block';
+  }, 250);
+}
+function hideSearch() { document.getElementById('search-results').style.display = 'none'; }
+
+// ═══ HELPERS ═══
+function statusBadge(s) {
+  const m = { active:'<span class="badge badge-green">Активный</span>', pending:'<span class="badge badge-orange">На рассмотрении</span>', inactive:'<span class="badge badge-gray">Неактивный</span>' };
+  return m[s] || `<span class="badge badge-gray">${s}</span>`;
+}
+function riskBadge(r) {
+  const m = { low:'<span class="badge badge-green">Низкий</span>', medium:'<span class="badge badge-orange">Средний</span>', high:'<span class="badge badge-red">Высокий</span>' };
+  return m[r] || '';
+}
+function typeColor(t) { return { call:'badge-blue', meeting:'badge-purple', proposal:'badge-orange', document:'badge-gray', analysis:'badge-green' }[t] || 'badge-gray'; }
+function typeLabel(t) { return { call:'Звонок', meeting:'Встреча', proposal:'КП', document:'Документ', analysis:'Анализ' }[t] || t; }
+function clientColor(te) { return { large:'#1a56db', sme:'#7c3aed', holding:'#0f766e', international:'#d97706' }[te] || '#1a56db'; }
+
+// ═══ ROUTING override for client detail ═══
+const _navigate = navigate;
+function navigate(page, params) {
+  if (page === 'client' && params) { navigate_client(params); return; }
+  _navigate(page, params);
+}
+
+// ═══ BOOT ═══
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.getElementById('modal').addEventListener('click', e => { if (e.target === document.getElementById('modal')) closeModal(); });
+startApp();
+</script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -24,7 +24,7 @@ export default function CrmLayout({ children }: { children: React.ReactNode }) {
   if (!hydrated || !token || !user || user.role === 'dsa') return null;
 
   return (
-    <div className="flex h-screen overflow-hidden bg-white text-[#111]">
+    <div className="flex h-screen overflow-hidden bg-white text-g90">
       <Sidebar isOpen={mobileOpen} onClose={() => setMobileOpen(false)} />
       <div className="flex flex-col flex-1 overflow-hidden bg-white">
         <Topbar onMenuToggle={() => setMobileOpen(o => !o)} />

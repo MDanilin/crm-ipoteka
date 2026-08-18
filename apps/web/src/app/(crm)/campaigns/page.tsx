@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useRef } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -48,7 +48,7 @@ export default function CampaignsPage() {
     onSuccess:  () => qc.invalidateQueries({ queryKey: ['campaigns'] }),
   });
 
-  if (isLoading) return <div className="flex items-center justify-center h-64 text-[#aaa] text-sm">Загрузка...</div>;
+  if (isLoading) return <div className="flex items-center justify-center h-64 text-g60 text-sm">Загрузка...</div>;
 
   const isOperator = user?.role === 'operator';
   const canManage = user?.role === 'admin' || user?.role === 'supervisor' || user?.role === 'manager';
@@ -58,7 +58,7 @@ export default function CampaignsPage() {
       <div className="mb-8 flex flex-col justify-between gap-4 xl:flex-row xl:items-end">
         <div>
           <h1 className="text-[clamp(42px,5vw,72px)] font-semibold leading-none tracking-[-0.08em]">{t('campaigns.title')}</h1>
-          <p className="mt-4 text-base text-[#aaa]">{campaigns.length} телемаркетинговых кампаний</p>
+          <p className="mt-4 text-base text-g60">{campaigns.length} телемаркетинговых кампаний</p>
         </div>
         {canManage && <Button onClick={() => setCreateOpen(true)}>+ Новая кампания</Button>}
       </div>
@@ -67,7 +67,7 @@ export default function CampaignsPage() {
         <div className="flex flex-col items-center justify-center py-24 text-center">
           <div className="text-5xl mb-6">📞</div>
           <h2 className="text-xl font-semibold tracking-[-0.04em] mb-2">Кампаний нет</h2>
-          <p className="text-[#aaa] text-sm">Создайте первую кампанию и импортируйте список клиентов</p>
+          <p className="text-g60 text-sm">Создайте первую кампанию и импортируйте список клиентов</p>
         </div>
       ) : (
         <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
@@ -77,48 +77,48 @@ export default function CampaignsPage() {
               <div
                 key={c.id}
                 onClick={() => router.push(`/campaigns/${c.id}`)}
-                className="border border-[#f0f0f0] rounded-2xl p-6 cursor-pointer hover:bg-[#fcf8f8] hover:border-[#e8d8d8] transition-all group"
+                className="border border-g20 rounded-2xl p-6 cursor-pointer hover:bg-g5 hover:border-dn-border transition-all group"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1 min-w-0">
-                    <div className="text-base font-semibold truncate group-hover:text-[#111]">{c.name}</div>
-                    <div className="text-xs text-[#aaa] mt-0.5">{c.source}</div>
+                    <div className="text-base font-semibold truncate group-hover:text-g90">{c.name}</div>
+                    <div className="text-xs text-g60 mt-0.5">{c.source}</div>
                   </div>
                   <Badge variant={STATUS_CFG[c.status]?.variant ?? 'gray'} className="ml-3 flex-shrink-0">
                     {STATUS_CFG[c.status]?.label ?? c.status}
                   </Badge>
                 </div>
 
-                <div className="grid grid-cols-3 gap-3 mb-5 border-t border-[#f5f5f5] pt-4">
+                <div className="grid grid-cols-3 gap-3 mb-5 border-t border-g10 pt-4">
                   <div>
                     <div className="text-2xl font-bold leading-none">{c.total}</div>
-                    <div className="text-[11px] text-[#aaa] mt-1">Всего</div>
+                    <div className="text-[11px] text-g60 mt-1">Всего</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold leading-none text-[#111]">{c.processed}</div>
-                    <div className="text-[11px] text-[#aaa] mt-1">Обработано</div>
+                    <div className="text-2xl font-bold leading-none text-g90">{c.processed}</div>
+                    <div className="text-[11px] text-g60 mt-1">Обработано</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold leading-none text-[#aaa]">{c.pending}</div>
-                    <div className="text-[11px] text-[#aaa] mt-1">Осталось</div>
+                    <div className="text-2xl font-bold leading-none text-g60">{c.pending}</div>
+                    <div className="text-[11px] text-g60 mt-1">Осталось</div>
                   </div>
                 </div>
 
                 <div>
-                  <div className="flex items-center justify-between text-[11px] text-[#aaa] mb-1.5">
-                    <span>Прогресс</span><span className="font-semibold text-[#555]">{pct}%</span>
+                  <div className="flex items-center justify-between text-[11px] text-g60 mb-1.5">
+                    <span>Прогресс</span><span className="font-semibold text-g80">{pct}%</span>
                   </div>
-                  <div className="h-1.5 bg-[#f0f0f0] rounded-full overflow-hidden">
-                    <div className="h-full rounded-full bg-[#111] transition-all" style={{ width: `${pct}%` }}/>
+                  <div className="h-1.5 bg-g20 rounded-full overflow-hidden">
+                    <div className="h-full rounded-full bg-g90 transition-all" style={{ width: `${pct}%` }}/>
                   </div>
                 </div>
 
                 <div className="mt-4 flex items-center justify-between">
-                  <div className="text-[11px] text-[#aaa]">{c.created_at?.slice(0, 10)}</div>
+                  <div className="text-[11px] text-g60">{c.created_at?.slice(0, 10)}</div>
                   {(user?.role === 'admin' || user?.role === 'supervisor') && (
                     <button
                       onClick={e => { e.stopPropagation(); del.mutate(c.id); }}
-                      className="text-xs text-[#e1261c] opacity-0 group-hover:opacity-100 transition-opacity hover:opacity-70"
+                      className="text-xs text-dn opacity-0 group-hover:opacity-100 transition-opacity hover:opacity-70"
                     >
                       Удалить
                     </button>

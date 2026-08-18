@@ -2,6 +2,7 @@
 import type { FastifyInstance } from 'fastify';
 import { db, verifyPassword } from '../db.js';
 import { requireAuth, getUser } from '../auth.js';
+import { sendOtpSms, isSmsConfigured } from '../sms.js';
 import crypto from 'crypto';
 import type { User } from '@crm/types';
 
@@ -56,7 +57,12 @@ export async function authRoutes(app: FastifyInstance) {
     db.prepare("UPDATE otps SET used = 1 WHERE phone = ? AND used = 0").run(normalizePhone(phone));
     db.prepare("INSERT INTO otps (phone, code, expires_at) VALUES (?, ?, ?)").run(normalizePhone(phone), code, expiresAt);
 
-    return { success: true, dev_otp: code };
+    // Пока реальный SMS-провайдер не подключён (см. src/sms.ts),
+    // sendOtpSms() ничего не отправляет, и код возвращается прямо в ответе
+    // API (dev_otp) — фронт показывает его жёлтой плашкой "dev". Как
+    // только SMS_PROVIDER настроен в .env — dev_otp перестаёт возвращаться.
+    await sendOtpSms(phone, code);
+    return { success: true, ...(isSmsConfigured() ? {} : { dev_otp: code }) };
   });
 
   // ── OTP: verify code ───────────────────────────────────────────────────────

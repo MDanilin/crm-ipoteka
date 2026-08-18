@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -187,15 +187,15 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
         <div className="fixed inset-0 z-30 bg-black/40 lg:hidden" onClick={onClose} />
       )}
       <aside className={cn(
-        "fixed inset-y-0 left-0 z-40 flex w-[316px] shrink-0 flex-col border-r border-[#ececec] bg-white px-3 py-4 h-screen overflow-y-auto scrollbar-thin transition-transform duration-300",
+        "fixed inset-y-0 left-0 z-40 flex w-[316px] shrink-0 flex-col border-r border-g20 bg-white px-3 py-4 h-screen overflow-y-auto scrollbar-thin transition-transform duration-300",
         "lg:relative lg:translate-x-0",
         isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
       )}>
 
         {/* Brand */}
-        <div className="border-b border-[#eeeeee] px-4 pb-6">
+        <div className="border-b border-g20 px-4 pb-6">
           <div className="flex items-center gap-3">
-            <div className="grid size-9 place-items-center rounded-full bg-[#111] text-lg font-bold text-white select-none">И</div>
+            <div className="grid size-9 place-items-center rounded-full bg-g90 text-lg font-bold text-white select-none">И</div>
             <span className="text-[20px] font-bold tracking-[-0.04em]">Ипотека Банк</span>
           </div>
         </div>
@@ -207,7 +207,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
             if (!visible.length) return null;
             return (
               <div key={group.titleKey}>
-                <p className="mb-3 px-3 text-[13px] uppercase tracking-[0.12em] text-[#b3b3b3]">{t(group.titleKey)}</p>
+                <p className="mb-3 px-3 text-[13px] uppercase tracking-[0.12em] text-g40">{t(group.titleKey)}</p>
                 <div className="flex flex-col gap-1">
                   {visible.map(item => {
                     const active = pathname === item.href || pathname.startsWith(item.href + '/');
@@ -217,16 +217,16 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                         href={item.href}
                         onClick={onClose}
                         className={cn(
-                          'flex h-[58px] items-center gap-5 rounded-xl px-4 text-left text-[20px] font-normal transition-colors',
-                          // Мягкий тонированный акцент вместо нейтрального
-                          // серого (Rocket Work) — существующий бренд-акцент
-                          // #e1261c на 6% непрозрачности.
+                          'flex h-[58px] items-center gap-5 rounded px-4 text-left text-[20px] font-normal transition-colors',
+                          // Активный пункт — светло-синяя заливка и полоса
+                          // слева (UzUsta Operations): синий значит
+                          // «выбрано», а не бренд-акцент продукта.
                           active
-                            ? 'bg-[#e1261c]/[0.06] font-semibold text-[#111]'
-                            : 'text-[#6f8095] hover:bg-[#fafafa]'
+                            ? 'bg-ac-bg font-semibold text-ac shadow-[inset_2px_0_0_var(--accent)]'
+                            : 'text-g70 hover:bg-g5'
                         )}
                       >
-                        <span className={cn(active ? 'text-[#111]' : 'text-[#bcbcbc]')}>{item.icon}</span>
+                        <span className={cn(active ? 'text-ac' : 'text-g40')}>{item.icon}</span>
                         <span className="flex-1">{t(item.labelKey)}</span>
                       </Link>
                     );
@@ -238,20 +238,20 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
         </nav>
 
         {/* Bottom */}
-        <div className="mt-auto border-t border-[#eeeeee] px-3 pt-4 space-y-4">
+        <div className="mt-auto border-t border-g20 px-3 pt-4 space-y-4">
           <LanguageSwitcher />
           <div className="flex items-center gap-3 px-1">
-            <div className="grid size-10 place-items-center rounded-full bg-[#f3dcd8] text-xs font-bold text-[#7c3f36] flex-shrink-0">
+            <div className="grid size-10 place-items-center rounded-full bg-g10 border border-g30 text-xs font-bold text-g70 flex-shrink-0">
               {initials}
             </div>
             <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-bold text-[#111]">{user.name}</p>
-              <p className="text-xs text-[#9a8584]">{t(`common.roles.${user.role}`)}</p>
+              <p className="truncate text-sm font-bold text-g90">{user.name}</p>
+              <p className="text-xs text-g60">{t(`common.roles.${user.role}`)}</p>
             </div>
             <button
               onClick={logout}
               aria-label="Выйти"
-              className="text-[#bcbcbc] hover:text-[#111] transition-colors"
+              className="text-g40 hover:text-g90 transition-colors"
             >
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                 <path d="M7 16H3a1 1 0 01-1-1V3a1 1 0 011-1h4M12 13l4-4-4-4M16 9H7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

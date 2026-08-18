@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -20,14 +20,14 @@ const CATEGORIES = ['Кредитование', 'Гарантии', 'Расчё�
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <label className="block text-[11px] font-bold uppercase tracking-wider text-[#999] mb-1.5">{label}</label>
+      <label className="block text-[11px] font-bold uppercase tracking-wider text-g60 mb-1.5">{label}</label>
       {children}
     </div>
   );
 }
 
 function Input(props: React.InputHTMLAttributes<HTMLInputElement>) {
-  return <input {...props} className="w-full h-11 rounded-xl bg-[#f5f5f5] px-4 text-sm outline-none placeholder:text-[#bbb] focus:bg-[#efefef] transition-colors" />;
+  return <input {...props} className="w-full h-11 rounded-xl bg-g10 px-4 text-sm outline-none placeholder:text-g40 focus:bg-g10 transition-colors" />;
 }
 
 function Modal({ title, onClose, children }: { title: string; onClose: () => void; children: React.ReactNode }) {
@@ -37,7 +37,7 @@ function Modal({ title, onClose, children }: { title: string; onClose: () => voi
       <div className="relative bg-white rounded-2xl shadow-xl w-full max-w-md p-6" onClick={e => e.stopPropagation()}>
         <div className="flex items-center justify-between mb-5">
           <h3 className="text-lg font-semibold">{title}</h3>
-          <button onClick={onClose} className="text-[#aaa] hover:text-[#333]">
+          <button onClick={onClose} className="text-g60 hover:text-g80">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
               <path d="M5 5l10 10M15 5L5 15" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
             </svg>
@@ -107,9 +107,9 @@ export default function ProductCatalogPage() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-[clamp(42px,5vw,72px)] font-semibold leading-none tracking-[-0.08em]">Каталог продуктов</h1>
-          <p className="mt-4 text-base text-[#aaa]">Список банковских продуктов, доступных для добавления клиентам</p>
+          <p className="mt-4 text-base text-g60">Список банковских продуктов, доступных для добавления клиентам</p>
         </div>
-        <button onClick={() => setModal('add')} className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#111] text-white text-sm font-medium hover:bg-[#333] transition-colors">
+        <button onClick={() => setModal('add')} className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-g90 text-white text-sm font-medium hover:bg-g80 transition-colors">
           <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
             <path d="M6.5 1v11M1 6.5h11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
           </svg>
@@ -122,7 +122,7 @@ export default function ProductCatalogPage() {
           placeholder="Поиск по названию или категории..."
           value={filter}
           onChange={e => setFilter(e.target.value)}
-          className="w-full max-w-sm h-11 rounded-xl bg-[#f5f5f5] px-4 text-sm outline-none placeholder:text-[#bbb]"
+          className="w-full max-w-sm h-11 rounded-xl bg-g10 px-4 text-sm outline-none placeholder:text-g40"
         />
       </div>
 
@@ -134,7 +134,7 @@ export default function ProductCatalogPage() {
         <div className="space-y-6">
           {Object.entries(byCategory).map(([cat, catItems]) => (
             <div key={cat}>
-              <h2 className="text-[11px] font-bold uppercase tracking-widest text-[#aaa] mb-2 px-1">{cat}</h2>
+              <h2 className="text-[11px] font-bold uppercase tracking-widest text-g60 mb-2 px-1">{cat}</h2>
               <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
                 {catItems.map((item, idx) => (
                   <div key={item.id} className={cn('flex items-center gap-4 px-5 py-4 group', idx < catItems.length - 1 && 'border-b border-gray-100')}>
@@ -147,16 +147,16 @@ export default function ProductCatalogPage() {
                     <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                       <button
                         onClick={() => toggleMut.mutate({ id: item.id, is_active: item.is_active ? 0 : 1 })}
-                        className="text-xs px-3 h-7 rounded-lg border border-[#e5e7eb] text-[#555] hover:border-[#999] transition-colors"
+                        className="text-xs px-3 h-7 rounded-lg border border-g30 text-g80 hover:border-g60 transition-colors"
                       >
                         {item.is_active ? 'Скрыть' : 'Показать'}
                       </button>
-                      <button onClick={() => setModal({ item })} className="text-xs px-3 h-7 rounded-lg border border-[#e5e7eb] text-[#555] hover:border-[#999] transition-colors">
+                      <button onClick={() => setModal({ item })} className="text-xs px-3 h-7 rounded-lg border border-g30 text-g80 hover:border-g60 transition-colors">
                         Изменить
                       </button>
                       <button
                         onClick={() => { if (confirm(`Удалить "${item.name}"?`)) delMut.mutate(item.id); }}
-                        className="text-xs px-3 h-7 rounded-lg border border-[#e5e7eb] text-red-500 hover:border-red-300 transition-colors"
+                        className="text-xs px-3 h-7 rounded-lg border border-g30 text-red-500 hover:border-red-300 transition-colors"
                       >
                         Удалить
                       </button>
@@ -198,7 +198,7 @@ function ItemModal({
         <Field label="Название *"><Input placeholder="Кредитная линия" value={form.name} onChange={e => set('name', e.target.value)} /></Field>
         <Field label="Категория">
           <select value={form.category} onChange={e => set('category', e.target.value)}
-            className="w-full h-10 rounded-xl bg-[#f5f5f5] px-4 text-sm outline-none appearance-none cursor-pointer">
+            className="w-full h-10 rounded-xl bg-g10 px-4 text-sm outline-none appearance-none cursor-pointer">
             <option value="">— Выберите категорию —</option>
             {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
           </select>
@@ -206,15 +206,15 @@ function ItemModal({
         <Field label="Описание">
           <textarea value={form.description} onChange={e => set('description', e.target.value)}
             placeholder="Краткое описание продукта..." rows={2}
-            className="w-full rounded-xl bg-[#f5f5f5] px-4 py-2.5 text-sm outline-none placeholder:text-[#bbb] focus:bg-[#efefef] resize-none" />
+            className="w-full rounded-xl bg-g10 px-4 py-2.5 text-sm outline-none placeholder:text-g40 focus:bg-g10 resize-none" />
         </Field>
         <Field label="Порядок сортировки"><Input type="number" value={form.sort_order} onChange={e => set('sort_order', e.target.value)} /></Field>
         {error && <p className="text-sm text-red-500">{error}</p>}
         <div className="flex gap-3 pt-1">
-          <button onClick={onClose} className="flex-1 h-11 rounded-full border border-[#e5e7eb] text-sm font-medium text-[#555] hover:bg-[#f9fafb] transition-colors">Отмена</button>
+          <button onClick={onClose} className="flex-1 h-11 rounded-full border border-g30 text-sm font-medium text-g80 hover:bg-g5 transition-colors">Отмена</button>
           <button disabled={pending}
             onClick={() => { if (!form.name.trim()) { setError('Введите название'); return; } onSave({ ...form, sort_order: Number(form.sort_order) as unknown as number }); }}
-            className="flex-1 h-11 rounded-full bg-[#111] text-white text-sm font-medium hover:bg-[#333] disabled:opacity-40 transition-colors">
+            className="flex-1 h-11 rounded-full bg-g90 text-white text-sm font-medium hover:bg-g80 disabled:opacity-40 transition-colors">
             {pending ? 'Сохранение...' : 'Сохранить'}
           </button>
         </div>

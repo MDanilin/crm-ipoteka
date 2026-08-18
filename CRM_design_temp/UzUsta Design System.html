@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>UzUsta — Design System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #f4f5f1;
+      --card: #fff;
+      --ink: #0e1a18;
+      --ink2: #2a3936;
+      --ink3: #5a6864;
+      --inkMute: #8a9591;
+      --line: rgba(14,26,24,0.08);
+      --lineStrong: rgba(14,26,24,0.14);
+      --accent: #ff6b35;
+      --accentDeep: #d94d1a;
+      --accent2: #ffb547;
+      --emerald: #1f9d6e;
+      --emeraldSoft: #e3f5ec;
+      --sky: #4a90e2;
+      --skySoft: #e8f0fb;
+      --pink: #ff8fa3;
+      --pinkSoft: #ffe4ea;
+      --gold: #ffc94a;
+      --serif: 'Manrope', 'Inter', system-ui, sans-serif;
+      --sans: 'Inter', -apple-system, system-ui, sans-serif;
+      --mono: 'JetBrains Mono', ui-monospace, monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background: var(--bg); color: var(--ink);
+      font-family: var(--sans); font-size: 14px; line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background:
+        radial-gradient(900px 500px at 15% 10%, rgba(255,107,53,0.05), transparent 60%),
+        radial-gradient(900px 500px at 85% 90%, rgba(31,157,110,0.04), transparent 60%);
+      pointer-events: none; z-index: 0;
+    }
+
+    .container { max-width: 1280px; margin: 0 auto; padding: 64px 40px; position: relative; z-index: 1; }
+
+    /* Header */
+    .ds-head {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      padding-bottom: 32px; border-bottom: 1px solid var(--line); margin-bottom: 56px;
+    }
+    .ds-head h1 {
+      font-family: var(--serif); font-size: 64px; font-weight: 700;
+      letter-spacing: -0.04em; line-height: 1.0;
+    }
+    .ds-head h1 em { font-style: normal; font-weight: 300; color: var(--accent); }
+    .ds-head .meta {
+      font-family: var(--mono); font-size: 11px; color: var(--ink3);
+      letter-spacing: 0.14em; text-transform: uppercase; max-width: 280px; text-align: right; line-height: 1.5;
+    }
+
+    /* Section */
+    .ds-sec { margin-bottom: 96px; }
+    .ds-sec-head {
+      display: grid; grid-template-columns: 200px 1fr; gap: 40px;
+      margin-bottom: 32px; align-items: baseline;
+    }
+    .ds-sec-num {
+      font-family: var(--mono); font-size: 12px; color: var(--ink3);
+      letter-spacing: 0.14em; text-transform: uppercase;
+    }
+    .ds-sec-num span {
+      display: inline-block; width: 6px; height: 6px; border-radius: 6px;
+      background: var(--accent); margin-right: 8px; vertical-align: 2px;
+    }
+    .ds-sec-head h2 {
+      font-family: var(--serif); font-size: 32px; font-weight: 700;
+      letter-spacing: -0.035em; line-height: 1.05;
+    }
+    .ds-sec-head h2 em { font-style: normal; font-weight: 300; color: var(--accent); }
+    .ds-sec-head p { font-size: 15px; color: var(--ink3); margin-top: 8px; max-width: 560px; line-height: 1.5; }
+
+    /* Card */
+    .card {
+      background: var(--card); border-radius: 18px; padding: 24px;
+      border: 1px solid var(--line);
+    }
+
+    /* Color swatches */
+    .palette { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .swatch {
+      background: var(--card); border-radius: 16px; overflow: hidden;
+      border: 1px solid var(--line);
+    }
+    .swatch-color { height: 100px; }
+    .swatch-info { padding: 14px 16px; }
+    .swatch-name { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+    .swatch-hex { font-family: var(--mono); font-size: 11px; color: var(--ink3); letter-spacing: 0.04em; }
+    .swatch-token { font-family: var(--mono); font-size: 10px; color: var(--inkMute); margin-top: 2px; }
+
+    /* Type scale */
+    .type-row {
+      display: grid; grid-template-columns: 200px 1fr 200px;
+      align-items: baseline; padding: 24px 0; border-bottom: 1px solid var(--line);
+      gap: 24px;
+    }
+    .type-row:last-child { border-bottom: none; }
+    .type-label { font-family: var(--mono); font-size: 11px; color: var(--ink3); letter-spacing: 0.12em; text-transform: uppercase; }
+    .type-meta { font-family: var(--mono); font-size: 11px; color: var(--inkMute); text-align: right; }
+
+    /* Component grid */
+    .comp-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .comp-card {
+      background: var(--card); border-radius: 18px; border: 1px solid var(--line);
+      padding: 28px; display: flex; flex-direction: column; gap: 20px;
+    }
+    .comp-card-label {
+      font-family: var(--mono); font-size: 10px; color: var(--ink3);
+      letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .comp-card-stage {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      gap: 14px; flex-wrap: wrap; padding: 16px 0;
+    }
+    .comp-card h3 {
+      font-family: var(--serif); font-size: 20px; font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    .comp-card p { font-size: 13px; color: var(--ink3); line-height: 1.4; margin-top: 4px; }
+
+    /* Live components */
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 12px 22px; border-radius: 14px;
+      font-family: var(--sans); font-size: 14px; font-weight: 600;
+      border: none; cursor: pointer; letter-spacing: -0.01em;
+    }
+    .btn-primary { background: var(--ink); color: #fff; }
+    .btn-accent { background: var(--accent); color: #fff; }
+    .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+    .btn-pill { background: var(--ink); color: #fff; padding: 10px 18px; border-radius: 999px; font-size: 13px; }
+
+    .chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 12px; border-radius: 999px;
+      font-size: 12px; font-weight: 500;
+    }
+
+    .input {
+      display: flex; align-items: center; gap: 10px; padding: 12px 14px;
+      background: var(--card); border-radius: 14px; border: 1px solid var(--line);
+      width: 100%; max-width: 320px;
+    }
+
+    .avatar {
+      width: 44px; height: 44px; border-radius: 44px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 600; font-size: 15px;
+    }
+
+    .list-row {
+      display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+      background: var(--card); border-radius: 16px; border: 1px solid var(--line);
+      width: 100%; max-width: 360px;
+    }
+    .list-icon {
+      width: 38px; height: 38px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0;
+    }
+    .list-row .meta { flex: 1; }
+    .list-row .title { font-size: 14px; font-weight: 600; color: var(--ink); }
+    .list-row .sub { font-size: 12px; color: var(--ink3); margin-top: 2px; }
+
+    .icon-grid {
+      display: grid; grid-template-columns: repeat(8, 1fr); gap: 12px;
+    }
+    .icon-cell {
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      padding: 16px 8px; background: var(--card); border-radius: 14px; border: 1px solid var(--line);
+    }
+    .icon-cell-label {
+      font-family: var(--mono); font-size: 10px; color: var(--ink3);
+    }
+
+    .spacing-row { display: flex; align-items: center; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+    .spacing-row:last-child { border-bottom: none; }
+    .spacing-token { font-family: var(--mono); font-size: 12px; color: var(--ink2); width: 90px; }
+    .spacing-bar { height: 14px; background: var(--accent); border-radius: 4px; }
+    .spacing-px { font-family: var(--mono); font-size: 11px; color: var(--inkMute); margin-left: auto; }
+
+    .radius-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+    .radius-card {
+      background: var(--card); border: 1px solid var(--line); padding: 20px;
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+    }
+    .radius-shape { width: 60px; height: 60px; background: var(--accent); }
+    .radius-label { font-family: var(--mono); font-size: 11px; color: var(--ink3); }
+    .radius-px { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--ink); }
+
+    /* Footer note */
+    .ds-foot {
+      margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--line);
+      display: flex; justify-content: space-between; gap: 40px;
+      font-family: var(--mono); font-size: 11px; color: var(--ink3);
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- HEAD -->
+    <header class="ds-head">
+      <div>
+        <div style="font-family: var(--mono); font-size: 11px; color: var(--ink3); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 16px;">
+          <span style="display:inline-block; width:6px; height:6px; border-radius:6px; background: var(--accent); margin-right: 8px; vertical-align: 2px;"></span>
+          Design System v1.0
+        </div>
+        <h1>Uz<em>Usta</em> — <em>design system</em></h1>
+        <p style="font-size: 16px; color: var(--ink3); max-width: 520px; margin-top: 16px; line-height: 1.5;">
+          Цвета, типографика, компоненты и принципы для приложения и лендинга. Передача в разработку.
+        </p>
+      </div>
+      <div class="meta">
+        Tashkent, 2026<br/>
+        Mobile-first<br/>
+        iOS 26 / Material 3
+      </div>
+    </header>
+
+    <!-- COLORS -->
+    <section class="ds-sec">
+      <div class="ds-sec-head">
+        <div class="ds-sec-num"><span></span>01 / Color</div>
+        <div>
+          <h2>Палитра <em>UzUsta</em></h2>
+          <p>Тёплая, человечная, премиальная. Мандарин — для действия и акцентов, изумруд — для безопасности, чернила — для иерархии.</p>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 16px;">
+        <div style="font-family: var(--mono); font-size: 10px; color: var(--ink3); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px;">Brand</div>
+        <div class="palette">
+          <div class="swatch"><div class="swatch-color" style="background: #ff6b35;"></div><div class="swatch-info"><div class="swatch-name">Mandarin</div><div class="swatch-hex">#FF6B35</div><div class="swatch-token">--accent</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background: #d94d1a;"></div><div class="swatch-info"><div class="swatch-name">Mandarin Deep</div><div class="swatch-hex">#D94D1A</div><div class="swatch-token">--accent-deep</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background: #ffb547;"></div><div class="swatch-info"><div class="swatch-name">Amber</div><div class="swatch-hex">#FFB547</div><div class="swatch-token">--accent-2</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background: #ffc94a;"></div><div class="swatch-info"><div class="swatch-name">Gold</div><div class="swatch-hex">#FFC94A</div><div class="swatch-token">--gold</div></div></div>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 16px;">
+        <div style="font-family: var(--mono); font-size: 10px; color: var(--ink3); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px;">Ink (text & surfaces)</div>
+        <div class="palette">
+          <div class="swatch"><div class="swatch-color" style="background: #0e1a18;"></div><div class="swatch-info"><div class="swatch-name">Ink</div><div class="swatch-hex">#0E1A18</div><div class="swatch-token">--ink</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background: #2a3936;"></div><div class="swatch-info"><div class="swatch-name">Ink-2</div><div class="swatch-hex">#2A3936</div><div class="swatch-token">--ink-2</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background: #5a6864;"></div><div class="swatch-info"><div class="swatch-name">Ink-3</div><div class="swatch-hex">#5A6864</div><div class="swatch-token">--ink-3</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background: #f4f5f1; box-shadow: inset 0 0 0 1px var(--line);"></div><div class="swatch-info"><div class="swatch-name">Background</div><div class="swatch-hex">#F4F5F1</div><div class="swatch-token">--bg</div></div></div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-family: var(--mono); font-size: 10px; color: var(--ink3); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px;">Semantic</div>
+        <div class="palette">
+          <div class="swatch"><div class="swatch-color" style="background: #1f9d6e;"></div><div class="swatch-info"><div class="swatch-name">Emerald (safe / verified)</div><div class="swatch-hex">#1F9D6E</div><div class="swatch-token">--emerald</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background: #4a90e2;"></div><div class="swatch-info"><div class="swatch-name">Sky (info)</div><div class="swatch-hex">#4A90E2</div><div class="swatch-token">--sky</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background: #ff8fa3;"></div><div class="swatch-info"><div class="swatch-name">Pink (delete / care)</div><div class="swatch-hex">#FF8FA3</div><div class="swatch-token">--pink</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background: #e3f5ec;"></div><div class="swatch-info"><div class="swatch-name">Soft tint base</div><div class="swatch-hex">#E3F5EC</div><div class="swatch-token">--*-soft</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TYPOGRAPHY -->
+    <section class="ds-sec">
+      <div class="ds-sec-head">
+        <div class="ds-sec-num"><span></span>02 / Type</div>
+        <div>
+          <h2>Типографика <em>две гарнитуры</em></h2>
+          <p>Manrope для заголовков и сумм — округлый, цифровой, дружелюбный. Inter для UI-текста — нейтральная читаемость. JetBrains Mono для меток и таблиц.</p>
+        </div>
+      </div>
+
+      <!-- Manrope specimen -->
+      <div class="card" style="padding: 32px; margin-bottom: 16px; display: grid; grid-template-columns: 240px 1fr; gap: 32px; align-items: center;">
+        <div>
+          <div style="font-family: var(--mono); font-size: 10px; color: var(--ink3); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px;">Display typeface</div>
+          <div style="font-family: var(--serif); font-size: 56px; font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: var(--ink);">Manrope</div>
+          <div style="font-family: var(--mono); font-size: 11px; color: var(--ink3); margin-top: 12px; letter-spacing: 0.04em;">200 / 300 / 400 / 500 / 600 / 700 / 800</div>
+          <div style="font-family: var(--mono); font-size: 10px; color: var(--inkMute); margin-top: 6px;">Open-source · Google Fonts</div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div style="font-family: var(--serif); font-size: 38px; font-weight: 200; letter-spacing: -0.03em; line-height: 1.05; color: var(--ink);">Скруглённый</div>
+          <div style="font-family: var(--serif); font-size: 38px; font-weight: 400; letter-spacing: -0.03em; line-height: 1.05; color: var(--ink);">диджитальный</div>
+          <div style="font-family: var(--serif); font-size: 38px; font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; color: var(--ink);">человечный</div>
+          <div style="font-family: var(--serif); font-size: 38px; font-weight: 800; letter-spacing: -0.04em; line-height: 1.05; color: var(--accent);">UzUsta — 2026</div>
+        </div>
+      </div>
+
+      <div class="card" style="padding: 0 24px;">
+        <div class="type-row">
+          <div class="type-label">Display / Hero</div>
+          <div style="font-family: var(--serif); font-size: 56px; font-weight: 700; letter-spacing: -0.04em; line-height: 1.0;">
+            Найдите мастера <em style="font-style: normal; font-weight: 300; color: var(--accent);">за 2 минуты</em>
+          </div>
+          <div class="type-meta">Manrope 700 / 300<br/>56–84px · -4%</div>
+        </div>
+        <div class="type-row">
+          <div class="type-label">Title L</div>
+          <div style="font-family: var(--serif); font-size: 32px; font-weight: 700; letter-spacing: -0.035em;">Что починим сегодня?</div>
+          <div class="type-meta">Manrope 700 · 32px</div>
+        </div>
+        <div class="type-row">
+          <div class="type-label">Title M</div>
+          <div style="font-family: var(--serif); font-size: 22px; font-weight: 700; letter-spacing: -0.03em;">Популярные категории</div>
+          <div class="type-meta">Manrope 700 · 22px</div>
+        </div>
+        <div class="type-row">
+          <div class="type-label">Body L</div>
+          <div style="font-family: var(--sans); font-size: 16px; line-height: 1.5;">Сантехники, электрики, уборка, ремонт — у вас под рукой.</div>
+          <div class="type-meta">Inter 400 · 16/24</div>
+        </div>
+        <div class="type-row">
+          <div class="type-label">Body / UI</div>
+          <div style="font-family: var(--sans); font-size: 14px; font-weight: 500;">Алишер Каримов · Сантехник, 7 лет</div>
+          <div class="type-meta">Inter 500 · 14/20</div>
+        </div>
+        <div class="type-row">
+          <div class="type-label">Caption</div>
+          <div style="font-family: var(--sans); font-size: 12px; color: var(--ink3);">312 заказов · приедет за 18 мин</div>
+          <div class="type-meta">Inter 400 · 12/16</div>
+        </div>
+        <div class="type-row">
+          <div class="type-label">Mono / label</div>
+          <div style="font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink3);">приедет за · 18 мин</div>
+          <div class="type-meta">JetBrains 500 · 11px / 0.14em</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SPACING & RADII -->
+    <section class="ds-sec">
+      <div class="ds-sec-head">
+        <div class="ds-sec-num"><span></span>03 / Space & shape</div>
+        <div>
+          <h2>Шкалы и <em>радиусы</em></h2>
+          <p>Геометрический шаг 4px. Радиусы 14 / 18 / 26 — листы, карточки, экраны. iPhone-фрейм 48px.</p>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+        <div class="card">
+          <div style="font-family: var(--mono); font-size: 10px; color: var(--ink3); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px;">Spacing scale</div>
+          <div class="spacing-row"><span class="spacing-token">--space-1</span><span class="spacing-bar" style="width: 4px;"></span><span class="spacing-px">4px</span></div>
+          <div class="spacing-row"><span class="spacing-token">--space-2</span><span class="spacing-bar" style="width: 8px;"></span><span class="spacing-px">8px</span></div>
+          <div class="spacing-row"><span class="spacing-token">--space-3</span><span class="spacing-bar" style="width: 12px;"></span><span class="spacing-px">12px</span></div>
+          <div class="spacing-row"><span class="spacing-token">--space-4</span><span class="spacing-bar" style="width: 16px;"></span><span class="spacing-px">16px</span></div>
+          <div class="spacing-row"><span class="spacing-token">--space-5</span><span class="spacing-bar" style="width: 20px;"></span><span class="spacing-px">20px</span></div>
+          <div class="spacing-row"><span class="spacing-token">--space-6</span><span class="spacing-bar" style="width: 24px;"></span><span class="spacing-px">24px</span></div>
+          <div class="spacing-row"><span class="spacing-token">--space-8</span><span class="spacing-bar" style="width: 32px;"></span><span class="spacing-px">32px</span></div>
+        </div>
+        <div class="card">
+          <div style="font-family: var(--mono); font-size: 10px; color: var(--ink3); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px;">Radii</div>
+          <div class="radius-grid">
+            <div class="radius-card"><div class="radius-shape" style="border-radius: 8px;"></div><div class="radius-label">--r-sm</div><div class="radius-px">8</div></div>
+            <div class="radius-card"><div class="radius-shape" style="border-radius: 14px;"></div><div class="radius-label">--r-md</div><div class="radius-px">14</div></div>
+            <div class="radius-card"><div class="radius-shape" style="border-radius: 18px;"></div><div class="radius-label">--r-lg</div><div class="radius-px">18</div></div>
+            <div class="radius-card"><div class="radius-shape" style="border-radius: 26px;"></div><div class="radius-label">--r-xl</div><div class="radius-px">26</div></div>
+            <div class="radius-card"><div class="radius-shape" style="border-radius: 999px;"></div><div class="radius-label">--r-full</div><div class="radius-px">999</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPONENTS -->
+    <section class="ds-sec">
+      <div class="ds-sec-head">
+        <div class="ds-sec-num"><span></span>04 / Components</div>
+        <div>
+          <h2>Базовые <em>компоненты</em></h2>
+          <p>Атомы и молекулы, из которых собраны экраны. Состояния — hover/active/disabled — строятся опасчиванием цвета без чёрной обводки.</p>
+        </div>
+      </div>
+
+      <div class="comp-grid">
+        <!-- Buttons -->
+        <div class="comp-card">
+          <div>
+            <div class="comp-card-label">Buttons</div>
+            <h3 style="margin-top: 8px;">Кнопки</h3>
+            <p>Primary — основное действие на экране. Accent — позитивные конверсии. Ghost — второстепенные.</p>
+          </div>
+          <div class="comp-card-stage">
+            <button class="btn btn-primary">Подтвердить</button>
+            <button class="btn btn-accent">Опубликовать заказ</button>
+            <button class="btn btn-ghost">Отмена</button>
+            <button class="btn btn-pill">Откликнуться</button>
+          </div>
+        </div>
+
+        <!-- Chips -->
+        <div class="comp-card">
+          <div>
+            <div class="comp-card-label">Chips & tags</div>
+            <h3 style="margin-top: 8px;">Чипы</h3>
+            <p>Метаданные, статусы, фильтры. Цветовые пары: фон-soft + контентный цвет.</p>
+          </div>
+          <div class="comp-card-stage">
+            <span class="chip" style="background: #e3f5ec; color: #1f9d6e;">✓ Верифицирован</span>
+            <span class="chip" style="background: rgba(255,201,74,0.2); color: var(--ink);">★ Топ-рейтинг</span>
+            <span class="chip" style="background: var(--accent); color: #fff;">⚡ Срочный</span>
+            <span class="chip" style="background: #ffe4ea; color: #ff8fa3;">Отменён</span>
+            <span class="chip" style="background: #f4f5f1; color: var(--ink2);">312 заказов</span>
+          </div>
+        </div>
+
+        <!-- Inputs -->
+        <div class="comp-card">
+          <div>
+            <div class="comp-card-label">Input</div>
+            <h3 style="margin-top: 8px;">Поля ввода</h3>
+            <p>Поиск всегда с микрофонной кнопкой — ИИ-ввод приоритетный.</p>
+          </div>
+          <div class="comp-card-stage" style="flex-direction: column; align-items: stretch;">
+            <div class="input">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#5a6864" stroke-width="1.6"/><path d="M16 16l4 4" stroke="#5a6864" stroke-width="1.6" stroke-linecap="round"/></svg>
+              <span style="flex: 1; color: var(--inkMute); font-size: 14px;">Опишите задачу или скажите голосом</span>
+              <div style="width: 28px; height: 28px; border-radius: 28px; background: var(--accent); display: flex; align-items: center; justify-content: center;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="9" y="3" width="6" height="11" rx="3" stroke="#fff" stroke-width="1.6"/><path d="M5 11a7 7 0 0014 0M12 18v3" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>
+              </div>
+            </div>
+            <div class="input" style="border: 2px solid var(--accent);">
+              <span style="flex: 1; color: var(--ink); font-size: 14px;">+998 90 123 45 67</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Avatars -->
+        <div class="comp-card">
+          <div>
+            <div class="comp-card-label">Avatar</div>
+            <h3 style="margin-top: 8px;">Аватары</h3>
+            <p>Инициалы — на фирменных цветах. Размеры 32 / 44 / 56 / 88.</p>
+          </div>
+          <div class="comp-card-stage">
+            <div class="avatar" style="background: var(--accent);">АК</div>
+            <div class="avatar" style="background: var(--emerald);">ДМ</div>
+            <div class="avatar" style="background: var(--sky);">ЗА</div>
+            <div class="avatar" style="background: var(--gold); color: var(--ink);">МД</div>
+            <div class="avatar" style="background: var(--pink); color: var(--ink);">БС</div>
+            <div class="avatar" style="width: 56px; height: 56px; font-size: 19px; background: var(--accent2); color: var(--ink);">АК</div>
+          </div>
+        </div>
+
+        <!-- List rows -->
+        <div class="comp-card">
+          <div>
+            <div class="comp-card-label">List row</div>
+            <h3 style="margin-top: 8px;">Строки списка</h3>
+            <p>Иконка-плашка слева, мета-чипы под заголовком, цена справа.</p>
+          </div>
+          <div class="comp-card-stage" style="flex-direction: column;">
+            <div class="list-row">
+              <div class="list-icon" style="background: var(--skySoft);">🔧</div>
+              <div class="meta">
+                <div class="title">Сантехника · Алишер К.</div>
+                <div class="sub">Замена крана</div>
+              </div>
+              <div style="text-align: right;">
+                <div style="font-family: var(--serif); font-size: 14px; font-weight: 600;">200 000</div>
+                <div style="font-size: 10px; color: var(--inkMute);">сум</div>
+              </div>
+            </div>
+            <div class="list-row">
+              <div class="list-icon" style="background: var(--emeraldSoft);">🧽</div>
+              <div class="meta">
+                <div class="title">Уборка · Зухра А.</div>
+                <div class="sub">Генеральная уборка</div>
+              </div>
+              <span class="chip" style="background: #e3f5ec; color: #1f9d6e;">Готов</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cards -->
+        <div class="comp-card">
+          <div>
+            <div class="comp-card-label">Hero card</div>
+            <h3 style="margin-top: 8px;">Карточки-герои</h3>
+            <p>Тёмная — для срочности. Градиент мандарина — для AI и выручки.</p>
+          </div>
+          <div class="comp-card-stage" style="gap: 8px;">
+            <div style="padding: 14px; border-radius: 18px; background: var(--ink); color: #fff; min-width: 150px; min-height: 110px; display: flex; flex-direction: column; justify-content: space-between;">
+              <span style="font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; color: var(--gold); text-transform: uppercase;">⚡ 30 мин</span>
+              <div>
+                <div style="font-family: var(--serif); font-size: 18px;">Срочный вызов</div>
+                <div style="font-size: 11px; opacity: 0.6; margin-top: 2px;">Мастер за 30 минут</div>
+              </div>
+            </div>
+            <div style="padding: 14px; border-radius: 18px; background: linear-gradient(135deg, var(--accent2) 0%, var(--accent) 100%); color: #fff; min-width: 150px; min-height: 110px; display: flex; flex-direction: column; justify-content: space-between;">
+              <span style="font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;">✨ AI</span>
+              <div>
+                <div style="font-family: var(--serif); font-size: 18px;">AI-помощник</div>
+                <div style="font-size: 11px; opacity: 0.85; margin-top: 2px;">Опишите голосом или фото</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ICONS -->
+    <section class="ds-sec">
+      <div class="ds-sec-head">
+        <div class="ds-sec-num"><span></span>05 / Iconography</div>
+        <div>
+          <h2>Иконки <em>monoline</em></h2>
+          <p>Stroke 1.6 · 24×24 viewBox · скруглённые концы. Эмодзи допустимы только для категорий.</p>
+        </div>
+      </div>
+
+      <div class="icon-grid">
+        <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#0e1a18" stroke-width="1.6"/><path d="M16 16l4 4" stroke="#0e1a18" stroke-width="1.6" stroke-linecap="round"/></svg><span class="icon-cell-label">search</span></div>
+        <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="9" y="3" width="6" height="11" rx="3" stroke="#0e1a18" stroke-width="1.6"/><path d="M5 11a7 7 0 0014 0M12 18v3" stroke="#0e1a18" stroke-width="1.6" stroke-linecap="round"/></svg><span class="icon-cell-label">mic</span></div>
+        <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 9a6 6 0 0112 0c0 5 2 6 2 6H4s2-1 2-6zM10 19a2 2 0 004 0" stroke="#0e1a18" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="icon-cell-label">bell</span></div>
+        <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 22s7-7.5 7-13a7 7 0 10-14 0c0 5.5 7 13 7 13z" stroke="#0e1a18" stroke-width="1.6"/><circle cx="12" cy="9" r="2.5" stroke="#0e1a18" stroke-width="1.6"/></svg><span class="icon-cell-label">pin</span></div>
+        <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="#ffc94a" stroke="#ffc94a" stroke-width="1.4"><path d="M12 3l2.5 6 6.5.6-5 4.4 1.6 6.5L12 17l-5.6 3.5L8 14 3 9.6 9.5 9 12 3z" stroke-linejoin="round"/></svg><span class="icon-cell-label">star</span></div>
+        <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6l8-3z" stroke="#1f9d6e" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#1f9d6e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="icon-cell-label">shield</span></div>
+        <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#0e1a18" stroke-width="1.6"/><path d="M12 7v5l3 2" stroke="#0e1a18" stroke-width="1.6" stroke-linecap="round"/></svg><span class="icon-cell-label">clock</span></div>
+        <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="#ff6b35"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg><span class="icon-cell-label">bolt</span></div>
+        <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A15 15 0 013 6a2 2 0 012-2z" stroke="#0e1a18" stroke-width="1.6" stroke-linejoin="round"/></svg><span class="icon-cell-label">phone</span></div>
+        <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 5h16v11H8l-4 4V5z" stroke="#0e1a18" stroke-width="1.6" stroke-linejoin="round"/></svg><span class="icon-cell-label">chat</span></div>
+        <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#0e1a18" stroke-width="1.6"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7" stroke="#0e1a18" stroke-width="1.6" stroke-linecap="round"/></svg><span class="icon-cell-label">user</span></div>
+        <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="#0e1a18" stroke-width="1.6"/><path d="M3 9h18" stroke="#0e1a18" stroke-width="1.6"/></svg><span class="icon-cell-label">wallet</span></div>
+        <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="14" rx="3" stroke="#0e1a18" stroke-width="1.6"/><circle cx="12" cy="13" r="3.5" stroke="#0e1a18" stroke-width="1.6"/><path d="M8 6l1.5-2h5L16 6" stroke="#0e1a18" stroke-width="1.6" stroke-linejoin="round"/></svg><span class="icon-cell-label">camera</span></div>
+        <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 11l8-7 8 7v9a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1v-9z" stroke="#0e1a18" stroke-width="1.6" stroke-linejoin="round"/></svg><span class="icon-cell-label">home</span></div>
+        <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h10" stroke="#0e1a18" stroke-width="1.6" stroke-linecap="round"/></svg><span class="icon-cell-label">list</span></div>
+        <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#0e1a18" stroke-width="1.8" stroke-linecap="round"/></svg><span class="icon-cell-label">plus</span></div>
+      </div>
+    </section>
+
+    <!-- PRINCIPLES -->
+    <section class="ds-sec">
+      <div class="ds-sec-head">
+        <div class="ds-sec-num"><span></span>06 / Principles</div>
+        <div>
+          <h2>Принципы <em>визуального языка</em></h2>
+          <p>Шесть правил, которым подчиняются все экраны.</p>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+        <div class="card" style="padding: 28px;">
+          <div style="font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px;">01 · Воздух</div>
+          <h3 style="font-family: var(--serif); font-size: 22px; font-weight: 700; letter-spacing: -0.03em;">Дыхание<br/>важнее плотности</h3>
+          <p style="margin-top: 12px; font-size: 13px; color: var(--ink3); line-height: 1.5;">Большие отступы (20–24px между блоками), щедрые радиусы. Никогда не упирать текст в край.</p>
+        </div>
+        <div class="card" style="padding: 28px;">
+          <div style="font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px;">02 · Тёплый акцент</div>
+          <h3 style="font-family: var(--serif); font-size: 22px; font-weight: 700; letter-spacing: -0.03em;">Мандарин — для<br/><em style="font-style: normal; font-weight: 300; color: var(--accent);">действия</em></h3>
+          <p style="margin-top: 12px; font-size: 13px; color: var(--ink3); line-height: 1.5;">Один акцентный цвет на экран. Используем его в CTA, активном состоянии, индикаторах прогресса.</p>
+        </div>
+        <div class="card" style="padding: 28px;">
+          <div style="font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px;">03 · Контраст веса</div>
+          <h3 style="font-family: var(--serif); font-size: 22px; font-weight: 700; letter-spacing: -0.03em;">Bold + <em style="font-style: normal; font-weight: 300; color: var(--accent);">Light</em></h3>
+          <p style="margin-top: 12px; font-size: 13px; color: var(--ink3); line-height: 1.5;">В заголовках Manrope 700 — основа, 300 + мандарин — акцентное слово. Это даёт ритм без курсива и засечек.</p>
+        </div>
+        <div class="card" style="padding: 28px;">
+          <div style="font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px;">04 · Безопасность</div>
+          <h3 style="font-family: var(--serif); font-size: 22px; font-weight: 700; letter-spacing: -0.03em;">Изумрудный = доверие</h3>
+          <p style="margin-top: 12px; font-size: 13px; color: var(--ink3); line-height: 1.5;">Verified-метки, защищённая сделка, гарантия — всегда emerald + щит. Никогда mandarin для безопасности.</p>
+        </div>
+        <div class="card" style="padding: 28px;">
+          <div style="font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px;">05 · Soft tints</div>
+          <h3 style="font-family: var(--serif); font-size: 22px; font-weight: 700; letter-spacing: -0.03em;">Категории — <em style="font-style: normal; font-weight: 300; color: var(--accent);">пастель</em></h3>
+          <p style="margin-top: 12px; font-size: 13px; color: var(--ink3); line-height: 1.5;">Каждая категория — свой soft-tint фон + эмодзи. Облегчает беглое сканирование без перегруза цветом.</p>
+        </div>
+        <div class="card" style="padding: 28px;">
+          <div style="font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px;">06 · Без слопа</div>
+          <h3 style="font-family: var(--serif); font-size: 22px; font-weight: 700; letter-spacing: -0.03em;">Меньше элементов —<br/>больше смысла</h3>
+          <p style="margin-top: 12px; font-size: 13px; color: var(--ink3); line-height: 1.5;">Никаких лишних иконок, цифр-украшений, градиентов ради градиентов. Каждый элемент должен заработать своё место.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="ds-foot">
+      <span>UzUsta Design System v1.0</span>
+      <span>For development handoff</span>
+      <span>© 2026 UzUsta</span>
+    </footer>
+  </div>
+</body>
+</html>

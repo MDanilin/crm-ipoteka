@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -107,19 +107,19 @@ export default function UsersPage() {
     return (
       <div className="flex flex-col items-center justify-center py-24 text-center">
         <h2 className="text-2xl font-semibold tracking-[-0.04em] mb-2">{t('common.accessDenied')}</h2>
-        <p className="text-[#aaa] text-base">{t('common.accessDeniedDesc')}</p>
+        <p className="text-g60 text-base">{t('common.accessDeniedDesc')}</p>
       </div>
     );
   }
 
-  if (isLoading) return <div className="flex items-center justify-center h-64 text-[#aaa] text-sm">{t('common.loading')}</div>;
+  if (isLoading) return <div className="flex items-center justify-center h-64 text-g60 text-sm">{t('common.loading')}</div>;
 
   return (
     <div>
       <div className="mb-8 flex flex-col justify-between gap-4 xl:flex-row xl:items-end">
         <div>
           <h1 className="text-[clamp(42px,5vw,72px)] font-semibold leading-none tracking-[-0.08em]">{t('users.title')}</h1>
-          <p className="mt-4 text-base text-[#aaa]">{t('users.total', { count: users.length })}</p>
+          <p className="mt-4 text-base text-g60">{t('users.total', { count: users.length })}</p>
         </div>
         {canAdmin && <Button onClick={() => setOpen(true)}>{t('users.newBtn')}</Button>}
       </div>
@@ -146,7 +146,7 @@ export default function UsersPage() {
                     (см. рефернс Rocket Work: "Иванов Максим" / "+7 999..."). */}
                 <td>
                   <p className="text-sm font-semibold leading-snug">{u.name}</p>
-                  <p className="mt-0.5 text-xs text-[#aaa]">
+                  <p className="mt-0.5 text-xs text-g60">
                     {u.role === 'agent'
                       ? <span className="font-mono">{(u as unknown as Record<string,string>).login || '—'}</span>
                       : ((u as unknown as Record<string,string>).phone || '—')
@@ -159,17 +159,17 @@ export default function UsersPage() {
                   </Badge>
                 </td>
                 <td className="max-w-[160px]">
-                  <span className="block truncate text-sm text-[#555]" title={u.dept || ''}>{u.dept || '—'}</span>
+                  <span className="block truncate text-sm text-g80" title={u.dept || ''}>{u.dept || '—'}</span>
                 </td>
                 <td className="whitespace-nowrap">
                   {(u as any).block ? (
                     <Badge variant={BLOCK_COLORS[(u as any).block] ?? 'gray'}>
                       {(u as any).block}
                     </Badge>
-                  ) : <span className="text-sm text-[#ccc]">—</span>}
+                  ) : <span className="text-sm text-g40">—</span>}
                 </td>
                 <td className="max-w-[140px]">
-                  <span className="block truncate text-sm text-[#555]" title={(u as any).branch || ''}>{(u as any).branch || '—'}</span>
+                  <span className="block truncate text-sm text-g80" title={(u as any).branch || ''}>{(u as any).branch || '—'}</span>
                 </td>
                 <td className="whitespace-nowrap text-sm font-medium">{u.clients_count ?? 0}</td>
                 <td className="whitespace-nowrap">
@@ -177,12 +177,12 @@ export default function UsersPage() {
                     {t(`common.status.${u.status}`)}
                   </Badge>
                 </td>
-                <td className="whitespace-nowrap text-xs text-[#aaa]">{u.last_login || '—'}</td>
+                <td className="whitespace-nowrap text-xs text-g60">{u.last_login || '—'}</td>
                 <td className="text-right whitespace-nowrap">
                   {canAdmin && u.id !== me?.id && (
                     <button
                       onClick={e => { e.stopPropagation(); setConfirmDel(u.id); }}
-                      className="text-xs text-[#e1261c] hover:opacity-70 transition-opacity"
+                      className="text-xs text-dn hover:opacity-70 transition-opacity"
                     >{t('users.deleteBtn')}</button>
                   )}
                 </td>
@@ -302,7 +302,7 @@ export default function UsersPage() {
                 </div>
               </div>
               {form.block && (
-                <div className="rounded-xl bg-[#fef9c3] px-4 py-3 text-sm text-[#92400e]">
+                <div className="rounded-xl bg-warn-bg px-4 py-3 text-sm text-warn">
                   Сотрудник будет видеть только клиентов блока <strong>{form.block}</strong>
                   {form.branch && <> из филиала <strong>{form.branch}</strong></>}.
                 </div>
@@ -323,7 +323,7 @@ export default function UsersPage() {
           )}
 
           {isAgent && (
-            <div className="rounded-xl bg-[#fef9c3] px-4 py-3 text-sm text-[#92400e]">
+            <div className="rounded-xl bg-warn-bg px-4 py-3 text-sm text-warn">
               {t('users.agentNote')}
             </div>
           )}
@@ -347,7 +347,7 @@ export default function UsersPage() {
       >
         {editing && (
           <div className="space-y-4">
-            <div className="text-sm text-[#aaa]">
+            <div className="text-sm text-g60">
               {editing.role === 'agent'
                 ? <span className="font-mono">{(editing as unknown as Record<string,string>).login || '—'}</span>
                 : ((editing as unknown as Record<string,string>).phone || '—')
@@ -462,7 +462,7 @@ export default function UsersPage() {
           <Button variant="ghost" onClick={() => setConfirmDel(null)}>{t('common.cancel')}</Button>
           <Button variant="danger" onClick={() => confirmDel && del.mutate(confirmDel)} disabled={del.isPending}>{t('users.deleteBtn')}</Button>
         </>}>
-        <p className="text-sm text-[#555]">{t('users.deleteConfirm')}</p>
+        <p className="text-sm text-g80">{t('users.deleteConfirm')}</p>
       </Modal>
     </div>
   );

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { Fragment, useState, useEffect, useRef } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -67,17 +67,17 @@ function StageLine({ raw }: { raw: string }) {
         return (
           <div key={s} className="flex items-center">
             <div className="flex flex-col items-center min-w-[100px]">
-              <div className={`w-3 h-3 rounded-full flex-shrink-0 transition-colors ${done ? 'bg-[#111]' : 'bg-[#ddd]'} ${active ? 'ring-2 ring-[#111]/20 ring-offset-1' : ''}`}/>
-              <div className={`text-[11px] mt-1.5 text-center font-medium leading-tight ${done ? 'text-[#111]' : 'text-[#bbb]'}`}>
+              <div className={`w-3 h-3 rounded-full flex-shrink-0 transition-colors ${done ? 'bg-g90' : 'bg-g30'} ${active ? 'ring-2 ring-g90/20 ring-offset-1' : ''}`}/>
+              <div className={`text-[11px] mt-1.5 text-center font-medium leading-tight ${done ? 'text-g90' : 'text-g40'}`}>
                 {STATUS_CFG[s]?.label}
               </div>
               {ts
-                ? <div className="text-[10px] text-[#888] mt-0.5">{fmtTs(ts)}</div>
-                : <div className="text-[10px] text-[#ccc] mt-0.5">—</div>
+                ? <div className="text-[10px] text-g70 mt-0.5">{fmtTs(ts)}</div>
+                : <div className="text-[10px] text-g40 mt-0.5">—</div>
               }
             </div>
             {i < SCENARIO_STAGES.length - 1 && (
-              <div className={`h-px w-8 mx-1 mt-[-18px] flex-shrink-0 transition-colors ${done && times[SCENARIO_STAGES[i + 1] as string] ? 'bg-[#111]' : 'bg-[#e5e5e5]'}`}/>
+              <div className={`h-px w-8 mx-1 mt-[-18px] flex-shrink-0 transition-colors ${done && times[SCENARIO_STAGES[i + 1] as string] ? 'bg-g90' : 'bg-g30'}`}/>
             )}
           </div>
         );
@@ -250,21 +250,21 @@ export default function LeadsPage() {
     account_opened: leads.filter(l => l.status === 'account_opened').length,
   };
 
-  if (isLoading) return <div className="flex items-center justify-center h-64 text-[#aaa] text-sm">{t('common.loading')}</div>;
+  if (isLoading) return <div className="flex items-center justify-center h-64 text-g60 text-sm">{t('common.loading')}</div>;
 
   return (
     <div>
       <div className="mb-8 flex flex-col justify-between gap-4 xl:flex-row xl:items-end">
         <div>
           <h1 className="text-[clamp(42px,5vw,72px)] font-semibold leading-none tracking-[-0.08em]">{t('leads.title')}</h1>
-          <p className="mt-4 text-base text-[#aaa]">{t('leads.total', { count: leads.length, newCount: counts.new })}</p>
+          <p className="mt-4 text-base text-g60">{t('leads.total', { count: leads.length, newCount: counts.new })}</p>
         </div>
         <div className="flex items-center gap-2">
-          <div className="flex rounded-xl border border-[#e5e5e5] overflow-hidden">
-            <button onClick={() => setView('list')} className={`px-3 py-2 text-xs font-semibold transition-colors ${view === 'list' ? 'bg-[#111] text-white' : 'text-[#888] hover:bg-[#f6f6f6]'}`}>
+          <div className="flex rounded-xl border border-g30 overflow-hidden">
+            <button onClick={() => setView('list')} className={`px-3 py-2 text-xs font-semibold transition-colors ${view === 'list' ? 'bg-g90 text-white' : 'text-g70 hover:bg-g10'}`}>
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 2h12M1 7h12M1 12h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
             </button>
-            <button onClick={() => setView('board')} className={`px-3 py-2 text-xs font-semibold transition-colors ${view === 'board' ? 'bg-[#111] text-white' : 'text-[#888] hover:bg-[#f6f6f6]'}`}>
+            <button onClick={() => setView('board')} className={`px-3 py-2 text-xs font-semibold transition-colors ${view === 'board' ? 'bg-g90 text-white' : 'text-g70 hover:bg-g10'}`}>
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="4" height="12" rx="1" stroke="currentColor" strokeWidth="1.5"/><rect x="7" y="1" width="4" height="8" rx="1" stroke="currentColor" strokeWidth="1.5"/></svg>
             </button>
           </div>
@@ -273,7 +273,7 @@ export default function LeadsPage() {
       </div>
 
       {/* Scenario stage counters */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8 border-y border-[#eee] py-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8 border-y border-g20 py-6">
         {([
           ['new',            t('leads.stageNew')],
           ['in_progress',    t('leads.stageInProgress')],
@@ -281,8 +281,8 @@ export default function LeadsPage() {
           ['account_opened', t('leads.stageAccountOpened')],
         ] as [string, string][]).map(([k, l]) => (
           <div key={k}>
-            <div className="text-4xl font-bold text-[#111] leading-none">{counts[k as keyof typeof counts]}</div>
-            <div className="text-sm text-[#aaa] mt-1">{l}</div>
+            <div className="text-4xl font-bold text-g90 leading-none">{counts[k as keyof typeof counts]}</div>
+            <div className="text-sm text-g60 mt-1">{l}</div>
           </div>
         ))}
       </div>
@@ -304,13 +304,13 @@ export default function LeadsPage() {
             return (
               <div
                 key={status}
-                className="kanban-col flex-shrink-0 w-52 rounded-2xl p-3 bg-[#f6f6f6] transition-colors"
+                className="kanban-col flex-shrink-0 w-52 rounded-2xl p-3 bg-g10 transition-colors"
                 onDragOver={e => {
                   e.preventDefault();
                   e.dataTransfer.dropEffect = 'move';
                   const el = e.currentTarget as HTMLElement;
-                  el.style.background = '#efefef';
-                  el.style.outline = '2px solid #ddd';
+                  el.style.background = '#f1f3f6';
+                  el.style.outline = '2px solid #d5dae1';
                   el.style.outlineOffset = '-2px';
                 }}
                 onDragLeave={e => {
@@ -332,8 +332,8 @@ export default function LeadsPage() {
                 }}
               >
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="text-sm font-semibold text-[#111]">{label}</span>
-                  <span className="text-xs text-[#aaa] ml-auto">{col.length}</span>
+                  <span className="text-sm font-semibold text-g90">{label}</span>
+                  <span className="text-xs text-g60 ml-auto">{col.length}</span>
                 </div>
                 <div className="flex flex-col gap-2">
                   {col.map(l => (
@@ -354,22 +354,22 @@ export default function LeadsPage() {
                         setTimeout(() => { dragging.current = false; }, 100);
                       }}
                       onClick={() => { if (!dragging.current) router.push(`/leads/${l.id}`); }}
-                      className="kanban-card bg-white rounded-xl p-3 border border-[#f0f0f0] hover:border-[#ddd] hover:shadow-sm transition-all cursor-grab active:cursor-grabbing select-none"
+                      className="kanban-card bg-white rounded-xl p-3 border border-g20 hover:border-g30 hover:shadow-sm transition-all cursor-grab active:cursor-grabbing select-none"
                     >
                       <div className="text-sm font-semibold leading-tight mb-0.5">{l.name}</div>
-                      {l.inn && <div className="text-[10px] text-[#aaa]">ИНН {l.inn}</div>}
-                      <div className="text-xs text-[#888] mt-1">{l.product || '—'}</div>
+                      {l.inn && <div className="text-[10px] text-g60">ИНН {l.inn}</div>}
+                      <div className="text-xs text-g70 mt-1">{l.product || '—'}</div>
                       {/* Телефон и менеджер — друг под другом, а не в строку:
                           в узкой колонке justify-between ломал выравнивание,
                           когда оба переносились по-разному. */}
                       <div className="mt-2 space-y-0.5">
-                        <div className="text-xs text-[#aaa] truncate">{l.phone}</div>
-                        <div className="text-xs text-[#bbb] truncate" title={l.manager || ''}>{l.manager || '—'}</div>
+                        <div className="text-xs text-g60 truncate">{l.phone}</div>
+                        <div className="text-xs text-g40 truncate" title={l.manager || ''}>{l.manager || '—'}</div>
                       </div>
                     </div>
                   ))}
                   {col.length === 0 && (
-                    <div className="py-6 text-center text-xs text-[#ccc]">Нет лидов</div>
+                    <div className="py-6 text-center text-xs text-g40">Нет лидов</div>
                   )}
                 </div>
               </div>
@@ -407,24 +407,24 @@ export default function LeadsPage() {
                 <tr>
                   <td className="max-w-0">
                     <Link href={`/leads/${l.id}`} className="text-sm font-semibold hover:underline underline-offset-2 block truncate">{l.name}</Link>
-                    {l.inn && <div className="text-[11px] text-[#aaa] mt-0.5">ИНН {l.inn}</div>}
-                    {l.pinfl && <div className="text-[11px] text-[#aaa] mt-0.5">ПИНФЛ {l.pinfl}</div>}
+                    {l.inn && <div className="text-[11px] text-g60 mt-0.5">ИНН {l.inn}</div>}
+                    {l.pinfl && <div className="text-[11px] text-g60 mt-0.5">ПИНФЛ {l.pinfl}</div>}
                   </td>
                   <td className="max-w-0">
                     <div className="text-sm truncate">{l.contact || '—'}</div>
-                    <div className="text-xs text-[#aaa] truncate">{l.phone}</div>
+                    <div className="text-xs text-g60 truncate">{l.phone}</div>
                   </td>
-                  <td className="text-sm text-[#555] truncate max-w-0">{l.product || '—'}</td>
+                  <td className="text-sm text-g80 truncate max-w-0">{l.product || '—'}</td>
                   <td className="max-w-0 overflow-hidden">
-                    <span className="block truncate text-sm text-[#111]">{SRC_LABELS[l.source] ?? l.source}</span>
-                    {l.source === 'branch' && l.branch && <div className="text-[11px] text-[#888] mt-0.5 truncate">{l.branch}</div>}
-                    {l.source === 'agent'  && l.agent_name && <div className="text-[11px] text-[#888] mt-0.5 truncate">{l.agent_name}</div>}
+                    <span className="block truncate text-sm text-g90">{SRC_LABELS[l.source] ?? l.source}</span>
+                    {l.source === 'branch' && l.branch && <div className="text-[11px] text-g70 mt-0.5 truncate">{l.branch}</div>}
+                    {l.source === 'agent'  && l.agent_name && <div className="text-[11px] text-g70 mt-0.5 truncate">{l.agent_name}</div>}
                   </td>
                   <td>
                     <select
                       value={l.status}
                       onChange={e => changeStatus.mutate({ id: l.id, status: e.target.value })}
-                      className={`status-select ${STATUS_CFG[l.status]?.critical ? 'text-[#c41f16] font-semibold' : ''}`}
+                      className={`status-select ${STATUS_CFG[l.status]?.critical ? 'text-dn font-semibold' : ''}`}
                     >
                       {Object.entries(STATUS_CFG).map(([k, v]) => (
                         <option key={k} value={k}>{v.label}</option>
@@ -435,19 +435,19 @@ export default function LeadsPage() {
                   <td className="px-3 py-4">
                     <button
                       onClick={() => setExpandedId(expandedId === l.id ? null : l.id)}
-                      className="flex items-center justify-center w-7 h-7 rounded-full hover:bg-[#f3f3f3] transition-colors"
+                      className="flex items-center justify-center w-7 h-7 rounded-full hover:bg-g10 transition-colors"
                       title="История стадий"
                     >
                       <svg className={`transition-transform duration-200 ${expandedId === l.id ? 'rotate-90' : ''}`} width="14" height="14" viewBox="0 0 14 14" fill="none">
-                        <path d="M5 3l4 4-4 4" stroke="#999" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M5 3l4 4-4 4" stroke="#7c8695" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
                     </button>
                   </td>
                 </tr>
                 {expandedId === l.id && (
                   <tr>
-                    <td colSpan={8} className="bg-[#fafafa] px-5 pb-3 pt-0">
-                      <div className="text-[11px] font-bold uppercase tracking-[0.08em] text-[#bbb] mb-2 pt-3">
+                    <td colSpan={8} className="bg-g5 px-5 pb-3 pt-0">
+                      <div className="text-[11px] font-bold uppercase tracking-[0.08em] text-g40 mb-2 pt-3">
                         История переходов
                       </div>
                       <StageLine raw={l.stage_times ?? '{}'} />
@@ -457,7 +457,7 @@ export default function LeadsPage() {
               </Fragment>
             ))}
             {leads.length === 0 && (
-              <tr><td colSpan={8} className="py-14 text-center text-sm text-[#aaa]">Нет лидов</td></tr>
+              <tr><td colSpan={8} className="py-14 text-center text-sm text-g60">Нет лидов</td></tr>
             )}
           </tbody>
         </table>
@@ -466,18 +466,18 @@ export default function LeadsPage() {
       {/* Arbitration panel — supervisor/admin sees pending requests */}
       {isSupervisor && pendingArbs.length > 0 && (
         <div className="mt-10">
-          <h2 className="text-xl font-semibold mb-4">Арбитраж лидов <span className="ml-2 inline-flex items-center justify-center w-6 h-6 rounded-full bg-[#fee2e2] text-[#991b1b] text-xs font-bold">{pendingArbs.length}</span></h2>
+          <h2 className="text-xl font-semibold mb-4">Арбитраж лидов <span className="ml-2 inline-flex items-center justify-center w-6 h-6 rounded-full bg-dn-bg text-dn text-xs font-bold">{pendingArbs.length}</span></h2>
           <div className="space-y-3">
             {pendingArbs.map((arb: any) => {
               const lead = (() => { try { return JSON.parse(arb.new_lead_data); } catch { return {}; } })();
               return (
-                <div key={arb.id} className="rounded-2xl border border-[#f0f0f0] bg-white p-5">
+                <div key={arb.id} className="rounded-2xl border border-g20 bg-white p-5">
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 min-w-0">
                       <div className="font-semibold text-sm">{lead.name || '—'}</div>
-                      <div className="text-xs text-[#888] mt-0.5">ИНН {arb.duplicate_inn || lead.inn} · Тел {arb.duplicate_phone || lead.phone}</div>
-                      <div className="text-xs text-[#555] mt-1">Менеджер: <span className="font-medium">{arb.requester}</span> · Дубликат лида #{arb.existing_lead_id}</div>
-                      <div className="mt-2 rounded-lg bg-[#f9f9f9] px-3 py-2 text-sm text-[#444] italic">«{arb.comment}»</div>
+                      <div className="text-xs text-g70 mt-0.5">ИНН {arb.duplicate_inn || lead.inn} · Тел {arb.duplicate_phone || lead.phone}</div>
+                      <div className="text-xs text-g80 mt-1">Менеджер: <span className="font-medium">{arb.requester}</span> · Дубликат лида #{arb.existing_lead_id}</div>
+                      <div className="mt-2 rounded-lg bg-g5 px-3 py-2 text-sm text-g80 italic">«{arb.comment}»</div>
                     </div>
                     <div className="flex-shrink-0 flex flex-col gap-2 items-end">
                       {reviewId === arb.id ? (
@@ -485,18 +485,18 @@ export default function LeadsPage() {
                           <textarea
                             value={reviewComment}
                             onChange={e => setReviewComment(e.target.value)}
-                            className="w-full rounded-lg border border-[#e5e5e5] px-3 py-2 text-xs text-[#111] resize-none focus:outline-none focus:border-[#999]"
+                            className="w-full rounded-lg border border-g30 px-3 py-2 text-xs text-g90 resize-none focus:outline-none focus:border-g60"
                             rows={2}
                             placeholder="Комментарий (необязательно)"
                           />
                           <div className="flex gap-2">
-                            <button onClick={() => reviewArbitration.mutate({ id: arb.id, action: 'approve', review_comment: reviewComment })} className="flex-1 rounded-lg bg-[#166534] text-white text-xs py-1.5 font-semibold hover:bg-[#14532d] transition-colors">Одобрить</button>
-                            <button onClick={() => reviewArbitration.mutate({ id: arb.id, action: 'reject',  review_comment: reviewComment })} className="flex-1 rounded-lg bg-[#991b1b] text-white text-xs py-1.5 font-semibold hover:bg-[#7f1d1d] transition-colors">Отклонить</button>
+                            <button onClick={() => reviewArbitration.mutate({ id: arb.id, action: 'approve', review_comment: reviewComment })} className="flex-1 rounded-lg bg-ok text-white text-xs py-1.5 font-semibold hover:bg-ok transition-colors">Одобрить</button>
+                            <button onClick={() => reviewArbitration.mutate({ id: arb.id, action: 'reject',  review_comment: reviewComment })} className="flex-1 rounded-lg bg-dn text-white text-xs py-1.5 font-semibold hover:bg-dn transition-colors">Отклонить</button>
                           </div>
-                          <button onClick={() => { setReviewId(null); setReviewComment(''); }} className="text-xs text-[#999] underline underline-offset-2 text-center">Отмена</button>
+                          <button onClick={() => { setReviewId(null); setReviewComment(''); }} className="text-xs text-g60 underline underline-offset-2 text-center">Отмена</button>
                         </div>
                       ) : (
-                        <button onClick={() => setReviewId(arb.id)} className="rounded-lg border border-[#e5e5e5] px-3 py-1.5 text-xs font-semibold hover:border-[#999] transition-colors">Рассмотреть</button>
+                        <button onClick={() => setReviewId(arb.id)} className="rounded-lg border border-g30 px-3 py-1.5 text-xs font-semibold hover:border-g60 transition-colors">Рассмотреть</button>
                       )}
                     </div>
                   </div>
@@ -518,14 +518,14 @@ export default function LeadsPage() {
                 : arb.status === 'approved' ? { label: 'Одобрено', critical: false }
                 : { label: 'Отклонено', critical: true };
               return (
-                <div key={arb.id} className="rounded-2xl border border-[#f0f0f0] bg-white p-4">
+                <div key={arb.id} className="rounded-2xl border border-g20 bg-white p-4">
                   <div className="flex items-center justify-between">
                     <div>
                       <div className="font-semibold text-sm">{lead.name || '—'}</div>
-                      <div className="text-xs text-[#888] mt-0.5">Дубликат лида #{arb.existing_lead_id}</div>
-                      {arb.review_comment && <div className="mt-1 text-xs text-[#555] italic">Ответ: «{arb.review_comment}»</div>}
+                      <div className="text-xs text-g70 mt-0.5">Дубликат лида #{arb.existing_lead_id}</div>
+                      {arb.review_comment && <div className="mt-1 text-xs text-g80 italic">Ответ: «{arb.review_comment}»</div>}
                     </div>
-                    <span className={`text-sm ${statusCfg.critical ? 'text-[#c41f16] font-semibold' : 'text-[#111]'}`}>{statusCfg.label}</span>
+                    <span className={`text-sm ${statusCfg.critical ? 'text-dn font-semibold' : 'text-g90'}`}>{statusCfg.label}</span>
                   </div>
                 </div>
               );
@@ -542,14 +542,14 @@ export default function LeadsPage() {
         </>}>
         <div className="space-y-4">
           {(dupCheck?.inn_duplicate || dupCheck?.phone_duplicate) && !dupError && (
-            <div className="rounded-xl bg-[#fff7ed] border border-[#fed7aa] px-4 py-3 text-sm text-[#9a3412]">
+            <div className="rounded-xl bg-warn-bg border border-warn-border px-4 py-3 text-sm text-warn">
               <div className="font-semibold mb-1">⚠️ Лид уже ведётся другим менеджером</div>
               {dupCheck?.inn_duplicate && <div className="text-xs">ИНН: «{dupCheck.inn_duplicate.name}» — {dupCheck.inn_duplicate.manager || 'не назначен'}</div>}
               {dupCheck?.phone_duplicate && <div className="text-xs">Тел.: «{dupCheck.phone_duplicate.name}» — {dupCheck.phone_duplicate.manager || 'не назначен'}</div>}
             </div>
           )}
           {dupError && (
-            <div className="rounded-xl bg-[#fee2e2] px-4 py-3 text-sm text-[#991b1b]">
+            <div className="rounded-xl bg-dn-bg px-4 py-3 text-sm text-dn">
               <div>{dupError}</div>
               {dupLeadId && !arbOpen && (
                 <button onClick={() => setArbOpen(true)} className="mt-2 text-xs font-semibold underline underline-offset-2">
@@ -562,7 +562,7 @@ export default function LeadsPage() {
                   <textarea
                     value={arbComment}
                     onChange={e => setArbComment(e.target.value)}
-                    className="w-full rounded-lg border border-[#fca5a5] bg-white px-3 py-2 text-sm text-[#111] resize-none focus:outline-none"
+                    className="w-full rounded-lg border border-dn-border bg-white px-3 py-2 text-sm text-g90 resize-none focus:outline-none"
                     rows={3}
                     placeholder="Объясните причину создания лида при наличии дубликата..."
                   />
@@ -570,7 +570,7 @@ export default function LeadsPage() {
                     <button
                       onClick={() => { if (validateForm()) submitArbitration.mutate(); }}
                       disabled={!arbComment.trim() || submitArbitration.isPending}
-                      className="rounded-lg bg-[#991b1b] text-white px-3 py-1.5 text-xs font-semibold disabled:opacity-50 hover:bg-[#7f1d1d] transition-colors"
+                      className="rounded-lg bg-dn text-white px-3 py-1.5 text-xs font-semibold disabled:opacity-50 hover:bg-dn transition-colors"
                     >
                       {submitArbitration.isPending ? 'Отправка...' : 'Отправить на арбитраж'}
                     </button>
@@ -596,11 +596,18 @@ export default function LeadsPage() {
                   <input
                     value={form.inn}
                     onChange={e => { setForm({ ...form, inn: e.target.value.replace(/\D/g, '').slice(0, 9) }); setDupError(null); setErrors(v => ({ ...v, inn: '' })); }}
-                    className={`form-input ${errors.inn ? 'border-[#f87171]' : ''}`}
+                    onBlur={e => {
+                      const digits = e.target.value.replace(/\D/g, '');
+                      if (digits.length > 0 && digits.length !== 9)
+                        setErrors(v => ({ ...v, inn: 'ИНН — 9 цифр' }));
+                      else if (fr('inn') && !digits)
+                        setErrors(v => ({ ...v, inn: `${fl('inn')} обязателен` }));
+                    }}
+                    className={`form-input ${errors.inn ? 'border-dn' : ''}`}
                     placeholder="309876543"
                     inputMode="numeric"
                   />
-                  {errors.inn && <p className="mt-1 text-[11px] text-[#ef4444]">{errors.inn}</p>}
+                  {errors.inn && <p className="mt-1 text-[11px] text-dn">{errors.inn}</p>}
                 </div>
               )}
               {fv('pinfl') && (
@@ -609,11 +616,18 @@ export default function LeadsPage() {
                   <input
                     value={form.pinfl}
                     onChange={e => { setForm({ ...form, pinfl: e.target.value.replace(/\D/g, '').slice(0, 14) }); setErrors(v => ({ ...v, pinfl: '' })); }}
-                    className={`form-input ${errors.pinfl ? 'border-[#f87171]' : ''}`}
+                    onBlur={e => {
+                      const digits = e.target.value.replace(/\D/g, '');
+                      if (digits.length > 0 && digits.length !== 14)
+                        setErrors(v => ({ ...v, pinfl: 'ПИНФЛ — 14 цифр' }));
+                      else if (fr('pinfl') && !digits)
+                        setErrors(v => ({ ...v, pinfl: `${fl('pinfl')} обязателен` }));
+                    }}
+                    className={`form-input ${errors.pinfl ? 'border-dn' : ''}`}
                     placeholder="12345678901234"
                     inputMode="numeric"
                   />
-                  {errors.pinfl && <p className="mt-1 text-[11px] text-[#ef4444]">{errors.pinfl}</p>}
+                  {errors.pinfl && <p className="mt-1 text-[11px] text-dn">{errors.pinfl}</p>}
                 </div>
               )}
             </div>
@@ -635,11 +649,11 @@ export default function LeadsPage() {
                     value={form.phone}
                     onChange={e => { setForm({ ...form, phone: formatUzPhone(e.target.value) }); setErrors(v => ({ ...v, phone: '' })); }}
                     onFocus={e => { if (!e.target.value) setForm({ ...form, phone: '+998 ' }); }}
-                    className={`form-input ${errors.phone ? 'border-[#f87171]' : ''}`}
+                    className={`form-input ${errors.phone ? 'border-dn' : ''}`}
                     placeholder="+998 90 000-00-00"
                     inputMode="tel"
                   />
-                  {errors.phone && <p className="mt-1 text-[11px] text-[#ef4444]">{errors.phone}</p>}
+                  {errors.phone && <p className="mt-1 text-[11px] text-dn">{errors.phone}</p>}
                 </div>
               )}
             </div>
@@ -652,19 +666,19 @@ export default function LeadsPage() {
               <select
                 value={form.product}
                 onChange={e => { setForm({ ...form, product: e.target.value }); setErrors(v => ({ ...v, product: '' })); }}
-                className={`form-input ${errors.product ? 'border-[#f87171]' : ''}`}
+                className={`form-input ${errors.product ? 'border-dn' : ''}`}
               >
                 <option value="">— выберите продукт —</option>
                 {catalog.filter(c => c.is_active !== 0).map(c => (
                   <option key={c.id} value={c.name}>{c.name}{c.category ? ` · ${c.category}` : ''}</option>
                 ))}
               </select>
-              {errors.product && <p className="mt-1 text-[11px] text-[#ef4444]">{errors.product}</p>}
+              {errors.product && <p className="mt-1 text-[11px] text-dn">{errors.product}</p>}
             </div>
           )}
 
           {isAgent ? (
-            <div className="flex items-center gap-2 rounded-xl bg-[#fef3c7] px-4 py-3 text-sm text-[#92400e]">
+            <div className="flex items-center gap-2 rounded-xl bg-warn-bg px-4 py-3 text-sm text-warn">
               <span className="font-semibold">{fl('source')}:</span> {t('common.roles.agent')} · {user?.name}
             </div>
           ) : (fv('source') || fv('manager')) && (
@@ -716,22 +730,22 @@ export default function LeadsPage() {
               <div key={cfg.field}>
                 <label className="field-label">{cfg.label}{cfg.required ? ' *' : ''}</label>
                 {cfg.field_type === 'select' ? (
-                  <select value={customFields[cfg.field] ?? ''} onChange={e => change(e.target.value)} className={`form-input ${hasErr ? 'border-[#f87171]' : ''}`}>
+                  <select value={customFields[cfg.field] ?? ''} onChange={e => change(e.target.value)} className={`form-input ${hasErr ? 'border-dn' : ''}`}>
                     <option value="">— выберите —</option>
                     {opts.map(o => <option key={o} value={o}>{o}</option>)}
                   </select>
                 ) : cfg.field_type === 'textarea' ? (
-                  <textarea rows={3} value={customFields[cfg.field] ?? ''} onChange={e => change(e.target.value)} placeholder={cfg.placeholder} className={`form-input resize-none ${hasErr ? 'border-[#f87171]' : ''}`}/>
+                  <textarea rows={3} value={customFields[cfg.field] ?? ''} onChange={e => change(e.target.value)} placeholder={cfg.placeholder} className={`form-input resize-none ${hasErr ? 'border-dn' : ''}`}/>
                 ) : (
                   <input
                     type={cfg.field_type === 'number' ? 'number' : cfg.field_type === 'date' ? 'date' : cfg.field_type === 'phone' ? 'tel' : 'text'}
                     value={customFields[cfg.field] ?? ''}
                     onChange={e => change(e.target.value)}
                     placeholder={cfg.placeholder}
-                    className={`form-input ${hasErr ? 'border-[#f87171]' : ''}`}
+                    className={`form-input ${hasErr ? 'border-dn' : ''}`}
                   />
                 )}
-                {hasErr && <p className="mt-1 text-[11px] text-[#ef4444]">{errors[cfg.field]}</p>}
+                {hasErr && <p className="mt-1 text-[11px] text-dn">{errors[cfg.field]}</p>}
               </div>
             );
           })}

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import type { JSX } from 'react';
@@ -14,7 +14,10 @@ const statusV = { active: 'green', pending: 'orange', inactive: 'gray' } as cons
 const statusL = { active: 'Активный', pending: 'На рассмотрении', inactive: 'Неактивный' } as const;
 const riskV   = { low: 'green', medium: 'orange', high: 'red' } as const;
 const riskL   = { low: 'Низкий', medium: 'Средний', high: 'Высокий' } as const;
-const clientBg = { large: '#1d4ed8', sme: '#7c3aed', holding: '#0f766e', international: '#d97706' } as const;
+// Категория клиента различается ступенью графитовой рампы, а не оттенком —
+// в системе UzUsta Operations цвет означает состояние данных или
+// интерактивность, а не служит для различения категорий.
+const clientBg = { large: '#171c24', sme: '#515b6b', holding: '#7c8695', international: '#aeb6c2' } as const;
 
 const TABS = ['Продукты', 'Контакты', 'Задачи', 'Коммуникации', 'Документы'] as const;
 type Tab = typeof TABS[number];
@@ -61,7 +64,7 @@ const DOC_ICON_MAP: Record<string, () => JSX.Element> = {
 
 function DocIcon({ icon }: { icon: string }) {
   const C = DOC_ICON_MAP[icon];
-  if (C) return <span className="text-[#666]"><C /></span>;
+  if (C) return <span className="text-g70"><C /></span>;
   return <span className="text-base">{icon}</span>;
 }
 
@@ -73,7 +76,7 @@ function Modal({ title, onClose, children }: { title: string; onClose: () => voi
       <div className="relative bg-white rounded-2xl shadow-xl w-full max-w-md p-6 max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
         <div className="flex items-center justify-between mb-5">
           <h3 className="text-lg font-semibold">{title}</h3>
-          <button onClick={onClose} className="text-[#aaa] hover:text-[#333] transition-colors">
+          <button onClick={onClose} className="text-g60 hover:text-g80 transition-colors">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
               <path d="M5 5l10 10M15 5L5 15" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
             </svg>
@@ -88,21 +91,21 @@ function Modal({ title, onClose, children }: { title: string; onClose: () => voi
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <label className="block text-[11px] font-bold uppercase tracking-wider text-[#999] mb-1.5">{label}</label>
+      <label className="block text-[11px] font-bold uppercase tracking-wider text-g60 mb-1.5">{label}</label>
       {children}
     </div>
   );
 }
 
 function Input(props: React.InputHTMLAttributes<HTMLInputElement>) {
-  return <input {...props} className="w-full h-11 rounded-xl bg-[#f5f5f5] px-4 text-sm outline-none placeholder:text-[#bbb] focus:bg-[#efefef] transition-colors" />;
+  return <input {...props} className="w-full h-11 rounded-xl bg-g10 px-4 text-sm outline-none placeholder:text-g40 focus:bg-g10 transition-colors" />;
 }
 
 function ModalActions({ onCancel, onSubmit, pending, label }: { onCancel: () => void; onSubmit: () => void; pending: boolean; label: string }) {
   return (
     <div className="flex gap-3 pt-1">
-      <button onClick={onCancel} className="flex-1 h-11 rounded-full border border-[#e5e7eb] text-sm font-medium text-[#555] hover:bg-[#f9fafb] transition-colors">Отмена</button>
-      <button onClick={onSubmit} disabled={pending} className="flex-1 h-11 rounded-full bg-[#111] text-white text-sm font-medium hover:bg-[#333] disabled:opacity-40 transition-colors">
+      <button onClick={onCancel} className="flex-1 h-11 rounded-full border border-g30 text-sm font-medium text-g80 hover:bg-g5 transition-colors">Отмена</button>
+      <button onClick={onSubmit} disabled={pending} className="flex-1 h-11 rounded-full bg-g90 text-white text-sm font-medium hover:bg-g80 disabled:opacity-40 transition-colors">
         {pending ? 'Сохранение...' : label}
       </button>
     </div>
@@ -130,10 +133,10 @@ function AddContactModal({ clientId, onClose }: { clientId: string; onClose: () 
           <Field label="Email"><Input placeholder="name@company.uz" type="email" value={form.email} onChange={e => set('email', e.target.value)} /></Field>
         </div>
         <label className="flex items-center gap-3 cursor-pointer select-none">
-          <div onClick={() => set('is_primary', !form.is_primary)} className={cn('w-5 h-5 rounded-md border-2 flex items-center justify-center transition-colors flex-shrink-0', form.is_primary ? 'bg-[#111] border-[#111]' : 'border-[#ddd]')}>
+          <div onClick={() => set('is_primary', !form.is_primary)} className={cn('w-5 h-5 rounded-md border-2 flex items-center justify-center transition-colors flex-shrink-0', form.is_primary ? 'bg-g90 border-g90' : 'border-g30')}>
             {form.is_primary && <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 2" stroke="white" strokeWidth="1.5" strokeLinecap="round"/></svg>}
           </div>
-          <span className="text-sm text-[#555]">Основной контакт</span>
+          <span className="text-sm text-g80">Основной контакт</span>
         </label>
         {error && <p className="text-sm text-red-500">{error}</p>}
         <ModalActions onCancel={onClose} pending={mut.isPending} label="Добавить"
@@ -178,7 +181,7 @@ function AddProductModal({ clientId, onClose }: { clientId: string; onClose: () 
           <select
             value={form.name}
             onChange={e => set('name', e.target.value)}
-            className="w-full h-11 rounded-xl bg-[#f5f5f5] px-4 text-sm outline-none appearance-none cursor-pointer"
+            className="w-full h-11 rounded-xl bg-g10 px-4 text-sm outline-none appearance-none cursor-pointer"
           >
             <option value="">— Выберите из каталога —</option>
             {Object.entries(byCategory).map(([cat, items]) => (
@@ -190,7 +193,7 @@ function AddProductModal({ clientId, onClose }: { clientId: string; onClose: () 
             ))}
           </select>
           {form.name && catalog.find(c => c.name === form.name)?.description && (
-            <p className="text-[11px] text-[#aaa] mt-1">{catalog.find(c => c.name === form.name)?.description}</p>
+            <p className="text-[11px] text-g60 mt-1">{catalog.find(c => c.name === form.name)?.description}</p>
           )}
         </Field>
         <Field label="Номер договора"><Input placeholder="КЛ-2026-001" value={form.number} onChange={e => set('number', e.target.value)} /></Field>
@@ -207,7 +210,7 @@ function AddProductModal({ clientId, onClose }: { clientId: string; onClose: () 
             {STATUS_OPTS.map(o => (
               <button key={o.v} onClick={() => set('status', o.v)}
                 className={cn('flex-1 h-10 rounded-full border text-sm font-medium transition-colors',
-                  form.status === o.v ? 'bg-[#111] text-white border-[#111]' : 'border-[#e5e7eb] text-[#555] hover:border-[#999]')}>
+                  form.status === o.v ? 'bg-g90 text-white border-g90' : 'border-g30 text-g80 hover:border-g60')}>
                 {o.label}
               </button>
             ))}
@@ -246,7 +249,7 @@ function AddCommModal({ clientId, onClose }: { clientId: string; onClose: () => 
             {TYPE_OPTS.map(o => (
               <button key={o.v} onClick={() => set('type', o.v)}
                 className={cn('flex-1 h-11 rounded-full border text-sm font-medium flex items-center justify-center gap-1.5 transition-colors',
-                  form.type === o.v ? 'bg-[#111] text-white border-[#111]' : 'border-[#e5e7eb] text-[#555] hover:border-[#999]')}>
+                  form.type === o.v ? 'bg-g90 text-white border-g90' : 'border-g30 text-g80 hover:border-g60')}>
                 <o.Icon />{o.label}
               </button>
             ))}
@@ -255,7 +258,7 @@ function AddCommModal({ clientId, onClose }: { clientId: string; onClose: () => 
         <Field label="Описание / итог *">
           <textarea value={form.summary} onChange={e => set('summary', e.target.value)}
             placeholder="Обсудили условия кредитной линии..." rows={3}
-            className="w-full rounded-xl bg-[#f5f5f5] px-4 py-3 text-sm outline-none placeholder:text-[#bbb] focus:bg-[#efefef] transition-colors resize-none" />
+            className="w-full rounded-xl bg-g10 px-4 py-3 text-sm outline-none placeholder:text-g40 focus:bg-g10 transition-colors resize-none" />
         </Field>
         <div className="grid grid-cols-2 gap-3">
           <Field label="Контакт"><Input placeholder="Иванов И.И." value={form.contact} onChange={e => set('contact', e.target.value)} /></Field>
@@ -308,7 +311,7 @@ function AddTaskModal({ clientId, clientName, onClose }: { clientId: string; cli
             {TYPE_OPTS.map(o => (
               <button key={o.v} onClick={() => set('type', o.v)}
                 className={cn('h-9 px-3 rounded-lg border text-sm font-medium transition-colors',
-                  form.type === o.v ? 'bg-[#111] text-white border-[#111]' : 'border-[#e5e7eb] text-[#555] hover:border-[#999]')}>
+                  form.type === o.v ? 'bg-g90 text-white border-g90' : 'border-g30 text-g80 hover:border-g60')}>
                 {o.label}
               </button>
             ))}
@@ -319,7 +322,7 @@ function AddTaskModal({ clientId, clientName, onClose }: { clientId: string; cli
             {PRIO_OPTS.map(o => (
               <button key={o.v} onClick={() => set('priority', o.v)}
                 className={cn('flex-1 h-10 rounded-full border-2 text-sm font-semibold transition-colors',
-                  form.priority === o.v ? o.color + ' bg-opacity-10' : 'border-[#e5e7eb] text-[#aaa] hover:border-[#ccc]')}>
+                  form.priority === o.v ? o.color + ' bg-opacity-10' : 'border-g30 text-g60 hover:border-g40')}>
                 {o.label}
               </button>
             ))}
@@ -329,7 +332,7 @@ function AddTaskModal({ clientId, clientName, onClose }: { clientId: string; cli
         <Field label="Комментарий">
           <textarea value={form.comment} onChange={e => set('comment', e.target.value)}
             placeholder="Дополнительные детали..." rows={2}
-            className="w-full rounded-xl bg-[#f5f5f5] px-4 py-3 text-sm outline-none placeholder:text-[#bbb] focus:bg-[#efefef] transition-colors resize-none" />
+            className="w-full rounded-xl bg-g10 px-4 py-3 text-sm outline-none placeholder:text-g40 focus:bg-g10 transition-colors resize-none" />
         </Field>
         {error && <p className="text-sm text-red-500">{error}</p>}
         <ModalActions onCancel={onClose} pending={mut.isPending} label="Добавить"
@@ -392,14 +395,14 @@ function AddDocumentModal({ clientId, onClose }: { clientId: string; onClose: ()
     <Modal title="Добавить документ" onClose={onClose}>
       <div className="space-y-4">
         {/* File upload zone */}
-        <label className="flex flex-col items-center justify-center gap-2 w-full h-24 rounded-xl border-2 border-dashed border-[#e5e7eb] cursor-pointer hover:border-[#999] hover:bg-[#fafafa] transition-colors">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-[#aaa]">
+        <label className="flex flex-col items-center justify-center gap-2 w-full h-24 rounded-xl border-2 border-dashed border-g30 cursor-pointer hover:border-g60 hover:bg-g5 transition-colors">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-g60">
             <path d="M10 3v10M6 7l4-4 4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             <path d="M3 15h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
           </svg>
           {file
-            ? <span className="text-sm font-medium text-[#111]">{file.name}</span>
-            : <span className="text-sm text-[#aaa]">Нажмите чтобы выбрать файл</span>
+            ? <span className="text-sm font-medium text-g90">{file.name}</span>
+            : <span className="text-sm text-g60">Нажмите чтобы выбрать файл</span>
           }
           <input type="file" className="hidden" onChange={handleFileChange}
             accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg,.zip,.rar" />
@@ -411,12 +414,12 @@ function AddDocumentModal({ clientId, onClose }: { clientId: string; onClose: ()
             {DOC_TYPES.map(t => (
               <button key={t.key} onClick={() => set('icon', t.key)} title={t.label}
                 className={cn('h-11 rounded-full flex items-center justify-center transition-colors border',
-                  form.icon === t.key ? 'border-[#111] bg-[#f5f5f5] text-[#111]' : 'border-[#eee] text-[#999] hover:border-[#ccc] hover:text-[#555]')}>
+                  form.icon === t.key ? 'border-g90 bg-g10 text-g90' : 'border-g20 text-g60 hover:border-g40 hover:text-g80')}>
                 <t.Icon />
               </button>
             ))}
           </div>
-          <p className="text-[11px] text-[#aaa] mt-1.5">{DOC_TYPES.find(t => t.key === form.icon)?.label}</p>
+          <p className="text-[11px] text-g60 mt-1.5">{DOC_TYPES.find(t => t.key === form.icon)?.label}</p>
         </Field>
         <div className="grid grid-cols-2 gap-3">
           <Field label="Дата"><Input placeholder="01.01.2026" value={form.date} onChange={e => set('date', e.target.value)} /></Field>
@@ -432,7 +435,7 @@ function AddDocumentModal({ clientId, onClose }: { clientId: string; onClose: ()
 // ── Small reusable UI ─────────────────────────────────────────────────────────
 function DelBtn({ onClick }: { onClick: () => void }) {
   return (
-    <button onClick={onClick} className="opacity-0 group-hover:opacity-100 text-[#ccc] hover:text-red-500 transition-all flex-shrink-0" title="Удалить">
+    <button onClick={onClick} className="opacity-0 group-hover:opacity-100 text-g40 hover:text-red-500 transition-all flex-shrink-0" title="Удалить">
       <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
         <path d="M3.5 3.5l8 8M11.5 3.5l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
       </svg>
@@ -442,7 +445,7 @@ function DelBtn({ onClick }: { onClick: () => void }) {
 
 function AddBtn({ onClick, children }: { onClick: () => void; children: React.ReactNode }) {
   return (
-    <button onClick={onClick} className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#111] text-white text-sm font-medium hover:bg-[#333] transition-colors">
+    <button onClick={onClick} className="flex items-center gap-2 px-4 py-2 rounded-full bg-g90 text-white text-sm font-medium hover:bg-g80 transition-colors">
       <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
         <path d="M6.5 1v11M1 6.5h11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
       </svg>
@@ -495,15 +498,15 @@ export default function ClientDetailPage() {
       </div>
 
       {/* Hero */}
-      <div className="bg-white border border-[#f0f0f0] rounded-xl p-6 mb-5 flex items-start gap-5">
+      <div className="bg-white border border-g20 rounded-xl p-6 mb-5 flex items-start gap-5">
         <div className="w-14 h-14 rounded-xl flex items-center justify-center text-white text-lg font-extrabold flex-shrink-0 tracking-tight"
-          style={{ background: clientBg[c.type_en as keyof typeof clientBg] ?? '#1d4ed8' }}>
+          style={{ background: clientBg[c.type_en as keyof typeof clientBg] ?? '#515b6b' }}>
           {c.short_name || c.name[0]}
         </div>
         <div className="flex-1 min-w-0">
           <button
             onClick={() => setModal('edit')}
-            className="float-right ml-4 flex items-center gap-1.5 h-8 px-3 rounded-lg border border-[#e5e7eb] text-xs font-medium text-[#555] hover:border-[#999] transition-colors"
+            className="float-right ml-4 flex items-center gap-1.5 h-8 px-3 rounded-lg border border-g30 text-xs font-medium text-g80 hover:border-g60 transition-colors"
           >
             <svg width="12" height="12" viewBox="0 0 20 20" fill="none"><path d="M4 16l1.5-4L14 4l3 3-8.5 8.5L4 16z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/><path d="M11 6l3 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>
             Редактировать
@@ -532,11 +535,11 @@ export default function ClientDetailPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-0.5 border-b border-[#f0f0f0] mb-5">
+      <div className="flex gap-0.5 border-b border-g20 mb-5">
         {TABS.map(t => (
           <button key={t} onClick={() => setTab(t)}
             className={cn('px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px',
-              tab === t ? 'text-[#111] border-[#111] font-semibold' : 'text-gray-500 border-transparent hover:text-gray-900')}>
+              tab === t ? 'text-g90 border-g90 font-semibold' : 'text-gray-500 border-transparent hover:text-gray-900')}>
             {t}
           </button>
         ))}
@@ -552,10 +555,10 @@ export default function ClientDetailPage() {
             {c.products.length === 0 ? (
               <div className="sm:col-span-2 lg:col-span-3"><Empty text="Нет продуктов — добавьте первый" /></div>
             ) : c.products.map((p: any) => (
-              <div key={p.id} className="bg-white border border-[#f0f0f0] rounded-xl p-5 group relative">
+              <div key={p.id} className="bg-white border border-g20 rounded-xl p-5 group relative">
                 <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-all">
                   <button onClick={() => { if (confirm('Удалить продукт?')) delProduct.mutate(p.id); }}
-                    className="text-[#ccc] hover:text-red-500 transition-colors" title="Удалить">
+                    className="text-g40 hover:text-red-500 transition-colors" title="Удалить">
                     <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                       <path d="M3.5 3.5l8 8M11.5 3.5l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                     </svg>
@@ -576,7 +579,7 @@ export default function ClientDetailPage() {
                 {p.usage_pct > 0 && (
                   <div className="mt-3">
                     <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                      <div className="h-full rounded-full" style={{ width: `${p.usage_pct}%`, background: p.usage_pct > 80 ? '#dc2626' : p.usage_pct > 60 ? '#d97706' : '#1d4ed8' }} />
+                      <div className="h-full rounded-full" style={{ width: `${p.usage_pct}%`, background: p.usage_pct > 80 ? '#a13c3c' : p.usage_pct > 60 ? '#8a6a1c' : '#2f7d5f' }} />
                     </div>
                     <div className="text-[11px] text-gray-400 mt-1">Использовано {p.usage_pct}%</div>
                   </div>
@@ -595,8 +598,8 @@ export default function ClientDetailPage() {
           </div>
           <div className="space-y-3">
             {c.contacts.length === 0 ? <Empty text="Нет контактов — добавьте первый" /> : c.contacts.map((ct: Contact) => (
-              <div key={ct.id} className="bg-white border border-[#f0f0f0] rounded-xl p-5 flex items-center gap-4 group">
-                <div className="w-10 h-10 rounded-full bg-[#1d4ed8] text-white text-sm font-bold flex items-center justify-center flex-shrink-0">
+              <div key={ct.id} className="bg-white border border-g20 rounded-xl p-5 flex items-center gap-4 group">
+                <div className="w-10 h-10 rounded-full bg-g70 text-white text-sm font-bold flex items-center justify-center flex-shrink-0">
                   {ct.name.split(' ').map((w: string) => w[0]).join('').slice(0, 2)}
                 </div>
                 <div className="flex-1">
@@ -623,7 +626,7 @@ export default function ClientDetailPage() {
           <div className="flex justify-end mb-4">
             <AddBtn onClick={() => setModal('task')}>Добавить задачу</AddBtn>
           </div>
-        <div className="bg-white border border-[#f0f0f0] rounded-xl overflow-hidden">
+        <div className="bg-white border border-g20 rounded-xl overflow-hidden">
           {c.tasks.length === 0 ? <Empty text="Нет задач — добавьте первую" /> : c.tasks.map((t: any) => (
             <div key={t.id} className={cn('flex items-center gap-3 px-5 py-3 border-b border-gray-100 last:border-0', t.done && 'opacity-50')}>
               <div className={cn('w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center', t.done ? 'bg-green-500 border-green-500' : 'border-gray-300')}>
@@ -643,7 +646,7 @@ export default function ClientDetailPage() {
           <div className="flex justify-end mb-4">
             <AddBtn onClick={() => setModal('comm')}>Добавить коммуникацию</AddBtn>
           </div>
-          <div className="bg-white border border-[#f0f0f0] rounded-xl divide-y divide-gray-100">
+          <div className="bg-white border border-g20 rounded-xl divide-y divide-gray-100">
             {c.comms.length === 0 ? <Empty text="Нет коммуникаций — добавьте первую" /> : c.comms.map((cm: Communication) => (
               <div key={cm.id} className="flex gap-3 px-5 py-4 group">
                 <div className={cn('w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5',
@@ -675,11 +678,11 @@ export default function ClientDetailPage() {
           <div className="flex justify-end mb-4">
             <AddBtn onClick={() => setModal('doc')}>Добавить документ</AddBtn>
           </div>
-          <div className="bg-white border border-[#f0f0f0] rounded-xl overflow-hidden">
+          <div className="bg-white border border-g20 rounded-xl overflow-hidden">
             {c.docs.length === 0 ? <Empty text="Нет документов — добавьте первый" /> : (
               <table className="w-full">
                 <thead>
-                  <tr className="bg-gray-50 border-b border-[#f0f0f0]">
+                  <tr className="bg-gray-50 border-b border-g20">
                     {['Документ', 'Дата', 'Размер', ''].map(h => (
                       <th key={h} className="text-left px-5 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-gray-400">{h}</th>
                     ))}
@@ -689,10 +692,10 @@ export default function ClientDetailPage() {
                   {c.docs.map((d: Document) => (
                     <tr key={d.id} className="border-b border-gray-100 last:border-0 hover:bg-gray-50 group">
                       <td className="px-5 py-3 text-sm">
-                        <span className="inline-flex items-center gap-2 text-[#555]">
+                        <span className="inline-flex items-center gap-2 text-g80">
                           <DocIcon icon={d.icon} />
                           {d.file_url
-                            ? <a href={`http://localhost:3001${d.file_url}`} target="_blank" rel="noreferrer" className="hover:underline hover:text-[#1d4ed8]">{d.name}</a>
+                            ? <a href={`http://localhost:3001${d.file_url}`} target="_blank" rel="noreferrer" className="hover:underline hover:text-ac">{d.name}</a>
                             : d.name
                           }
                         </span>
@@ -746,7 +749,7 @@ function EditClientModal({ client, onClose, onSave, pending }: {
         <Field label="Название *"><Input value={form.name} onChange={e => set('name', e.target.value)} placeholder="ООО Пример" /></Field>
         <div className="grid grid-cols-2 gap-3">
           <Field label="Тип">
-            <select value={form.type} onChange={e => set('type', e.target.value)} className="w-full h-11 rounded-xl bg-[#f5f5f5] px-4 text-sm outline-none appearance-none cursor-pointer">
+            <select value={form.type} onChange={e => set('type', e.target.value)} className="w-full h-11 rounded-xl bg-g10 px-4 text-sm outline-none appearance-none cursor-pointer">
               {['Крупный бизнес','МСП','Холдинг','Международные'].map(t => <option key={t}>{t}</option>)}
             </select>
           </Field>
@@ -763,7 +766,7 @@ function EditClientModal({ client, onClose, onSave, pending }: {
         <div className="grid grid-cols-2 gap-3">
           <Field label="Менеджер"><Input value={form.manager} onChange={e => set('manager', e.target.value)} /></Field>
           <Field label="Статус">
-            <select value={form.status} onChange={e => set('status', e.target.value)} className="w-full h-11 rounded-xl bg-[#f5f5f5] px-4 text-sm outline-none appearance-none cursor-pointer">
+            <select value={form.status} onChange={e => set('status', e.target.value)} className="w-full h-11 rounded-xl bg-g10 px-4 text-sm outline-none appearance-none cursor-pointer">
               <option value="active">Активный</option>
               <option value="pending">На рассмотрении</option>
               <option value="inactive">Неактивный</option>
@@ -772,12 +775,12 @@ function EditClientModal({ client, onClose, onSave, pending }: {
         </div>
         <div className="grid grid-cols-2 gap-3">
           <Field label="Сегмент">
-            <select value={form.segment} onChange={e => set('segment', e.target.value)} className="w-full h-11 rounded-xl bg-[#f5f5f5] px-4 text-sm outline-none appearance-none cursor-pointer">
+            <select value={form.segment} onChange={e => set('segment', e.target.value)} className="w-full h-11 rounded-xl bg-g10 px-4 text-sm outline-none appearance-none cursor-pointer">
               <option>Standard</option><option>Premium</option>
             </select>
           </Field>
           <Field label="Уровень риска">
-            <select value={form.risk_level} onChange={e => set('risk_level', e.target.value)} className="w-full h-11 rounded-xl bg-[#f5f5f5] px-4 text-sm outline-none appearance-none cursor-pointer">
+            <select value={form.risk_level} onChange={e => set('risk_level', e.target.value)} className="w-full h-11 rounded-xl bg-g10 px-4 text-sm outline-none appearance-none cursor-pointer">
               <option value="low">Низкий</option>
               <option value="medium">Средний</option>
               <option value="high">Высокий</option>

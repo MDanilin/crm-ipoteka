@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -21,7 +21,7 @@ export default function DsaLayout({ children }: { children: React.ReactNode }) {
   if (!hydrated || !token || (user && user.role !== 'dsa')) return null;
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden bg-[#f7f7f7] max-w-md mx-auto">
+    <div className="flex flex-col h-screen overflow-hidden bg-g5 max-w-md mx-auto">
       <div className="flex flex-col flex-1 overflow-hidden">
         {children}
       </div>

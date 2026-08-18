@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useRef } from 'react';
 import Link from 'next/link';
@@ -10,12 +10,16 @@ import type { Deal, PipelineStage } from '@crm/types';
 import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
 
+// Все промежуточные стадии делят один синий акцент — «в работе» значит
+// ровно одно, независимо от того, на каком именно шаге сделка (см.
+// воронку лида в UzUsta Operations design system). Закрыто — нейтральный
+// графит: сам по себе шаг не говорит выиграна сделка или потеряна.
 const STAGES: { id: PipelineStage; label: string; dot: string }[] = [
-  { id: 'qualification', label: 'Квалификация', dot: 'bg-[#3b82f6]' },
-  { id: 'proposal',      label: 'Предложение',  dot: 'bg-[#8b5cf6]' },
-  { id: 'negotiation',   label: 'Переговоры',   dot: 'bg-[#f59e0b]' },
-  { id: 'approval',      label: 'Согласование', dot: 'bg-[#10b981]' },
-  { id: 'closed',        label: 'Закрыто',      dot: 'bg-[#6b7280]' },
+  { id: 'qualification', label: 'Квалификация', dot: 'bg-ac' },
+  { id: 'proposal',      label: 'Предложение',  dot: 'bg-ac' },
+  { id: 'negotiation',   label: 'Переговоры',   dot: 'bg-ac' },
+  { id: 'approval',      label: 'Согласование', dot: 'bg-ac' },
+  { id: 'closed',        label: 'Закрыто',      dot: 'bg-g60' },
 ];
 
 const EMPTY_FORM = { client_name: '', product: '', amount_raw: '', probability: '50', stage: 'qualification', close_date: '', manager: '' };
@@ -68,7 +72,7 @@ export default function PipelinePage() {
   const totalPipeline = active.reduce((sum, d) => sum + (d.amount_raw || 0), 0);
 
   if (isLoading) return (
-    <div className="flex items-center justify-center h-64 text-[#aaa] text-sm">Загрузка...</div>
+    <div className="flex items-center justify-center h-64 text-g60 text-sm">Загрузка...</div>
   );
 
   return (
@@ -77,7 +81,7 @@ export default function PipelinePage() {
       <div className="mb-8 flex flex-col justify-between gap-4 xl:flex-row xl:items-end">
         <div>
           <h1 className="text-[clamp(42px,5vw,72px)] font-semibold leading-none tracking-[-0.08em]">Воронка</h1>
-          <p className="mt-4 text-base text-[#aaa]">
+          <p className="mt-4 text-base text-g60">
             {active.length} активных · {totalPipeline.toFixed(1)} млрд
           </p>
         </div>
@@ -86,20 +90,20 @@ export default function PipelinePage() {
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="Поиск клиента..."
-            className="rounded-xl border border-[#e5e5e5] px-3 py-2 text-sm focus:outline-none focus:border-[#999] w-44"
+            className="rounded-xl border border-g30 px-3 py-2 text-sm focus:outline-none focus:border-g60 w-44"
           />
           <select
             value={filterStage}
             onChange={e => setFilterStage(e.target.value)}
-            className="rounded-xl border border-[#e5e5e5] px-3 py-2 text-sm focus:outline-none focus:border-[#999]"
+            className="rounded-xl border border-g30 px-3 py-2 text-sm focus:outline-none focus:border-g60"
           >
             <option value="">Все стадии</option>
             {STAGES.map(s => <option key={s.id} value={s.id}>{s.label}</option>)}
           </select>
-          <div className="flex rounded-xl border border-[#e5e5e5] overflow-hidden">
+          <div className="flex rounded-xl border border-g30 overflow-hidden">
             <button
               onClick={() => setView('list')}
-              className={`px-3 py-2 transition-colors ${view === 'list' ? 'bg-[#111] text-white' : 'text-[#888] hover:bg-[#f6f6f6]'}`}
+              className={`px-3 py-2 transition-colors ${view === 'list' ? 'bg-g90 text-white' : 'text-g70 hover:bg-g10'}`}
               title="Список"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -108,7 +112,7 @@ export default function PipelinePage() {
             </button>
             <button
               onClick={() => setView('board')}
-              className={`px-3 py-2 transition-colors ${view === 'board' ? 'bg-[#111] text-white' : 'text-[#888] hover:bg-[#f6f6f6]'}`}
+              className={`px-3 py-2 transition-colors ${view === 'board' ? 'bg-g90 text-white' : 'text-g70 hover:bg-g10'}`}
               title="Канбан"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -122,7 +126,7 @@ export default function PipelinePage() {
       </div>
 
       {/* Stage counters — кликабельные для фильтрации */}
-      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-8 border-y border-[#eee] py-6">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-8 border-y border-g20 py-6">
         {STAGES.map(s => {
           const col   = deals.filter(d => d.stage === s.id);
           const total = col.reduce((sum, d) => sum + (d.amount_raw || 0), 0);
@@ -131,14 +135,14 @@ export default function PipelinePage() {
             <button
               key={s.id}
               onClick={() => setFilterStage(active ? '' : s.id)}
-              className={`text-left rounded-xl px-3 py-2 transition-colors ${active ? 'bg-[#f3f3f3]' : 'hover:bg-[#f8f8f8]'}`}
+              className={`text-left rounded-xl px-3 py-2 transition-colors ${active ? 'bg-g10' : 'hover:bg-g5'}`}
             >
-              <div className="text-4xl font-bold text-[#111] leading-none">{col.length}</div>
+              <div className="text-4xl font-bold text-g90 leading-none">{col.length}</div>
               <div className="flex items-center gap-1.5 mt-1">
                 <span className={`w-2 h-2 rounded-full flex-shrink-0 ${s.dot}`}/>
-                <span className="text-sm text-[#aaa]">{s.label}</span>
+                <span className="text-sm text-g60">{s.label}</span>
               </div>
-              {total > 0 && <div className="text-xs text-[#bbb] mt-0.5">{total.toFixed(1)} млрд</div>}
+              {total > 0 && <div className="text-xs text-g40 mt-0.5">{total.toFixed(1)} млрд</div>}
             </button>
           );
         })}
@@ -153,13 +157,13 @@ export default function PipelinePage() {
             return (
               <div
                 key={s.id}
-                className="kanban-col flex-shrink-0 w-64 rounded-2xl p-4 bg-[#f6f6f6] transition-colors"
+                className="kanban-col flex-shrink-0 w-64 rounded-2xl p-4 bg-g10 transition-colors"
                 onDragOver={e => {
                   e.preventDefault();
                   e.dataTransfer.dropEffect = 'move';
                   const el = e.currentTarget as HTMLElement;
-                  el.style.background    = '#efefef';
-                  el.style.outline       = '2px solid #ddd';
+                  el.style.background    = '#f1f3f6';
+                  el.style.outline       = '2px solid #d5dae1';
                   el.style.outlineOffset = '-2px';
                 }}
                 onDragLeave={e => {
@@ -182,11 +186,11 @@ export default function PipelinePage() {
               >
                 <div className="flex items-center gap-2 mb-1 px-1">
                   <span className={`w-2 h-2 rounded-full flex-shrink-0 ${s.dot}`}/>
-                  <span className="text-xs font-bold uppercase tracking-[0.08em] text-[#555] flex-1">{s.label}</span>
-                  <span className="text-xs text-[#aaa]">{col.length}</span>
+                  <span className="text-xs font-bold uppercase tracking-[0.08em] text-g80 flex-1">{s.label}</span>
+                  <span className="text-xs text-g60">{col.length}</span>
                 </div>
                 {total > 0 && (
-                  <div className="text-xs text-[#bbb] px-1 mb-3">{total.toFixed(1)} млрд</div>
+                  <div className="text-xs text-g40 px-1 mb-3">{total.toFixed(1)} млрд</div>
                 )}
                 <div className="flex flex-col gap-2 mt-2">
                   {col.map(d => (
@@ -207,22 +211,22 @@ export default function PipelinePage() {
                         setTimeout(() => { dragging.current = false; }, 100);
                       }}
                       onClick={() => { if (!dragging.current) router.push(`/pipeline/${d.id}`); }}
-                      className="kanban-card bg-white rounded-xl p-4 border border-[#f0f0f0] hover:border-[#ddd] hover:shadow-sm transition-all cursor-grab active:cursor-grabbing select-none"
+                      className="kanban-card bg-white rounded-xl p-4 border border-g20 hover:border-g30 hover:shadow-sm transition-all cursor-grab active:cursor-grabbing select-none"
                     >
                       <div className="text-sm font-semibold mb-0.5 leading-tight">{d.client_name}</div>
-                      <div className="text-xs text-[#aaa] mb-3">{d.product || '—'}</div>
+                      <div className="text-xs text-g60 mb-3">{d.product || '—'}</div>
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-sm font-bold">{d.amount || '—'}</span>
-                        <span className="text-xs text-[#aaa]">{d.manager}</span>
+                        <span className="text-xs text-g60">{d.manager}</span>
                       </div>
-                      <div className="h-1 bg-[#f0f0f0] rounded-full overflow-hidden">
-                        <div className="h-full rounded-full bg-[#111] transition-all" style={{ width: `${d.probability}%` }}/>
+                      <div className="h-1 bg-g20 rounded-full overflow-hidden">
+                        <div className="h-full rounded-full bg-g90 transition-all" style={{ width: `${d.probability}%` }}/>
                       </div>
-                      <div className="text-[10px] text-[#aaa] mt-1">{d.probability}% · {d.close_date || '—'}</div>
+                      <div className="text-[10px] text-g60 mt-1">{d.probability}% · {d.close_date || '—'}</div>
                     </div>
                   ))}
                   {col.length === 0 && (
-                    <div className="py-8 text-center text-xs text-[#ccc]">Нет сделок</div>
+                    <div className="py-8 text-center text-xs text-g40">Нет сделок</div>
                   )}
                 </div>
               </div>
@@ -264,7 +268,7 @@ export default function PipelinePage() {
                         {d.client_name}
                       </Link>
                     </td>
-                    <td className="text-sm text-[#555] truncate max-w-0">{d.product || '—'}</td>
+                    <td className="text-sm text-g80 truncate max-w-0">{d.product || '—'}</td>
                     <td className="text-sm font-semibold">{d.amount || '—'}</td>
                     <td>
                       <select
@@ -277,20 +281,20 @@ export default function PipelinePage() {
                     </td>
                     <td className="max-w-0">
                       <div className="flex items-center gap-2 min-w-0">
-                        <div className="flex-1 min-w-0 h-1.5 bg-[#f0f0f0] rounded-full overflow-hidden">
-                          <div className="h-full rounded-full bg-[#111]" style={{ width: `${d.probability}%` }}/>
+                        <div className="flex-1 min-w-0 h-1.5 bg-g20 rounded-full overflow-hidden">
+                          <div className="h-full rounded-full bg-g90" style={{ width: `${d.probability}%` }}/>
                         </div>
-                        <span className="text-xs text-[#888] w-8 flex-shrink-0 text-right tabular-nums">{d.probability}%</span>
+                        <span className="text-xs text-g70 w-8 flex-shrink-0 text-right tabular-nums">{d.probability}%</span>
                       </div>
                     </td>
                     <td className="text-sm truncate max-w-0">{d.manager || '—'}</td>
-                    <td className="text-xs text-[#888]">{d.close_date || '—'}</td>
+                    <td className="text-xs text-g70">{d.close_date || '—'}</td>
                   </tr>
                 );
               })}
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="py-14 text-center text-sm text-[#aaa]">
+                  <td colSpan={7} className="py-14 text-center text-sm text-g60">
                     {search || filterStage ? 'Ничего не найдено' : 'Нет сделок'}
                   </td>
                 </tr>

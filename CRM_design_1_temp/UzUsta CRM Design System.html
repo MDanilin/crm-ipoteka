@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>UzUsta CRM — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+--g0:#fff;--g05:#f8f9fb;--g10:#f1f3f6;--g20:#e7eaef;--g30:#d5dae1;--g40:#aeb6c2;--g60:#7c8695;--g70:#515b6b;--g80:#333c49;--g90:#171c24;
+--line:#e4e8ed;--line2:#eef1f4;
+--ac:#2e5f94;--ac-h:#24507f;--ac-w:#edf3fa;--ac-b:#d2e0ef;
+--ok:#2f7d5f;--ok-w:#eaf3ee;--ok-b:#d4e5dc;
+--at:#8a6a1c;--at-w:#f6f2e6;--at-b:#e8dfc6;
+--dn:#a13c3c;--dn-w:#f8eded;--dn-b:#ebd5d5;
+--ui:'Inter',-apple-system,system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--g05);color:var(--g90);font-family:var(--ui);font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased}
+em{font-style:normal}
+a{color:var(--ac);text-decoration:none}a:hover{color:var(--ac-h)}
+.wrap{max-width:1240px;margin:0 auto;padding:56px 40px 80px}
+.hd{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;padding-bottom:22px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.hd h1{font-size:48px;font-weight:700;letter-spacing:-.04em;line-height:1.02}
+.hd h1 em{font-weight:400;color:var(--g40)}
+.hd .lede{font-size:14px;color:var(--g70);max-width:480px;margin-top:14px;line-height:1.55}
+.hd .meta{font-family:var(--mono);font-size:10px;color:var(--g60);letter-spacing:.13em;text-transform:uppercase;text-align:right;line-height:1.9;flex-shrink:0}
+.kicker{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--g60);display:inline-flex;align-items:center;gap:7px}
+.kicker i{width:5px;height:5px;border-radius:50%;background:var(--ac);flex-shrink:0}
+.note{display:flex;gap:11px;align-items:flex-start;padding:13px 15px;background:var(--g0);border:1px solid var(--line);border-left:2px solid var(--g90);border-radius:0 6px 6px 0;margin-bottom:48px}
+.note b{display:block;font-size:12px;font-weight:600;margin-bottom:3px}
+.note p{font-size:12px;color:var(--g70);line-height:1.55}
+.sec{margin-bottom:64px}
+.sh{display:grid;grid-template-columns:150px 1fr;gap:32px;margin-bottom:22px;align-items:baseline}
+.sh h2{font-size:26px;font-weight:700;letter-spacing:-.03em;line-height:1.12}
+.sh h2 em{font-weight:400;color:var(--g40)}
+.sh p{font-size:13px;color:var(--g70);margin-top:8px;max-width:540px;line-height:1.55}
+.gl{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--g60);margin-bottom:10px}
+.card{background:var(--g0);border:1px solid var(--line);border-radius:6px}
+.pad{padding:20px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.ramp{display:grid;grid-template-columns:repeat(9,1fr);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.step{padding:14px 10px 12px;min-height:94px;display:flex;flex-direction:column;justify-content:flex-end;gap:3px}
+.step b{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.04em}
+.step span{font-family:var(--mono);font-size:9px;opacity:.72}
+.swx{border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--g0)}
+.swx i{display:block;height:44px}
+.swx .m{padding:10px 12px}
+.swx b{display:block;font-size:11.5px;font-weight:600;margin-bottom:3px}
+.swx span{display:block;font-family:var(--mono);font-size:9.5px;color:var(--g60)}
+.swx em{display:block;font-size:10.5px;color:var(--g70);margin-top:4px;line-height:1.4}
+.tr{display:grid;grid-template-columns:112px 1fr 152px;gap:20px;align-items:baseline;padding:15px 0;border-bottom:1px solid var(--line2)}
+.tr:last-child{border-bottom:none}
+.tl{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--g60)}
+.tm{font-family:var(--mono);font-size:10.5px;color:var(--g70);text-align:right;line-height:1.6}
+.dr{display:flex;align-items:center;gap:14px;padding:8px 0;border-bottom:1px solid var(--line2)}
+.dr:last-child{border-bottom:none}
+.dr code{font-family:var(--mono);font-size:10.5px;color:var(--g70);width:82px}
+.dr i{height:10px;background:var(--g80);border-radius:2px;display:block}
+.dr span{font-family:var(--mono);font-size:10.5px;color:var(--g70);margin-left:auto}
+.rx{border:1px solid var(--line);border-radius:6px;padding:14px 8px;display:flex;flex-direction:column;align-items:center;gap:9px;background:var(--g0)}
+.rx i{width:36px;height:36px;background:var(--g80);display:block}
+.rx b{font-family:var(--mono);font-size:11px;font-weight:600}
+.rx span{font-family:var(--mono);font-size:9.5px;color:var(--g70)}
+.cp{background:var(--g0);border:1px solid var(--line);border-radius:6px;padding:18px;display:flex;flex-direction:column;gap:14px}
+.cp h3{font-size:15px;font-weight:600;letter-spacing:-.015em;margin-top:6px}
+.cp p{font-size:11.5px;color:var(--g70);line-height:1.45;margin-top:4px}
+.stage{flex:1;display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:12px;background:var(--g05);border-radius:5px}
+.stage.col{flex-direction:column;align-items:stretch}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border-radius:5px;font-size:12.5px;font-weight:500;border:1px solid transparent;line-height:1.3;white-space:nowrap}
+.b-pri{background:var(--g90);color:#fff}
+.b-ac{background:var(--ac);color:#fff}
+.b-sec{background:var(--g0);color:var(--g90);border-color:var(--g30)}
+.b-gho{background:transparent;color:var(--g70)}
+.b-dng{background:var(--g0);color:var(--dn);border-color:var(--dn-b)}
+.b-dis{background:var(--g10);color:var(--g40);border-color:var(--line)}
+.b-sm{padding:4px 9px;font-size:11.5px;border-radius:4px}
+.st{display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:4px;font-size:11px;font-weight:500;line-height:1.4;white-space:nowrap;border:1px solid var(--line)}
+.st i{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.st.neu{background:var(--g10);color:var(--g70);border-color:var(--g20)}
+.st.new{background:var(--g0);color:var(--g80);border-color:var(--g30)}
+.st.ac{background:var(--ac-w);color:var(--ac);border-color:var(--ac-b)}
+.st.ok{background:var(--ok-w);color:var(--ok);border-color:var(--ok-b)}
+.st.at{background:var(--at-w);color:var(--at);border-color:var(--at-b)}
+.st.dn{background:var(--dn-w);color:var(--dn);border-color:var(--dn-b)}
+.fld{display:flex;flex-direction:column;gap:5px}
+.fld label{font-size:11px;font-weight:500;color:var(--g70)}
+.inp{display:flex;align-items:center;gap:8px;padding:7px 10px;background:var(--g0);border:1px solid var(--g30);border-radius:5px;font-size:12.5px;color:var(--g90)}
+.inp.ph{color:var(--g40)}
+.inp.foc{border-color:var(--ac);box-shadow:0 0 0 3px rgba(46,95,148,.13)}
+.inp.err{border-color:var(--dn);box-shadow:0 0 0 3px rgba(161,60,60,.1)}
+.inp.dis{background:var(--g10);color:var(--g40);border-color:var(--line)}
+.hint{font-family:var(--mono);font-size:9.5px;color:var(--g60)}
+.hint.e{color:var(--dn)}
+.seg{display:inline-flex;padding:2px;background:var(--g10);border-radius:5px;gap:2px}
+.seg b{padding:5px 11px;border-radius:3px;font-size:11.5px;font-weight:500;color:var(--g70)}
+.seg b.on{background:var(--g0);color:var(--g90);box-shadow:0 1px 2px rgba(23,28,36,.07)}
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--line)}
+.tab{padding:9px 13px;font-size:12.5px;font-weight:500;color:var(--g60);border-bottom:2px solid transparent;margin-bottom:-1px}
+.tab.on{color:var(--ac);font-weight:600;border-bottom-color:var(--ac)}
+.kpi{background:var(--g0);border:1px solid var(--line);border-radius:6px;padding:14px}
+.kpi .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--g60);margin-bottom:9px}
+.kpi .v{font-size:26px;font-weight:700;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.kpi .d{display:inline-flex;align-items:center;gap:4px;margin-top:8px;font-family:var(--mono);font-size:10px;font-weight:600}
+.kpi .d.up{color:var(--ok)}.kpi .d.dw{color:var(--dn)}.kpi .d.fl{color:var(--g60)}
+.nav{background:var(--g0);border:1px solid var(--line);border-radius:6px;padding:7px;display:flex;flex-direction:column;gap:1px;min-width:186px}
+.nv{display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:4px;font-size:12.5px;font-weight:450;color:var(--g70)}
+.nv.on{background:var(--ac-w);color:var(--ac);font-weight:600;box-shadow:inset 2px 0 0 var(--ac)}
+.nv b{margin-left:auto;font-family:var(--mono);font-size:10px;font-weight:600;color:var(--g60)}
+.nv.on b{color:var(--ac)}
+.nv.al b{color:var(--dn)}
+.av{width:28px;height:28px;border-radius:50%;background:var(--g10);border:1px solid var(--g30);display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:600;color:var(--g70);flex-shrink:0}
+.av.d{background:var(--g90);border-color:var(--g90);color:#fff}
+.av.a{background:var(--ac-w);border-color:var(--ac-b);color:var(--ac)}
+.avs{display:flex}
+.avs .av{margin-left:-7px;box-shadow:0 0 0 2px var(--g0)}
+.avs .av:first-child{margin-left:0}
+.tw{border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--g0)}
+.tbar{display:flex;align-items:center;gap:9px;padding:10px 12px;border-bottom:1px solid var(--line);background:var(--g05);flex-wrap:wrap}
+.tbar .sp{margin-left:auto}
+table{width:100%;border-collapse:collapse}
+th{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--g60);text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);background:var(--g05);white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid var(--line2);font-size:12.5px;vertical-align:middle;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+tbody tr.sel{background:var(--ac-w);box-shadow:inset 2px 0 0 var(--ac)}
+td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;font-size:12px}
+td.id{font-family:var(--mono);font-size:11px;color:var(--g70)}
+td.next{font-family:var(--mono);font-size:11px;color:var(--g90);font-weight:500}
+td.next.due{color:var(--at)}
+td.next.late{color:var(--dn)}
+td.mut{color:var(--g40)}
+.cb{width:14px;height:14px;border-radius:3px;border:1px solid var(--g30);background:var(--g0);display:inline-block;vertical-align:-2px}
+.cb.on{background:var(--ac);border-color:var(--ac);position:relative}
+.cb.on::after{content:"";position:absolute;left:3.5px;top:1px;width:5px;height:8px;border:solid #fff;border-width:0 1.6px 1.6px 0;transform:rotate(42deg)}
+.att{display:inline-flex;gap:3px;align-items:center}
+.att i{width:5px;height:5px;border-radius:50%;background:var(--g30);display:block}
+.att i.f{background:var(--g70)}
+.att b{font-family:var(--mono);font-size:10px;color:var(--g60);margin-left:4px;font-weight:500}
+.tfoot{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;border-top:1px solid var(--line);background:var(--g05);font-size:11.5px;color:var(--g70)}
+.pg{display:flex;gap:3px}
+.pg b{min-width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;border-radius:4px;font-family:var(--mono);font-size:11px;font-weight:500;color:var(--g70);border:1px solid transparent}
+.pg b.on{background:var(--ac);color:#fff}
+.pg b.nx{border-color:var(--g30)}
+.ig{display:grid;grid-template-columns:repeat(10,1fr);gap:9px}
+.ic{background:var(--g0);border:1px solid var(--line);border-radius:5px;padding:13px 6px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.ic span{font-family:var(--mono);font-size:8.5px;color:var(--g60)}
+.pr{background:var(--g0);border:1px solid var(--line);border-radius:6px;padding:20px}
+.pr .n{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--g60);margin-bottom:10px}
+.pr h3{font-size:17px;font-weight:600;letter-spacing:-.02em;line-height:1.25}
+.pr h3 em{font-weight:400;color:var(--g40)}
+.pr p{margin-top:9px;font-size:12px;color:var(--g70);line-height:1.55}
+.dodont{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.dd{border:1px solid var(--line);border-radius:6px;padding:16px;background:var(--g0)}
+.dd .h{display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:600;margin-bottom:12px}
+.dd.y .h{color:var(--ok)}.dd.n .h{color:var(--dn)}
+.dd ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+.dd li{font-size:12px;color:var(--g70);padding-left:13px;position:relative;line-height:1.45}
+.dd li::before{content:"";position:absolute;left:0;top:7px;width:4px;height:4px;border-radius:50%;background:var(--g30)}
+.ft{margin-top:8px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:24px;font-family:var(--mono);font-size:9.5px;color:var(--g60);letter-spacing:.1em;text-transform:uppercase}
+@media(max-width:1080px){.wrap{padding:40px 24px 60px}.sh{grid-template-columns:1fr;gap:10px}.ramp{grid-template-columns:repeat(3,1fr)}.g2,.g3,.g4{grid-template-columns:1fr}.ig{grid-template-columns:repeat(5,1fr)}.tr{grid-template-columns:1fr;gap:8px}.tm{text-align:left}.dodont{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hd">
+<div>
+<span class="kicker"><i></i>Design system · CRM</span>
+<h1 style="margin-top:14px">UzUsta <em>Operations</em></h1>
+<p class="lede">Самостоятельная система для рабочих интерфейсов отдела продаж: лиды, обзвон, заявки, клиентская база. Холодная графитовая основа и один интерактивный акцент — синий. Продуктовая палитра здесь не используется.</p>
+</div>
+<div class="meta">Tashkent, 2026<br/>Desktop-first · 1440<br/>Плотность: compact</div>
+</header>
+
+<div class="note">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="9" stroke="#171c24" stroke-width="1.5"/><path d="M12 8h.01M12 11v5" stroke="#171c24" stroke-width="1.6" stroke-linecap="round"/></svg>
+<div>
+<b>Отношение к продуктовой системе</b>
+<p>Мандарин остаётся только в логотипе UzUsta — в интерфейсе CRM он не появляется ни в кнопках, ни в статусах, ни в акцентах. Общими с продуктом остаются лишь Inter и JetBrains Mono.</p>
+</div>
+</div>
+
+<section class="sec">
+<div class="sh">
+<div class="kicker"><i></i>01 / Foundation</div>
+<div>
+<h2>Графитовая <em>рампа</em></h2>
+<p>Девять ступеней с холодным подтоном — вся основа интерфейса. Поверхности берутся из 00–20, границы из 30, текст из 60–90. Промежуточных оттенков «на глаз» нет.</p>
+</div>
+</div>
+<div class="ramp">
+<div class="step" style="background:#fff"><b style="color:#171c24">00</b><span style="color:#515b6b">#FFFFFF</span></div>
+<div class="step" style="background:#f8f9fb"><b style="color:#171c24">05</b><span style="color:#515b6b">#F8F9FB</span></div>
+<div class="step" style="background:#f1f3f6"><b style="color:#171c24">10</b><span style="color:#515b6b">#F1F3F6</span></div>
+<div class="step" style="background:#e7eaef"><b style="color:#171c24">20</b><span style="color:#515b6b">#E7EAEF</span></div>
+<div class="step" style="background:#d5dae1"><b style="color:#171c24">30</b><span style="color:#515b6b">#D5DAE1</span></div>
+<div class="step" style="background:#aeb6c2"><b style="color:#171c24">40</b><span style="color:#333c49">#AEB6C2</span></div>
+<div class="step" style="background:#7c8695"><b style="color:#fff">60</b><span style="color:#fff">#7C8695</span></div>
+<div class="step" style="background:#515b6b"><b style="color:#fff">70</b><span style="color:#fff">#515B6B</span></div>
+<div class="step" style="background:#171c24"><b style="color:#fff">90</b><span style="color:#fff">#171C24</span></div>
+</div>
+<div class="g3" style="margin-top:14px">
+<div class="card pad"><div class="gl">Поверхности</div><p style="font-size:12px;color:var(--g70);line-height:1.55">Фон приложения — 05. Карточки, таблицы, поля — 00. Шапки таблиц, тулбары, сегменты — 10. Отключённые элементы — 10 с текстом 40.</p></div>
+<div class="card pad"><div class="gl">Границы</div><p style="font-size:12px;color:var(--g70);line-height:1.55">Внешние рамки — #E4E8ED. Разделители строк — #EEF1F4. Границы полей — 30, при фокусе — акцент. Толщина всегда 1px.</p></div>
+<div class="card pad"><div class="gl">Текст</div><p style="font-size:12px;color:var(--g70);line-height:1.55">Основной — 90. Вторичный — 70. Мета, лейблы колонок, плейсхолдеры — 60. Пустые значения и отключённое — 40.</p></div>
+</div>
+</section>
+
+<section class="sec">
+<div class="sh">
+<div class="kicker"><i></i>02 / Accent</div>
+<div>
+<h2>Один акцент — <em>интерактив</em></h2>
+<p>Синий означает ровно одно: «с этим можно взаимодействовать или это выбрано». Фокус, ссылки, активный пункт меню, выделенная строка. Остальные три цвета — только состояния данных.</p>
+</div>
+</div>
+<div class="g4">
+<div class="swx"><i style="background:#2e5f94"></i><div class="m"><b>Accent</b><span>#2E5F94</span><em>Фокус, выбор, ссылки, активная навигация</em></div></div>
+<div class="swx"><i style="background:#2f7d5f"></i><div class="m"><b>Success</b><span>#2F7D5F</span><em>Дозвонились, квалифицирован, стал клиентом</em></div></div>
+<div class="swx"><i style="background:#8a6a1c"></i><div class="m"><b>Attention</b><span>#8A6A1C</span><em>Ждёт звонка: недозвон, перезвонить, просрочен</em></div></div>
+<div class="swx"><i style="background:#a13c3c"></i><div class="m"><b>Danger</b><span>#A13C3C</span><em>Отказ, нецелевой, дубль, удаление</em></div></div>
+</div>
+<div class="card pad" style="margin-top:14px">
+<div class="gl">Воронка лида</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<span class="st new"><i style="background:#333c49"></i>Новый</span>
+<span class="st ac"><i style="background:#2e5f94"></i>В обзвоне</span>
+<span class="st at"><i style="background:#8a6a1c"></i>Недозвон</span>
+<span class="st at"><i style="background:#8a6a1c"></i>Перезвонить</span>
+<span class="st ac"><i style="background:#2e5f94"></i>Квалифицирован</span>
+<span class="st ac"><i style="background:#2e5f94"></i>Заявка создана</span>
+<span class="st ok"><i style="background:#2f7d5f"></i>Клиент</span>
+<span class="st dn"><i style="background:#a13c3c"></i>Отказ</span>
+<span class="st dn"><i style="background:#a13c3c"></i>Нецелевой</span>
+<span class="st neu"><i style="background:#7c8695"></i>Дубль</span>
+</div>
+<p style="font-size:12px;color:var(--g70);margin-top:14px;line-height:1.55">Все шаги «лид в работе» делят один синий: оператору важно отличать «двигается» от «требует звонка сегодня» и «закрыто». Точный шаг читается словом, а не оттенком. Янтарный — единственный цвет, по которому строится очередь обзвона.</p>
+</div>
+</section>
+
+<section class="sec">
+<div class="sh">
+<div class="kicker"><i></i>03 / Type</div>
+<div>
+<h2>Одна гарнитура, <em>плотная шкала</em></h2>
+<p>Inter несёт весь интерфейс — от заголовка страницы до ячейки. Второй гарнитуры для заголовков нет: в CRM она только добавляет шум. JetBrains Mono — идентификаторы, время, суммы, лейблы колонок.</p>
+</div>
+</div>
+<div class="card" style="padding:4px 20px">
+<div class="tr"><div class="tl">Page title</div><div style="font-size:26px;font-weight:700;letter-spacing:-.03em">Лиды · Ташкент</div><div class="tm">Inter 700 · 26/30 · -3%</div></div>
+<div class="tr"><div class="tl">Section</div><div style="font-size:17px;font-weight:600;letter-spacing:-.02em">Требуют звонка сегодня</div><div class="tm">Inter 600 · 17/22</div></div>
+<div class="tr"><div class="tl">Metric</div><div style="font-size:26px;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums">1 284 <span style="font-size:13px;font-weight:500;color:var(--g60)">лида</span></div><div class="tm">Inter 700 · tabular-nums</div></div>
+<div class="tr"><div class="tl">Body / cell</div><div style="font-size:12.5px">Азиза Рахимова · Instagram</div><div class="tm">Inter 400 · 12.5/18</div></div>
+<div class="tr"><div class="tl">Cell strong</div><div style="font-size:12.5px;font-weight:600">Перезвонить сегодня, 16:00</div><div class="tm">Inter 600 · 12.5/18</div></div>
+<div class="tr"><div class="tl">Caption</div><div style="font-size:11.5px;color:var(--g70)">Обновлено 4 минуты назад</div><div class="tm">Inter 400 · 11.5/16 · c70</div></div>
+<div class="tr"><div class="tl">Column head</div><div style="font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--g60)">статус · ответственный · попытки</div><div class="tm">Mono 600 · 9.5px · 0.10em</div></div>
+<div class="tr"><div class="tl">Identifier</div><div style="font-family:var(--mono);font-size:11px;color:var(--g70)">#L-48210 · 14:32 · +998 90 ··· 45 67</div><div class="tm">Mono 400 · 11px</div></div>
+<div class="tr"><div class="tl">Amount</div><div style="font-family:var(--mono);font-size:12px;font-variant-numeric:tabular-nums">240 000 <span style="color:var(--g60)">сум</span></div><div class="tm">Mono 400 · tabular · right</div></div>
+</div>
+</section>
+
+<section class="sec">
+<div class="sh">
+<div class="kicker"><i></i>04 / Density</div>
+<div>
+<h2>Сетка и <em>форма</em></h2>
+<p>Шаг 4px, рабочий диапазон 6–8–12–16. Радиусы мелкие: 3, 4, 5, 6. Скругления больше 8px не используются нигде.</p>
+</div>
+</div>
+<div class="g2">
+<div class="card pad">
+<div class="gl">Spacing · compact</div>
+<div class="dr"><code>--sp-1</code><i style="width:4px"></i><span>4 · внутри пилюли</span></div>
+<div class="dr"><code>--sp-2</code><i style="width:6px"></i><span>6 · иконка/текст</span></div>
+<div class="dr"><code>--sp-3</code><i style="width:8px"></i><span>8 · между полями</span></div>
+<div class="dr"><code>--sp-4</code><i style="width:12px"></i><span>12 · ячейка таблицы</span></div>
+<div class="dr"><code>--sp-5</code><i style="width:16px"></i><span>16 · внутри карточки</span></div>
+<div class="dr"><code>--sp-6</code><i style="width:24px"></i><span>24 · между блоками</span></div>
+<div class="dr"><code>--sp-8</code><i style="width:40px"></i><span>40 · между секциями</span></div>
+</div>
+<div class="card pad">
+<div class="gl">Radii</div>
+<div class="g4" style="gap:12px">
+<div class="rx"><i style="border-radius:3px"></i><b>3</b><span>чекбокс</span></div>
+<div class="rx"><i style="border-radius:4px"></i><b>4</b><span>статус, sm</span></div>
+<div class="rx"><i style="border-radius:5px"></i><b>5</b><span>кнопки, поля</span></div>
+<div class="rx"><i style="border-radius:6px"></i><b>6</b><span>карточки</span></div>
+</div>
+<div class="gl" style="margin:18px 0 10px">Высоты</div>
+<div class="dr"><code>row</code><i style="width:96px;height:36px;border-radius:3px;background:var(--g20)"></i><span>36 · строка таблицы</span></div>
+<div class="dr"><code>control</code><i style="width:96px;height:32px;border-radius:3px;background:var(--g20)"></i><span>32 · кнопка, поле</span></div>
+<div class="dr"><code>control-sm</code><i style="width:96px;height:24px;border-radius:3px;background:var(--g20)"></i><span>24 · внутри ячейки</span></div>
+</div>
+</div>
+</section>
+
+<section class="sec">
+<div class="sh">
+<div class="kicker"><i></i>05 / Components</div>
+<div>
+<h2>Рабочие <em>элементы</em></h2>
+<p>Всё, из чего собирается экран оператора. Иерархия строится границей и ступенью рампы — тень допустима только у настоящих оверлеев.</p>
+</div>
+</div>
+<div class="g3">
+
+<div class="cp">
+<div><div class="gl">Buttons</div><h3>Кнопки</h3><p>Главное действие — графит: взять лида, создать заявку. Синяя кнопка только там, где подтверждается выбор или фильтр.</p></div>
+<div class="stage">
+<span class="btn b-pri">Взять в работу</span>
+<span class="btn b-ac">Применить фильтр</span>
+<span class="btn b-sec">Экспорт</span>
+<span class="btn b-gho">Сбросить</span>
+<span class="btn b-dng">Отметить отказ</span>
+<span class="btn b-dis">Недоступно</span>
+<span class="btn b-sec b-sm">Детали</span>
+</div>
+</div>
+
+<div class="cp">
+<div><div class="gl">Fields</div><h3>Поля и состояния</h3><p>Фокус — синяя рамка и кольцо. Ошибка красит рамку и подпись, но не заливку поля.</p></div>
+<div class="stage col" style="gap:12px">
+<div class="fld"><label>Телефон лида</label><div class="inp">+998 90 123 45 67</div></div>
+<div class="fld"><label>Источник</label><div class="inp foc ph">Instagram, Telegram, сайт, звонок…</div><span class="hint">7 подключённых источников</span></div>
+<div class="fld"><label>Бюджет заявки</label><div class="inp err">0</div><span class="hint e">Должен быть больше нуля</span></div>
+<div class="fld"><label>Лид создан</label><div class="inp dis">заполняется автоматически</div></div>
+</div>
+</div>
+
+<div class="cp">
+<div><div class="gl">Segmented · tabs</div><h3>Переключатели</h3><p>Сегмент меняет срез данных, табы — раздел. Активный таб подчёркнут синим, активный сегмент — белой плашкой.</p></div>
+<div class="stage col" style="gap:14px">
+<div><span class="seg"><b class="on">Все</b><b>Новые</b><b>В обзвоне</b><b>Отказ</b></span></div>
+<div class="tabs">
+<span class="tab on">Лиды</span>
+<span class="tab">Заявки</span>
+<span class="tab">Клиенты</span>
+</div>
+</div>
+</div>
+
+<div class="cp">
+<div><div class="gl">Metrics</div><h3>Показатели</h3><p>Число крупнее всего, подпись сверху, дельта снизу. Цвет только у дельты — и только зелёный или красный.</p></div>
+<div class="stage col" style="gap:10px">
+<div class="kpi"><div class="k">Новых лидов сегодня</div><div class="v">284</div><div class="d up">↑ 12% к вчера</div></div>
+<div class="kpi"><div class="k">Дозвон с первой попытки</div><div class="v">62%</div><div class="d up">↑ 4 п.п.</div></div>
+<div class="kpi"><div class="k">Просрочено звонков</div><div class="v">7</div><div class="d dw">↑ 3 за час</div></div>
+</div>
+</div>
+
+<div class="cp">
+<div><div class="gl">Navigation</div><h3>Меню раздела</h3><p>Активный пункт — светло-синяя заливка и полоса слева. Счётчик моноширинный; красный только у того, что требует реакции.</p></div>
+<div class="stage">
+<div class="nav">
+<span class="nv on">Лиды <b>284</b></span>
+<span class="nv">Обзвон <b>46</b></span>
+<span class="nv al">Просрочено <b>7</b></span>
+<span class="nv">Заявки <b>17</b></span>
+<span class="nv">Клиенты <b>1 240</b></span>
+<span class="nv">Отчёты</span>
+</div>
+</div>
+</div>
+
+<div class="cp">
+<div><div class="gl">Identity</div><h3>Люди в системе</h3><p>Инициалы на нейтральном фоне. Графит — оператор, синий — ответственный за лида, серый — все остальные.</p></div>
+<div class="stage col" style="gap:14px">
+<div style="display:flex;gap:8px;align-items:center">
+<span class="av d">ОП</span><span class="av a">АК</span><span class="av">ДМ</span><span class="av">ЗА</span>
+</div>
+<div style="display:flex;align-items:center;gap:10px">
+<span class="avs"><span class="av">АК</span><span class="av">ДМ</span><span class="av">ЗА</span><span class="av" style="font-size:9.5px">+9</span></span>
+<span style="font-size:11.5px;color:var(--g70)">6 операторов на смене</span>
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="sec">
+<div class="sh">
+<div class="kicker"><i></i>06 / Data table</div>
+<div>
+<h2>Таблица <em>лидов</em></h2>
+<p>Главный экран оператора. Строка 36px, время и попытки моноширинные, выделенная строка — светло-синяя с полосой слева. Статус остаётся единственным цветным пятном.</p>
+</div>
+</div>
+<div class="tw">
+<div class="tbar">
+<span class="seg"><b class="on">Все</b><b>Мои</b><b>Просрочено</b></span>
+<span class="inp ph" style="min-width:250px;padding:5px 10px;font-size:12px">Поиск по имени или телефону</span>
+<span class="btn b-sec b-sm">Источник ▾</span>
+<span class="btn b-sec b-sm">Статус ▾</span>
+<span class="sp"></span>
+<span class="btn b-sec b-sm">Экспорт CSV</span>
+<span class="btn b-pri b-sm">Добавить лида</span>
+</div>
+<table>
+<thead><tr><th style="width:34px"><span class="cb"></span></th><th>Лид</th><th>Контакт</th><th>Источник</th><th>Ответственный</th><th>Статус</th><th>Попытки</th><th>Следующий контакт</th></tr></thead>
+<tbody>
+<tr class="sel"><td><span class="cb on"></span></td><td class="id">#L-48210</td><td>Азиза Рахимова</td><td><span class="st neu">Instagram</span></td><td><span style="display:inline-flex;align-items:center;gap:7px"><span class="av a" style="width:22px;height:22px;font-size:9px">АК</span>Алишер К.</span></td><td><span class="st ac"><i style="background:#2e5f94"></i>В обзвоне</span></td><td><span class="att"><i class="f"></i><i class="f"></i><i class=""></i><b>2/3</b></span></td><td class="next due">сегодня 16:00</td></tr>
+<tr><td><span class="cb"></span></td><td class="id">#L-48209</td><td>Тимур Саидов</td><td><span class="st neu">Telegram</span></td><td><span style="display:inline-flex;align-items:center;gap:7px"><span class="av" style="width:22px;height:22px;font-size:9px">ДМ</span>Дилшод М.</span></td><td><span class="st at"><i style="background:#8a6a1c"></i>Недозвон</span></td><td><span class="att"><i class="f"></i><i class="f"></i><i class="f"></i><b>3/3</b></span></td><td class="next late">просрочен 17:30</td></tr>
+<tr><td><span class="cb"></span></td><td class="id">#L-48207</td><td>Нигора Холматова</td><td><span class="st neu">Сайт</span></td><td><span style="display:inline-flex;align-items:center;gap:7px"><span class="av" style="width:22px;height:22px;font-size:9px">ЗА</span>Зухра А.</span></td><td><span class="st ok"><i style="background:#2f7d5f"></i>Клиент</span></td><td><span class="att"><i class="f"></i><i class=""></i><i class=""></i><b>1/3</b></span></td><td class="id mut">—</td></tr>
+<tr><td><span class="cb"></span></td><td class="id">#L-48206</td><td>Бекзод Раимов</td><td><span class="st neu">Instagram</span></td><td class="mut">не назначен</td><td><span class="st new"><i style="background:#333c49"></i>Новый</span></td><td><span class="att"><i class=""></i><i class=""></i><i class=""></i><b>0/3</b></span></td><td class="next" style="color:var(--g60)">в очереди</td></tr>
+<tr><td><span class="cb"></span></td><td class="id">#L-48204</td><td>Малика Юсупова</td><td><span class="st neu">Звонок</span></td><td><span style="display:inline-flex;align-items:center;gap:7px"><span class="av" style="width:22px;height:22px;font-size:9px">РХ</span>Рустам Х.</span></td><td><span class="st ac"><i style="background:#2e5f94"></i>Заявка создана</span></td><td><span class="att"><i class="f"></i><i class="f"></i><i class=""></i><b>2/3</b></span></td><td class="id">завтра 10:00</td></tr>
+<tr><td><span class="cb"></span></td><td class="id">#L-48201</td><td>Санжар Одилов</td><td><span class="st neu">Telegram</span></td><td><span style="display:inline-flex;align-items:center;gap:7px"><span class="av" style="width:22px;height:22px;font-size:9px">АК</span>Алишер К.</span></td><td><span class="st dn"><i style="background:#a13c3c"></i>Отказ</span></td><td><span class="att"><i class="f"></i><i class="f"></i><i class="f"></i><b>3/3</b></span></td><td class="id mut">—</td></tr>
+</tbody>
+</table>
+<div class="tfoot">
+<span>Выбран 1 · всего 284 лида</span>
+<span class="pg"><b class="nx">←</b><b class="on">1</b><b>2</b><b>3</b><b>…</b><b>48</b><b class="nx">→</b></span>
+</div>
+</div>
+</section>
+
+<section class="sec">
+<div class="sh">
+<div class="kicker"><i></i>07 / Icons</div>
+<div>
+<h2>Иконки <em>16 / 18</em></h2>
+<p>Monoline, stroke 1.5, скруглённые концы. В навигации и тулбарах иконка идёт с подписью, в ячейках таблицы — без, там место дороже.</p>
+</div>
+</div>
+<div class="ig">
+<div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#515b6b" stroke-width="1.5"/><path d="M16 16l4 4" stroke="#515b6b" stroke-width="1.5" stroke-linecap="round"/></svg><span>search</span></div>
+<div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M7 12h10M10 18h4" stroke="#515b6b" stroke-width="1.5" stroke-linecap="round"/></svg><span>filter</span></div>
+<div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#515b6b" stroke-width="1.5"/><path d="M3 9h18M8 2v4M16 2v4" stroke="#515b6b" stroke-width="1.5" stroke-linecap="round"/></svg><span>date</span></div>
+<div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#515b6b" stroke-width="1.5"/><path d="M12 7v5l3 2" stroke="#515b6b" stroke-width="1.5" stroke-linecap="round"/></svg><span>time</span></div>
+<div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-7 7-12a7 7 0 10-14 0c0 5 7 12 7 12z" stroke="#515b6b" stroke-width="1.5"/><circle cx="12" cy="9" r="2.4" stroke="#515b6b" stroke-width="1.5"/></svg><span>district</span></div>
+<div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.6" stroke="#515b6b" stroke-width="1.5"/><path d="M5 20c0-3.6 3.4-6 7-6s7 2.4 7 6" stroke="#515b6b" stroke-width="1.5" stroke-linecap="round"/></svg><span>master</span></div>
+<div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="#515b6b" stroke-width="1.5"/><path d="M3 10h18" stroke="#515b6b" stroke-width="1.5"/></svg><span>payout</span></div>
+<div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2" stroke="#515b6b" stroke-width="1.5" stroke-linecap="round"/></svg><span>report</span></div>
+<div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3l8 4v6c0 4.6-3.6 7.4-8 8.4-4.4-1-8-3.8-8-8.4V7l8-4z" stroke="#515b6b" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#515b6b" stroke-width="1.5" stroke-linecap="round"/></svg><span>verify</span></div>
+<div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 4l9 16H3L12 4z" stroke="#515b6b" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 10v4M12 17h.01" stroke="#515b6b" stroke-width="1.5" stroke-linecap="round"/></svg><span>dispute</span></div>
+<div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 5h16v11H8l-4 4V5z" stroke="#515b6b" stroke-width="1.5" stroke-linejoin="round"/></svg><span>chat</span></div>
+<div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A15 15 0 013 6a2 2 0 012-2z" stroke="#515b6b" stroke-width="1.5" stroke-linejoin="round"/></svg><span>call</span></div>
+<div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#515b6b" stroke-width="1.6" stroke-linecap="round"/></svg><span>add</span></div>
+<div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13" stroke="#515b6b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>delete</span></div>
+<div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 4v12M7 11l5 5 5-5M4 20h16" stroke="#515b6b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>export</span></div>
+<div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="2" stroke="#515b6b" stroke-width="1.5"/><circle cx="12" cy="5" r="2" stroke="#515b6b" stroke-width="1.5"/><circle cx="12" cy="19" r="2" stroke="#515b6b" stroke-width="1.5"/></svg><span>more</span></div>
+<div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#515b6b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>next</span></div>
+<div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#515b6b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>check</span></div>
+<div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#515b6b" stroke-width="1.6" stroke-linecap="round"/></svg><span>close</span></div>
+<div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 0114-5m2-3v6h-6M20 12a8 8 0 01-14 5m-2 3v-6h6" stroke="#515b6b" stroke-width="1.5" stroke-linecap="round"/></svg><span>refresh</span></div>
+</div>
+</section>
+
+<section class="sec">
+<div class="sh">
+<div class="kicker"><i></i>08 / Principles</div>
+<div>
+<h2>Правила <em>системы</em></h2>
+<p>Четыре принципа, по которым принимаются все решения в CRM.</p>
+</div>
+</div>
+<div class="g2">
+<div class="pr"><div class="n">01 · Данные важнее оформления</div><h3>Интерфейс <em>исчезает</em></h3><p>Оператор смотрит в таблицу восемь часов. Графитовая рампа не утомляет глаз и не спорит с содержимым — заметным остаётся только то, что требует решения.</p></div>
+<div class="pr"><div class="n">02 · Цвет = смысл</div><h3>Синий — <em>интерактив</em></h3><p>Синий никогда не украшает: он значит «выбрано» или «можно нажать». Зелёный, янтарный и красный говорят о состоянии данных. Пятого цвета в системе нет.</p></div>
+<div class="pr"><div class="n">03 · Плотность вместо воздуха</div><h3>Строка <em>36 пикселей</em></h3><p>Цель — максимум строк без прокрутки, а не комфорт первого впечатления. Отступы 8–12, контролы 32, радиусы до 6.</p></div>
+<div class="pr"><div class="n">04 · Граница, не тень</div><h3>Плоские <em>слои</em></h3><p>Иерархия строится границей и ступенью рампы. Тень допустима только у настоящих оверлеев — дропдаунов, модалок, тултипов.</p></div>
+</div>
+<div class="dodont">
+<div class="dd y"><div class="h">✓ Так</div><ul>
+<li>Статус — светлая заливка, тёмный текст, цветная точка</li>
+<li>Главное действие графитовое, синяя кнопка — для выбора и фильтров</li>
+<li>Очередь обзвона строится янтарным — он значит «позвонить сегодня»</li>
+<li>Время следующего контакта — тёмное: это то, по чему оператор действует</li>
+<li>Попытки, время и суммы моноширинные, tabular-nums</li>
+<li>Пустое значение — «не назначен» цветом 40, а не случайный прочерк</li>
+<li>Выделенная строка — заливка акцента и полоса слева</li>
+</ul></div>
+<div class="dd n"><div class="h">✕ Не так</div><ul>
+<li>Мандарин и любые цвета продуктовой палитры в интерфейсе</li>
+<li>Насыщенные заливки статусов на всю ячейку</li>
+<li>Синий на неинтерактивном тексте и заголовках</li>
+<li>Тени под карточками и строками таблицы</li>
+<li>Вторая гарнитура для заголовков и чисел</li>
+</ul></div>
+</div>
+</section>
+
+<footer class="ft">
+<span>UzUsta Operations · Design system</span>
+<span>CRM &amp; admin · handoff</span>
+<span>© 2026 UzUsta</span>
+</footer>
+
+</div>
+</body>
+</html>

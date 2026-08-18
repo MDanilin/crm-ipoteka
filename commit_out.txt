@@ -1,0 +1,410 @@
+warning: could not open directory 'apps/api/node_modules/@types/better-sqlite3/': No such file or directory
+warning: could not open directory 'apps/api/node_modules/better-sqlite3/': No such file or directory
+On branch design/uzusta-crm
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   apps/api/crm.db-shm
+	modified:   apps/api/crm.db-wal
+	modified:   apps/api/src/main.ts
+	modified:   apps/api/src/routes/auth.ts
+	modified:   apps/web/.next/app-build-manifest.json
+	modified:   apps/web/.next/build-manifest.json
+	modified:   apps/web/.next/fallback-build-manifest.json
+	modified:   apps/web/.next/server/app-paths-manifest.json
+	modified:   apps/web/.next/server/app/(crm)/campaigns/[id]/page.js
+	modified:   apps/web/.next/server/app/(crm)/campaigns/[id]/page/app-build-manifest.json
+	modified:   apps/web/.next/server/app/(crm)/campaigns/[id]/page_client-reference-manifest.js
+	modified:   apps/web/.next/server/app/(crm)/campaigns/page.js
+	modified:   apps/web/.next/server/app/(crm)/campaigns/page/app-build-manifest.json
+	modified:   apps/web/.next/server/app/(crm)/campaigns/page_client-reference-manifest.js
+	modified:   apps/web/.next/server/app/(crm)/clients/[id]/page.js
+	modified:   apps/web/.next/server/app/(crm)/clients/[id]/page/app-build-manifest.json
+	modified:   apps/web/.next/server/app/(crm)/clients/[id]/page/next-font-manifest.json
+	modified:   apps/web/.next/server/app/(crm)/clients/[id]/page_client-reference-manifest.js
+	modified:   apps/web/.next/server/app/(crm)/clients/page.js
+	modified:   apps/web/.next/server/app/(crm)/clients/page/app-build-manifest.json
+	modified:   apps/web/.next/server/app/(crm)/clients/page/next-font-manifest.json
+	modified:   apps/web/.next/server/app/(crm)/clients/page_client-reference-manifest.js
+	modified:   apps/web/.next/server/app/(crm)/dashboard/page.js
+	modified:   apps/web/.next/server/app/(crm)/dashboard/page/app-build-manifest.json
+	modified:   apps/web/.next/server/app/(crm)/dashboard/page/next-font-manifest.json
+	modified:   apps/web/.next/server/app/(crm)/dashboard/page_client-reference-manifest.js
+	modified:   apps/web/.next/server/app/(crm)/leads/page.js
+	modified:   apps/web/.next/server/app/(crm)/leads/page/app-build-manifest.json
+	modified:   apps/web/.next/server/app/(crm)/leads/page/next-font-manifest.json
+	modified:   apps/web/.next/server/app/(crm)/leads/page_client-reference-manifest.js
+	modified:   apps/web/.next/server/app/(crm)/pipeline/[id]/page.js
+	modified:   apps/web/.next/server/app/(crm)/pipeline/[id]/page/app-build-manifest.json
+	modified:   apps/web/.next/server/app/(crm)/pipeline/[id]/page_client-reference-manifest.js
+	modified:   apps/web/.next/server/app/(crm)/pipeline/page.js
+	modified:   apps/web/.next/server/app/(crm)/pipeline/page/app-build-manifest.json
+	modified:   apps/web/.next/server/app/(crm)/pipeline/page/next-font-manifest.json
+	modified:   apps/web/.next/server/app/(crm)/pipeline/page_client-reference-manifest.js
+	modified:   apps/web/.next/server/app/(crm)/sla/page.js
+	modified:   apps/web/.next/server/app/(crm)/sla/page/app-build-manifest.json
+	modified:   apps/web/.next/server/app/(crm)/sla/page/next-font-manifest.json
+	modified:   apps/web/.next/server/app/(crm)/sla/page_client-reference-manifest.js
+	modified:   apps/web/.next/server/app/(crm)/tasks/page.js
+	modified:   apps/web/.next/server/app/(crm)/tasks/page/app-build-manifest.json
+	modified:   apps/web/.next/server/app/(crm)/tasks/page/next-font-manifest.json
+	modified:   apps/web/.next/server/app/(crm)/tasks/page_client-reference-manifest.js
+	modified:   apps/web/.next/server/app/(crm)/users/page.js
+	modified:   apps/web/.next/server/app/(crm)/users/page/app-build-manifest.json
+	modified:   apps/web/.next/server/app/(crm)/users/page_client-reference-manifest.js
+	modified:   apps/web/.next/server/app/_not-found/page.js
+	modified:   apps/web/.next/server/app/_not-found/page/app-build-manifest.json
+	modified:   apps/web/.next/server/app/_not-found/page/next-font-manifest.json
+	modified:   apps/web/.next/server/app/_not-found/page_client-reference-manifest.js
+	modified:   apps/web/.next/server/app/login/page.js
+	modified:   apps/web/.next/server/app/login/page/app-build-manifest.json
+	modified:   apps/web/.next/server/app/login/page/next-font-manifest.json
+	modified:   apps/web/.next/server/app/login/page_client-reference-manifest.js
+	modified:   apps/web/.next/server/app/page.js
+	modified:   apps/web/.next/server/app/page/app-build-manifest.json
+	modified:   apps/web/.next/server/app/page/next-font-manifest.json
+	modified:   apps/web/.next/server/app/page_client-reference-manifest.js
+	modified:   apps/web/.next/server/chunks/ssr/[project]__088e8d._.js
+	modified:   apps/web/.next/server/chunks/ssr/[project]__088e8d._.js.map
+	modified:   apps/web/.next/server/chunks/ssr/[project]__1b6cb4._.js
+	modified:   apps/web/.next/server/chunks/ssr/[project]__1b6cb4._.js.map
+	modified:   apps/web/.next/server/chunks/ssr/[project]__2ee231._.js
+	modified:   apps/web/.next/server/chunks/ssr/[project]__2ee231._.js.map
+	modified:   apps/web/.next/server/chunks/ssr/[project]__7f779c._.js
+	modified:   apps/web/.next/server/chunks/ssr/[project]__7f779c._.js.map
+	modified:   apps/web/.next/server/chunks/ssr/[root of the server]__4e2e6b._.css
+	modified:   apps/web/.next/server/chunks/ssr/[root of the server]__4e2e6b._.css.map
+	modified:   apps/web/.next/server/chunks/ssr/src_0271b2._.js
+	modified:   apps/web/.next/server/chunks/ssr/src_0271b2._.js.map
+	modified:   apps/web/.next/server/chunks/ssr/src_45baf3._.js
+	modified:   apps/web/.next/server/chunks/ssr/src_45baf3._.js.map
+	modified:   apps/web/.next/server/chunks/ssr/src_608ac0._.js
+	modified:   apps/web/.next/server/chunks/ssr/src_608ac0._.js.map
+	modified:   apps/web/.next/server/chunks/ssr/src_6737e5._.js
+	modified:   apps/web/.next/server/chunks/ssr/src_6737e5._.js.map
+	modified:   apps/web/.next/server/chunks/ssr/src_69cb91._.js
+	modified:   apps/web/.next/server/chunks/ssr/src_69cb91._.js.map
+	modified:   apps/web/.next/server/chunks/ssr/src_app_(crm)_dashboard_page_tsx_e551d9._.js
+	modified:   apps/web/.next/server/chunks/ssr/src_app_(crm)_dashboard_page_tsx_e551d9._.js.map
+	modified:   apps/web/.next/server/chunks/ssr/src_app_(crm)_sla_page_tsx_a8412f._.js
+	modified:   apps/web/.next/server/chunks/ssr/src_app_(crm)_sla_page_tsx_a8412f._.js.map
+	modified:   apps/web/.next/server/chunks/ssr/src_app_globals_b52d8e.css
+	modified:   apps/web/.next/server/chunks/ssr/src_app_globals_b52d8e.css.map
+	modified:   apps/web/.next/server/chunks/ssr/src_f2b675._.js
+	modified:   apps/web/.next/server/chunks/ssr/src_f2b675._.js.map
+	modified:   apps/web/.next/server/middleware-build-manifest.js
+	modified:   apps/web/.next/server/next-font-manifest.js
+	modified:   apps/web/.next/server/next-font-manifest.json
+	modified:   apps/web/.next/server/pages-manifest.json
+	modified:   apps/web/.next/static/chunks/[project]__701f00._.js
+	modified:   apps/web/.next/static/chunks/[project]__701f00._.js.map
+	modified:   apps/web/.next/static/chunks/[project]__763941._.js
+	modified:   apps/web/.next/static/chunks/[project]__763941._.js.map
+	modified:   apps/web/.next/static/chunks/[project]__aa7ae4._.js
+	modified:   apps/web/.next/static/chunks/[project]__aa7ae4._.js.map
+	modified:   apps/web/.next/static/chunks/[project]__d10fac._.js
+	modified:   apps/web/.next/static/chunks/[project]__d10fac._.js.map
+	modified:   apps/web/.next/static/chunks/[root of the server]__4e2e6b._.css
+	modified:   apps/web/.next/static/chunks/[root of the server]__4e2e6b._.css.map
+	modified:   apps/web/.next/static/chunks/src_21d812._.js
+	modified:   apps/web/.next/static/chunks/src_21d812._.js.map
+	modified:   apps/web/.next/static/chunks/src_2d8f1d._.js
+	modified:   apps/web/.next/static/chunks/src_2d8f1d._.js.map
+	modified:   apps/web/.next/static/chunks/src_3f6b69._.js
+	modified:   apps/web/.next/static/chunks/src_3f6b69._.js.map
+	modified:   apps/web/.next/static/chunks/src_app_(crm)_dashboard_page_tsx_f938d0._.js
+	modified:   apps/web/.next/static/chunks/src_app_(crm)_dashboard_page_tsx_f938d0._.js.map
+	modified:   apps/web/.next/static/chunks/src_app_(crm)_layout_tsx_cb5c76._.js
+	modified:   apps/web/.next/static/chunks/src_app_(crm)_sla_page_tsx_efd8f8._.js
+	modified:   apps/web/.next/static/chunks/src_app_(crm)_sla_page_tsx_efd8f8._.js.map
+	modified:   apps/web/.next/static/chunks/src_app_globals_b52d8e.css
+	modified:   apps/web/.next/static/chunks/src_app_globals_b52d8e.css.map
+	modified:   apps/web/.next/static/chunks/src_app_layout_tsx_0192da._.js
+	modified:   apps/web/.next/static/chunks/src_app_login_page_tsx_cb5c76._.js
+	modified:   apps/web/.next/static/chunks/src_c4daed._.js
+	modified:   apps/web/.next/static/chunks/src_c4daed._.js.map
+	modified:   apps/web/.next/static/chunks/src_d0beac._.js
+	modified:   apps/web/.next/static/chunks/src_d0beac._.js.map
+	modified:   apps/web/.next/static/chunks/src_e17a5a._.js
+	modified:   apps/web/.next/static/chunks/src_e17a5a._.js.map
+	modified:   apps/web/.next/trace
+	modified:   apps/web/src/app/(crm)/admin/page.tsx
+	modified:   apps/web/src/app/(crm)/analytics/page.tsx
+	modified:   apps/web/src/app/(crm)/campaigns/[id]/page.tsx
+	modified:   apps/web/src/app/(crm)/campaigns/page.tsx
+	modified:   apps/web/src/app/(crm)/clients/[id]/page.tsx
+	modified:   apps/web/src/app/(crm)/clients/page.tsx
+	modified:   apps/web/src/app/(crm)/dashboard/page.tsx
+	modified:   apps/web/src/app/(crm)/layout.tsx
+	modified:   apps/web/src/app/(crm)/leads/[id]/page.tsx
+	modified:   apps/web/src/app/(crm)/leads/page.tsx
+	modified:   apps/web/src/app/(crm)/pipeline/[id]/page.tsx
+	modified:   apps/web/src/app/(crm)/pipeline/page.tsx
+	modified:   apps/web/src/app/(crm)/product-catalog/page.tsx
+	modified:   apps/web/src/app/(crm)/settings/page.tsx
+	modified:   apps/web/src/app/(crm)/sla/page.tsx
+	modified:   apps/web/src/app/(crm)/tasks/page.tsx
+	modified:   apps/web/src/app/(crm)/users/page.tsx
+	modified:   apps/web/src/app/(dsa)/dsa/new/page.tsx
+	modified:   apps/web/src/app/(dsa)/dsa/page.tsx
+	modified:   apps/web/src/app/(dsa)/layout.tsx
+	modified:   apps/web/src/app/globals.css
+	modified:   apps/web/src/app/icon.svg
+	modified:   apps/web/src/app/layout.tsx
+	modified:   apps/web/src/app/login/page.tsx
+	modified:   apps/web/src/components/layout/Sidebar.tsx
+	modified:   apps/web/src/components/layout/Topbar.tsx
+	modified:   apps/web/src/components/ui/Badge.tsx
+	modified:   apps/web/src/components/ui/Button.tsx
+	modified:   apps/web/src/components/ui/LanguageSwitcher.tsx
+	modified:   apps/web/src/components/ui/Modal.tsx
+	modified:   apps/web/tailwind.config.ts
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	.claude/
+	01 BRD.docx
+	BRD_Consolidated(BRD_Business).csv
+	BRD_Consolidated_IS.xlsx
+	CLAUDE.md
+	CRM_design.zip
+	CRM_design_1.zip
+	CRM_design_1_temp/
+	CRM_design_temp/
+	"Rocket_Tech_\320\221\321\200\320\270\321\204_oCRM_Ipotekabank.docx"
+	apps/api/src/sms.ts
+	apps/web/.next/_events.json
+	apps/web/.next/server/app/(crm)/admin/
+	apps/web/.next/server/app/(crm)/product-catalog/
+	apps/web/.next/server/app/(crm)/settings/
+	apps/web/.next/server/app/icon.svg/
+	apps/web/.next/server/chunks/7a06a_next_f9c9d2._.js
+	apps/web/.next/server/chunks/7a06a_next_f9c9d2._.js.map
+	apps/web/.next/server/chunks/[root of the server]__dbd376._.js
+	apps/web/.next/server/chunks/[root of the server]__dbd376._.js.map
+	apps/web/.next/server/chunks/[turbopack]_runtime.js
+	apps/web/.next/server/chunks/[turbopack]_runtime.js.map
+	apps/web/.next/server/chunks/ssr/08b5e__pnpm_102d8a._.js
+	apps/web/.next/server/chunks/ssr/08b5e__pnpm_102d8a._.js.map
+	apps/web/.next/server/chunks/ssr/08b5e__pnpm_3b071f._.js
+	apps/web/.next/server/chunks/ssr/08b5e__pnpm_3b071f._.js.map
+	apps/web/.next/server/chunks/ssr/08b5e__pnpm_5f602f._.js
+	apps/web/.next/server/chunks/ssr/08b5e__pnpm_5f602f._.js.map
+	apps/web/.next/server/chunks/ssr/08b5e__pnpm_62b0c3._.js
+	apps/web/.next/server/chunks/ssr/08b5e__pnpm_62b0c3._.js.map
+	apps/web/.next/server/chunks/ssr/08b5e__pnpm_96bae9._.js
+	apps/web/.next/server/chunks/ssr/08b5e__pnpm_96bae9._.js.map
+	apps/web/.next/server/chunks/ssr/08b5e__pnpm_9e541c._.js
+	apps/web/.next/server/chunks/ssr/08b5e__pnpm_9e541c._.js.map
+	apps/web/.next/server/chunks/ssr/08b5e__pnpm_afaa4e._.js
+	apps/web/.next/server/chunks/ssr/08b5e__pnpm_afaa4e._.js.map
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_4d3cbc._.js
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_4d3cbc._.js.map
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_6d5e18._.js
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_6d5e18._.js.map
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_321c1d.js
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_321c1d.js.map
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_385e0e.js
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_385e0e.js.map
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_61444f.js
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_61444f.js.map
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_6967d8.js
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_6967d8.js.map
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_6a8fcd.js
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_6a8fcd.js.map
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_6cbe5d.js
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_6cbe5d.js.map
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_730711.js
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_730711.js.map
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_8477ca.js
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_8477ca.js.map
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_8ec3b8.js
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_8ec3b8.js.map
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_9f0fdf.js
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_9f0fdf.js.map
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_b63b3f.js
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_b63b3f.js.map
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_b8bdac.js
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_b8bdac.js.map
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_bb811d.js
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_bb811d.js.map
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_ea92c1.js
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_ea92c1.js.map
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_f07b8b.js
+	apps/web/.next/server/chunks/ssr/7a06a_next_dist_esm_build_templates_app-page_f07b8b.js.map
+	apps/web/.next/server/chunks/ssr/[next]_internal_font_google_jetbrains_mono_482a59c9_module_b52d8e.css
+	apps/web/.next/server/chunks/ssr/[next]_internal_font_google_jetbrains_mono_482a59c9_module_b52d8e.css.map
+	apps/web/.next/server/chunks/ssr/[next]_internal_font_google_manrope_a1a61221_module_b52d8e.css
+	apps/web/.next/server/chunks/ssr/[next]_internal_font_google_manrope_a1a61221_module_b52d8e.css.map
+	apps/web/.next/server/chunks/ssr/[project]__096906._.js
+	apps/web/.next/server/chunks/ssr/[project]__096906._.js.map
+	apps/web/.next/server/chunks/ssr/[project]__1afe5e._.js
+	apps/web/.next/server/chunks/ssr/[project]__1afe5e._.js.map
+	apps/web/.next/server/chunks/ssr/[project]__3a214b._.js
+	apps/web/.next/server/chunks/ssr/[project]__3a214b._.js.map
+	apps/web/.next/server/chunks/ssr/[project]__436d16._.js
+	apps/web/.next/server/chunks/ssr/[project]__436d16._.js.map
+	apps/web/.next/server/chunks/ssr/[project]__99554b._.js
+	apps/web/.next/server/chunks/ssr/[project]__99554b._.js.map
+	apps/web/.next/server/chunks/ssr/[project]__9b4238._.js
+	apps/web/.next/server/chunks/ssr/[project]__9b4238._.js.map
+	apps/web/.next/server/chunks/ssr/[project]__c7139b._.js
+	apps/web/.next/server/chunks/ssr/[project]__c7139b._.js.map
+	apps/web/.next/server/chunks/ssr/[project]__d6cee6._.js
+	apps/web/.next/server/chunks/ssr/[project]__d6cee6._.js.map
+	apps/web/.next/server/chunks/ssr/[project]_apps_web_6c4ab0._.js
+	apps/web/.next/server/chunks/ssr/[project]_apps_web_6c4ab0._.js.map
+	apps/web/.next/server/chunks/ssr/[project]_apps_web_6ca40c._.js
+	apps/web/.next/server/chunks/ssr/[project]_apps_web_6ca40c._.js.map
+	apps/web/.next/server/chunks/ssr/[project]_apps_web_78c07e._.js
+	apps/web/.next/server/chunks/ssr/[project]_apps_web_78c07e._.js.map
+	apps/web/.next/server/chunks/ssr/[project]_apps_web_85e793._.js
+	apps/web/.next/server/chunks/ssr/[project]_apps_web_85e793._.js.map
+	apps/web/.next/server/chunks/ssr/[root of the server]__1888ee._.js
+	apps/web/.next/server/chunks/ssr/[root of the server]__1888ee._.js.map
+	apps/web/.next/server/chunks/ssr/[root of the server]__3ff043._.js
+	apps/web/.next/server/chunks/ssr/[root of the server]__3ff043._.js.map
+	apps/web/.next/server/chunks/ssr/[root of the server]__6b088b._.js
+	apps/web/.next/server/chunks/ssr/[root of the server]__6b088b._.js.map
+	apps/web/.next/server/chunks/ssr/[root of the server]__b92012._.js
+	apps/web/.next/server/chunks/ssr/[root of the server]__b92012._.js.map
+	apps/web/.next/server/chunks/ssr/[root of the server]__be7cdd._.js
+	apps/web/.next/server/chunks/ssr/[root of the server]__be7cdd._.js.map
+	apps/web/.next/server/chunks/ssr/[root of the server]__ccbcb7._.js
+	apps/web/.next/server/chunks/ssr/[root of the server]__ccbcb7._.js.map
+	apps/web/.next/server/chunks/ssr/[root of the server]__e251ba._.css
+	apps/web/.next/server/chunks/ssr/[root of the server]__e251ba._.css.map
+	apps/web/.next/server/chunks/ssr/src_0aecf4._.js
+	apps/web/.next/server/chunks/ssr/src_0aecf4._.js.map
+	apps/web/.next/server/chunks/ssr/src_0be892._.js
+	apps/web/.next/server/chunks/ssr/src_0be892._.js.map
+	apps/web/.next/server/chunks/ssr/src_3683ae._.js
+	apps/web/.next/server/chunks/ssr/src_3683ae._.js.map
+	apps/web/.next/server/chunks/ssr/src_5e299f._.js
+	apps/web/.next/server/chunks/ssr/src_5e299f._.js.map
+	apps/web/.next/server/chunks/ssr/src_703673._.js
+	apps/web/.next/server/chunks/ssr/src_703673._.js.map
+	apps/web/.next/server/chunks/ssr/src_addbf9._.js
+	apps/web/.next/server/chunks/ssr/src_addbf9._.js.map
+	apps/web/.next/server/chunks/ssr/src_app_(crm)_admin_page_tsx_4d6a92._.js
+	apps/web/.next/server/chunks/ssr/src_app_(crm)_admin_page_tsx_4d6a92._.js.map
+	apps/web/.next/server/chunks/ssr/src_app_ba6208._.js
+	apps/web/.next/server/chunks/ssr/src_app_ba6208._.js.map
+	apps/web/.next/server/chunks/ssr/src_b7c47e._.js
+	apps/web/.next/server/chunks/ssr/src_b7c47e._.js.map
+	apps/web/.next/server/chunks/ssr/src_ccd1c0._.js
+	apps/web/.next/server/chunks/ssr/src_ccd1c0._.js.map
+	apps/web/.next/static/chunks/08b5e__pnpm_1f0d51._.js
+	apps/web/.next/static/chunks/08b5e__pnpm_1f0d51._.js.map
+	apps/web/.next/static/chunks/08b5e__pnpm_2fa4c0._.js
+	apps/web/.next/static/chunks/08b5e__pnpm_2fa4c0._.js.map
+	apps/web/.next/static/chunks/08b5e__pnpm_5a76a4._.js
+	apps/web/.next/static/chunks/08b5e__pnpm_5a76a4._.js.map
+	apps/web/.next/static/chunks/08b5e__pnpm_ba1c94._.js
+	apps/web/.next/static/chunks/08b5e__pnpm_ba1c94._.js.map
+	apps/web/.next/static/chunks/08b5e__pnpm_bd7193._.js
+	apps/web/.next/static/chunks/08b5e__pnpm_bd7193._.js.map
+	apps/web/.next/static/chunks/[next]_internal_font_google_jetbrains_mono_482a59c9_module_b52d8e.css
+	apps/web/.next/static/chunks/[next]_internal_font_google_jetbrains_mono_482a59c9_module_b52d8e.css.map
+	apps/web/.next/static/chunks/[next]_internal_font_google_manrope_a1a61221_module_b52d8e.css
+	apps/web/.next/static/chunks/[next]_internal_font_google_manrope_a1a61221_module_b52d8e.css.map
+	apps/web/.next/static/chunks/[project]__1036c2._.js
+	apps/web/.next/static/chunks/[project]__1036c2._.js.map
+	apps/web/.next/static/chunks/[project]__26d661._.js
+	apps/web/.next/static/chunks/[project]__26d661._.js.map
+	apps/web/.next/static/chunks/[project]__49f28c._.js
+	apps/web/.next/static/chunks/[project]__49f28c._.js.map
+	apps/web/.next/static/chunks/[project]__760c69._.js
+	apps/web/.next/static/chunks/[project]__760c69._.js.map
+	apps/web/.next/static/chunks/[project]__87c798._.js
+	apps/web/.next/static/chunks/[project]__87c798._.js.map
+	apps/web/.next/static/chunks/[project]__bab9ed._.js
+	apps/web/.next/static/chunks/[project]__bab9ed._.js.map
+	apps/web/.next/static/chunks/[project]__c7a875._.js
+	apps/web/.next/static/chunks/[project]__c7a875._.js.map
+	apps/web/.next/static/chunks/[project]__f7395c._.js
+	apps/web/.next/static/chunks/[project]__f7395c._.js.map
+	apps/web/.next/static/chunks/[root of the server]__e251ba._.css
+	apps/web/.next/static/chunks/[root of the server]__e251ba._.css.map
+	apps/web/.next/static/chunks/src_1646f1._.js
+	apps/web/.next/static/chunks/src_1646f1._.js.map
+	apps/web/.next/static/chunks/src_25436c._.js
+	apps/web/.next/static/chunks/src_25436c._.js.map
+	apps/web/.next/static/chunks/src_2cfb6c._.js
+	apps/web/.next/static/chunks/src_2cfb6c._.js.map
+	apps/web/.next/static/chunks/src_3c0fa9._.js
+	apps/web/.next/static/chunks/src_3c0fa9._.js.map
+	apps/web/.next/static/chunks/src_6905b5._.js
+	apps/web/.next/static/chunks/src_6905b5._.js.map
+	apps/web/.next/static/chunks/src_a22d2c._.js
+	apps/web/.next/static/chunks/src_a22d2c._.js.map
+	apps/web/.next/static/chunks/src_app_(crm)_admin_page_tsx_147ac1._.js
+	apps/web/.next/static/chunks/src_app_(crm)_admin_page_tsx_147ac1._.js.map
+	apps/web/.next/static/chunks/src_app_(crm)_admin_page_tsx_dd2050._.js
+	apps/web/.next/static/chunks/src_app_(crm)_campaigns_[id]_page_tsx_dd2050._.js
+	apps/web/.next/static/chunks/src_app_(crm)_campaigns_page_tsx_dd2050._.js
+	apps/web/.next/static/chunks/src_app_(crm)_clients_[id]_page_tsx_dd2050._.js
+	apps/web/.next/static/chunks/src_app_(crm)_clients_[id]_page_tsx_f50d3e._.js
+	apps/web/.next/static/chunks/src_app_(crm)_clients_page_tsx_26aaa5._.js
+	apps/web/.next/static/chunks/src_app_(crm)_clients_page_tsx_3dfe20._.js
+	apps/web/.next/static/chunks/src_app_(crm)_clients_page_tsx_cc2787._.js
+	apps/web/.next/static/chunks/src_app_(crm)_clients_page_tsx_dd2050._.js
+	apps/web/.next/static/chunks/src_app_(crm)_clients_page_tsx_f50d3e._.js
+	apps/web/.next/static/chunks/src_app_(crm)_dashboard_page_tsx_3dfe20._.js
+	apps/web/.next/static/chunks/src_app_(crm)_dashboard_page_tsx_cc2787._.js
+	apps/web/.next/static/chunks/src_app_(crm)_dashboard_page_tsx_dd2050._.js
+	apps/web/.next/static/chunks/src_app_(crm)_dashboard_page_tsx_f50d3e._.js
+	apps/web/.next/static/chunks/src_app_(crm)_layout_tsx_79a338._.js
+	apps/web/.next/static/chunks/src_app_(crm)_layout_tsx_df8350._.js
+	apps/web/.next/static/chunks/src_app_(crm)_leads_page_tsx_3dfe20._.js
+	apps/web/.next/static/chunks/src_app_(crm)_leads_page_tsx_dd2050._.js
+	apps/web/.next/static/chunks/src_app_(crm)_leads_page_tsx_f50d3e._.js
+	apps/web/.next/static/chunks/src_app_(crm)_pipeline_[id]_page_tsx_dd2050._.js
+	apps/web/.next/static/chunks/src_app_(crm)_pipeline_page_tsx_dd2050._.js
+	apps/web/.next/static/chunks/src_app_(crm)_pipeline_page_tsx_f50d3e._.js
+	apps/web/.next/static/chunks/src_app_(crm)_product-catalog_page_tsx_dd2050._.js
+	apps/web/.next/static/chunks/src_app_(crm)_settings_page_tsx_dd2050._.js
+	apps/web/.next/static/chunks/src_app_(crm)_sla_page_tsx_dd2050._.js
+	apps/web/.next/static/chunks/src_app_(crm)_sla_page_tsx_f50d3e._.js
+	apps/web/.next/static/chunks/src_app_(crm)_tasks_page_tsx_dd2050._.js
+	apps/web/.next/static/chunks/src_app_(crm)_tasks_page_tsx_f50d3e._.js
+	apps/web/.next/static/chunks/src_app_(crm)_users_page_tsx_dd2050._.js
+	apps/web/.next/static/chunks/src_app_icon_svg_mjs_509f77._.js
+	apps/web/.next/static/chunks/src_app_login_page_tsx_79a338._.js
+	apps/web/.next/static/chunks/src_app_login_page_tsx_df8350._.js
+	apps/web/.next/static/chunks/src_f2b307._.js
+	apps/web/.next/static/chunks/src_f2b307._.js.map
+	apps/web/.next/static/chunks/src_ff80c8._.js
+	apps/web/.next/static/chunks/src_ff80c8._.js.map
+	apps/web/.next/static/media/icon.1224540f.svg
+	apps/web/.next/static/media/icon.53f00c36.svg
+	apps/web/.next/static/media/icon.a31ce06b.svg
+	apps/web/.next/static/media/tDbV2o_flEEny0FZhsfKu5WU4xD0OwGtT0rU3BE-s.226a948a.woff2
+	apps/web/.next/static/media/tDbV2o_flEEny0FZhsfKu5WU4xD1OwGtT0rU3BE-s.a3025748.woff2
+	apps/web/.next/static/media/tDbV2o_flEEny0FZhsfKu5WU4xD2OwGtT0rU3BE-s.f0eb457b.woff2
+	apps/web/.next/static/media/tDbV2o_flEEny0FZhsfKu5WU4xD4OwGtT0rU3BE-s.e422349a.woff2
+	apps/web/.next/static/media/tDbV2o_flEEny0FZhsfKu5WU4xD7OwGtT0rU-s.p.f260072f.woff2
+	apps/web/.next/static/media/tDbV2o_flEEny0FZhsfKu5WU4xD_OwGtT0rU3BE-s.b107f1a8.woff2
+	apps/web/.next/static/media/xn7gYHE41ni1AdIRggOxSvfedN62Zw-s.p.5b554d09.woff2
+	apps/web/.next/static/media/xn7gYHE41ni1AdIRggSxSvfedN62Zw-s.6a94ba24.woff2
+	apps/web/.next/static/media/xn7gYHE41ni1AdIRggexSvfedN4-s.p.2b9b556b.woff2
+	apps/web/.next/static/media/xn7gYHE41ni1AdIRggixSvfedN62Zw-s.c6fd1ea4.woff2
+	apps/web/.next/static/media/xn7gYHE41ni1AdIRggmxSvfedN62Zw-s.1d724b26.woff2
+	apps/web/.next/static/media/xn7gYHE41ni1AdIRggqxSvfedN62Zw-s.b2420f9b.woff2
+	apps/web/node_modules/i18next/
+	apps/web/node_modules/react-i18next/
+	apps/web/tsconfig.tsbuildinfo
+	commit_out.txt
+	crm.zip
+	crmV0/
+	generate_roles_doc.ps1
+	generate_roles_doc.py
+	node_modules/
+	public/
+	server.js
+	start-crm.bat
+	start.bat
+	"~$\320\274\321\217\321\202\320\272\320\260_\321\200\320\276\320\273\320\270_CRM_\320\230\320\277\320\276\321\202\320\265\320\272\320\260.docx"
+	"\320\237\320\260\320\274\321\217\321\202\320\272\320\260_\321\200\320\276\320\273\320\270_CRM_\320\230\320\277\320\276\321\202\320\265\320\272\320\260.docx"
+
+no changes added to commit (use "git add" and/or "git commit -a")

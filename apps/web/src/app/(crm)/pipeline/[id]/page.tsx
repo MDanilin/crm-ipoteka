@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
@@ -7,12 +7,14 @@ import { api } from '@/lib/api';
 import type { Deal, PipelineStage } from '@crm/types';
 import { cn } from '@/lib/cn';
 
+// Все промежуточные стадии делят один синий акцент — «в работе» значит
+// ровно одно, независимо от шага (см. воронку лида в design system).
 const STAGES: { id: PipelineStage; label: string; color: string }[] = [
-  { id: 'qualification', label: 'Квалификация', color: 'bg-[#3b82f6]' },
-  { id: 'proposal',      label: 'Предложение',  color: 'bg-[#8b5cf6]' },
-  { id: 'negotiation',   label: 'Переговоры',   color: 'bg-[#f59e0b]' },
-  { id: 'approval',      label: 'Согласование', color: 'bg-[#10b981]' },
-  { id: 'closed',        label: 'Закрыто',      color: 'bg-[#6b7280]' },
+  { id: 'qualification', label: 'Квалификация', color: 'bg-ac' },
+  { id: 'proposal',      label: 'Предложение',  color: 'bg-ac' },
+  { id: 'negotiation',   label: 'Переговоры',   color: 'bg-ac' },
+  { id: 'approval',      label: 'Согласование', color: 'bg-ac' },
+  { id: 'closed',        label: 'Закрыто',      color: 'bg-g60' },
 ];
 
 export default function DealPage() {
@@ -45,8 +47,8 @@ export default function DealPage() {
     },
   });
 
-  if (isLoading) return <div className="py-20 text-center text-[#aaa] text-sm">Загрузка...</div>;
-  if (!deal)     return <div className="py-20 text-center text-[#aaa] text-sm">Сделка не найдена</div>;
+  if (isLoading) return <div className="py-20 text-center text-g60 text-sm">Загрузка...</div>;
+  if (!deal)     return <div className="py-20 text-center text-g60 text-sm">Сделка не найдена</div>;
 
   const stage = STAGES.find(s => s.id === deal.stage);
   const editForm = { ...deal, ...form };
@@ -54,7 +56,7 @@ export default function DealPage() {
   return (
     <div className="max-w-2xl">
       {/* Back */}
-      <button onClick={() => router.back()} className="mb-6 flex items-center gap-2 text-sm text-[#aaa] hover:text-[#111] transition-colors">
+      <button onClick={() => router.back()} className="mb-6 flex items-center gap-2 text-sm text-g60 hover:text-g90 transition-colors">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
           <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
@@ -65,33 +67,33 @@ export default function DealPage() {
       <div className="mb-8 flex items-start justify-between gap-4">
         <div>
           <h1 className="text-[clamp(28px,4vw,48px)] font-semibold leading-none tracking-[-0.04em]">{deal.client_name}</h1>
-          <p className="mt-2 text-base text-[#aaa]">{deal.product}</p>
+          <p className="mt-2 text-base text-g60">{deal.product}</p>
         </div>
         <div className="flex items-center gap-2 flex-shrink-0">
           {!editing ? (
             <>
               <button
                 onClick={() => { setForm({}); setEditing(true); }}
-                className="h-9 px-4 rounded-full border border-[#e5e7eb] text-sm font-medium text-[#555] hover:border-[#999] transition-colors"
+                className="h-9 px-4 rounded-full border border-g30 text-sm font-medium text-g80 hover:border-g60 transition-colors"
               >
                 Изменить
               </button>
               <button
                 onClick={() => { if (confirm(`Удалить сделку «${deal.client_name}»?`)) deleteMut.mutate(); }}
-                className="h-9 px-4 rounded-full border border-[#e5e7eb] text-sm font-medium text-red-500 hover:border-red-300 transition-colors"
+                className="h-9 px-4 rounded-full border border-g30 text-sm font-medium text-red-500 hover:border-red-300 transition-colors"
               >
                 Удалить
               </button>
             </>
           ) : (
             <>
-              <button onClick={() => setEditing(false)} className="h-9 px-4 rounded-full border border-[#e5e7eb] text-sm font-medium text-[#555] hover:border-[#999] transition-colors">
+              <button onClick={() => setEditing(false)} className="h-9 px-4 rounded-full border border-g30 text-sm font-medium text-g80 hover:border-g60 transition-colors">
                 Отмена
               </button>
               <button
                 onClick={() => updateMut.mutate(editForm)}
                 disabled={updateMut.isPending}
-                className="h-9 px-4 rounded-full bg-[#111] text-white text-sm font-medium hover:bg-[#333] disabled:opacity-40 transition-colors"
+                className="h-9 px-4 rounded-full bg-g90 text-white text-sm font-medium hover:bg-g80 disabled:opacity-40 transition-colors"
               >
                 {updateMut.isPending ? 'Сохранение...' : 'Сохранить'}
               </button>
@@ -113,7 +115,7 @@ export default function DealPage() {
               title={s.label}
               className={cn(
                 'flex-1 h-2 rounded-full transition-all',
-                filled ? s.color : 'bg-[#e5e7eb]',
+                filled ? s.color : 'bg-g30',
                 editing && 'cursor-pointer hover:opacity-80',
                 !editing && 'cursor-default'
               )}
@@ -134,7 +136,7 @@ export default function DealPage() {
               type="number"
               defaultValue={deal.amount_raw}
               onChange={e => setForm(f => ({ ...f, amount_raw: parseFloat(e.target.value) || 0, amount: e.target.value + ' млрд' }))}
-              className="w-full bg-[#f5f5f5] rounded-lg px-3 h-9 text-sm outline-none"
+              className="w-full bg-g10 rounded-lg px-3 h-9 text-sm outline-none"
             />
           ) : (
             <span className="text-xl font-bold">{deal.amount}</span>
@@ -146,13 +148,13 @@ export default function DealPage() {
               type="number" min="0" max="100"
               defaultValue={deal.probability}
               onChange={e => setForm(f => ({ ...f, probability: parseInt(e.target.value) || 0 }))}
-              className="w-full bg-[#f5f5f5] rounded-lg px-3 h-9 text-sm outline-none"
+              className="w-full bg-g10 rounded-lg px-3 h-9 text-sm outline-none"
             />
           ) : (
             <div>
               <span className="text-xl font-bold">{deal.probability}%</span>
-              <div className="mt-2 h-1.5 bg-[#f0f0f0] rounded-full overflow-hidden">
-                <div className="h-full rounded-full bg-[#111]" style={{ width: `${deal.probability}%` }} />
+              <div className="mt-2 h-1.5 bg-g20 rounded-full overflow-hidden">
+                <div className="h-full rounded-full bg-g90" style={{ width: `${deal.probability}%` }} />
               </div>
             </div>
           )}
@@ -163,7 +165,7 @@ export default function DealPage() {
               type="date"
               defaultValue={deal.close_date}
               onChange={e => setForm(f => ({ ...f, close_date: e.target.value }))}
-              className="w-full bg-[#f5f5f5] rounded-lg px-3 h-9 text-sm outline-none"
+              className="w-full bg-g10 rounded-lg px-3 h-9 text-sm outline-none"
             />
           ) : (
             <span className="text-sm font-medium">{deal.close_date || '—'}</span>
@@ -177,7 +179,7 @@ export default function DealPage() {
       {deal.client_id && (
         <button
           onClick={() => router.push(`/clients/${deal.client_id}`)}
-          className="flex items-center gap-2 text-sm text-[#111] font-medium hover:underline"
+          className="flex items-center gap-2 text-sm text-g90 font-medium hover:underline"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <circle cx="6" cy="5" r="3" stroke="currentColor" strokeWidth="1.4"/>
@@ -192,8 +194,8 @@ export default function DealPage() {
 
 function Card({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="bg-[#f8f8f8] rounded-2xl p-4">
-      <div className="text-[11px] font-bold uppercase tracking-wider text-[#aaa] mb-2">{label}</div>
+    <div className="bg-g5 rounded-2xl p-4">
+      <div className="text-[11px] font-bold uppercase tracking-wider text-g60 mb-2">{label}</div>
       {children}
     </div>
   );

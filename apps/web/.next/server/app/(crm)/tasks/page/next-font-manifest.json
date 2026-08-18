@@ -3,7 +3,10 @@
   "app": {
     "[project]/apps/web/src/app/(crm)/tasks/page": [
       "static/media/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7W0Q5n_wU-s.p.51d01951.woff2",
-      "static/media/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw-s.p.0faac26c.woff2"
+      "static/media/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw-s.p.0faac26c.woff2",
+      "static/media/xn7gYHE41ni1AdIRggOxSvfedN62Zw-s.p.5b554d09.woff2",
+      "static/media/xn7gYHE41ni1AdIRggexSvfedN4-s.p.2b9b556b.woff2",
+      "static/media/tDbV2o_flEEny0FZhsfKu5WU4xD7OwGtT0rU-s.p.f260072f.woff2"
     ]
   },
   "appUsingSizeAdjust": true,
