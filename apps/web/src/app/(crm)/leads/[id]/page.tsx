@@ -22,7 +22,7 @@ const STATUS_CFG: Record<string, { label: string; critical?: boolean }> = {
 
 const SRC_LABELS: Record<string, string> = {
   inbound: 'Входящий', website: 'Сайт', referral: 'Реферал',
-  cold: 'Холодный', event: 'Мероприятие', branch: 'Филиал', agent: 'Агент', dsa: 'DSA',
+  cold: 'Холодный', event: 'Мероприятие', branch: 'Филиал', agent: 'Агент', dsa: 'DSA', campaign: 'Кампания',
 };
 
 const ACT_CFG: Record<string, { label: string; icon: string; bg: string }> = {

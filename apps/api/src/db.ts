@@ -247,6 +247,7 @@ db.exec(`
 try { db.exec("ALTER TABLE users ADD COLUMN phone TEXT DEFAULT ''"); } catch {}
 try { db.exec("ALTER TABLE leads ADD COLUMN inn TEXT DEFAULT ''"); } catch {}
 try { db.exec("ALTER TABLE leads ADD COLUMN pinfl TEXT DEFAULT ''"); } catch {}
+try { db.exec("ALTER TABLE clients ADD COLUMN pinfl TEXT DEFAULT ''"); } catch {}
 try { db.exec("ALTER TABLE leads ADD COLUMN branch TEXT DEFAULT ''"); } catch {}
 try { db.exec("ALTER TABLE leads ADD COLUMN stage_times TEXT DEFAULT '{}'"); } catch {}
 try { db.exec("ALTER TABLE leads ADD COLUMN agent_name TEXT DEFAULT ''"); } catch {}

@@ -13,11 +13,11 @@ type LeadRow = Lead & { inn: string; branch: string; agent_name: string; stage_t
 
 function insertLead(b: Partial<LeadRow>, stage_times: string) {
   return db.prepare(
-    'INSERT INTO leads (name,contact,phone,inn,pinfl,source,branch,agent_name,status,product,amount,manager,stage_times) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)'
+    'INSERT INTO leads (name,contact,phone,inn,pinfl,source,branch,agent_name,status,product,product_id,amount,manager,campaign_id,stage_times) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
   ).run(
     b.name ?? '', b.contact ?? '', b.phone ?? '', b.inn ?? '', b.pinfl ?? '',
     b.source ?? 'inbound', b.branch ?? '', b.agent_name ?? '', b.status ?? 'new',
-    b.product ?? '', b.amount ?? 0, b.manager ?? '', stage_times
+    b.product ?? '', b.product_id ?? null, b.amount ?? 0, b.manager ?? '', b.campaign_id ?? null, stage_times
   );
 }
 
@@ -98,11 +98,11 @@ export async function leadRoutes(app: FastifyInstance) {
       name=COALESCE(?,name), contact=COALESCE(?,contact), phone=COALESCE(?,phone),
       inn=COALESCE(?,inn), pinfl=COALESCE(?,pinfl), source=COALESCE(?,source),
       branch=COALESCE(?,branch), agent_name=COALESCE(?,agent_name), status=COALESCE(?,status),
-      product=COALESCE(?,product), amount=COALESCE(?,amount), manager=COALESCE(?,manager),
+      product=COALESCE(?,product), product_id=COALESCE(?,product_id), amount=COALESCE(?,amount), manager=COALESCE(?,manager),
       lost_reason=COALESCE(?,lost_reason), stage_times=? WHERE id=?`
     ).run(b.name??null, b.contact??null, b.phone??null, b.inn??null, b.pinfl??null,
           b.source??null, b.branch??null, b.agent_name??null, b.status??null,
-          b.product??null, b.amount??null, b.manager??null, b.lost_reason??null, st, id);
+          b.product??null, b.product_id??null, b.amount??null, b.manager??null, b.lost_reason??null, st, id);
     return db.prepare('SELECT * FROM leads WHERE id = ?').get(id);
   });
 

@@ -23,8 +23,8 @@ export interface LoginResponse { token: string; user: User; }
 
 // ── Clients ───────────────────────────────────────────────────────────────────
 
-export type ClientType    = 'Крупный бизнес' | 'МСП' | 'Холдинг' | 'Международные';
-export type ClientTypeEn  = 'large' | 'sme' | 'holding' | 'international';
+export type ClientType    = 'Малый бизнес' | 'Средний бизнес' | 'Крупный бизнес' | 'Международные' | 'Payroll' | 'Private';
+export type ClientTypeEn  = 'small' | 'medium' | 'large' | 'international' | 'payroll' | 'private';
 export type ClientStatus  = 'active' | 'pending' | 'inactive';
 export type RiskLevel     = 'low' | 'medium' | 'high';
 export type Segment       = 'Standard' | 'Premium';
@@ -131,6 +131,8 @@ export interface Lead {
   agent_name: string;
   status: LeadStatus;
   product: string;
+  product_id: number | null;
+  campaign_id: number | null;
   amount: number;
   manager: string;
   stage_times: string;
@@ -252,6 +254,7 @@ export interface CampaignContact {
   result_note:  string;
   called_at:    string | null;
   is_duplicate: number;
+  lead_id:      number | null;
   created_at:   string;
 }
 
@@ -264,6 +267,7 @@ export interface Deal {
   client_name: string;
   client_id: number | null;
   product: string;
+  product_id: number | null;
   stage: PipelineStage;
   amount: string;
   amount_raw: number;

@@ -8,13 +8,17 @@ interface ContactRow {
   id: number; campaign_id: number; company: string; inn: string;
   contact_name: string; phone: string; assigned_to: string;
   call_status: string; result_note: string; called_at: string | null;
-  is_duplicate: number; created_at: string;
+  is_duplicate: number; lead_id: number | null; created_at: string;
 }
 
 function campaignStats(id: number) {
   const total    = (db.prepare('SELECT COUNT(*) as c FROM campaign_contacts WHERE campaign_id=?').get(id) as { c: number }).c;
   const pending  = (db.prepare("SELECT COUNT(*) as c FROM campaign_contacts WHERE campaign_id=? AND call_status='pending'").get(id) as { c: number }).c;
-  return { total, pending, processed: total - pending };
+  // Real, relationally-linked lead count — not just contacts self-tagged
+  // "лид создан" (that used to diverge from actual leads.* rows, since no
+  // lead was ever inserted; see PUT /:id/contacts/:cid below).
+  const leads_created = (db.prepare('SELECT COUNT(*) as c FROM campaign_contacts WHERE campaign_id=? AND lead_id IS NOT NULL').get(id) as { c: number }).c;
+  return { total, pending, processed: total - pending, leads_created };
 }
 
 export async function campaignRoutes(app: FastifyInstance) {
@@ -114,13 +118,41 @@ export async function campaignRoutes(app: FastifyInstance) {
 
   // PUT /campaigns/:id/contacts/:cid  — update call result
   app.put('/:id/contacts/:cid', { preHandler: requireAuth }, async (req, reply) => {
-    const { cid } = req.params as { id: string; cid: string };
+    const { id, cid } = req.params as { id: string; cid: string };
     const u = getUser(req);
-    const { call_status, result_note } = req.body as { call_status: string; result_note?: string };
+    const { call_status, result_note, manager } = req.body as { call_status: string; result_note?: string; manager?: string };
     const now = new Date().toISOString();
     db.prepare(
       "UPDATE campaign_contacts SET call_status=?, result_note=COALESCE(?,result_note), called_at=?, assigned_to=CASE WHEN assigned_to='' THEN ? ELSE assigned_to END WHERE id=?"
     ).run(call_status, result_note ?? null, now, u.name, cid);
+
+    // "Лид создан" used to be a self-reported status with no relational
+    // effect — the contact count and the leads table silently diverged.
+    // Now it actually creates (or links to an existing, INN-matched) row
+    // in leads, so the two numbers can never drift apart again. The lead's
+    // manager is whoever the operator explicitly picked in the UI — leaving
+    // it as the operator's own name meant the lead had no real owner, since
+    // operators don't work leads in the main pipeline.
+    if (call_status === 'lead_created') {
+      const contact = db.prepare('SELECT * FROM campaign_contacts WHERE id=?').get(cid) as ContactRow | undefined;
+      if (contact && !contact.lead_id) {
+        const dup = contact.inn?.trim()
+          ? db.prepare("SELECT id FROM leads WHERE inn = ? AND inn != ''").get(contact.inn.trim()) as { id: number } | undefined
+          : undefined;
+        const leadId = dup
+          ? dup.id
+          : (db.prepare(
+              'INSERT INTO leads (name,contact,phone,inn,source,status,manager,campaign_id,stage_times) VALUES (?,?,?,?,?,?,?,?,?)'
+            ).run(
+              contact.company || contact.contact_name || 'Без названия',
+              contact.contact_name ?? '', contact.phone ?? '', contact.inn ?? '',
+              'campaign', 'new', manager || contact.assigned_to || u.name, Number(id),
+              JSON.stringify({ new: new Date().toISOString() })
+            ) as { lastInsertRowid: number }).lastInsertRowid;
+        db.prepare('UPDATE campaign_contacts SET lead_id=? WHERE id=?').run(leadId, cid);
+      }
+    }
+
     return db.prepare('SELECT * FROM campaign_contacts WHERE id=?').get(cid);
   });
 

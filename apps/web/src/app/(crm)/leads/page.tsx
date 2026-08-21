@@ -40,7 +40,7 @@ const STATUS_CFG: Record<string, { label: string; critical?: boolean }> = {
 const SRC_LABELS: Record<string, string> = {
   inbound: 'Входящий', website: 'Сайт', referral: 'Реферал',
   cold: 'Холодный', event: 'Мероприятие', branch: 'Филиал', agent: 'Агент',
-  dsa: 'DSA (выездной агент)',
+  dsa: 'DSA (выездной агент)', campaign: 'Кампания',
 };
 
 // The 4-stage scenario flow shown in the timeline
@@ -99,7 +99,7 @@ function formatUzPhone(raw: string): string {
   return out;
 }
 
-const EMPTY_FORM = { name: '', contact: '', phone: '+998 ', inn: '', pinfl: '', product: '', amount: '', source: 'inbound', branch: '', agent_name: '', status: 'new', manager: '' };
+const EMPTY_FORM = { name: '', contact: '', phone: '+998 ', inn: '', pinfl: '', product: '', product_id: null as number | null, amount: '', source: 'inbound', branch: '', agent_name: '', status: 'new', manager: '' };
 
 export default function LeadsPage() {
   const router     = useRouter();
@@ -110,6 +110,7 @@ export default function LeadsPage() {
   const { t }      = useTranslation();
   const qc         = useQueryClient();
   const [view,       setView]       = useState<'list' | 'board'>('list');
+  const [filterStage, setFilterStage] = useState('');
   const [open,       setOpen]       = useState(false);
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [dupError,   setDupError]   = useState<string | null>(null);
@@ -243,6 +244,11 @@ export default function LeadsPage() {
     onSuccess: () => qc.invalidateQueries({ queryKey: ['leads'] }),
   });
 
+  // Клик по счётчику стадии фильтрует и таблицу, и канбан (см. Воронку —
+  // тот же паттерн: один filterStage режет общий список, из которого потом
+  // и таблица, и каждая колонка канбана берут свои строки).
+  const filtered = filterStage ? leads.filter(l => l.status === filterStage) : leads;
+
   const counts = {
     new:            leads.filter(l => l.status === 'new').length,
     in_progress:    leads.filter(l => l.status === 'in_progress').length,
@@ -272,39 +278,49 @@ export default function LeadsPage() {
         </div>
       </div>
 
-      {/* Scenario stage counters */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8 border-y border-g20 py-6">
+      {/* Scenario stage counters — одна и та же сетка на всю ширину что в
+          табличном, что в канбан-виде (grid-cols-2 lg:grid-cols-4 gap-4),
+          поэтому блок "Новых" всегда встаёт ровно над своим столбцом
+          канбана ниже — та же сетка, тот же gap. Кликабельно — как в
+          Воронке: клик по стадии фильтрует таблицу и канбан через filterStage. */}
+      <div className={`grid grid-cols-2 lg:grid-cols-4 gap-4 ${view === 'board' ? 'mb-3' : 'mb-8 border-y border-g20 py-6'}`}>
         {([
           ['new',            t('leads.stageNew')],
           ['in_progress',    t('leads.stageInProgress')],
           ['meeting',        t('leads.stageMeeting')],
           ['account_opened', t('leads.stageAccountOpened')],
-        ] as [string, string][]).map(([k, l]) => (
-          <div key={k}>
-            <div className="text-4xl font-bold text-g90 leading-none">{counts[k as keyof typeof counts]}</div>
-            <div className="text-sm text-g60 mt-1">{l}</div>
-          </div>
-        ))}
+        ] as [string, string][]).map(([k, l]) => {
+          const active = filterStage === k;
+          return (
+            <button
+              key={k}
+              onClick={() => setFilterStage(active ? '' : k)}
+              className={`text-left rounded-xl px-3 py-2 transition-colors ${active ? 'bg-g10' : 'hover:bg-g5'}`}
+            >
+              <div className="text-4xl font-bold text-g90 leading-none">{counts[k as keyof typeof counts]}</div>
+              <div className="text-sm text-g60 mt-1">{l}</div>
+            </button>
+          );
+        })}
       </div>
 
-      {/* Kanban Board — 4 колонки должны помещаться на обычном экране без
-          скролла (в отличие от полной 8-этапной воронки в статус-селекте
-          Table-вида, где скролл — общепринятая практика, как в Trello/
-          Jira/HubSpot). Карточки не обрезают текст (переносятся), поэтому
-          сужение колонки не ломает контент. */}
+      {/* Kanban Board — та же сетка, что у счётчиков выше (grid-cols-2
+          lg:grid-cols-4), колонки растягиваются на всю ширину без
+          горизонтального скролла. Карточки не обрезают текст (переносятся),
+          поэтому сужение колонки на узких экранах не ломает контент. */}
       {view === 'board' && (
-        <div className="flex gap-3 overflow-x-auto pb-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 pb-4">
           {([
             ['new',            t('leads.stageNew')],
             ['in_progress',    t('leads.stageInProgress')],
             ['meeting',        t('leads.stageMeeting')],
             ['account_opened', t('leads.stageAccountOpened')],
           ] as [string, string][]).map(([status, label]) => {
-            const col = leads.filter(l => l.status === status);
+            const col = filtered.filter(l => l.status === status);
             return (
               <div
                 key={status}
-                className="kanban-col flex-shrink-0 w-52 rounded-2xl p-3 bg-g10 transition-colors"
+                className="kanban-col rounded-2xl p-3 bg-g10 transition-colors"
                 onDragOver={e => {
                   e.preventDefault();
                   e.dataTransfer.dropEffect = 'move';
@@ -331,9 +347,8 @@ export default function LeadsPage() {
                   if (id) changeStatus.mutate({ id, status });
                 }}
               >
-                <div className="flex items-center gap-2 mb-3">
+                <div className="flex items-center gap-2 mb-3 px-1">
                   <span className="text-sm font-semibold text-g90">{label}</span>
-                  <span className="text-xs text-g60 ml-auto">{col.length}</span>
                 </div>
                 <div className="flex flex-col gap-2">
                   {col.map(l => (
@@ -402,7 +417,7 @@ export default function LeadsPage() {
             </tr>
           </thead>
           <tbody>
-            {leads.map(l => (
+            {filtered.map(l => (
               <Fragment key={l.id}>
                 <tr>
                   <td className="max-w-0">
@@ -456,7 +471,7 @@ export default function LeadsPage() {
                 )}
               </Fragment>
             ))}
-            {leads.length === 0 && (
+            {filtered.length === 0 && (
               <tr><td colSpan={8} className="py-14 text-center text-sm text-g60">Нет лидов</td></tr>
             )}
           </tbody>
@@ -664,13 +679,18 @@ export default function LeadsPage() {
             <div>
               <label className="field-label">{fl('product')}{fr('product') ? ' *' : ''}</label>
               <select
-                value={form.product}
-                onChange={e => { setForm({ ...form, product: e.target.value }); setErrors(v => ({ ...v, product: '' })); }}
+                value={form.product_id ?? ''}
+                onChange={e => {
+                  const id = e.target.value ? Number(e.target.value) : null;
+                  const picked = catalog.find(c => c.id === id);
+                  setForm({ ...form, product_id: id, product: picked?.name ?? '' });
+                  setErrors(v => ({ ...v, product: '' }));
+                }}
                 className={`form-input ${errors.product ? 'border-dn' : ''}`}
               >
                 <option value="">— выберите продукт —</option>
                 {catalog.filter(c => c.is_active !== 0).map(c => (
-                  <option key={c.id} value={c.name}>{c.name}{c.category ? ` · ${c.category}` : ''}</option>
+                  <option key={c.id} value={c.id}>{c.name}{c.category ? ` · ${c.category}` : ''}</option>
                 ))}
               </select>
               {errors.product && <p className="mt-1 text-[11px] text-dn">{errors.product}</p>}

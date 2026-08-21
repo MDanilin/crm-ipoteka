@@ -25,54 +25,105 @@ const CALL_STATUSES: { value: string; label: string; variant: StatusVariant }[] 
 
 const STATUS_MAP = Object.fromEntries(CALL_STATUSES.map(s => [s.value, s]));
 
-// ── Inline result select ───────────────────────────────────────────────────────
+// ── Result status — обычный select вместо кастомного попапа: понятнее и
+// привычнее (кликабельность select не нужно объяснять). Смена статуса на
+// "Лид создан" сразу требует выбрать менеджера — без этого лид создаётся
+// "в никуда" (на самого оператора, который лидами не занимается). ────────
 
-function ResultSelect({ contact, campaignId }: { contact: CampaignContact; campaignId: string }) {
+function ResultSelect({ contact, campaignId, managers }: { contact: CampaignContact; campaignId: string; managers: string[] }) {
   const qc = useQueryClient();
-  const [note, setNote] = useState(contact.result_note ?? '');
-  const [open, setOpen] = useState(false);
-  const cfg = STATUS_MAP[contact.call_status] ?? STATUS_MAP.pending;
+  const [pickingManager, setPickingManager] = useState(false);
+  const [manager, setManager] = useState(managers[0] ?? '');
 
   const upd = useMutation({
-    mutationFn: ({ call_status, result_note }: { call_status: string; result_note?: string }) =>
-      api.put(`/campaigns/${campaignId}/contacts/${contact.id}`, { call_status, result_note }),
+    mutationFn: (body: { call_status: string; manager?: string }) =>
+      api.put(`/campaigns/${campaignId}/contacts/${contact.id}`, body),
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ['campaign', campaignId] }); setPickingManager(false); },
+  });
+
+  function handleChange(value: string) {
+    if (value === 'lead_created') setPickingManager(true);
+    else upd.mutate({ call_status: value });
+  }
+
+  if (pickingManager) {
+    return (
+      <div className="flex items-center gap-1">
+        <select
+          value={manager}
+          onChange={e => setManager(e.target.value)}
+          className="h-8 text-xs border border-g30 rounded px-1.5 outline-none focus:border-ac max-w-[110px]"
+          autoFocus
+        >
+          {managers.length === 0 && <option value="">Нет менеджеров</option>}
+          {managers.map(m => <option key={m} value={m}>{m}</option>)}
+        </select>
+        <button
+          onClick={() => manager && upd.mutate({ call_status: 'lead_created', manager })}
+          disabled={!manager || upd.isPending}
+          title="Создать лид на выбранного менеджера"
+          className="h-8 w-8 flex-shrink-0 flex items-center justify-center rounded bg-ok text-white disabled:opacity-40"
+        >✓</button>
+        <button onClick={() => setPickingManager(false)} title="Отмена" className="h-8 w-8 flex-shrink-0 flex items-center justify-center rounded text-g60 hover:bg-g10">✕</button>
+      </div>
+    );
+  }
+
+  return (
+    <select
+      value={contact.call_status}
+      onChange={e => handleChange(e.target.value)}
+      className="status-select"
+    >
+      {CALL_STATUSES.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
+    </select>
+  );
+}
+
+// ── Comment cell — кликабельно редактируется прямо в таблице (раньше
+// комментарий можно было поставить только через крошечное поле внутри
+// попапа статуса — неочевидно). ──────────────────────────────────────────
+
+function CommentCell({ contact, campaignId }: { contact: CampaignContact; campaignId: string }) {
+  const qc = useQueryClient();
+  const [editing, setEditing] = useState(false);
+  const [value, setValue]     = useState(contact.result_note ?? '');
+
+  const upd = useMutation({
+    mutationFn: (result_note: string) =>
+      api.put(`/campaigns/${campaignId}/contacts/${contact.id}`, { call_status: contact.call_status, result_note }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['campaign', campaignId] }),
   });
 
+  function save() {
+    setEditing(false);
+    if (value !== (contact.result_note ?? '')) upd.mutate(value);
+  }
+
+  if (editing) {
+    return (
+      <input
+        autoFocus
+        value={value}
+        onChange={e => setValue(e.target.value)}
+        onBlur={save}
+        onKeyDown={e => {
+          if (e.key === 'Enter') e.currentTarget.blur();
+          if (e.key === 'Escape') { setValue(contact.result_note ?? ''); setEditing(false); }
+        }}
+        className="w-full text-xs border border-ac rounded px-2 py-1 outline-none"
+      />
+    );
+  }
+
   return (
-    <div className="relative">
-      <button
-        onClick={() => setOpen(!open)}
-        className="inline-flex items-center gap-1 hover:opacity-70 transition-opacity"
-      >
-        <Badge variant={cfg.variant}>{cfg.label}</Badge> <span className="text-[9px] opacity-60">▼</span>
-      </button>
-      {open && (
-        <div className="absolute top-full left-0 mt-1 z-20 bg-white rounded-xl shadow-lg border border-g20 w-52 py-1">
-          {CALL_STATUSES.filter(s => s.value !== 'pending').map(s => (
-            <button
-              key={s.value}
-              onClick={() => {
-                upd.mutate({ call_status: s.value, result_note: note || undefined });
-                setOpen(false);
-              }}
-              className="w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-g5 text-left"
-            >
-              <Badge variant={s.variant}>{s.label}</Badge>
-            </button>
-          ))}
-          <div className="border-t border-g10 mt-1 px-3 pt-2 pb-2">
-            <input
-              value={note}
-              onChange={e => setNote(e.target.value)}
-              onKeyDown={e => { if (e.key === 'Enter' && note) { upd.mutate({ call_status: contact.call_status, result_note: note }); setOpen(false); }}}
-              placeholder="Комментарий..."
-              className="w-full text-xs border border-g20 rounded-lg px-2.5 py-1.5 outline-none focus:border-g60"
-            />
-          </div>
-        </div>
-      )}
-    </div>
+    <button
+      onClick={() => setEditing(true)}
+      title="Изменить комментарий"
+      className="block w-full text-left text-xs text-g70 truncate rounded px-1.5 py-1 -mx-1.5 hover:bg-g10 transition-colors"
+    >
+      {contact.result_note || <span className="text-g40">+ добавить</span>}
+    </button>
   );
 }
 
@@ -207,13 +258,22 @@ export default function CampaignDetailPage() {
     return { byStatus, byOp, converted, calledTotal, convRate };
   }, [contacts, operators]);
 
-  // ── Users for distribution ───────────────────────────────────────────────────
+  // ── Users for distribution ────────────────────────────────────────────────────
   const { data: users = [] } = useQuery<{ id: number; name: string; role: string }[]>({
     queryKey: ['users'],
     queryFn:  () => api.get('/users'),
     enabled: distOpen,
   });
   const staffUsers = users.filter(u => ['manager', 'supervisor', 'admin', 'operator'].includes(u.role));
+
+  // ── Manager list for lead routing — /users/staff — доступен любой
+  // авторизованной роли (в отличие от /users, только admin/supervisor),
+  // оператору он и нужен, чтобы выбрать, кому передать созданный лид.
+  const { data: staffList = [] } = useQuery<{ id: number; name: string; role: string }[]>({
+    queryKey: ['users-staff-mgr'],
+    queryFn:  () => api.get('/users/staff'),
+  });
+  const managerNames = staffList.filter(u => u.role === 'manager').map(u => u.name).sort();
 
   if (isLoading) return <div className="flex items-center justify-center h-64 text-g60 text-sm">Загрузка...</div>;
   if (!campaign) return (
@@ -536,9 +596,11 @@ export default function CampaignDetailPage() {
                     </td>
                     <td className="px-4 py-3 text-sm text-g80 truncate">{c.assigned_to || <span className="text-g40">—</span>}</td>
                     <td className="px-4 py-3">
-                      <ResultSelect contact={c} campaignId={id}/>
+                      <ResultSelect contact={c} campaignId={id} managers={managerNames}/>
                     </td>
-                    <td className="px-4 py-3 text-xs text-g70 max-w-[160px] truncate">{c.result_note || '—'}</td>
+                    <td className="px-4 py-3 max-w-[160px]">
+                      <CommentCell contact={c} campaignId={id}/>
+                    </td>
                   </tr>
                 ))}
                 {filtered.length === 0 && (

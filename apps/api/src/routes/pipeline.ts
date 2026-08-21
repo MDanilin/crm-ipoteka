@@ -16,8 +16,8 @@ export async function pipelineRoutes(app: FastifyInstance) {
   app.post('/', { preHandler: requireAuth }, async (req, reply) => {
     const b = req.body as Partial<Deal>;
     if (!b.client_name) return reply.status(400).send({ error: 'Клиент обязателен' });
-    const info = db.prepare('INSERT INTO pipeline (client_name,client_id,product,stage,amount,amount_raw,probability,manager,close_date) VALUES (?,?,?,?,?,?,?,?,?)')
-      .run(b.client_name, b.client_id ?? null, b.product ?? '', b.stage ?? 'qualification', b.amount ?? '', parseFloat(String(b.amount_raw)) || 0, parseInt(String(b.probability)) || 50, b.manager ?? '', b.close_date ?? '');
+    const info = db.prepare('INSERT INTO pipeline (client_name,client_id,product,product_id,stage,amount,amount_raw,probability,manager,close_date) VALUES (?,?,?,?,?,?,?,?,?,?)')
+      .run(b.client_name, b.client_id ?? null, b.product ?? '', b.product_id ?? null, b.stage ?? 'qualification', b.amount ?? '', parseFloat(String(b.amount_raw)) || 0, parseInt(String(b.probability)) || 50, b.manager ?? '', b.close_date ?? '');
     return reply.status(201).send(db.prepare('SELECT * FROM pipeline WHERE id = ?').get((info as { lastInsertRowid: number }).lastInsertRowid));
   });
   app.put('/:id', { preHandler: requireAuth }, async (req) => {

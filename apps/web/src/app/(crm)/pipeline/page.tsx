@@ -22,7 +22,9 @@ const STAGES: { id: PipelineStage; label: string; dot: string }[] = [
   { id: 'closed',        label: 'Закрыто',      dot: 'bg-g60' },
 ];
 
-const EMPTY_FORM = { client_name: '', product: '', amount_raw: '', probability: '50', stage: 'qualification', close_date: '', manager: '' };
+const EMPTY_FORM = { client_name: '', product: '', product_id: null as number | null, amount_raw: '', probability: '50', stage: 'qualification', close_date: '', manager: '' };
+
+interface CatalogItem { id: number; name: string; category: string; is_active: number; }
 
 export default function PipelinePage() {
   const router   = useRouter();
@@ -39,6 +41,11 @@ export default function PipelinePage() {
   const { data: deals = [], isLoading } = useQuery<Deal[]>({
     queryKey: ['pipeline'],
     queryFn:  () => api.get('/pipeline'),
+  });
+
+  const { data: catalog = [] } = useQuery<CatalogItem[]>({
+    queryKey: ['product-catalog'],
+    queryFn:  () => api.get('/product-catalog'),
   });
 
   const create = useMutation({
@@ -148,16 +155,18 @@ export default function PipelinePage() {
         })}
       </div>
 
-      {/* Kanban */}
+      {/* Kanban — та же сетка, что у счётчиков выше (grid-cols-2
+          lg:grid-cols-5, тот же gap-4), поэтому каждая колонка встаёт
+          ровно под своим счётчиком, без горизонтального скролла. */}
       {view === 'board' && (
-        <div className="flex gap-4 overflow-x-auto pb-4">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 pb-4">
           {STAGES.map(s => {
             const col   = filtered.filter(d => d.stage === s.id);
             const total = col.reduce((sum, d) => sum + (d.amount_raw || 0), 0);
             return (
               <div
                 key={s.id}
-                className="kanban-col flex-shrink-0 w-64 rounded-2xl p-4 bg-g10 transition-colors"
+                className="kanban-col rounded-2xl p-4 bg-g10 transition-colors"
                 onDragOver={e => {
                   e.preventDefault();
                   e.dataTransfer.dropEffect = 'move';
@@ -330,12 +339,20 @@ export default function PipelinePage() {
           </div>
           <div>
             <label className="field-label">Продукт</label>
-            <input
-              value={form.product}
-              onChange={e => setForm({ ...form, product: e.target.value })}
+            <select
+              value={form.product_id ?? ''}
+              onChange={e => {
+                const id = e.target.value ? Number(e.target.value) : null;
+                const picked = catalog.find(c => c.id === id);
+                setForm({ ...form, product_id: id, product: picked?.name ?? '' });
+              }}
               className="form-input"
-              placeholder="Кредитная линия, FX, Депозит..."
-            />
+            >
+              <option value="">— выберите продукт —</option>
+              {catalog.filter(c => c.is_active !== 0).map(c => (
+                <option key={c.id} value={c.id}>{c.name}{c.category ? ` · ${c.category}` : ''}</option>
+              ))}
+            </select>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>

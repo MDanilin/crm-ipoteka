@@ -17,7 +17,8 @@ const riskL   = { low: 'Низкий', medium: 'Средний', high: 'Высо
 // Категория клиента различается ступенью графитовой рампы, а не оттенком —
 // в системе UzUsta Operations цвет означает состояние данных или
 // интерактивность, а не служит для различения категорий.
-const clientBg = { large: '#171c24', sme: '#515b6b', holding: '#7c8695', international: '#aeb6c2' } as const;
+const clientBg = { large: '#171c24', medium: '#333c49', small: '#515b6b', international: '#7c8695', payroll: '#515b6b', private: '#7c8695' } as const;
+const CLIENT_TYPES = ['Малый бизнес', 'Средний бизнес', 'Крупный бизнес', 'Международные', 'Payroll', 'Private'];
 
 const TABS = ['Продукты', 'Контакты', 'Задачи', 'Коммуникации', 'Документы'] as const;
 type Tab = typeof TABS[number];
@@ -726,7 +727,7 @@ function EditClientModal({ client, onClose, onSave, pending }: {
 }) {
   const [form, setForm] = useState({
     name:         client.name         ?? '',
-    type:         client.type         ?? 'Крупный бизнес',
+    type:         client.type         ?? CLIENT_TYPES[2],
     industry:     client.industry     ?? '',
     inn:          client.inn          ?? '',
     city:         client.city         ?? '',
@@ -750,7 +751,7 @@ function EditClientModal({ client, onClose, onSave, pending }: {
         <div className="grid grid-cols-2 gap-3">
           <Field label="Тип">
             <select value={form.type} onChange={e => set('type', e.target.value)} className="w-full h-11 rounded-xl bg-g10 px-4 text-sm outline-none appearance-none cursor-pointer">
-              {['Крупный бизнес','МСП','Холдинг','Международные'].map(t => <option key={t}>{t}</option>)}
+              {CLIENT_TYPES.map(t => <option key={t}>{t}</option>)}
             </select>
           </Field>
           <Field label="Отрасль"><Input value={form.industry} onChange={e => set('industry', e.target.value)} placeholder="Агропром, IT..." /></Field>

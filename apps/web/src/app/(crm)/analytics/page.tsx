@@ -13,7 +13,7 @@ import { exportHQToExcel, exportLostToExcel } from '@/lib/exportExcel';
 const SRC_LABELS: Record<string, string> = {
   inbound: 'Входящий', website: 'Сайт', referral: 'Реферал',
   cold: 'Холодный обзвон', event: 'Мероприятие', branch: 'Филиал',
-  agent: 'Агент', dsa: 'DSA',
+  agent: 'Агент', dsa: 'DSA', campaign: 'Кампания',
 };
 function srcLabel(s: string) { return SRC_LABELS[s] ?? s; }
 

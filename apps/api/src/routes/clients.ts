@@ -13,6 +13,17 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const UPLOADS_DIR = path.join(__dirname, '..', '..', 'uploads');
 mkdirSync(UPLOADS_DIR, { recursive: true });
 
+// Те же правила, что в форме Лидов (routes/leads.ts / leads/page.tsx):
+// ИНН — ровно 9 цифр, ПИНФЛ — ровно 14 цифр. Оба поля необязательны, но
+// если что-то введено — должно быть валидным (не текст, не другая длина).
+function validateInnPinfl(body: Record<string, unknown>): string | null {
+  const inn = String(body.inn ?? '').replace(/\D/g, '');
+  if (body.inn && inn.length !== 9) return 'ИНН должен содержать ровно 9 цифр';
+  const pinfl = String(body.pinfl ?? '').replace(/\D/g, '');
+  if (body.pinfl && pinfl.length !== 14) return 'ПИНФЛ должен содержать ровно 14 цифр';
+  return null;
+}
+
 export async function clientRoutes(app: FastifyInstance) {
   app.get('/', { preHandler: requireAuth }, async (req) => {
     const u = getUser(req);
@@ -56,17 +67,19 @@ export async function clientRoutes(app: FastifyInstance) {
   });
 
   app.post('/', { preHandler: requireAuth }, async (req, reply) => {
-    const body = req.body as Partial<Client>;
+    const body = req.body as Partial<Client> & { pinfl?: string };
     if (!body.name) return reply.status(400).send({ error: 'Название обязательно' });
+    const validationError = validateInnPinfl(body as Record<string, unknown>);
+    if (validationError) return reply.status(400).send({ error: validationError });
     const sn = body.short_name || body.name.split(' ').map(w => w[0]).join('').slice(0, 3).toUpperCase();
-    const typeEnMap: Record<string, string> = { 'МСП': 'sme', 'Холдинг': 'holding', 'Международные': 'international' };
+    const typeEnMap: Record<string, string> = { 'Малый бизнес': 'small', 'Средний бизнес': 'medium', 'Международные': 'international', 'Payroll': 'payroll', 'Private': 'private' };
     const type_en = typeEnMap[body.type ?? ''] ?? 'large';
-    const blockMap: Record<string, string> = { sme: 'MSE', large: 'Large', international: 'Int', holding: 'Large' };
+    const blockMap: Record<string, string> = { small: 'MSE', medium: 'Middle', large: 'Large', international: 'Int', payroll: 'Large', private: 'Large' };
     const block = (body as any).block || blockMap[type_en] || 'Large';
     const today = new Date().toLocaleDateString('ru-RU').replace(/\//g, '.');
-    const info = db.prepare(`INSERT INTO clients (name,short_name,type,type_en,inn,kpp,ogrn,industry,manager,status,revenue,last_contact,city,phone,email,employees,segment,risk_level,balance,credit_limit,block,branch)
-      VALUES (?,?,?,?,?,?,?,?,?,'active',?,?,?,?,?,?,?,?,?,?,?,?)`)
-      .run(body.name, sn, body.type ?? 'Крупный бизнес', type_en, body.inn ?? '', body.kpp ?? '', body.ogrn ?? '',
+    const info = db.prepare(`INSERT INTO clients (name,short_name,type,type_en,inn,pinfl,kpp,ogrn,industry,manager,status,revenue,last_contact,city,phone,email,employees,segment,risk_level,balance,credit_limit,block,branch)
+      VALUES (?,?,?,?,?,?,?,?,?,?,'active',?,?,?,?,?,?,?,?,?,?,?,?)`)
+      .run(body.name, sn, body.type ?? 'Крупный бизнес', type_en, body.inn ?? '', body.pinfl ?? '', body.kpp ?? '', body.ogrn ?? '',
            body.industry ?? '', body.manager ?? '', body.revenue ?? '', today,
            body.city ?? 'Ташкент', body.phone ?? '', body.email ?? '', body.employees ?? '',
            body.segment ?? 'Standard', body.risk_level ?? 'low', body.balance ?? '—', body.credit_limit ?? '—',
@@ -77,7 +90,9 @@ export async function clientRoutes(app: FastifyInstance) {
   app.put('/:id', { preHandler: requireAuth }, async (req, reply) => {
     const { id } = req.params as { id: string };
     const body = req.body as Record<string, string>;
-    const FIELDS = ['name','short_name','type','type_en','inn','kpp','ogrn','industry','manager','status','rating','revenue','city','phone','email','employees','segment','risk_level','balance','credit_limit','last_contact'];
+    const validationError = validateInnPinfl(body);
+    if (validationError) return reply.status(400).send({ error: validationError });
+    const FIELDS = ['name','short_name','type','type_en','inn','pinfl','kpp','ogrn','industry','manager','status','rating','revenue','city','phone','email','employees','segment','risk_level','balance','credit_limit','last_contact'];
     const sets: string[] = [], vals: unknown[] = [];
     for (const f of FIELDS) if (body[f] !== undefined) { sets.push(`${f}=?`); vals.push(body[f]); }
     if (!sets.length) return db.prepare('SELECT * FROM clients WHERE id = ?').get(id);
