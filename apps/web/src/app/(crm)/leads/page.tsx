@@ -111,6 +111,10 @@ export default function LeadsPage() {
   const qc         = useQueryClient();
   const [view,       setView]       = useState<'list' | 'board'>('list');
   const [filterStage, setFilterStage] = useState('');
+  const [selected,   setSelected]   = useState<Set<number>>(new Set());
+  const [bulkStatus, setBulkStatus] = useState('new');
+  const [bulkManager, setBulkManager] = useState('');
+  const [bulkBusy,   setBulkBusy]   = useState(false);
   const [open,       setOpen]       = useState(false);
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [dupError,   setDupError]   = useState<string | null>(null);
@@ -244,6 +248,51 @@ export default function LeadsPage() {
     onSuccess: () => qc.invalidateQueries({ queryKey: ['leads'] }),
   });
 
+  // Менеджеры для массового назначения — /users/staff доступен любой роли
+  // (в отличие от /users, только admin/supervisor).
+  const { data: staffList = [] } = useQuery<{ id: number; name: string; role: string }[]>({
+    queryKey: ['users-staff'],
+    queryFn:  () => api.get('/users/staff'),
+  });
+  const managerNames = staffList.filter(u => u.role === 'manager').map(u => u.name).sort();
+
+  function toggleSelect(id: number) {
+    setSelected(prev => { const next = new Set(prev); next.has(id) ? next.delete(id) : next.add(id); return next; });
+  }
+  function toggleSelectAll(ids: number[]) {
+    setSelected(prev => prev.size === ids.length ? new Set() : new Set(ids));
+  }
+
+  // Массовые операции идут по существующим одиночным эндпоинтам — при
+  // размерах кампаний в этой CRM (десятки, не тысячи записей) отдельный
+  // bulk-эндпоинт на бэке не оправдан.
+  async function bulkChangeStatus() {
+    setBulkBusy(true);
+    try {
+      await Promise.all(Array.from(selected).map(id => api.put(`/leads/${id}`, { status: bulkStatus })));
+      qc.invalidateQueries({ queryKey: ['leads'] });
+      setSelected(new Set());
+    } finally { setBulkBusy(false); }
+  }
+  async function bulkAssignManager() {
+    if (!bulkManager) return;
+    setBulkBusy(true);
+    try {
+      await Promise.all(Array.from(selected).map(id => api.put(`/leads/${id}`, { manager: bulkManager })));
+      qc.invalidateQueries({ queryKey: ['leads'] });
+      setSelected(new Set());
+    } finally { setBulkBusy(false); }
+  }
+  async function bulkDelete() {
+    if (!confirm(`Удалить ${selected.size} лидов? Это необратимо.`)) return;
+    setBulkBusy(true);
+    try {
+      await Promise.all(Array.from(selected).map(id => api.delete(`/leads/${id}`)));
+      qc.invalidateQueries({ queryKey: ['leads'] });
+      setSelected(new Set());
+    } finally { setBulkBusy(false); }
+  }
+
   // Клик по счётчику стадии фильтрует и таблицу, и канбан (см. Воронку —
   // тот же паттерн: один filterStage режет общий список, из которого потом
   // и таблица, и каждая колонка канбана берут свои строки).
@@ -255,6 +304,15 @@ export default function LeadsPage() {
     meeting:        leads.filter(l => l.status === 'meeting').length,
     account_opened: leads.filter(l => l.status === 'account_opened').length,
   };
+
+  // Общий список для строки счётчиков и канбана — раньше был задублирован
+  // в обоих местах отдельными литералами.
+  const KANBAN_STAGES: [string, string][] = [
+    ['new',            t('leads.stageNew')],
+    ['in_progress',    t('leads.stageInProgress')],
+    ['meeting',        t('leads.stageMeeting')],
+    ['account_opened', t('leads.stageAccountOpened')],
+  ];
 
   if (isLoading) return <div className="flex items-center justify-center h-64 text-g60 text-sm">{t('common.loading')}</div>;
 
@@ -284,12 +342,7 @@ export default function LeadsPage() {
           канбана ниже — та же сетка, тот же gap. Кликабельно — как в
           Воронке: клик по стадии фильтрует таблицу и канбан через filterStage. */}
       <div className={`grid grid-cols-2 lg:grid-cols-4 gap-4 ${view === 'board' ? 'mb-3' : 'mb-8 border-y border-g20 py-6'}`}>
-        {([
-          ['new',            t('leads.stageNew')],
-          ['in_progress',    t('leads.stageInProgress')],
-          ['meeting',        t('leads.stageMeeting')],
-          ['account_opened', t('leads.stageAccountOpened')],
-        ] as [string, string][]).map(([k, l]) => {
+        {KANBAN_STAGES.map(([k, l]) => {
           const active = filterStage === k;
           return (
             <button
@@ -310,13 +363,9 @@ export default function LeadsPage() {
           поэтому сужение колонки на узких экранах не ломает контент. */}
       {view === 'board' && (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 pb-4">
-          {([
-            ['new',            t('leads.stageNew')],
-            ['in_progress',    t('leads.stageInProgress')],
-            ['meeting',        t('leads.stageMeeting')],
-            ['account_opened', t('leads.stageAccountOpened')],
-          ] as [string, string][]).map(([status, label]) => {
+          {KANBAN_STAGES.map(([status, label], stageIdx) => {
             const col = filtered.filter(l => l.status === status);
+            const next = KANBAN_STAGES[stageIdx + 1]; // undefined на последней колонке
             return (
               <div
                 key={status}
@@ -381,6 +430,26 @@ export default function LeadsPage() {
                         <div className="text-xs text-g60 truncate">{l.phone}</div>
                         <div className="text-xs text-g40 truncate" title={l.manager || ''}>{l.manager || '—'}</div>
                       </div>
+                      {/* Быстрые действия — двигают лид дальше по воронке
+                          без перетаскивания и без захода в карточку. */}
+                      <div className="mt-2.5 pt-2 border-t border-g10 flex gap-1.5" onClick={e => e.stopPropagation()}>
+                        {next && (
+                          <button
+                            onClick={() => changeStatus.mutate({ id: l.id, status: next[0] })}
+                            className="flex-1 h-7 rounded text-[11px] font-semibold bg-ac-bg text-ac hover:bg-ac hover:text-white transition-colors truncate px-1.5"
+                            title={`Перевести в «${next[1]}»`}
+                          >
+                            → {next[1]}
+                          </button>
+                        )}
+                        <button
+                          onClick={() => changeStatus.mutate({ id: l.id, status: 'lost' })}
+                          className="h-7 px-2.5 rounded text-[11px] font-semibold bg-dn-bg text-dn hover:bg-dn hover:text-white transition-colors flex-shrink-0"
+                          title="Отметить потерянным"
+                        >
+                          Потерян
+                        </button>
+                      </div>
                     </div>
                   ))}
                   {col.length === 0 && (
@@ -393,20 +462,47 @@ export default function LeadsPage() {
         </div>
       )}
 
+      {/* Bulk actions — появляется, когда выбрана хотя бы одна строка */}
+      {view === 'list' && selected.size > 0 && (
+        <div className="flex flex-wrap items-center gap-2 mb-3 px-4 py-2.5 rounded-xl bg-g10 border border-g20">
+          <span className="text-sm font-semibold text-g90 mr-1">Выбрано: {selected.size}</span>
+          <select value={bulkStatus} onChange={e => setBulkStatus(e.target.value)} className="filter-select h-8 min-w-0 text-xs">
+            {Object.entries(STATUS_CFG).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}
+          </select>
+          <Button size="sm" variant="secondary" disabled={bulkBusy} onClick={bulkChangeStatus}>Сменить статус</Button>
+          <select value={bulkManager} onChange={e => setBulkManager(e.target.value)} className="filter-select h-8 min-w-0 text-xs">
+            <option value="">— менеджер —</option>
+            {managerNames.map(m => <option key={m} value={m}>{m}</option>)}
+          </select>
+          <Button size="sm" variant="secondary" disabled={bulkBusy || !bulkManager} onClick={bulkAssignManager}>Назначить</Button>
+          <Button size="sm" variant="danger" disabled={bulkBusy} onClick={bulkDelete}>Удалить</Button>
+          <button onClick={() => setSelected(new Set())} className="text-xs text-g60 hover:text-g90 ml-auto">Отменить выбор</button>
+        </div>
+      )}
+
       {/* Table */}
       <div className={`overflow-x-auto ${view === 'board' ? 'hidden' : ''}`}>
         <table className="crm-table min-w-[800px]">
           <colgroup>
-            <col className="w-[22%]"/>
-            <col className="w-[16%]"/>
-            <col className="w-[12%]"/>
-            <col className="w-[14%]"/>
-            <col className="w-[18%]"/>
+            <col className="w-[4%]"/>
+            <col className="w-[20%]"/>
             <col className="w-[15%]"/>
+            <col className="w-[11%]"/>
+            <col className="w-[13%]"/>
+            <col className="w-[17%]"/>
+            <col className="w-[17%]"/>
             <col className="w-[3%]"/>
           </colgroup>
           <thead>
             <tr>
+              <th className="!px-3">
+                <input
+                  type="checkbox"
+                  className="w-4 h-4 rounded cursor-pointer accent-[#2e5f94]"
+                  checked={filtered.length > 0 && selected.size === filtered.length}
+                  onChange={() => toggleSelectAll(filtered.map(l => l.id))}
+                />
+              </th>
               <th>{t('leads.colCompany')}</th>
               <th>{t('leads.colContact')}</th>
               <th>{t('leads.colProduct')}</th>
@@ -419,7 +515,10 @@ export default function LeadsPage() {
           <tbody>
             {filtered.map(l => (
               <Fragment key={l.id}>
-                <tr>
+                <tr className={selected.has(l.id) ? 'bg-ac-bg' : ''}>
+                  <td className="!px-3">
+                    <input type="checkbox" className="w-4 h-4 rounded cursor-pointer accent-[#2e5f94]" checked={selected.has(l.id)} onChange={() => toggleSelect(l.id)}/>
+                  </td>
                   <td className="max-w-0">
                     <Link href={`/leads/${l.id}`} className="text-sm font-semibold hover:underline underline-offset-2 block truncate">{l.name}</Link>
                     {l.inn && <div className="text-[11px] text-g60 mt-0.5">ИНН {l.inn}</div>}

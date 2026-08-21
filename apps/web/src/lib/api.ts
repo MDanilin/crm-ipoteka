@@ -6,13 +6,17 @@ function getToken() {
 }
 
 async function request<T>(method: string, path: string, body?: unknown): Promise<T> {
+  const hasBody = body != null;
   const res = await fetch(BASE + path, {
     method,
     headers: {
-      'Content-Type': 'application/json',
+      // Content-Type only when there's an actual body — Fastify's JSON
+      // body parser rejects requests that declare 'application/json' but
+      // send no body (e.g. api.delete()) with FST_ERR_CTP_EMPTY_JSON_BODY.
+      ...(hasBody ? { 'Content-Type': 'application/json' } : {}),
       Authorization: 'Bearer ' + getToken(),
     },
-    body: body != null ? JSON.stringify(body) : undefined,
+    body: hasBody ? JSON.stringify(body) : undefined,
   });
   const data = await res.json();
   if (!res.ok) throw data as { error: string };

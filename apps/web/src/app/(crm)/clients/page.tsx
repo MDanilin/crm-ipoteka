@@ -32,7 +32,10 @@ export default function ClientsPage() {
   const qc     = useQueryClient();
   const { t }  = useTranslation();
   const [open, setOpen] = useState(false);
-  const EMPTY_FORM = { name:'', type:'Крупный бизнес', industry:'', inn:'', pinfl:'', city:'Ташкент', branch: BRANCHES[0], phone:'', email:'', manager:'', segment:'Standard', status:'active', risk_level:'low', rating:'', revenue:'', credit_limit:'', employees:'' };
+  // Тип/Сегмент/Филиал/Город начинаются пустыми — раньше select тихо
+  // предвыбирал первый вариант (Крупный бизнес/Standard/Ташкент), и форма
+  // проходила валидацию, даже если пользователь их вообще не трогал.
+  const EMPTY_FORM = { name:'', type:'', industry:'', inn:'', pinfl:'', city:'', branch:'', phone:'', email:'', manager:'', segment:'', status:'active', risk_level:'low', rating:'', revenue:'', credit_limit:'', employees:'' };
   const CLIENT_TYPES = ['Малый бизнес', 'Средний бизнес', 'Крупный бизнес', 'Международные', 'Payroll', 'Private'];
   const [form, setForm] = useState({ ...EMPTY_FORM });
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -54,11 +57,20 @@ export default function ClientsPage() {
     return out;
   }
 
-  // Те же правила, что в форме Лидов: ИНН — ровно 9 цифр, ПИНФЛ — ровно
-  // 14 цифр. Оба поля необязательны, но если что-то введено — должно быть
-  // валидной длиной (инпуты и так пускают только цифры, см. onChange ниже).
+  // Обязательные поля: Название, Телефон, Город, Тип, Сегмент, Филиал,
+  // и ИНН либо ПИНФЛ (хотя бы один из двух — юрлицо и физлицо-ИП
+  // идентифицируются по-разному).
   function validateForm() {
     const e: Record<string, string> = {};
+    if (!form.name.trim()) e.name = 'Название обязательно';
+    if (!form.city.trim()) e.city = 'Город обязателен';
+    if (!form.type) e.type = 'Выберите тип';
+    if (!form.segment) e.segment = 'Выберите сегмент';
+    if (!form.branch) e.branch = 'Выберите филиал';
+    const phoneDigits = form.phone.replace(/\D/g, '');
+    if (!phoneDigits || phoneDigits === '998') e.phone = 'Телефон обязателен';
+    else if (!phoneDigits.startsWith('998') || phoneDigits.length !== 12) e.phone = 'Формат: +998 XX XXX-XX-XX';
+    if (!form.inn && !form.pinfl) e.inn = 'Укажите ИНН или ПИНФЛ';
     if (form.inn && form.inn.length !== 9) e.inn = 'ИНН — 9 цифр';
     if (form.pinfl && form.pinfl.length !== 14) e.pinfl = 'ПИНФЛ — 14 цифр';
     setErrors(e);
@@ -164,12 +176,28 @@ export default function ClientsPage() {
         </>}>
         {errors.form && <p className="mb-4 text-sm text-dn">{errors.form}</p>}
         <div className="space-y-4">
-          <div><label className="field-label">{t('clients.fName')}</label><input value={form.name} onChange={e=>setForm({...form,name:e.target.value})} className="form-input" placeholder="ООО Пример"/></div>
+          <div>
+            <label className="field-label">{t('clients.fName')}</label>
+            <input
+              value={form.name}
+              onChange={e => { setForm({...form,name:e.target.value}); setErrors(v => ({ ...v, name: '' })); }}
+              className={`form-input ${errors.name ? 'border border-dn' : ''}`}
+              placeholder="ООО Пример"
+            />
+            {errors.name && <p className="mt-1 text-[11px] text-dn">{errors.name}</p>}
+          </div>
           <div className="grid grid-cols-2 gap-3">
-            <div><label className="field-label">{t('clients.fType')}</label>
-              <select value={form.segment} onChange={e=>setForm({...form,segment:e.target.value})} className="form-input">
+            <div>
+              <label className="field-label">{t('clients.fType')} *</label>
+              <select
+                value={form.segment}
+                onChange={e => { setForm({...form,segment:e.target.value}); setErrors(v => ({ ...v, segment: '' })); }}
+                className={`form-input ${errors.segment ? 'border border-dn' : ''}`}
+              >
+                <option value="">— выберите —</option>
                 <option>Standard</option><option>Premium</option>
               </select>
+              {errors.segment && <p className="mt-1 text-[11px] text-dn">{errors.segment}</p>}
             </div>
             <div><label className="field-label">{t('clients.fIndustry')}</label><input value={form.industry} onChange={e=>setForm({...form,industry:e.target.value})} className="form-input" placeholder="Агропром, IT..."/></div>
           </div>
@@ -189,7 +217,7 @@ export default function ClientsPage() {
               <label className="field-label">ПИНФЛ</label>
               <input
                 value={form.pinfl}
-                onChange={e => { setForm({ ...form, pinfl: onlyDigits(e.target.value, 14) }); setErrors(v => ({ ...v, pinfl: '' })); }}
+                onChange={e => { setForm({ ...form, pinfl: onlyDigits(e.target.value, 14) }); setErrors(v => ({ ...v, pinfl: '', inn: '' })); }}
                 onBlur={e => { if (e.target.value.length > 0 && e.target.value.length !== 14) setErrors(v => ({ ...v, pinfl: 'ПИНФЛ — 14 цифр' })); }}
                 className={`form-input ${errors.pinfl ? 'border border-dn' : ''}`}
                 placeholder="12345678901234" inputMode="numeric"
@@ -198,30 +226,53 @@ export default function ClientsPage() {
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <div><label className="field-label">{t('clients.fCity')}</label><input value={form.city} onChange={e=>setForm({...form,city:onlyLetters(e.target.value)})} className="form-input"/></div>
-            <div><label className="field-label">Филиал</label>
-              <select value={form.branch} onChange={e=>setForm({...form,branch:e.target.value})} className="form-input">
+            <div>
+              <label className="field-label">{t('clients.fCity')}</label>
+              <input
+                value={form.city}
+                onChange={e => { setForm({...form,city:onlyLetters(e.target.value)}); setErrors(v => ({ ...v, city: '' })); }}
+                className={`form-input ${errors.city ? 'border border-dn' : ''}`}
+              />
+              {errors.city && <p className="mt-1 text-[11px] text-dn">{errors.city}</p>}
+            </div>
+            <div>
+              <label className="field-label">Филиал *</label>
+              <select
+                value={form.branch}
+                onChange={e => { setForm({...form,branch:e.target.value}); setErrors(v => ({ ...v, branch: '' })); }}
+                className={`form-input ${errors.branch ? 'border border-dn' : ''}`}
+              >
+                <option value="">— выберите —</option>
                 {BRANCHES.map(b=><option key={b}>{b}</option>)}
               </select>
+              {errors.branch && <p className="mt-1 text-[11px] text-dn">{errors.branch}</p>}
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div><label className="field-label">{t('clients.fPhone')}</label>
               <input
                 value={form.phone}
-                onChange={e=>setForm({...form,phone: formatUzPhone(e.target.value)})}
+                onChange={e => { setForm({...form,phone: formatUzPhone(e.target.value)}); setErrors(v => ({ ...v, phone: '' })); }}
                 onFocus={e => { if (!e.target.value) setForm({ ...form, phone: '+998 ' }); }}
-                className="form-input" placeholder="+998 90 000-00-00" inputMode="tel"
+                className={`form-input ${errors.phone ? 'border border-dn' : ''}`} placeholder="+998 90 000-00-00" inputMode="tel"
               />
+              {errors.phone && <p className="mt-1 text-[11px] text-dn">{errors.phone}</p>}
             </div>
             <div><label className="field-label">{t('clients.fEmail')}</label><input type="email" value={form.email} onChange={e=>setForm({...form,email:e.target.value})} className="form-input" placeholder="info@company.uz"/></div>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div><label className="field-label">{t('clients.fManager')}</label><input value={form.manager} onChange={e=>setForm({...form,manager:onlyLetters(e.target.value)})} className="form-input" placeholder="Иванов И.И."/></div>
-            <div><label className="field-label">{t('clients.fSegment')}</label>
-              <select value={form.type} onChange={e=>setForm({...form,type:e.target.value})} className="form-input">
+            <div>
+              <label className="field-label">{t('clients.fSegment')} *</label>
+              <select
+                value={form.type}
+                onChange={e => { setForm({...form,type:e.target.value}); setErrors(v => ({ ...v, type: '' })); }}
+                className={`form-input ${errors.type ? 'border border-dn' : ''}`}
+              >
+                <option value="">— выберите —</option>
                 {CLIENT_TYPES.map(v=><option key={v}>{v}</option>)}
               </select>
+              {errors.type && <p className="mt-1 text-[11px] text-dn">{errors.type}</p>}
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">

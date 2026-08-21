@@ -107,7 +107,13 @@ export async function leadRoutes(app: FastifyInstance) {
   });
 
   app.delete('/:id', { preHandler: requireAuth }, async (req) => {
-    db.prepare('DELETE FROM leads WHERE id = ?').run((req.params as { id: string }).id);
+    const { id } = req.params as { id: string };
+    // Лиды, созданные из кампании, привязаны обратной ссылкой
+    // campaign_contacts.lead_id — без её обнуления DELETE падает с
+    // FOREIGN KEY constraint failed. Отвязываем: контакт кампании остаётся,
+    // просто перестаёт указывать на (теперь несуществующий) лид.
+    db.prepare('UPDATE campaign_contacts SET lead_id=NULL WHERE lead_id=?').run(id);
+    db.prepare('DELETE FROM leads WHERE id = ?').run(id);
     return { ok: true };
   });
 
